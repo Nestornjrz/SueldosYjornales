@@ -1029,6 +1029,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Empleados\Index.cshtml" />
+    <Content Include="Views\Empleados\Index\_FormCargaEmpleado.cshtml" />
+    <Content Include="Views\Empleados\Index\_ListadoEmpleados.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
