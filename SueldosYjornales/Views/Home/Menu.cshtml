@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Menu";
+}
+@section scripts{
+    <script src="~/Scripts/Home/Menu/Services/common.services.js"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            angular
+                .module('sueldosYjornalesApp')
+                .factory('sYjResource', sYjResource);
+
+            sYjResource.$inject = ['$resource'];
+
+            function sYjResource($resource) {
+                var empleados = $resource("@Href("~/api/Empleados")");
+
+                return {
+                    "empleados": empleados
+                }
+            }
+        })();
+    </script>
+}
