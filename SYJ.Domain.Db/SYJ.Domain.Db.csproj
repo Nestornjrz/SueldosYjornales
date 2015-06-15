@@ -104,6 +104,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SueldosJornalesModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Usuario.cs">
+      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="SueldosJornalesModel.edmx">

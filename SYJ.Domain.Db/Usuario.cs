@@ -12,10 +12,11 @@ namespace SYJ.Domain.Db
     using System;
     using System.Collections.Generic;
     
-    public partial class Empleado
+    public partial class Usuario
     {
-        public Empleado()
+        public Usuario()
         {
+            this.Empleados = new HashSet<Empleado>();
             this.HistoricoDirecciones = new HashSet<HistoricoDireccione>();
             this.HistoricoIngresoSalidas = new HashSet<HistoricoIngresoSalida>();
             this.HistoricoSalarios = new HashSet<HistoricoSalario>();
@@ -23,31 +24,16 @@ namespace SYJ.Domain.Db
             this.HistoricoTelefonos = new HashSet<HistoricoTelefono>();
         }
     
-        public long EmpleadoID { get; set; }
-        public int SucursalID { get; set; }
-        public string Nombres { get; set; }
-        public string Apellidos { get; set; }
-        public System.DateTime FechaNacimiento { get; set; }
-        public int Sexo { get; set; }
-        public int NroCedula { get; set; }
-        public int EstadoCivilID { get; set; }
-        public int NacionalidadID { get; set; }
-        public Nullable<int> NumeroIps { get; set; }
-        public Nullable<int> NumeroMjt { get; set; }
-        public int ProfesionID { get; set; }
-        public int CantidadHijos { get; set; }
         public long UsuarioID { get; set; }
-        public System.DateTime MomentoCarga { get; set; }
+        public string NombreUsuario { get; set; }
+        public System.Guid UserID { get; set; }
+        public string CorreoElectronico { get; set; }
     
-        public virtual EstadoCivile EstadoCivile { get; set; }
-        public virtual Nacionalidade Nacionalidade { get; set; }
-        public virtual Profesione Profesione { get; set; }
-        public virtual Sucursale Sucursale { get; set; }
+        public virtual ICollection<Empleado> Empleados { get; set; }
         public virtual ICollection<HistoricoDireccione> HistoricoDirecciones { get; set; }
         public virtual ICollection<HistoricoIngresoSalida> HistoricoIngresoSalidas { get; set; }
         public virtual ICollection<HistoricoSalario> HistoricoSalarios { get; set; }
         public virtual ICollection<HistoricosHorario> HistoricosHorarios { get; set; }
         public virtual ICollection<HistoricoTelefono> HistoricoTelefonos { get; set; }
-        public virtual Usuario Usuario { get; set; }
     }
 }

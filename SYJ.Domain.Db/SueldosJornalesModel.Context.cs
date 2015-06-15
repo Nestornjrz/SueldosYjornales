@@ -37,5 +37,6 @@ namespace SYJ.Domain.Db
         public virtual DbSet<Nacionalidade> Nacionalidades { get; set; }
         public virtual DbSet<Profesione> Profesiones { get; set; }
         public virtual DbSet<Sucursale> Sucursales { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
     }
 }

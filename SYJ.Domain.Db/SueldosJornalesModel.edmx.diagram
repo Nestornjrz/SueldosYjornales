@@ -28,6 +28,13 @@
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricosHorarios_Empleados" ManuallyRouted="false" />
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoTelefonos_Empleados" ManuallyRouted="false" />
         <AssociationConnector Association="SueldosJornalesModel.fk_Sucursales_Empresas" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.Usuario" Width="1.5" PointX="0.75" PointY="11.125" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_Empleados_Usuarios" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoDirecciones_Usuarios" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoIngresoSalidas_Usuarios" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoSalarios_Usuarios" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricosHorarios_Usuarios" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoTelefono_Usuarios" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

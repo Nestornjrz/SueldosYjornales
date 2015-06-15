@@ -18,7 +18,10 @@ namespace SYJ.Domain.Db
         public long EmpleadoID { get; set; }
         public string Direccion { get; set; }
         public System.DateTime FechaDireccion { get; set; }
+        public long UsuarioID { get; set; }
+        public System.DateTime MomentoCarga { get; set; }
     
         public virtual Empleado Empleado { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

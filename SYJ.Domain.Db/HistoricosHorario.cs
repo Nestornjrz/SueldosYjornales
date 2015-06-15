@@ -22,7 +22,10 @@ namespace SYJ.Domain.Db
         public Nullable<System.TimeSpan> HoraSalidaTarde { get; set; }
         public Nullable<System.TimeSpan> HoraEntradaNoche { get; set; }
         public Nullable<System.TimeSpan> HoraSalidaNoche { get; set; }
+        public long UsuarioID { get; set; }
+        public System.DateTime MomentoCarga { get; set; }
     
         public virtual Empleado Empleado { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

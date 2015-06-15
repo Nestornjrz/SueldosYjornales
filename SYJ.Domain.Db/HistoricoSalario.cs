@@ -20,8 +20,11 @@ namespace SYJ.Domain.Db
         public Nullable<int> CargoID { get; set; }
         public string Observacion { get; set; }
         public System.DateTime FechaSalario { get; set; }
+        public long UsuarioID { get; set; }
+        public System.DateTime MomentoCarga { get; set; }
     
         public virtual Cargo Cargo { get; set; }
         public virtual Empleado Empleado { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }
