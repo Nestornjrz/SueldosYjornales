@@ -174,6 +174,7 @@
     <Compile Include="Controllers\EmpleadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PadronesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -990,6 +991,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Padrones\Index\Services\common.services.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -1033,12 +1035,15 @@
     <Content Include="Views\Empleados\Index\_FormCargaEmpleado.cshtml" />
     <Content Include="Views\Empleados\Index\_ListadoEmpleados.cshtml" />
     <Content Include="Views\Home\Menu.cshtml" />
+    <Content Include="Views\Padrones\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\Empleados\Index\Controllers\" />
     <Folder Include="Scripts\Home\Menu\Controllers\" />
+    <Folder Include="Scripts\Padrones\Index\Controllers\" />
     <Folder Include="Views\Home\Index\" />
+    <Folder Include="Views\Padrones\Index\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
