@@ -1,9 +1,8 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 @section scripts{
- 
+
     <script src="~/Scripts/Padrones/Index/Services/common.services.js"></script>
     <script type="text/javascript">
         (function () {
@@ -23,4 +22,22 @@
             }
         })();
     </script>
+    <script src="~/Scripts/Padrones/Index/Controllers/menuCtrl.js"></script>
+    <script src="~/Scripts/Padrones/Index/Controllers/empresasCtrl.js"></script>
 }
+<h2>Padrones</h2>
+<div class="container" ng-controller="menuCtrl as vm" ng-cloak>
+    <ul class="nav nav-tabs" style="margin-top:25px;">
+        <li role="presentation" class="{{vm.menu.empresas.class}}">
+            <a href="#" ng-click="vm.empresasFn()">Estancias</a>
+        </li>
+    </ul>
+    <div style="margin-top:25px;" ng-show="vm.menu.empresas.mostrar">
+        @Html.Partial("Index/_Empresas")
+    </div>
+    <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
+        <div class="alert alert-info">
+            Por favor elija uno de las opciones a cargar dentro de los padrones
+        </div>
+    </div>
+</div>

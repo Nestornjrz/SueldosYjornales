@@ -1,0 +1,48 @@
+﻿<div class="row">
+    <form class="form-horizontal" role="form" ng-controller="empresasCtrl as vm" name="empresasForm">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="nombreEmpresa" class="col-md-5 control-label">Nombre Empresa</label>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" ng-model="vm.empresa.nombreEmpresa" name="nombreEmpresa" ng-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="descripcion" class="col-md-5 control-label">Descripcion</label>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" ng-model="vm.empresa.descripcion" name="descripcion" ng-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="abreviatura" class="col-md-5 control-label">Abreviatura</label>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" ng-model="vm.empresa.abreviatura" name="abreviatura" ng-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ruc" class="col-md-5 control-label">Ruc</label>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" ng-model="vm.empresa.ruc" name="ruc" ng-required="true">
+                </div>
+            </div>
+            <div class="col-md-7 col-md-offset-5">
+                <button ng-click="vm.guardar()" ng-disabled="empresasForm.$invalid" class="btn btn-default">
+                    <span ng-show="vm.empresa.empresaID == null">Cargar</span>
+                    <span ng-show="vm.empresa.empresaID != null">Editar</span>
+                </button>
+                <button ng-click="vm.nuevoParaCargar()" class="btn btn-default">
+                    Nuevo
+                </button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Aviso</div>
+                <div class="panel-body">
+                    {{vm.mensajeDelServidor}}
+                </div>
+            </div>
+            <pre>{{vm.empresa | json}}</pre>
+        </div>
+    </form>
+</div>
