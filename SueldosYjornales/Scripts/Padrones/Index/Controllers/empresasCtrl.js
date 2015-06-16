@@ -34,7 +34,7 @@
         }
         //Eventos
         $rootScope.$on("actualizarEmpresa", function (event, datoRecibido) {
-            vm.estancia = datoRecibido;
+            vm.empresa = datoRecibido;
         });
     }
 })();

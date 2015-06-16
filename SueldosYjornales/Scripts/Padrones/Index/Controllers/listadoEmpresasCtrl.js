@@ -10,7 +10,7 @@
     function listadoEmpresasCtrl($rootScope, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
-        //vm.empresas = sYjResource.empresas.query();
+        vm.empresas = sYjResource.empresas.query();
 
         vm.eliminar = function (estancia) {
 
@@ -21,7 +21,7 @@
 
         //Eventos
         $rootScope.$on("actualizarListadoEmpresas", function (event, datoRecibido) {
-            //vm.empresas = sYjResource.empresas.query();
+            vm.empresas = sYjResource.empresas.query();
         });
     }
 })();
