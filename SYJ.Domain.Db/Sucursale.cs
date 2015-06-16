@@ -17,6 +17,7 @@ namespace SYJ.Domain.Db
         public Sucursale()
         {
             this.Empleados = new HashSet<Empleado>();
+            this.UbicacionSucUsuarios = new HashSet<UbicacionSucUsuario>();
         }
     
         public int SucursalID { get; set; }
@@ -27,5 +28,6 @@ namespace SYJ.Domain.Db
     
         public virtual ICollection<Empleado> Empleados { get; set; }
         public virtual Empresa Empresa { get; set; }
+        public virtual ICollection<UbicacionSucUsuario> UbicacionSucUsuarios { get; set; }
     }
 }

@@ -43,11 +43,11 @@ namespace SYJ.Domain.Db
         public virtual Nacionalidade Nacionalidade { get; set; }
         public virtual Profesione Profesione { get; set; }
         public virtual Sucursale Sucursale { get; set; }
+        public virtual Usuario Usuario { get; set; }
         public virtual ICollection<HistoricoDireccione> HistoricoDirecciones { get; set; }
         public virtual ICollection<HistoricoIngresoSalida> HistoricoIngresoSalidas { get; set; }
         public virtual ICollection<HistoricoSalario> HistoricoSalarios { get; set; }
         public virtual ICollection<HistoricosHorario> HistoricosHorarios { get; set; }
         public virtual ICollection<HistoricoTelefono> HistoricoTelefonos { get; set; }
-        public virtual Usuario Usuario { get; set; }
     }
 }
