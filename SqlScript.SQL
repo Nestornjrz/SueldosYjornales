@@ -1,6 +1,6 @@
 ﻿/*
 Created: 15/06/2015
-Modified: 15/06/2015
+Modified: 16/06/2015
 Model: Sueldos y Jornales
 Database: MS SQL Server 2014
 */
@@ -164,7 +164,7 @@ CREATE TABLE [Sj].[HistoricoSalarios]
  [HistoricoSalarioID] Bigint IDENTITY(1,1) NOT NULL,
  [EmpleadoID] Bigint NOT NULL,
  [Monto] Money NOT NULL,
- [CargoID] Int NULL,
+ [CargoID] Int NOT NULL,
  [Observacion] Text NOT NULL,
  [FechaSalario] Date NOT NULL,
  [UsuarioID] Bigint NOT NULL,
@@ -323,6 +323,21 @@ go
 ALTER TABLE [Sj].[Usuarios] ADD CONSTRAINT [Key3] PRIMARY KEY ([UsuarioID])
 go
 
+-- Table Sj.UbicacionSucUsuarios
+
+CREATE TABLE [Sj].[UbicacionSucUsuarios]
+(
+ [UsuarioID] Bigint NOT NULL,
+ [SucursalID] Int NOT NULL,
+ [Observacion] Text NULL
+)
+go
+
+-- Add keys for table Sj.UbicacionSucUsuarios
+
+ALTER TABLE [Sj].[UbicacionSucUsuarios] ADD CONSTRAINT [Key4] PRIMARY KEY ([UsuarioID],[SucursalID])
+go
+
 -- Create relationships section ------------------------------------------------- 
 
 ALTER TABLE [Sj].[Sucursales] ADD CONSTRAINT [fk_Sucursales>Empresas] FOREIGN KEY ([EmpresaID]) REFERENCES [Sj].[Empresas] ([EmpresaID]) ON UPDATE NO ACTION ON DELETE NO ACTION
@@ -374,6 +389,12 @@ ALTER TABLE [Sj].[HistoricoDirecciones] ADD CONSTRAINT [fk_HistoricoDirecciones>
 go
 
 ALTER TABLE [Sj].[HistoricoTelefonos] ADD CONSTRAINT [fk_HistoricoTelefono>Usuarios] FOREIGN KEY ([UsuarioID]) REFERENCES [Sj].[Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[UbicacionSucUsuarios] ADD CONSTRAINT [pfk_UbicacionSucursales>Usuarios] FOREIGN KEY ([UsuarioID]) REFERENCES [Sj].[Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[UbicacionSucUsuarios] ADD CONSTRAINT [pfk_UbicacionSucursales>Sucursales] FOREIGN KEY ([SucursalID]) REFERENCES [Sj].[Sucursales] ([SucursalID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
 
