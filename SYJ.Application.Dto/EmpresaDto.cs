@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SYJ.Application.Dto
 {
-    public class Class1
+    public class EmpresaDto
     {
     }
 }

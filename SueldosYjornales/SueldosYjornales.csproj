@@ -171,6 +171,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\EmpresasController.cs" />
     <Compile Include="Controllers\EmpleadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -1053,6 +1054,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SYJ.Application.Dto\SYJ.Application.Dto.csproj">
+      <Project>{e66fcdc2-dd95-4638-8f12-c94d627735d6}</Project>
+      <Name>SYJ.Application.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SYJ.Domain.Managers\SYJ.Domain.Managers.csproj">
+      <Project>{dc18201c-203a-4252-b55f-fc26eb59d3a2}</Project>
+      <Name>SYJ.Domain.Managers</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
