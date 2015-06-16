@@ -14,16 +14,18 @@
             sYjResource.$inject = ['$resource'];
 
             function sYjResource($resource) {
-                var empleados = $resource("@Href("~/api/Empleados")");
+                var empresas = $resource("@Href("~/api/Empresas")");
 
                 return {
-                    "empleados": empleados
+                    "empresas": empresas
                 }
             }
         })();
     </script>
+    @*Controladores js*@
     <script src="~/Scripts/Padrones/Index/Controllers/menuCtrl.js"></script>
     <script src="~/Scripts/Padrones/Index/Controllers/empresasCtrl.js"></script>
+    <script src="~/Scripts/Padrones/Index/Controllers/listadoEmpresasCtrl.js"></script>
 }
 <h2>Padrones</h2>
 <div class="container" ng-controller="menuCtrl as vm" ng-cloak>

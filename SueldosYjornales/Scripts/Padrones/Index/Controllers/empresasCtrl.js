@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('empresasCtrl', empresasCtrl);
 
-    empresasCtrl.$inject = ['$location']; 
+    empresasCtrl.$inject = ['$rootScope', 'sYjResource'];
 
-    function empresasCtrl($location) {
+    function empresasCtrl($rootScope, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
         vm.empresa = {};
@@ -16,13 +16,13 @@
         };
 
         vm.guardar = function () {
-            proveedoresResource.empresas.save(vm.empresa)
+            sYjResource.empresas.save(vm.empresa)
            .$promise.then(
                function (mensaje) {
                    if (!mensaje.error) {
                        vm.empresa = mensaje.objetoDto;
                        vm.mensajeDelServidor = mensaje.mensajeDelProceso;
-                       //$rootScope.$broadcast('actualizarListadoEmpresas', {});
+                       $rootScope.$broadcast('actualizarListadoEmpresas', {});
                    } else {
                        vm.mensajeDelServidor = mensaje.mensajeDelProceso;
                    }
@@ -32,5 +32,9 @@
              }
            );
         }
+        //Eventos
+        $rootScope.$on("actualizarEmpresa", function (event, datoRecibido) {
+            vm.estancia = datoRecibido;
+        });
     }
 })();

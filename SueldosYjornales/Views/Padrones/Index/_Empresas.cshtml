@@ -46,3 +46,31 @@
         </div>
     </form>
 </div>
+<div class="row" ng-controller="listadoEmpresasCtrl as vm" ng-cloak style="margin-top:25px;">
+    <div class="col-md-6 col-md-offset-3">
+        <table class="table table-condensed table-bordered table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th colspan="2">Acciones</th>
+                    <th>Id</th>
+                    <th>Nombre Empresa</th>
+                    <th>Descripcion</th>
+                    <th>Abreviatura</th>
+                    <th>Ruc</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="o in vm.empresas">
+                <td><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="vm.actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
+                <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
+                <td>{{o.empresaID}}</td>
+                <td>{{o.nombreEmpresa}}</td>
+                <td>{{o.descripcion}}</td>
+                <td>{{o.abreviatura}}</td>
+                <td>{{o.ruc}}</td>
+            </tr>
+        </table>
+        <pre>
+            {{vm.empresas | json}}
+            </pre>
+    </div>
+</div>
