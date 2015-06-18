@@ -15,9 +15,11 @@
 
             function sYjResource($resource) {
                 var empresas = $resource("@Href("~/api/Empresas")");
+                var sucursales = $resource("@Href("~/api/Sucursales")");
 
                 return {
-                    "empresas": empresas
+                    "empresas": empresas,
+                    "sucursales": sucursales
                 }
             }
         })();

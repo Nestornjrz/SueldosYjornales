@@ -13,13 +13,13 @@
         vm.empresas = sYjResource.empresas.query();
 
         vm.guardar = function () {
-            sYjResource.sucursales.save(vm.sucursal)
+            sYjResource.sucursales.save(vm.sucursale)
           .$promise.then(
               function (mensaje) {
                   if (!mensaje.error) {
-                      vm.sucursal = mensaje.objetoDto;
+                      vm.sucursale = mensaje.objetoDto;
                       vm.mensajeDelServidor = mensaje.mensajeDelProceso;
-                      $rootScope.$broadcast('actualizarListadoSucursales', {});
+                      //$rootScope.$broadcast('actualizarListadoSucursales', {});
                   } else {
                       vm.mensajeDelServidor = mensaje.mensajeDelProceso;
                   }
