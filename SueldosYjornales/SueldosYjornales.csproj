@@ -172,6 +172,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\EmpresasController.cs" />
+    <Compile Include="Controllers\Api\SucursalesController.cs" />
     <Compile Include="Controllers\EmpleadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -995,6 +996,7 @@
     <Content Include="Scripts\Padrones\Index\Controllers\empresas\empresasCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\empresas\listadoEmpresasCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\menuCtrl.js" />
+    <Content Include="Scripts\Padrones\Index\Controllers\sucursales\sucursalesCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Services\common.services.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -1041,6 +1043,7 @@
     <Content Include="Views\Home\Menu.cshtml" />
     <Content Include="Views\Padrones\Index.cshtml" />
     <Content Include="Views\Padrones\Index\_Empresas.cshtml" />
+    <Content Include="Views\Padrones\Index\_Sucursales.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

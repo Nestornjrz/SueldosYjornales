@@ -17,11 +17,17 @@
             vm.menu.empresas.class = "active";
             vm.menu.empresas.mostrar = true;
         }
+        vm.sucursalesFn = function () {
+            ocultar();
+            vm.menu.sucursales.class = "active";
+            vm.menu.sucursales.mostrar = true;
+        }
       
         //////
         function ocultar() {
             vm.menu.introduccion = false;
-            vm.menu.empresas = {};           
+            vm.menu.empresas = {};
+            vm.menu.sucursales = {};
         }
     }
 })();

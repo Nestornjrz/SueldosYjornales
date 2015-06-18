@@ -26,6 +26,7 @@
     <script src="~/Scripts/Padrones/Index/Controllers/menuCtrl.js"></script>
     <script src="~/Scripts/Padrones/Index/Controllers/empresas/empresasCtrl.js"></script>
     <script src="~/Scripts/Padrones/Index/Controllers/empresas/listadoEmpresasCtrl.js"></script>
+    <script src="~/Scripts/Padrones/Index/Controllers/sucursales/sucursalesCtrl.js"></script>
 }
 <h2>Padrones</h2>
 <div class="container" ng-controller="menuCtrl as vm" ng-cloak>
@@ -33,9 +34,15 @@
         <li role="presentation" class="{{vm.menu.empresas.class}}">
             <a href="#" ng-click="vm.empresasFn()">Empresas</a>
         </li>
+        <li role="presentation" class="{{vm.menu.sucursales.class}}">
+            <a href="#" ng-click="vm.sucursalesFn()">Sucursales</a>
+        </li>
     </ul>
     <div style="margin-top:25px;" ng-show="vm.menu.empresas.mostrar">
         @Html.Partial("Index/_Empresas")
+    </div>
+    <div style="margin-top:25px;" ng-show="vm.menu.sucursales.mostrar">
+        @Html.Partial("Index/_Sucursales")
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
         <div class="alert alert-info">
