@@ -42,12 +42,13 @@
                     {{vm.mensajeDelServidor}}
                 </div>
             </div>
-            <pre>{{vm.empresa | json}}</pre>
+            @*<pre>{{vm.empresa | json}}</pre>*@
         </div>
     </form>
 </div>
+<h2>Listado</h2>
 <div class="row" ng-controller="listadoEmpresasCtrl as vm" ng-cloak style="margin-top:25px;">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-12">
         <table class="table table-condensed table-bordered table-bordered table-hover">
             <thead>
                 <tr>
@@ -69,8 +70,49 @@
                 <td>{{o.ruc}}</td>
             </tr>
         </table>
-        <pre>
+        @*<pre>
             {{vm.empresas | json}}
-            </pre>
+            </pre>*@
     </div>
 </div>
+
+@*////////////////////////////////////////////////////////////////////
+    //////////////////////TEMPLETE DE LOS MODALES////////////////////////*@
+
+<script type="text/ng-template" id="ModalEliminacion.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{objeto.mensaje}} {{objeto.id}}</h3>
+        <p class="text-muted">Esta seguro?</p>
+    </div>
+    <div class="modal-body">
+        <table class="table table-striped">
+            <tr>
+                <th>Empresa</th>
+                <td>{{empresa.nombreEmpresa}}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{empresa.descripcion}}</td>
+            </tr>
+            <tr>
+                <th>Abreviatura</th>
+                <td>{{empresa.abreviatura}}</td>
+            </tr>
+            <tr>
+                <th>RUC</th>
+                <td>{{empresa.ruc}}</td>
+            </tr>
+        </table>
+        <div ng-show="respuesta.mensajeDelProceso != null" class="alert alert-info">
+            {{respuesta.mensajeDelProceso}}
+        </div>
+        @*<pre>
+{{empresa | json}}
+</pre>*@
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" ng-click="cancel()" id="btn_cancelar">Salir</button>
+        <button class="btn btn-primary" ng-click="ok()" id="btn_save">Eliminar</button>
+    </div>
+</script>
