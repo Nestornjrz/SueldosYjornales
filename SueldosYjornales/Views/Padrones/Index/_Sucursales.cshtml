@@ -1,5 +1,5 @@
-﻿<div>
-    <form class="form-horizontal" role="form" ng-controller="sucursalesCtrl as vm" name="sucursalesForm">
+﻿<div class="row">
+    <form class="form-horizontal" role="form" ng-controller="sucursalesCtrl as vm" name="sucursalesForm" ng-cloak>
         <div class="col-md-6">
             <div class="form-group">
                 <label for="empresa" class="col-md-4 control-label">Empresa</label>
@@ -37,7 +37,7 @@
             <div class="col-md-7 col-md-offset-5">
                 <button ng-click="vm.guardar()" ng-disabled="sucursalesForm.$invalid" class="btn btn-default">
                     <span ng-show="vm.sucursale.sucursalID == null">Cargar</span>
-                    <span ng-show="vm.sucursale.sucursalID != null">Editar</span>
+                    <span ng-show="vm.sucursale.sucursalID != null">Editar ID: {{vm.sucursale.sucursalID}}</span>
                 </button>
                 <button ng-click="vm.nuevoParaCargar()" class="btn btn-default">
                     Nuevo
@@ -53,4 +53,33 @@
             </div>
         </div>
     </form>
+</div>
+<h2>Listado Sucursales</h2>
+<div class="row" ng-controller="listadoSucursalesCtrl as vm" ng-cloak style="margin-top:25px;">
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th colspan="2">Acciones</th>
+                    <th>Id</th>
+                    <th>Nombre Sucursal</th>
+                    <th>Descripcion</th>
+                    <th>Abreviatura</th>                    
+                </tr>
+            </thead>
+            <tr ng-repeat="o in vm.sucursales">
+                <td><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="vm.actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
+                <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
+                <td>{{o.sucursalID}}</td>
+                <td>{{o.nombreSucursal}}</td>
+                <td>{{o.descripcion}}</td>
+                <td>{{o.abreviatura}}</td>               
+            </tr>
+        </table>
+    </div>
+    <pre>{{vm.empresaEncontrado | json}}</pre>
+    <pre>{{vm.sucursalesAgrupXEmpresa | json}}</pre>
+    <pre>{{vm.sucursales | json}}</pre>
+
+
 </div>

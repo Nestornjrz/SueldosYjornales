@@ -19,7 +19,8 @@
                   if (!mensaje.error) {
                       vm.sucursale = mensaje.objetoDto;
                       vm.mensajeDelServidor = mensaje.mensajeDelProceso;
-                      //$rootScope.$broadcast('actualizarListadoSucursales', {});
+                      refrescarCampoSelect("sucursale", vm.empresas, "empresa", "empresaID");
+                      $rootScope.$broadcast('actualizarListadoSucursales', {});
                   } else {
                       vm.mensajeDelServidor = mensaje.mensajeDelProceso;
                   }
@@ -31,7 +32,26 @@
         }
 
         vm.nuevoParaCargar = function () {
-            vm.sucursal = {};
+            vm.sucursale = {};
+        }
+
+        //Eventos
+        $rootScope.$on("actualizarSucursale", function (event, datoRecibido) {
+            vm.sucursale = datoRecibido;
+            refrescarCampoSelect("sucursale", vm.empresas, "empresa", "empresaID");
+        });
+        //Funciones
+        function refrescarCampoSelect(objetoPrincipal, array, nombreObjeto, campoID) {
+            if (array != null) {
+                for (var i = 0; i < array.length; i++) {
+                    if (vm[objetoPrincipal][nombreObjeto] == null) { break; }
+                    if (vm[objetoPrincipal][nombreObjeto][campoID] == null) { break; }
+                    if (array[i][campoID] == vm[objetoPrincipal][nombreObjeto][campoID]) {
+                        vm[objetoPrincipal][nombreObjeto] = array[i];
+                        break;
+                    }
+                };
+            }
         }
 
     }
