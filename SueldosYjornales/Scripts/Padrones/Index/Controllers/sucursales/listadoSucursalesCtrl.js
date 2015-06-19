@@ -9,13 +9,8 @@
 
     function listadoSucursalesCtrl($rootScope, $modal, sYjResource) {
         /* jshint validthis:true */
-        var vm = this;        
-        sYjResource.sucursales.query(function (respuesta) {
-            vm.sucursales = respuesta;  
-        });
-
-
-
+        var vm = this;
+        traerSucursalesPorEmpresa();
         vm.eliminar = function (sucursale) {
 
         }
@@ -26,7 +21,25 @@
 
         //Eventos
         $rootScope.$on("actualizarListadoSucursales", function (event, datoRecibido) {
-            vm.sucursales = sYjResource.sucursales.query();
+            traerSucursalesPorEmpresa();
         });
+        //Funciones
+        function traerSucursalesPorEmpresa() {
+            sYjResource.sucursales.query(function (respuesta) {
+                vm.sucursales = respuesta;
+                var grupoEmpresasByID = _.groupBy(vm.sucursales, function (value, index, list) {
+                    return value.empresa.empresaID;
+                });
+                vm.grupoEmpresas = _.collect(grupoEmpresasByID, function (empresaValue, empresaKey, empresaList) {
+                    var empresa = {};
+                    var sucursales = [];
+                    _.each(empresaValue, function (sucursalValue, sucursalKey) {
+                        empresa = sucursalValue.empresa;
+                        sucursales.push(sucursalValue);
+                    });
+                    return { 'empresa': empresa, 'sucursales': sucursales }
+                });
+            });
+        }
     }
 })();

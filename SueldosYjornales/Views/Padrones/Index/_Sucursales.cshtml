@@ -1,85 +1,99 @@
 ﻿<div class="row">
-    <form class="form-horizontal" role="form" ng-controller="sucursalesCtrl as vm" name="sucursalesForm" ng-cloak>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="empresa" class="col-md-4 control-label">Empresa</label>
-                <div class="col-md-8">
-                    <select name="moneda" required
-                            ng-model="vm.sucursale.empresa"
-                            ng-options="r.nombreEmpresa for r in vm.empresas" class="form-control"
-                            ng-required="true">
-                        <!--<option value="">-- Seleccione el concepto --</option>-->
-                        <option value="" ng-hide="vm.sucursale.empresa">Seleccione Sucursal</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="nombreSucursal" class="col-md-4 control-label">Nombre Sucursal</label>
-                <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="vm.sucursale.nombreSucursal" name="nombreSucursal" ng-required="true">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="abreviatura" class="col-md-4 control-label">Abreviatura</label>
-                <div class="col-md-8">
-                    <input type="text" class="form-control" ng-model="vm.sucursale.abreviatura" name="abreviatura" ng-required="true">
-                </div>
-            </div>
-            <div class="form-group">
-                <!--<label for="observacion" class="col-md-3 control-label">Observacion</label>-->
-                <div class="col-md-12">
-                    <textarea class="form-control" style="max-width:100%;"
-                              ng-model="vm.sucursale.descripcion"
-                              rows="5"
-                              placeholder="Cargar descripcion de la sucursal..."></textarea>
-                </div>
-            </div>
-            <div class="col-md-7 col-md-offset-5">
-                <button ng-click="vm.guardar()" ng-disabled="sucursalesForm.$invalid" class="btn btn-default">
-                    <span ng-show="vm.sucursale.sucursalID == null">Cargar</span>
-                    <span ng-show="vm.sucursale.sucursalID != null">Editar ID: {{vm.sucursale.sucursalID}}</span>
-                </button>
-                <button ng-click="vm.nuevoParaCargar()" class="btn btn-default">
-                    Nuevo
-                </button>
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Carga de sucursal</div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" ng-controller="sucursalesCtrl as vm" name="sucursalesForm" ng-cloak>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="empresa" class="col-md-4 control-label">Empresa</label>
+                            <div class="col-md-8">
+                                <select name="moneda" required
+                                        ng-model="vm.sucursale.empresa"
+                                        ng-options="r.nombreEmpresa for r in vm.empresas" class="form-control"
+                                        ng-required="true">
+                                    <!--<option value="">-- Seleccione el concepto --</option>-->
+                                    <option value="" ng-hide="vm.sucursale.empresa">Seleccione Sucursal</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombreSucursal" class="col-md-4 control-label">Nombre Sucursal</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" ng-model="vm.sucursale.nombreSucursal" name="nombreSucursal" ng-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="abreviatura" class="col-md-4 control-label">Abreviatura</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" ng-model="vm.sucursale.abreviatura" name="abreviatura" ng-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!--<label for="observacion" class="col-md-3 control-label">Observacion</label>-->
+                            <div class="col-md-12">
+                                <textarea class="form-control" style="max-width:100%;"
+                                          ng-model="vm.sucursale.descripcion"
+                                          rows="5"
+                                          placeholder="Cargar descripcion de la sucursal..."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <button ng-click="vm.guardar()" ng-disabled="sucursalesForm.$invalid" class="btn btn-default">
+                                    <span ng-show="vm.sucursale.sucursalID == null">Cargar sucursal</span>
+                                    <span ng-show="vm.sucursale.sucursalID != null">Editar sucursal ID: {{vm.sucursale.sucursalID}}</span>
+                                </button>
+                                <button ng-click="vm.nuevoParaCargar()" class="btn btn-default">
+                                    Nuevo
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Aviso</div>
+                                <div class="panel-body">
+                                    {{vm.mensajeDelServidor}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Aviso</div>
-                <div class="panel-body">
-                    {{vm.mensajeDelServidor}}
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-<h2>Listado Sucursales</h2>
-<div class="row" ng-controller="listadoSucursalesCtrl as vm" ng-cloak style="margin-top:25px;">
-    <div class="col-md-12">
-        <table class="table table-condensed table-bordered table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th colspan="2">Acciones</th>
-                    <th>Id</th>
-                    <th>Nombre Sucursal</th>
-                    <th>Descripcion</th>
-                    <th>Abreviatura</th>                    
-                </tr>
-            </thead>
-            <tr ng-repeat="o in vm.sucursales">
-                <td><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="vm.actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
-                <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
-                <td>{{o.sucursalID}}</td>
-                <td>{{o.nombreSucursal}}</td>
-                <td>{{o.descripcion}}</td>
-                <td>{{o.abreviatura}}</td>               
-            </tr>
-        </table>
     </div>
-    <pre>{{vm.empresaEncontrado | json}}</pre>
-    <pre>{{vm.sucursalesAgrupXEmpresa | json}}</pre>
-    <pre>{{vm.sucursales | json}}</pre>
-
-
+    <div class="col-md-8">
+        <h2>Listado Sucursales agrupados por empresa</h2>
+        <div class="row" ng-controller="listadoSucursalesCtrl as vm" ng-cloak style="margin-top:25px;">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-bordered table-hover" ng-repeat="empresaGrupo in vm.grupoEmpresas">
+                    <thead>
+                        <tr>
+                            <th colspan="6">
+                                {{empresaGrupo.empresa.nombreEmpresa | uppercase}}
+                                - RUC: {{empresaGrupo.empresa.ruc}}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Acciones</th>
+                            <th>Id</th>
+                            <th>Nombre Sucursal</th>
+                            <th>Descripcion</th>
+                            <th>Abreviatura</th>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="o in empresaGrupo.sucursales">
+                        <td><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="vm.actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
+                        <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
+                        <td>{{o.sucursalID}}</td>
+                        <td>{{o.nombreSucursal}}</td>
+                        <td>{{o.descripcion}}</td>
+                        <td>{{o.abreviatura}}</td>
+                    </tr>
+                </table>
+            </div>
+            @*<pre>{{vm.grupoEmpresas | json}}</pre>
+            <pre>{{vm.sucursales | json}}</pre>*@
+        </div>
+    </div>
 </div>
