@@ -992,8 +992,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\lodash.js" />
-    <Content Include="Scripts\lodash.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\empresas\empresasCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\empresas\listadoEmpresasCtrl.js" />
@@ -1003,6 +1001,8 @@
     <Content Include="Scripts\Padrones\Index\Services\common.services.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\underscore.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1047,6 +1047,7 @@
     <Content Include="Views\Padrones\Index.cshtml" />
     <Content Include="Views\Padrones\Index\_Empresas.cshtml" />
     <Content Include="Views\Padrones\Index\_Sucursales.cshtml" />
+    <Content Include="Scripts\underscore.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
