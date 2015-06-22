@@ -1,0 +1,51 @@
+﻿
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Cargar Cargos</div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" ng-controller="cargosCtrl as vm" name="cargosForm" ng-cloak>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="nombreCargo" class="col-md-5 control-label">Nombre</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" ng-model="vm.cargo.nombreCargo" name="nombreCargo" ng-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="abreviatura" class="col-md-5 control-label">Abreviatura</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" ng-model="vm.cargo.abreviatura" name="abreviatura" ng-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <button ng-click="vm.guardar()" ng-disabled="cargosForm.$invalid" class="btn btn-default">
+                                    <span ng-show="vm.cargo.cargoID == null">Cargar</span>
+                                    <span ng-show="vm.cargo.cargoID != null">Editar Cargo ID: {{vm.cargo.cargoID}}</span>
+                                </button>
+                                <button ng-click="vm.nuevoParaCargar()" class="btn btn-default">
+                                    Nuevo
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Aviso</div>
+                                <div class="panel-body">
+                                    {{vm.mensajeDelServidor}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <pre>
+{{vm.cargo | json}}
+</pre>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+
+    </div>
+</div>

@@ -994,6 +994,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Padrones\Index\Controllers\cargos\cargosCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\empresas\empresasCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\empresas\listadoEmpresasCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\menuCtrl.js" />
@@ -1052,6 +1053,7 @@
     <Content Include="Views\Padrones\Index\_Sucursales.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\Padrones\Index\_Nacionalidades.cshtml" />
+    <Content Include="Views\Padrones\Index\_Cargos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

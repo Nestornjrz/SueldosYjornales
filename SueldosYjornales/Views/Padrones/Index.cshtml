@@ -17,11 +17,13 @@
                 var empresas = $resource("@Href("~/api/Empresas")");
                 var sucursales = $resource("@Href("~/api/Sucursales")");
                 var nacionalidades = $resource("@Href("~/api/Nacionalidades")");
+                var cargos = $resource("@Href("~/api/Cargos")");
 
                 return {
                     "empresas": empresas,
                     "sucursales": sucursales,
-                    "nacionalidades": nacionalidades
+                    "nacionalidades": nacionalidades,
+                    "cargos": cargos
                 }
             }
         })();
@@ -35,6 +37,8 @@
     <script src="~/Scripts/Padrones/Index/Controllers/sucursales/listadoSucursalesCtrl.js"></script>
     <script src="~/Scripts/Padrones/Index/Controllers/nacionalidades/nacionalidadesCtrl.js"></script>
     <script src="~/Scripts/Padrones/Index/Controllers/nacionalidades/listadoNacionalidadesCtrl.js"></script>
+
+    <script src="~/Scripts/Padrones/Index/Controllers/cargos/cargosCtrl.js"></script>
 }
 <h2>Padrones</h2>
 <div class="container" ng-controller="menuCtrl as vm" ng-cloak>
@@ -48,6 +52,9 @@
         <li role="presentation" class="{{vm.menu.nacionalidades.class}}">
             <a href="#" ng-click="vm.nacionalidadesFn()">Nacionalidades</a>
         </li>
+        <li role="presentation" class="{{vm.menu.cargos.class}}">
+            <a href="#" ng-click="vm.cargosFn()">Cargos</a>
+        </li>
     </ul>
     <div style="margin-top:25px;" ng-show="vm.menu.empresas.mostrar">
         @Html.Partial("Index/_Empresas")
@@ -57,6 +64,9 @@
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.nacionalidades.mostrar">
         @Html.Partial("Index/_Nacionalidades")
+    </div>
+    <div style="margin-top:25px;" ng-show="vm.menu.cargos.mostrar">
+        @Html.Partial("Index/_Cargos")
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
         <div class="alert alert-info">

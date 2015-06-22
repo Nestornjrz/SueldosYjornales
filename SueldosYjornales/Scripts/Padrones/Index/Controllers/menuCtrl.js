@@ -27,6 +27,11 @@
             vm.menu.nacionalidades.class = "active";
             vm.menu.nacionalidades.mostrar = true;
         }
+        vm.cargosFn = function () {
+            ocultar();
+            vm.menu.cargos.class = "active";
+            vm.menu.cargos.mostrar = true;
+        }
       
         //////
         function ocultar() {
@@ -34,6 +39,7 @@
             vm.menu.empresas = {};
             vm.menu.sucursales = {};
             vm.menu.nacionalidades = {};
+            vm.menu.cargos = {};
         }
     }
 })();
