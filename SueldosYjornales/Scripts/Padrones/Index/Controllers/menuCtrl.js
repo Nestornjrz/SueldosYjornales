@@ -32,6 +32,11 @@
             vm.menu.cargos.class = "active";
             vm.menu.cargos.mostrar = true;
         }
+        vm.profesionesFn = function () {
+            ocultar();
+            vm.menu.profesiones.class = "active";
+            vm.menu.profesiones.mostrar = true;
+        }
       
         //////
         function ocultar() {
@@ -40,6 +45,7 @@
             vm.menu.sucursales = {};
             vm.menu.nacionalidades = {};
             vm.menu.cargos = {};
+            vm.menu.profesiones = {};
         }
     }
 })();

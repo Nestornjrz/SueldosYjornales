@@ -1056,11 +1056,13 @@
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\Padrones\Index\_Nacionalidades.cshtml" />
     <Content Include="Views\Padrones\Index\_Cargos.cshtml" />
+    <Content Include="Views\Padrones\Index\_Profesiones.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\Empleados\Index\Controllers\" />
     <Folder Include="Scripts\Home\Menu\Controllers\" />
+    <Folder Include="Scripts\Padrones\Index\Controllers\profesiones\" />
     <Folder Include="Views\Home\Index\" />
   </ItemGroup>
   <ItemGroup>
