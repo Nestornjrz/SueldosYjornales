@@ -16,10 +16,12 @@
             function sYjResource($resource) {
                 var empresas = $resource("@Href("~/api/Empresas")");
                 var sucursales = $resource("@Href("~/api/Sucursales")");
+                var nacionalidades = $resource("@Href("~/api/Nacionalidades")");
 
                 return {
                     "empresas": empresas,
-                    "sucursales": sucursales
+                    "sucursales": sucursales,
+                    "nacionalidades": nacionalidades
                 }
             }
         })();
@@ -31,7 +33,7 @@
 
     <script src="~/Scripts/Padrones/Index/Controllers/sucursales/sucursalesCtrl.js"></script>
     <script src="~/Scripts/Padrones/Index/Controllers/sucursales/listadoSucursalesCtrl.js"></script>
-<script src="~/Scripts/Padrones/Index/Controllers/nacionalidades/nacionalidadesCtrl.js"></script>
+    <script src="~/Scripts/Padrones/Index/Controllers/nacionalidades/nacionalidadesCtrl.js"></script>
 }
 <h2>Padrones</h2>
 <div class="container" ng-controller="menuCtrl as vm" ng-cloak>
