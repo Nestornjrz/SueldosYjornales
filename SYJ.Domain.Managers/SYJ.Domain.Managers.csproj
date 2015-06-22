@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmpresasManagers.cs" />
+    <Compile Include="NacionalidadesManagers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SucursalesManagers.cs" />
     <Compile Include="Util\AgregarModificar.cs" />

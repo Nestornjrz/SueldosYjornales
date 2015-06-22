@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="EmpresaDto.cs" />
     <Compile Include="MensajeDto.cs" />
+    <Compile Include="NacionalidadeDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SucursaleDto.cs" />
   </ItemGroup>

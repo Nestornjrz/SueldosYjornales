@@ -172,6 +172,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\EmpresasController.cs" />
+    <Compile Include="Controllers\Api\NacionalidadesController.cs" />
     <Compile Include="Controllers\Api\SucursalesController.cs" />
     <Compile Include="Controllers\EmpleadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
