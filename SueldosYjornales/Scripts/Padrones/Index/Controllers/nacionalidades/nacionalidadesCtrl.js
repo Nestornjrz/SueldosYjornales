@@ -34,5 +34,10 @@
             vm.nacionalidade = {};
             vm.nacionalidade.cargarSn = true;
         }
+        //Captura de eventos
+        $rootScope.$on('actualizarNacionalidade', function (event, objetoRecibido) {
+            vm.nacionalidade = objetoRecibido;
+            vm.nacionalidade.cargarSn = false;
+        })
     }
 })();

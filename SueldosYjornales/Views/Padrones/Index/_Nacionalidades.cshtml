@@ -43,9 +43,9 @@
                             </div>
                         </div>
                     </div>
-                    @*<pre>
-{{vm.nacionalidade | json}}
-</pre>*@
+                    <pre>
+                        {{vm.nacionalidade | json}}
+                        </pre>
                 </form>
             </div>
         </div>
@@ -54,7 +54,7 @@
         <h2>Listado de las nacionalidades</h2>
         <div class="row" ng-controller="listadoNacionalidadesCtrl as vm" ng-cloak style="margin-top:25px;">
             <div class="col-md-12">
-                <table class="table table-bordered table-hover">
+                <table class="table table-bordered table-hover table-striped table-condensed">
                     <thead>
                         <tr>
                             <th colspan="2">Acciones</th>
@@ -64,7 +64,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="o in nacionalidades">
+                        <tr ng-repeat="o in vm.nacionalidades">
                             <td><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="vm.actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
                             <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
                             <td>{{o.nacionalidadID}}</td>
@@ -74,6 +74,9 @@
                     </tbody>
                 </table>
             </div>
+            <pre>                
+{{vm.nacionalidades | json}}
+</pre>
         </div>
     </div>
 </div>
