@@ -997,6 +997,7 @@
     <Content Include="Scripts\Padrones\Index\Controllers\empresas\empresasCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\empresas\listadoEmpresasCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\menuCtrl.js" />
+    <Content Include="Scripts\Padrones\Index\Controllers\nacionalidades\listadoNacionalidadesCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\nacionalidades\nacionalidadesCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\sucursales\listadoSucursalesCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\sucursales\sucursalesCtrl.js" />
