@@ -12,7 +12,34 @@
         var vm = this;
         traerSucursalesPorEmpresa();
         vm.eliminar = function (sucursale) {
+            var modalInstance = $modal.open({
+                templateUrl: 'ModalEliminacion.html',
+                controller: function ($scope, $modalInstance) {
+                    $scope.sucursale = sucursale;
+                    $scope.objeto = {};
+                    $scope.objeto.id = sucursale.sucursalID;
+                    $scope.objeto.mensaje = "Se eliminara la sucursal numero ";
+                    $scope.ok = function () {
+                        sYjResource.sucursales.delete({ id: sucursale.sucursalID },
+                              function (respuesta) {
+                                  $scope.respuesta = respuesta;
+                                  vm.sucursales = sYjResource.sucursales.query();
+                              });
 
+                        //$rootScope.$broadcast('actualizarTodos', {});
+                    };
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                },
+                size: 'sm'
+            });
+            modalInstance.result.then(function (selectedItem) {
+                
+            }, function () {
+                //$log.info('Modal dismissed at: ' + new Date());
+                traerSucursalesPorEmpresa();
+            });
         }
 
         vm.actualizar = function (sucursale) {

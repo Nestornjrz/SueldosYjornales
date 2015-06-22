@@ -83,7 +83,14 @@ namespace SYJ.Domain.Managers {
                 MensajeDto mensajeDto = null;
                 var sucursalDb = context.Sucursales
                     .Where(s => s.SucursalID == id)
-                    .First();
+                    .FirstOrDefault();
+
+                if (sucursalDb == null) {
+                    return new MensajeDto() {
+                        Error = true,
+                        MensajeDelProceso = "La sucursal ID : " + id + " no existe en la base de datos"
+                    };
+                }
 
                 context.Sucursales.Remove(sucursalDb);
 
