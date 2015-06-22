@@ -996,6 +996,7 @@
     <Content Include="Scripts\Padrones\Index\Controllers\empresas\empresasCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\empresas\listadoEmpresasCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\menuCtrl.js" />
+    <Content Include="Scripts\Padrones\Index\Controllers\nacionalidades\nacionalidadesCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\sucursales\listadoSucursalesCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\sucursales\sucursalesCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Services\common.services.js" />
@@ -1048,6 +1049,7 @@
     <Content Include="Views\Padrones\Index\_Empresas.cshtml" />
     <Content Include="Views\Padrones\Index\_Sucursales.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
+    <Content Include="Views\Padrones\Index\_Nacionalidades.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

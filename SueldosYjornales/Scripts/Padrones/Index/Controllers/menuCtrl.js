@@ -22,12 +22,18 @@
             vm.menu.sucursales.class = "active";
             vm.menu.sucursales.mostrar = true;
         }
+        vm.nacionalidadesFn = function () {
+            ocultar();
+            vm.menu.nacionalidades.class = "active";
+            vm.menu.nacionalidades.mostrar = true;
+        }
       
         //////
         function ocultar() {
             vm.menu.introduccion = false;
             vm.menu.empresas = {};
             vm.menu.sucursales = {};
+            vm.menu.nacionalidades = {};
         }
     }
 })();
