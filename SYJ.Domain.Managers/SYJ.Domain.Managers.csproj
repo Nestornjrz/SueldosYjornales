@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CargosManagers.cs" />
     <Compile Include="EmpresasManagers.cs" />
     <Compile Include="NacionalidadesManagers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

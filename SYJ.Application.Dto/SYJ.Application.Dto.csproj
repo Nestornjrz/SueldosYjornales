@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CargoDto.cs" />
     <Compile Include="EmpresaDto.cs" />
     <Compile Include="MensajeDto.cs" />
     <Compile Include="NacionalidadeDto.cs" />
