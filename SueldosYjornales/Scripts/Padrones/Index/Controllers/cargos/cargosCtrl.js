@@ -32,5 +32,9 @@
             }
           );
         }
+        //Captura de eventos
+        $rootScope.$on('actualizarCargo', function (event, datoRecibido) {
+            vm.cargo = datoRecibido;
+        });
     }
 })();
