@@ -6,6 +6,12 @@
                 <form class="form-horizontal" role="form" ng-controller="nacionalidadesCtrl as vm" name="nacionalidadesForm" ng-cloak>
                     <div class="col-md-12">
                         <div class="form-group">
+                            <label for="id" class="col-md-5 control-label">ID</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" ng-model="vm.nacionalidade.nacionalidadID" name="nacionalidadID" ng-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="nombreNacionalidad" class="col-md-5 control-label">Nombre</label>
                             <div class="col-md-7">
                                 <input type="text" class="form-control" ng-model="vm.nacionalidade.nombreNacionalidad" name="nombreNacionalidad" ng-required="true">
@@ -20,8 +26,8 @@
                         <div class="form-group">
                             <div class="col-md-12">
                                 <button ng-click="vm.guardar()" ng-disabled="nacionalidadesForm.$invalid" class="btn btn-default">
-                                    <span ng-show="vm.sucursale.sucursalID == null">Cargar sucursal</span>
-                                    <span ng-show="vm.sucursale.sucursalID != null">Editar sucursal ID: {{vm.sucursale.sucursalID}}</span>
+                                    <span ng-show="vm.nacionalidade.cargarSn == true">Cargar</span>
+                                    <span ng-show="vm.nacionalidade.cargarSn == false">Editar Nacionalidad ID: {{vm.sucursale.sucursalID}}</span>
                                 </button>
                                 <button ng-click="vm.nuevoParaCargar()" class="btn btn-default">
                                     Nuevo
@@ -37,9 +43,9 @@
                             </div>
                         </div>
                     </div>
-                    <pre>
+                    @*<pre>
 {{vm.nacionalidade | json}}
-</pre>
+</pre>*@
                 </form>
             </div>
         </div>
