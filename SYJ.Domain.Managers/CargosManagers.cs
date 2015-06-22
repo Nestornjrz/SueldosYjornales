@@ -60,7 +60,7 @@ namespace SYJ.Domain.Managers {
 
                 return new MensajeDto() {
                     Error = false,
-                    MensajeDelProceso = "Se Edito la empresa : " + cDto.CargoID,
+                    MensajeDelProceso = "Se Edito el cargo : " + cDto.CargoID,
                     ObjetoDto = cDto
                 };
             }
