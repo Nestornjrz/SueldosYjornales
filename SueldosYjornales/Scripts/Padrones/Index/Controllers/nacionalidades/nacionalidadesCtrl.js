@@ -21,6 +21,7 @@
                       vm.nacionalidade = mensaje.objetoDto;
                       vm.mensajeDelServidor = mensaje.mensajeDelProceso;
                       vm.nacionalidade.cargarSn = false;
+                      $rootScope.$broadcast('actualizarListadoNacionalidad', {});
                   } else {
                       vm.mensajeDelServidor = mensaje.mensajeDelProceso;
                   }

@@ -74,7 +74,7 @@ namespace SYJ.Domain.Managers {
                 MensajeDto mensajeDto = null;
                 var nacionalidadeDb = context.Nacionalidades
                    .Where(n => n.NacionalidadID == id)
-                   .First();
+                   .FirstOrDefault();
 
                 if (nacionalidadeDb == null) {
                     return new MensajeDto() {
