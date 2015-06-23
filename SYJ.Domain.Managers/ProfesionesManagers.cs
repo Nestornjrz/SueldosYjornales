@@ -53,7 +53,13 @@ namespace SYJ.Domain.Managers {
                 MensajeDto mensajeDto = null;
                 var profesioneDb = context.Profesiones
                     .Where(p => p.ProfesionID == pDto.ProfesionID)
-                    .First();
+                    .FirstOrDefault();
+                if (profesioneDb == null) {
+                    return new MensajeDto() {
+                        Error = true,
+                        MensajeDelProceso = "La profesion ID : " + pDto.ProfesionID + " no existe en la base de datos"
+                    };
+                }
                 profesioneDb.NombreProfesion = pDto.NombreProfesion;
                 profesioneDb.Abreviatura = pDto.Abreviatura;
                 profesioneDb.Descripcion = pDto.Descripcion;
@@ -81,7 +87,7 @@ namespace SYJ.Domain.Managers {
                 if (profesioneDb == null) {
                     return new MensajeDto() {
                         Error = true,
-                        MensajeDelProceso = "La profesion ID : " + id + " no existe en la base de datos"                       
+                        MensajeDelProceso = "La profesion ID : " + id + " no existe en la base de datos"
                     };
                 }
                 context.Profesiones.Remove(profesioneDb);
