@@ -1,0 +1,20 @@
+﻿(function () {
+    'use strict';
+
+    angular
+        .module('sueldosYjornalesApp')
+        .controller('profesionesCtrl', profesionesCtrl);
+
+    profesionesCtrl.$inject = ['$rootScope', 'sYjResource'];
+
+    function profesionesCtrl($rootScope, sYjResource) {
+        /* jshint validthis:true */
+        var vm = this;
+        vm.guardar = function () {
+
+        }
+        vm.nuevoParaCargar = function () {
+            vm.profesione = {};
+        }
+    }
+})();

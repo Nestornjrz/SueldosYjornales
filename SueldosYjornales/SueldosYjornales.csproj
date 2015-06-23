@@ -1002,6 +1002,7 @@
     <Content Include="Scripts\Padrones\Index\Controllers\menuCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\nacionalidades\listadoNacionalidadesCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\nacionalidades\nacionalidadesCtrl.js" />
+    <Content Include="Scripts\Padrones\Index\Controllers\profesiones\profesionesCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\sucursales\listadoSucursalesCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\sucursales\sucursalesCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Services\common.services.js" />
@@ -1062,7 +1063,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\Empleados\Index\Controllers\" />
     <Folder Include="Scripts\Home\Menu\Controllers\" />
-    <Folder Include="Scripts\Padrones\Index\Controllers\profesiones\" />
     <Folder Include="Views\Home\Index\" />
   </ItemGroup>
   <ItemGroup>
