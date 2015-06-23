@@ -21,7 +21,7 @@ namespace SueldosYjornales.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("SueldosJornalesEntities", throwIfV1Schema: false)
         {
         }
 
