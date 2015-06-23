@@ -30,5 +30,10 @@
         vm.nuevoParaCargar = function () {
             vm.profesione = {};
         }
+
+        //Captura de evento usuario
+        $rootScope.$on('actualizarProfesione', function (event, objValRecibido) {
+            vm.profesione = objValRecibido;
+        });
     }
 })();
