@@ -1,6 +1,6 @@
 ﻿/*
 Created: 15/06/2015
-Modified: 16/06/2015
+Modified: 23/06/2015
 Model: Sueldos y Jornales
 Database: MS SQL Server 2014
 */
@@ -76,6 +76,9 @@ go
 CREATE INDEX [IX_Sucursales:EmpresaID] ON [Sj].[Sucursales] ([EmpresaID])
 go
 
+CREATE UNIQUE INDEX [IX_Unique_NombreSucursal] ON [Sj].[Sucursales] ([NombreSucursal])
+go
+
 -- Add keys for table Sj.Sucursales
 
 ALTER TABLE [Sj].[Sucursales] ADD CONSTRAINT [pk_Sucursales] PRIMARY KEY ([SucursalID])
@@ -109,6 +112,13 @@ go
 EXEC sp_addextendedproperty 'MS_Description', '1 va a ser soltero, 2 casado, 3 divorciado, 4 viudo', 'SCHEMA', 'Sj', 'TABLE', 'EstadoCiviles', 'COLUMN', 'EstadoCivilID'
 go
 
+INSERT INTO [Sj].[EstadoCiviles]
+           ([EstadoCivilID]
+           ,[NombreEstadoCivil])
+     VALUES
+           (1,'Soltero'),(2,'Casado'),(3,'Divorciado'),(4,'Viudo')
+GO
+
 -- Add keys for table Sj.EstadoCiviles
 
 ALTER TABLE [Sj].[EstadoCiviles] ADD CONSTRAINT [pk_EstadoCiviles] PRIMARY KEY ([EstadoCivilID])
@@ -124,6 +134,19 @@ CREATE TABLE [Sj].[Nacionalidades]
 )
 go
 EXEC sp_addextendedproperty 'MS_Description', 'Se deve codificar las nacionalidades', 'SCHEMA', 'Sj', 'TABLE', 'Nacionalidades', 'COLUMN', 'NacionalidadID'
+go
+
+INSERT INTO [Sj].[Nacionalidades]
+           ([NacionalidadID]
+           ,[NombreNacionalidad]
+           ,[Abreviatura])
+     VALUES
+           (1 , 'Paraguay' ,'Py'),
+           (2 , 'Argentina' ,'Py')
+
+-- Create indexes for table Sj.Nacionalidades
+
+CREATE UNIQUE INDEX [IX_Unique_NombreNacionalidad] ON [Sj].[Nacionalidades] ([NombreNacionalidad])
 go
 
 -- Add keys for table Sj.Nacionalidades
@@ -263,13 +286,11 @@ go
 
 CREATE TABLE [Sj].[Profesiones]
 (
- [ProfesionID] Int NOT NULL,
+ [ProfesionID] Int IDENTITY(1,1) NOT NULL,
  [NombreProfesion] Varchar(50) NOT NULL,
  [Abreviatura] Varchar(5) NOT NULL,
  [Descripcion] Varchar(200) NULL
 )
-go
-EXEC sp_addextendedproperty 'MS_Description', 'Hay que generar el codigo manualmente', 'SCHEMA', 'Sj', 'TABLE', 'Profesiones', 'COLUMN', 'ProfesionID'
 go
 
 -- Add keys for table Sj.Profesiones

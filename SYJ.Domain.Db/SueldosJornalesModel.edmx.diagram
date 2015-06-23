@@ -15,14 +15,12 @@
         <EntityTypeShape EntityType="SueldosJornalesModel.HistoricosHorario" Width="1.5" PointX="11.25" PointY="10.125" />
         <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoTelefono" Width="1.5" PointX="11.25" PointY="6.5" />
         <EntityTypeShape EntityType="SueldosJornalesModel.Nacionalidade" Width="1.5" PointX="3.75" PointY="20" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.Profesione" Width="1.5" PointX="3.75" PointY="6.625" />
         <EntityTypeShape EntityType="SueldosJornalesModel.Sucursale" Width="1.5" PointX="3.75" PointY="14.375" />
         <EntityTypeShape EntityType="SueldosJornalesModel.UbicacionSucUsuario" Width="1.5" PointX="3" PointY="10.75" />
         <EntityTypeShape EntityType="SueldosJornalesModel.Usuario" Width="1.5" PointX="0.75" PointY="10.125" />
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoSalarios_Cargos" />
         <AssociationConnector Association="SueldosJornalesModel.fk_Empleados_EstadoCiviles" />
         <AssociationConnector Association="SueldosJornalesModel.fk_Empleados_Nacionalidades" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_Empleados_Profesiones" />
         <AssociationConnector Association="SueldosJornalesModel.fk_Empleados_Sucursales" />
         <AssociationConnector Association="SueldosJornalesModel.fk_Empleados_Usuarios" />
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoDirecciones_Empleados" />
@@ -38,6 +36,8 @@
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoTelefono_Usuarios" />
         <AssociationConnector Association="SueldosJornalesModel.pfk_UbicacionSucursales_Sucursales" />
         <AssociationConnector Association="SueldosJornalesModel.pfk_UbicacionSucursales_Usuarios" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.Profesione" Width="1.5" PointX="0.75" PointY="0.875" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_Empleados_Profesiones" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

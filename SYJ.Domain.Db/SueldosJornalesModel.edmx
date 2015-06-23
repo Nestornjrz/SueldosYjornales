@@ -123,7 +123,7 @@
           <Key>
             <PropertyRef Name="ProfesionID" />
           </Key>
-          <Property Name="ProfesionID" Type="int" Nullable="false" />
+          <Property Name="ProfesionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NombreProfesion" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Abreviatura" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="200" />
@@ -491,7 +491,6 @@
           <EntitySet Name="HistoricosHorarios" EntityType="SueldosJornalesModel.HistoricosHorario" />
           <EntitySet Name="HistoricoTelefonos" EntityType="SueldosJornalesModel.HistoricoTelefono" />
           <EntitySet Name="Nacionalidades" EntityType="SueldosJornalesModel.Nacionalidade" />
-          <EntitySet Name="Profesiones" EntityType="SueldosJornalesModel.Profesione" />
           <EntitySet Name="Sucursales" EntityType="SueldosJornalesModel.Sucursale" />
           <EntitySet Name="UbicacionSucUsuarios" EntityType="SueldosJornalesModel.UbicacionSucUsuario" />
           <EntitySet Name="Usuarios" EntityType="SueldosJornalesModel.Usuario" />
@@ -505,10 +504,6 @@
           </AssociationSet>
           <AssociationSet Name="fk_Empleados_Nacionalidades" Association="SueldosJornalesModel.fk_Empleados_Nacionalidades">
             <End Role="Nacionalidade" EntitySet="Nacionalidades" />
-            <End Role="Empleado" EntitySet="Empleados" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Empleados_Profesiones" Association="SueldosJornalesModel.fk_Empleados_Profesiones">
-            <End Role="Profesione" EntitySet="Profesiones" />
             <End Role="Empleado" EntitySet="Empleados" />
           </AssociationSet>
           <AssociationSet Name="fk_Empleados_Sucursales" Association="SueldosJornalesModel.fk_Empleados_Sucursales">
@@ -571,6 +566,11 @@
             <End Role="Usuario" EntitySet="Usuarios" />
             <End Role="UbicacionSucUsuario" EntitySet="UbicacionSucUsuarios" />
           </AssociationSet>
+          <EntitySet Name="Profesiones" EntityType="SueldosJornalesModel.Profesione" />
+          <AssociationSet Name="fk_Empleados_Profesiones" Association="SueldosJornalesModel.fk_Empleados_Profesiones">
+            <End Role="Profesione" EntitySet="Profesiones" />
+            <End Role="Empleado" EntitySet="Empleados" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Cargo">
           <Key>
@@ -602,7 +602,6 @@
           <Property Name="MomentoCarga" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="EstadoCivile" Relationship="SueldosJornalesModel.fk_Empleados_EstadoCiviles" FromRole="Empleado" ToRole="EstadoCivile" />
           <NavigationProperty Name="Nacionalidade" Relationship="SueldosJornalesModel.fk_Empleados_Nacionalidades" FromRole="Empleado" ToRole="Nacionalidade" />
-          <NavigationProperty Name="Profesione" Relationship="SueldosJornalesModel.fk_Empleados_Profesiones" FromRole="Empleado" ToRole="Profesione" />
           <NavigationProperty Name="Sucursale" Relationship="SueldosJornalesModel.fk_Empleados_Sucursales" FromRole="Empleado" ToRole="Sucursale" />
           <NavigationProperty Name="Usuario" Relationship="SueldosJornalesModel.fk_Empleados_Usuarios" FromRole="Empleado" ToRole="Usuario" />
           <NavigationProperty Name="HistoricoDirecciones" Relationship="SueldosJornalesModel.fk_HistoricoDirecciones_Empleados" FromRole="Empleado" ToRole="HistoricoDireccione" />
@@ -610,6 +609,7 @@
           <NavigationProperty Name="HistoricoSalarios" Relationship="SueldosJornalesModel.fk_HistoricoSalarios_Empleados" FromRole="Empleado" ToRole="HistoricoSalario" />
           <NavigationProperty Name="HistoricosHorarios" Relationship="SueldosJornalesModel.fk_HistoricosHorarios_Empleados" FromRole="Empleado" ToRole="HistoricosHorario" />
           <NavigationProperty Name="HistoricoTelefonos" Relationship="SueldosJornalesModel.fk_HistoricoTelefonos_Empleados" FromRole="Empleado" ToRole="HistoricoTelefono" />
+          <NavigationProperty Name="Profesione" Relationship="SueldosJornalesModel.fk_Empleados_Profesiones" FromRole="Empleado" ToRole="Profesione" />
         </EntityType>
         <EntityType Name="Empresa">
           <Key>
@@ -711,16 +711,6 @@
           <Property Name="Abreviatura" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Empleados" Relationship="SueldosJornalesModel.fk_Empleados_Nacionalidades" FromRole="Nacionalidade" ToRole="Empleado" />
         </EntityType>
-        <EntityType Name="Profesione">
-          <Key>
-            <PropertyRef Name="ProfesionID" />
-          </Key>
-          <Property Name="ProfesionID" Type="Int32" Nullable="false" />
-          <Property Name="NombreProfesion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Abreviatura" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Empleados" Relationship="SueldosJornalesModel.fk_Empleados_Profesiones" FromRole="Profesione" ToRole="Empleado" />
-        </EntityType>
         <EntityType Name="Sucursale">
           <Key>
             <PropertyRef Name="SucursalID" />
@@ -794,18 +784,6 @@
             </Principal>
             <Dependent Role="Empleado">
               <PropertyRef Name="NacionalidadID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Empleados_Profesiones">
-          <End Type="SueldosJornalesModel.Profesione" Role="Profesione" Multiplicity="1" />
-          <End Type="SueldosJornalesModel.Empleado" Role="Empleado" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Profesione">
-              <PropertyRef Name="ProfesionID" />
-            </Principal>
-            <Dependent Role="Empleado">
-              <PropertyRef Name="ProfesionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -989,6 +967,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Profesione">
+          <Key>
+            <PropertyRef Name="ProfesionID" />
+          </Key>
+          <Property Name="ProfesionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreProfesion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Abreviatura" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Empleados" Relationship="SueldosJornalesModel.fk_Empleados_Profesiones" FromRole="Profesione" ToRole="Empleado" />
+        </EntityType>
+        <Association Name="fk_Empleados_Profesiones">
+          <End Type="SueldosJornalesModel.Profesione" Role="Profesione" Multiplicity="1" />
+          <End Type="SueldosJornalesModel.Empleado" Role="Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesione">
+              <PropertyRef Name="ProfesionID" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="ProfesionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1119,16 +1119,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Profesiones">
-            <EntityTypeMapping TypeName="SueldosJornalesModel.Profesione">
-              <MappingFragment StoreEntitySet="Profesiones">
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Abreviatura" ColumnName="Abreviatura" />
-                <ScalarProperty Name="NombreProfesion" ColumnName="NombreProfesion" />
-                <ScalarProperty Name="ProfesionID" ColumnName="ProfesionID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Sucursales">
             <EntityTypeMapping TypeName="SueldosJornalesModel.Sucursale">
               <MappingFragment StoreEntitySet="Sucursales">
@@ -1156,6 +1146,16 @@
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
                 <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profesiones">
+            <EntityTypeMapping TypeName="SueldosJornalesModel.Profesione">
+              <MappingFragment StoreEntitySet="Profesiones">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Abreviatura" ColumnName="Abreviatura" />
+                <ScalarProperty Name="NombreProfesion" ColumnName="NombreProfesion" />
+                <ScalarProperty Name="ProfesionID" ColumnName="ProfesionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
