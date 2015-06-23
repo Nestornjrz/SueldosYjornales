@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('menuCtrl', menuCtrl);
 
-    menuCtrl.$inject = ['$location']; 
+    menuCtrl.$inject = ['$rootScope'];
 
-    function menuCtrl($location) {      
+    function menuCtrl($rootScope) {
         var vm = this;
         vm.menu = {};
         vm.menu.introduccion = true;
@@ -21,6 +21,7 @@
             ocultar();
             vm.menu.sucursales.class = "active";
             vm.menu.sucursales.mostrar = true;
+            $rootScope.$broadcast('actualizarEmpresas', {});
         }
         vm.nacionalidadesFn = function () {
             ocultar();

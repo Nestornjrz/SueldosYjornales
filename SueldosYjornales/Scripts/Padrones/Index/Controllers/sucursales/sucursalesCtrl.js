@@ -40,6 +40,9 @@
             vm.sucursale = datoRecibido;
             refrescarCampoSelect("sucursale", vm.empresas, "empresa", "empresaID");
         });
+        $rootScope.$on("actualizarEmpresas", function (event, datoRecibido) {
+            vm.empresas = sYjResource.empresas.query();
+        });
         //Funciones
         function refrescarCampoSelect(objetoPrincipal, array, nombreObjeto, campoID) {
             if (array != null) {
