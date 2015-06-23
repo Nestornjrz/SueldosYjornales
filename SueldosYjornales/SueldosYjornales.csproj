@@ -1060,11 +1060,13 @@
     <Content Include="Views\Padrones\Index\_Nacionalidades.cshtml" />
     <Content Include="Views\Padrones\Index\_Cargos.cshtml" />
     <Content Include="Views\Padrones\Index\_Profesiones.cshtml" />
+    <Content Include="Views\Padrones\Index\_Usuarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\Empleados\Index\Controllers\" />
     <Folder Include="Scripts\Home\Menu\Controllers\" />
+    <Folder Include="Scripts\Padrones\Index\Controllers\usuarios\" />
     <Folder Include="Views\Home\Index\" />
   </ItemGroup>
   <ItemGroup>

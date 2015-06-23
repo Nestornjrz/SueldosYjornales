@@ -63,6 +63,9 @@
         <li role="presentation" class="{{vm.menu.profesiones.class}}">
             <a href="#" ng-click="vm.profesionesFn()">Profesiones</a>
         </li>
+        <li role="presentation" class="{{vm.menu.usuarios.class}}">
+            <a href="#" ng-click="vm.usuariosFn()">Usuarios</a>
+        </li>
     </ul>
     <div style="margin-top:25px;" ng-show="vm.menu.empresas.mostrar">
         @Html.Partial("Index/_Empresas")
@@ -78,6 +81,9 @@
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.profesiones.mostrar">
         @Html.Partial("Index/_Profesiones")
+    </div>
+    <div style="margin-top:25px;" ng-show="vm.menu.usuarios.mostrar">
+        @Html.Partial("Index/_Usuarios")
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
         <div class="alert alert-info">

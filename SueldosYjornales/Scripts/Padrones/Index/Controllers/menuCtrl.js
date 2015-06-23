@@ -38,6 +38,11 @@
             vm.menu.profesiones.class = "active";
             vm.menu.profesiones.mostrar = true;
         }
+         vm.usuariosFn = function () {
+            ocultar();
+            vm.menu.usuarios.class = "active";
+            vm.menu.usuarios.mostrar = true;
+        }
       
         //////
         function ocultar() {
@@ -47,6 +52,7 @@
             vm.menu.nacionalidades = {};
             vm.menu.cargos = {};
             vm.menu.profesiones = {};
+            vm.menu.usuarios = {};
         }
     }
 })();
