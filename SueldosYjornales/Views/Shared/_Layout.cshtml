@@ -23,7 +23,8 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Menu", "Menu", "Home")</li>
                     <li>@Html.ActionLink("Padrones", "Index", "Padrones")</li>
-                    @if (User.IsInRole("Admin")) {                       
+                    @if (User.IsInRole("Admin")) {
+                        <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
                         <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
                     }
                 </ul>
