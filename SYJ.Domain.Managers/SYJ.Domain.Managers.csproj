@@ -56,6 +56,7 @@
     <Compile Include="ProfesionesManagers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SucursalesManagers.cs" />
+    <Compile Include="UsuariosManagers.cs" />
     <Compile Include="Util\AgregarModificar.cs" />
   </ItemGroup>
   <ItemGroup>
