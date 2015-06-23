@@ -16,7 +16,8 @@
               function (mensaje) {
                   if (!mensaje.error) {
                       vm.profesione = mensaje.objetoDto;
-                      vm.mensajeDelServidor = mensaje.mensajeDelProceso;                                          
+                      vm.mensajeDelServidor = mensaje.mensajeDelProceso;
+                      $rootScope.$broadcast('actualizarListadoProfesiones');
                   } else {
                       vm.mensajeDelServidor = mensaje.mensajeDelProceso;
                   }

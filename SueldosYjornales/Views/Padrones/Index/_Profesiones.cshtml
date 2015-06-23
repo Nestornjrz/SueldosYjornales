@@ -51,4 +51,33 @@
             </div>
         </div>
     </div>
+    <div class="col-md-8">
+        <h2>Listado Profesiones</h2>
+        <div class="row" ng-controller="listadoProfesionesCtrl as vm" ng-cloak style="margin-top:25px;">
+            <div class="col-md-12">
+                <table class="table table-bordered table-hover table-striped table-condensed">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Acciones</th>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Abreviatura</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="o in vm.profesiones">
+                            <td><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="vm.actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
+                            <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
+                            <td>{{o.profesionID}}</td>
+                            <td>{{o.nombreProfesion}}</td>
+                            <td>{{o.abreviatura}}</td>
+                            <td>{{o.descripcion}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <pre>{{vm.profesiones | json}}</pre>               
+        </div>
+    </div>
 </div>
