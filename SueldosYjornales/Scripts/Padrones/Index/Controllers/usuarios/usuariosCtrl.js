@@ -20,7 +20,8 @@
               function (mensaje) {
                   if (!mensaje.error) {
                       vm.usuario = mensaje.objetoDto;
-                      vm.mensajeDelServidor = mensaje.mensajeDelProceso;                     
+                      vm.mensajeDelServidor = mensaje.mensajeDelProceso;
+                      $rootScope.$broadcast('actualizarListadoUsuarios', {});
                   } else {
                       vm.mensajeDelServidor = mensaje.mensajeDelProceso;
                   }
@@ -30,5 +31,9 @@
                }
            );
         }
+        //Eventos de usuario
+        $rootScope.$on('actualizarUsuario', function (event, objValRecibido) {
+            vm.usuario = objValRecibido;
+        });
     }
 })();

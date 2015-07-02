@@ -1011,6 +1011,7 @@
     <Content Include="Scripts\Padrones\Index\Controllers\profesiones\profesionesCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\sucursales\listadoSucursalesCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\sucursales\sucursalesCtrl.js" />
+    <Content Include="Scripts\Padrones\Index\Controllers\usuarios\listadoUsuariosCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\usuarios\usuariosCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Services\common.services.js" />
     <Content Include="Scripts\respond.js" />
