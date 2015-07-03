@@ -1,6 +1,6 @@
 ﻿/*
 Created: 15/06/2015
-Modified: 23/06/2015
+Modified: 03/07/2015
 Model: Sueldos y Jornales
 Database: MS SQL Server 2014
 */
@@ -142,7 +142,7 @@ INSERT INTO [Sj].[Nacionalidades]
            ,[Abreviatura])
      VALUES
            (1 , 'Paraguay' ,'Py'),
-           (2 , 'Argentina' ,'Py')
+           (2 , 'Argentina' ,'Ar')
 
 -- Create indexes for table Sj.Nacionalidades
 
@@ -256,6 +256,19 @@ go
 ALTER TABLE [Sj].[Cargos] ADD CONSTRAINT [pk_Cargos] PRIMARY KEY ([CargoID])
 go
 
+-- Table Jornaleros
+
+CREATE TABLE [Jornaleros]
+(
+ [JornaleroID] Bigint IDENTITY(1,1) NOT NULL
+)
+go
+
+-- Add keys for table Jornaleros
+
+ALTER TABLE [Jornaleros] ADD CONSTRAINT [Key2] PRIMARY KEY ([JornaleroID])
+go
+
 -- Table Sj.HistoricoIngresoSalidas
 
 CREATE TABLE [Sj].[HistoricoIngresoSalidas]
@@ -354,9 +367,14 @@ CREATE TABLE [Sj].[UbicacionSucUsuarios]
 )
 go
 
+-- Create indexes for table Sj.UbicacionSucUsuarios
+
+CREATE INDEX [IX_UbicacionSucUsuarios_SucursalID] ON [Sj].[UbicacionSucUsuarios] ([SucursalID])
+go
+
 -- Add keys for table Sj.UbicacionSucUsuarios
 
-ALTER TABLE [Sj].[UbicacionSucUsuarios] ADD CONSTRAINT [Key4] PRIMARY KEY ([UsuarioID],[SucursalID])
+ALTER TABLE [Sj].[UbicacionSucUsuarios] ADD CONSTRAINT [pfk_UbicacionSucUsuarios] PRIMARY KEY ([UsuarioID])
 go
 
 -- Create relationships section ------------------------------------------------- 
@@ -412,10 +430,10 @@ go
 ALTER TABLE [Sj].[HistoricoTelefonos] ADD CONSTRAINT [fk_HistoricoTelefono>Usuarios] FOREIGN KEY ([UsuarioID]) REFERENCES [Sj].[Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
-ALTER TABLE [Sj].[UbicacionSucUsuarios] ADD CONSTRAINT [pfk_UbicacionSucursales>Usuarios] FOREIGN KEY ([UsuarioID]) REFERENCES [Sj].[Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+ALTER TABLE [Sj].[UbicacionSucUsuarios] ADD CONSTRAINT [pfk_UbicacionSucUsuarios>Usuarios] FOREIGN KEY ([UsuarioID]) REFERENCES [Sj].[Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
-ALTER TABLE [Sj].[UbicacionSucUsuarios] ADD CONSTRAINT [pfk_UbicacionSucursales>Sucursales] FOREIGN KEY ([SucursalID]) REFERENCES [Sj].[Sucursales] ([SucursalID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+ALTER TABLE [Sj].[UbicacionSucUsuarios] ADD CONSTRAINT [fk_UbicacionSucUsuarios>Sucursales] FOREIGN KEY ([SucursalID]) REFERENCES [Sj].[Sucursales] ([SucursalID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
 

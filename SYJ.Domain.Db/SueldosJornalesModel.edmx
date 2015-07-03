@@ -192,7 +192,6 @@
         <EntityType Name="UbicacionSucUsuarios">
           <Key>
             <PropertyRef Name="UsuarioID" />
-            <PropertyRef Name="SucursalID" />
           </Key>
           <Property Name="UsuarioID" Type="bigint" Nullable="false" />
           <Property Name="SucursalID" Type="int" Nullable="false" />
@@ -467,7 +466,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="pfk_UbicacionSucursales&gt;Sucursales">
+        <Association Name="fk_UbicacionSucUsuarios&gt;Sucursales">
           <End Role="Sucursales" Type="Self.Sucursales" Multiplicity="1" />
           <End Role="UbicacionSucUsuarios" Type="Self.UbicacionSucUsuarios" Multiplicity="*" />
           <ReferentialConstraint>
@@ -479,9 +478,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="pfk_UbicacionSucursales&gt;Usuarios">
+        <Association Name="pfk_UbicacionSucUsuarios&gt;Usuarios">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
-          <End Role="UbicacionSucUsuarios" Type="Self.UbicacionSucUsuarios" Multiplicity="*" />
+          <End Role="UbicacionSucUsuarios" Type="Self.UbicacionSucUsuarios" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Usuarios">
               <PropertyRef Name="UsuarioID" />
@@ -595,11 +594,11 @@
             <End Role="Empresas" EntitySet="Empresas" />
             <End Role="Sucursales" EntitySet="Sucursales" />
           </AssociationSet>
-          <AssociationSet Name="pfk_UbicacionSucursales&gt;Sucursales" Association="Self.pfk_UbicacionSucursales&gt;Sucursales">
+          <AssociationSet Name="fk_UbicacionSucUsuarios&gt;Sucursales" Association="Self.fk_UbicacionSucUsuarios&gt;Sucursales">
             <End Role="Sucursales" EntitySet="Sucursales" />
             <End Role="UbicacionSucUsuarios" EntitySet="UbicacionSucUsuarios" />
           </AssociationSet>
-          <AssociationSet Name="pfk_UbicacionSucursales&gt;Usuarios" Association="Self.pfk_UbicacionSucursales&gt;Usuarios">
+          <AssociationSet Name="pfk_UbicacionSucUsuarios&gt;Usuarios" Association="Self.pfk_UbicacionSucUsuarios&gt;Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="UbicacionSucUsuarios" EntitySet="UbicacionSucUsuarios" />
           </AssociationSet>
@@ -620,7 +619,6 @@
           <EntitySet Name="HistoricoTelefonos" EntityType="SueldosJornalesModel.HistoricoTelefono" />
           <EntitySet Name="Nacionalidades" EntityType="SueldosJornalesModel.Nacionalidade" />
           <EntitySet Name="Sucursales" EntityType="SueldosJornalesModel.Sucursale" />
-          <EntitySet Name="UbicacionSucUsuarios" EntityType="SueldosJornalesModel.UbicacionSucUsuario" />
           <EntitySet Name="Usuarios" EntityType="SueldosJornalesModel.Usuario" />
           <AssociationSet Name="fk_HistoricoSalarios_Cargos" Association="SueldosJornalesModel.fk_HistoricoSalarios_Cargos">
             <End Role="Cargo" EntitySet="Cargos" />
@@ -686,14 +684,6 @@
             <End Role="Usuario" EntitySet="Usuarios" />
             <End Role="HistoricoTelefono" EntitySet="HistoricoTelefonos" />
           </AssociationSet>
-          <AssociationSet Name="pfk_UbicacionSucursales_Sucursales" Association="SueldosJornalesModel.pfk_UbicacionSucursales_Sucursales">
-            <End Role="Sucursale" EntitySet="Sucursales" />
-            <End Role="UbicacionSucUsuario" EntitySet="UbicacionSucUsuarios" />
-          </AssociationSet>
-          <AssociationSet Name="pfk_UbicacionSucursales_Usuarios" Association="SueldosJornalesModel.pfk_UbicacionSucursales_Usuarios">
-            <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="UbicacionSucUsuario" EntitySet="UbicacionSucUsuarios" />
-          </AssociationSet>
           <EntitySet Name="Profesiones" EntityType="SueldosJornalesModel.Profesione" />
           <AssociationSet Name="fk_Empleados_Profesiones" Association="SueldosJornalesModel.fk_Empleados_Profesiones">
             <End Role="Profesione" EntitySet="Profesiones" />
@@ -714,6 +704,15 @@
           <AssociationSet Name="AspNetUserRoles" Association="SueldosJornalesModel.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="UbicacionSucUsuarios" EntityType="SueldosJornalesModel.UbicacionSucUsuario" />
+          <AssociationSet Name="fk_UbicacionSucUsuarios_Sucursales" Association="SueldosJornalesModel.fk_UbicacionSucUsuarios_Sucursales">
+            <End Role="Sucursale" EntitySet="Sucursales" />
+            <End Role="UbicacionSucUsuario" EntitySet="UbicacionSucUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="pfk_UbicacionSucUsuarios_Usuarios" Association="SueldosJornalesModel.pfk_UbicacionSucUsuarios_Usuarios">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="UbicacionSucUsuario" EntitySet="UbicacionSucUsuarios" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Cargo">
@@ -866,18 +865,7 @@
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Empleados" Relationship="SueldosJornalesModel.fk_Empleados_Sucursales" FromRole="Sucursale" ToRole="Empleado" />
           <NavigationProperty Name="Empresa" Relationship="SueldosJornalesModel.fk_Sucursales_Empresas" FromRole="Sucursale" ToRole="Empresa" />
-          <NavigationProperty Name="UbicacionSucUsuarios" Relationship="SueldosJornalesModel.pfk_UbicacionSucursales_Sucursales" FromRole="Sucursale" ToRole="UbicacionSucUsuario" />
-        </EntityType>
-        <EntityType Name="UbicacionSucUsuario">
-          <Key>
-            <PropertyRef Name="UsuarioID" />
-            <PropertyRef Name="SucursalID" />
-          </Key>
-          <Property Name="UsuarioID" Type="Int64" Nullable="false" />
-          <Property Name="SucursalID" Type="Int32" Nullable="false" />
-          <Property Name="Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Sucursale" Relationship="SueldosJornalesModel.pfk_UbicacionSucursales_Sucursales" FromRole="UbicacionSucUsuario" ToRole="Sucursale" />
-          <NavigationProperty Name="Usuario" Relationship="SueldosJornalesModel.pfk_UbicacionSucursales_Usuarios" FromRole="UbicacionSucUsuario" ToRole="Usuario" />
+          <NavigationProperty Name="UbicacionSucUsuarios" Relationship="SueldosJornalesModel.fk_UbicacionSucUsuarios_Sucursales" FromRole="Sucursale" ToRole="UbicacionSucUsuario" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -893,7 +881,7 @@
           <NavigationProperty Name="HistoricoSalarios" Relationship="SueldosJornalesModel.fk_HistoricoSalarios_Usuarios" FromRole="Usuario" ToRole="HistoricoSalario" />
           <NavigationProperty Name="HistoricosHorarios" Relationship="SueldosJornalesModel.fk_HistoricosHorarios_Usuarios" FromRole="Usuario" ToRole="HistoricosHorario" />
           <NavigationProperty Name="HistoricoTelefonos" Relationship="SueldosJornalesModel.fk_HistoricoTelefono_Usuarios" FromRole="Usuario" ToRole="HistoricoTelefono" />
-          <NavigationProperty Name="UbicacionSucUsuarios" Relationship="SueldosJornalesModel.pfk_UbicacionSucursales_Usuarios" FromRole="Usuario" ToRole="UbicacionSucUsuario" />
+          <NavigationProperty Name="UbicacionSucUsuario" Relationship="SueldosJornalesModel.pfk_UbicacionSucUsuarios_Usuarios" FromRole="Usuario" ToRole="UbicacionSucUsuario" />
         </EntityType>
         <Association Name="fk_HistoricoSalarios_Cargos">
           <End Type="SueldosJornalesModel.Cargo" Role="Cargo" Multiplicity="1" />
@@ -1087,30 +1075,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="pfk_UbicacionSucursales_Sucursales">
-          <End Type="SueldosJornalesModel.Sucursale" Role="Sucursale" Multiplicity="1" />
-          <End Type="SueldosJornalesModel.UbicacionSucUsuario" Role="UbicacionSucUsuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sucursale">
-              <PropertyRef Name="SucursalID" />
-            </Principal>
-            <Dependent Role="UbicacionSucUsuario">
-              <PropertyRef Name="SucursalID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="pfk_UbicacionSucursales_Usuarios">
-          <End Type="SueldosJornalesModel.Usuario" Role="Usuario" Multiplicity="1" />
-          <End Type="SueldosJornalesModel.UbicacionSucUsuario" Role="UbicacionSucUsuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="UsuarioID" />
-            </Principal>
-            <Dependent Role="UbicacionSucUsuario">
-              <PropertyRef Name="UsuarioID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Profesione">
           <Key>
             <PropertyRef Name="ProfesionID" />
@@ -1213,6 +1177,40 @@
         <Association Name="AspNetUserRoles">
           <End Type="SueldosJornalesModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="SueldosJornalesModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityType Name="UbicacionSucUsuario">
+          <Key>
+            <PropertyRef Name="UsuarioID" />
+          </Key>
+          <Property Name="UsuarioID" Type="Int64" Nullable="false" />
+          <Property Name="SucursalID" Type="Int32" Nullable="false" />
+          <Property Name="Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Sucursale" Relationship="SueldosJornalesModel.fk_UbicacionSucUsuarios_Sucursales" FromRole="UbicacionSucUsuario" ToRole="Sucursale" />
+          <NavigationProperty Name="Usuario" Relationship="SueldosJornalesModel.pfk_UbicacionSucUsuarios_Usuarios" FromRole="UbicacionSucUsuario" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="fk_UbicacionSucUsuarios_Sucursales">
+          <End Type="SueldosJornalesModel.Sucursale" Role="Sucursale" Multiplicity="1" />
+          <End Type="SueldosJornalesModel.UbicacionSucUsuario" Role="UbicacionSucUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursale">
+              <PropertyRef Name="SucursalID" />
+            </Principal>
+            <Dependent Role="UbicacionSucUsuario">
+              <PropertyRef Name="SucursalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pfk_UbicacionSucUsuarios_Usuarios">
+          <End Type="SueldosJornalesModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="SueldosJornalesModel.UbicacionSucUsuario" Role="UbicacionSucUsuario" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="UbicacionSucUsuario">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -1355,15 +1353,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UbicacionSucUsuarios">
-            <EntityTypeMapping TypeName="SueldosJornalesModel.UbicacionSucUsuario">
-              <MappingFragment StoreEntitySet="UbicacionSucUsuarios">
-                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
-                <ScalarProperty Name="SucursalID" ColumnName="SucursalID" />
-                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="SueldosJornalesModel.Usuario">
               <MappingFragment StoreEntitySet="Usuarios">
@@ -1437,6 +1426,15 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="UbicacionSucUsuarios">
+            <EntityTypeMapping TypeName="SueldosJornalesModel.UbicacionSucUsuario">
+              <MappingFragment StoreEntitySet="UbicacionSucUsuarios">
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="SucursalID" ColumnName="SucursalID" />
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

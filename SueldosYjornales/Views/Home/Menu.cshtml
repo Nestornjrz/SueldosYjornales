@@ -17,11 +17,14 @@
                 var empresas = $resource("@Href("~/api/Empresas")");
                 var sucursales = $resource("@Href("~/api/Sucursales")");
                 var sucursalesSegunEmpresaID = $resource("@Href("~/api/Sucursales/SegunEmpresaID")");
+                var empresas = $resource("@Href("~/api/Empresas")");
+                var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
 
                 return {
                     "empresas": empresas,
                     "Sucursales": sucursales,
-                    "sucursalesSegunEmpresaID": sucursalesSegunEmpresaID
+                    "sucursalesSegunEmpresaID": sucursalesSegunEmpresaID,
+                    "ubicacionSucUsuarios": ubicacionSucUsuarios
                 }
             }
         })();
@@ -30,64 +33,61 @@
 
 <div class="container" style="margin-top:25px;" ng-controller="ubicacionSucUsuarioCtrl">
     <div class="panel panel-primary">
-        <div class="panel-heading">Seleccionar sucursal de trabajo</div>
+        <div class="panel-heading">
+            Sucursal de trabajo
+            <span class="badge" style="background-color:green;">
+                {{ubicacionSucUsuario.empresa.nombreEmpresa | uppercase}} -
+                {{ubicacionSucUsuario.sucursale.nombreSucursal | uppercase}}
+            </span>
+        </div>
         <div class="panel-body">
-            <form class="form-horizontal" role="form" name="ubicacionSucUsuariosForm">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="empresa" class="col-md-3 control-label">Empresa</label>
-                            <div class="col-md-9">
-                                <select name="moneda" required
-                                        ng-model="ubicacionSucUsuario.empresa"
-                                        ng-options="r.nombreEmpresa for r in empresas" class="form-control"
-                                        ng-required="true">
-                                    <!--<option value="">-- Seleccione el concepto --</option>-->
-                                    <option value="" ng-hide="ubicacionSucUsuario.empresa">Seleccione empresa</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="sucursale" class="col-md-3 control-label">Sucursal</label>
-                            <div class="col-md-9">
-                                <select name="moneda" required
-                                        ng-model="ubicacionSucUsuario.sucursale"
-                                        ng-options="r.nombreSucursal for r in sucursales" class="form-control"
-                                        ng-required="true">
-                                    <!--<option value="">-- Seleccione el concepto --</option>-->
-                                    <option value="" ng-hide="ubicacionSucUsuario.sucursale">Seleccione sucursal</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+            <form class="form-inline" name="ubicacionSucUsuariosForm">
+                <div class="form-group">
+                    <label for="empresa">Empresa</label>
+                    <select name="moneda" required
+                            ng-model="ubicacionSucUsuario.empresa"
+                            ng-options="r.nombreEmpresa for r in empresas" class="form-control"
+                            ng-required="true">
+                        <!--<option value="">-- Seleccione el concepto --</option>-->
+                        <option value="" ng-hide="ubicacionSucUsuario.empresa">Seleccione empresa</option>
+                    </select>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="col-md-9 col-md-offset-3">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">Aviso</div>
-                                    <div class="panel-body">
-                                        {{mensajeDelServidor}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="col-md-9 col-md-offset-3">
-                                <button ng-click="vm.guardar()" ng-disabled="ubicacionSucUsuariosForm.$invalid" class="btn btn-default">
-                                    Seleccionar Sucursal
-                                </button>
-                            </div>
+                <div class="form-group">
+                    <label for="sucursale">Sucursal</label>
+                    <select name="moneda" required
+                            ng-model="ubicacionSucUsuario.sucursale"
+                            ng-options="r.nombreSucursal for r in sucursales" class="form-control"
+                            ng-required="true">
+                        <!--<option value="">-- Seleccione el concepto --</option>-->
+                        <option value="" ng-hide="ubicacionSucUsuario.sucursale">Seleccione sucursal</option>
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label for="sucursale" style="display:block">Seleccionar</label>
+                    <button ng-click="guardar()" ng-disabled="ubicacionSucUsuariosForm.$invalid" class="btn btn-default">
+                        Sucursal
+                    </button>
+                </div>
+                <div class="form-group" ng-show="mensajeDelServidor != null" style="margin-left:25px;">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{mensajeDelServidor}}
                         </div>
                     </div>
                 </div>
             </form>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
     </div>
-    @*<pre>{{ubicacionSucUsuario | json}}</pre>*@
+</div>
+@*<pre>{{mensaje | json}}</pre>
+    <pre>{{ubicacionSucUsuario | json}}</pre>*@
 </div>

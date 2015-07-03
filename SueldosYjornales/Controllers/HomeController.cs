@@ -5,11 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace SueldosYjornales.Controllers {
+    [Authorize]
     public class HomeController : Controller {
         public ActionResult Index() {
             return View();
         }
-
+        [Authorize(Roles="Operador")]
         public ActionResult Menu() {
             return View();
         }
