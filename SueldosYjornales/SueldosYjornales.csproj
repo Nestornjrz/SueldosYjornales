@@ -234,6 +234,7 @@
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Empleados\Index\Controllers\empleadoCtrl.js" />
     <Content Include="Scripts\Empleados\Index\Controllers\menuCtrl.js" />
     <Content Include="Scripts\Empleados\Index\Services\common.services.js" />
     <Content Include="Scripts\errors.json" />

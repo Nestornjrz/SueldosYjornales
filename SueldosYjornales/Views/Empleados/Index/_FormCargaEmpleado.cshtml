@@ -1,6 +1,125 @@
 ﻿<div class="panel panel-primary">
     <div class="panel-heading">Cargar de Empleado</div>
     <div class="panel-body">
-
+        <form class="form-horizontal" role="form" ng-controller="empleadoCtrl" name="empleadoForm" ng-cloak>
+            <div class="form-group">
+                <label for="nombres" class="col-md-4 control-label">Nombres</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="empleado.nombres" name="nombres" ng-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="apellidos" class="col-md-4 control-label">Apellidos</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="empleado.apellidos" name="apellidos" ng-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fechaNacimiento" class="col-md-4 control-label">Fecha Nacimiento</label>
+                <div class="col-sm-8">
+                    <p class="input-group">
+                        <input type="date" id="fechaNacimiento"
+                               name="fechaNacimiento"
+                               class="form-control"
+                               ng-model="empleado.fechaNacimiento"
+                               ng-required="true" />
+                    </p>
+                    <div style="color:red" ng-show="empleadoForm.fechaNacimiento.$dirty && empleadoForm.fechaNacimiento.$invalid">
+                        <span ng-show="empleadoForm.fechaNacimiento.$error.date">No es un formato valido</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="sexo" class="col-md-4 control-label">Sexo</label>
+                <div class="col-md-8">
+                    <select name="sexo" required
+                            ng-model="empleado.sexo"
+                            ng-options="r.sexo for r in sexos" class="form-control"
+                            ng-required="true"
+                            class="form-control">
+                        <!--<option value="">-- Seleccione el concepto --</option>-->
+                        <option value="" ng-hide="empleado.sexo">Seleccione Sexo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="nroCedula" class="col-md-4 control-label">Nro Cedula</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="empleado.nroCedula" name="nroCedula" ng-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="estadoCivil" class="col-md-4 control-label">Estado Civil</label>
+                <div class="col-md-8">
+                    <select name="sexo" required
+                            ng-model="empleado.estadoCivil"
+                            ng-options="r.nombreEstadoCivil for r in estadoCiviles" class="form-control"
+                            ng-required="true"
+                            class="form-control">
+                        <!--<option value="">-- Seleccione el concepto --</option>-->
+                        <option value="" ng-hide="empleado.sexo">Seleccione Estado Civil</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="nacionalidad" class="col-md-4 control-label">Nacionalidad</label>
+                <div class="col-md-8">
+                    <select name="nacionalidad" required
+                            ng-model="empleado.nacionalidad"
+                            ng-options="r.nombreNacionalidad for r in nacionalidades" class="form-control"
+                            ng-required="true"
+                            class="form-control">
+                        <!--<option value="">-- Seleccione el concepto --</option>-->
+                        <option value="" ng-hide="empleado.sexo">Seleccione Nacionalidad</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="numeroMjt" class="col-md-4 control-label">Numero Mjt</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="empleado.numeroMjt" name="numeroMjt" ng-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="profesione" class="col-md-4 control-label">Profesion</label>
+                <div class="col-md-8">
+                    <select name="profesione" required
+                            ng-model="empleado.profesione"
+                            ng-options="r.nombreProfesion for r in profesiones" class="form-control"
+                            ng-required="true"
+                            class="form-control">
+                        <!--<option value="">-- Seleccione el concepto --</option>-->
+                        <option value="" ng-hide="empleado.profesione">Seleccione Nacionalidad</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="cantidadHijos" class="col-md-4 control-label">Cant Hijos</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="empleado.cantidadHijos" name="cantidadHijos" ng-required="true">
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-4" style="margin-bottom:25px;">
+                <button ng-click="vm.guardar()" ng-disabled="empleadoForm.$invalid" class="btn btn-default">
+                    <span ng-show="empleado.empleadoID == null">Cargar</span>
+                    <span ng-show="empleado.empleadoID != null">
+                        Editar Nro: {{empleado.empleadoID}}
+                    </span>
+                </button>
+                <button ng-click="vm.nuevoParaCargar()" class="btn btn-default">
+                    Nuevo
+                </button>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Aviso</div>
+                        <div class="panel-body">
+                            {{vm.mensajeDelServidor}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
