@@ -1003,6 +1003,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\navbar\navbarCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\cargos\cargosCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\cargos\listadoCargosCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\empresas\empresasCtrl.js" />

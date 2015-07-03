@@ -20,6 +20,7 @@
                 var cargos = $resource("@Href("~/api/Cargos")");
                 var profesiones = $resource("@Href("~/api/Profesiones")");
                 var usuarios = $resource("@Href("~/api/Usuarios")");
+                var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
 
                 return {
                     "empresas": empresas,
@@ -27,7 +28,8 @@
                     "nacionalidades": nacionalidades,
                     "cargos": cargos,
                     "profesiones": profesiones,
-                    "usuarios": usuarios
+                    "usuarios": usuarios,
+                    "ubicacionSucUsuarios": ubicacionSucUsuarios
                 }
             }
         })();

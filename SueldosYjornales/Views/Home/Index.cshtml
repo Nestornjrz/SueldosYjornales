@@ -14,9 +14,11 @@
 
             function sYjResource($resource) {
                 var empleados = $resource("@Href("~/api/Empleados")");
+                var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
 
                 return {
-                    "empleados": empleados
+                    "empleados": empleados,
+                    "ubicacionSucUsuarios": ubicacionSucUsuarios
                 }
             }
         })();
