@@ -4,6 +4,37 @@
 
 @section scripts{
     <script src="~/Scripts/Home/Index/Services/common.services.js"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            angular
+                .module('sueldosYjornalesApp')
+                .factory('sYjResource', sYjResource);
+
+            sYjResource.$inject = ['$resource'];
+
+            function sYjResource($resource) {
+                var empresas = $resource("@Href("~/api/Empresas")");
+                var sucursales = $resource("@Href("~/api/Sucursales")");
+                var nacionalidades = $resource("@Href("~/api/Nacionalidades")");
+                var cargos = $resource("@Href("~/api/Cargos")");
+                var profesiones = $resource("@Href("~/api/Profesiones")");
+                var usuarios = $resource("@Href("~/api/Usuarios")");
+
+                return {
+                    "empresas": empresas,
+                    "sucursales": sucursales,
+                    "nacionalidades": nacionalidades,
+                    "cargos": cargos,
+                    "profesiones": profesiones,
+                    "usuarios": usuarios
+                }
+            }
+        })();
+    </script>
+
+
+
 }
 <div class="row">
     <div class="col-md-4">

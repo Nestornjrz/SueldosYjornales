@@ -103,5 +103,26 @@ namespace SYJ.Domain.Managers {
                 };
             }
         }
+
+        public List<SucursaleDto> ListadoSucursales(int empresaID) {
+            using (var context = new SueldosJornalesEntities()) {
+                var listado = context.Sucursales
+                    .Where(s => s.EmpresaID == empresaID)
+                    .Select(s => new SucursaleDto() {
+                        SucursalID = s.SucursalID,
+                        Empresa = new EmpresaDto() {
+                            EmpresaID = s.EmpresaID,
+                            NombreEmpresa = s.Empresa.NombreEmpresa,
+                            Descripcion = s.Empresa.Descripcion,
+                            Abreviatura = s.Empresa.Abreviatura,
+                            Ruc = s.Empresa.Abreviatura
+                        },
+                        NombreSucursal = s.NombreSucursal,
+                        Descripcion = s.Descripcion,
+                        Abreviatura = s.Abreviatura
+                    }).ToList();
+                return listado;
+            }
+        }
     }
 }

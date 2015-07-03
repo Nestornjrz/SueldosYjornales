@@ -19,6 +19,14 @@ namespace SueldosYjornales.Controllers.Api
             return Request.CreateResponse<List<SucursaleDto>>(HttpStatusCode.OK, listado);
         }
 
+        [HttpGet]
+        [Route("api/Sucursales/SegunEmpresaID")]
+        public HttpResponseMessage GetByEmpresa(int empresaID) {
+            SucursalesManagers sm = new SucursalesManagers();
+            List<SucursaleDto> listado = sm.ListadoSucursales(empresaID);
+            return Request.CreateResponse<List<SucursaleDto>>(HttpStatusCode.OK, listado);
+        }
+
         // GET: api/Sucursales/5
         public string Get(int id)
         {
