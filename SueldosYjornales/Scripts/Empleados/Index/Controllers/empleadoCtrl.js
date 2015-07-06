@@ -12,5 +12,8 @@
             { id: 1, sexo: "Masculino" },
             { id: 2, sexo: "Femenino" }
         ];
+        $scope.estadosCiviles = sYjResource.estadosCiviles.query();
+        $scope.nacionalidades = sYjResource.nacionalidades.query();
+        $scope.profesiones = sYjResource.profesiones.query();
     }
 })();

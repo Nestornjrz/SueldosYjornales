@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="CargoDto.cs" />
     <Compile Include="EmpresaDto.cs" />
+    <Compile Include="EstadoCivileDto.cs" />
     <Compile Include="MensajeDto.cs" />
     <Compile Include="NacionalidadeDto.cs" />
     <Compile Include="ProfesioneDto.cs" />
