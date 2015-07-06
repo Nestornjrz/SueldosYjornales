@@ -2,26 +2,35 @@
     'use strict';
 
     angular
-        .module('app')
+        .module('sueldosYjornalesApp')
         .controller('menuCtrl', menuCtrl);
 
-    menuCtrl.$inject = ['$location']; 
+    menuCtrl.$inject = ['$scope', '$rootScope', '$modal', 'sYjResource'];
 
-    function menuCtrl($location) {
-        /* jshint validthis:true */
-        var vm = this;      
-        vm.menu = {};
+    function menuCtrl($scope, $rootScope, $modal, sYjResource) {
+        $scope.mostrarFormCargaEmpleado = false;
 
-        vm.empresasFn = function () {
-            ocultar();
-            vm.menu.empresas.class = "active";
-            vm.menu.empresas.mostrar = true;
+        $scope.mostrarFormCargarEmpleado = function () {
+            $('#div_formCargarEmpleado').removeClass('col-md-1');
+            $('#div_formCargarEmpleado').addClass('col-md-5');
+
+            $('#div_ListadoEmpleados').removeClass('col-md-11');
+            $('#div_ListadoEmpleados').addClass('col-md-6');
+
+            $scope.mostrarFormCargaEmpleado = true;
         }
+        $scope.ocultarFormCargarEmpleado = function () {
+            $('#div_formCargarEmpleado').removeClass('col-md-5');
+            $('#div_formCargarEmpleado').addClass('col-md-1');
 
-        //////
-        function ocultar() {          
-            vm.menu.empresas = {};       
+            $('#div_ListadoEmpleados').removeClass('col-md-6');
+            $('#div_ListadoEmpleados').addClass('col-md-11');
+
+            $scope.mostrarFormCargaEmpleado = false;
         }
-
+        //Captura de evento
+        $rootScope.$on('actualizarEmpleado', function (event,objValRecibido) {
+            $scope.mostrarFormCargarEmpleado();
+        });
     }
 })();

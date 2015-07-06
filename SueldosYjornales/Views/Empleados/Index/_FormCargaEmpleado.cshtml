@@ -6,6 +6,7 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
         Cargar de Empleado       
+        <button title="Ocultar Formulario" ng-click="ocultarFormCargarEmpleado()" class="bottom pull-right"><span class="glyphicon glyphicon-remove"></span></button>
     </div>
     <div class="panel-body">
         <form class="form-horizontal" role="form" ng-controller="empleadoCtrl" name="empleadoForm" ng-cloak>
@@ -131,7 +132,7 @@
                     </div>
                 </div>
             </div>
-            <pre>{{empleado | json}}</pre>
+            @*<pre>{{empleado | json}}</pre>*@
         </form>
     </div>
 </div>

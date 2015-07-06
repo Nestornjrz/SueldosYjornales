@@ -41,13 +41,21 @@
     @*controladores*@
     <script src="~/Scripts/Empleados/Index/Controllers/empleadoCtrl.js"></script>
     <script src="~/Scripts/Empleados/Index/Controllers/listadoEmpleadosCtrl.js"></script>
-
+    <script src="~/Scripts/Empleados/Index/Controllers/menuCtrl.js"></script>
 }
-<div class="row" style="margin-top:25px;">
-    <div class="col-md-5">
-        @Html.Partial("Index/_FormCargaEmpleado")
+<div class="row" style="margin-top:25px;" ng-controller="menuCtrl" ng-cloak>
+    <div class="col-md-1" id="div_formCargarEmpleado">
+        <div ng-show="mostrarFormCargaEmpleado">
+            @Html.Partial("Index/_FormCargaEmpleado")
+        </div>
+        <div ng-hide="mostrarFormCargaEmpleado">
+            <button type="button" title="Cargar/Editar Empleado" class="btn btn-default" ng-click="mostrarFormCargarEmpleado()">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+        </div>
     </div>
-    <div class="col-md-7">
+    <div class="col-md-11" id="div_ListadoEmpleados">
         @Html.Partial("Index/_ListadoEmpleados")
     </div>
 </div>
