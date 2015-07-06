@@ -22,6 +22,7 @@
                 var usuarios = $resource("@Href("~/api/Usuarios")");
                 var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
                 var estadosCiviles = $resource("@Href("~/api/EstadosCiviles")");
+                var empleados = $resource("@Href("~/api/Empleados")");
 
                 return {
                     "empresas": empresas,
@@ -31,7 +32,8 @@
                     "profesiones": profesiones,
                     "usuarios": usuarios,
                     "ubicacionSucUsuarios": ubicacionSucUsuarios,
-                    "estadosCiviles": estadosCiviles
+                    "estadosCiviles": estadosCiviles,
+                    "empleados": empleados
                 }
             }
         })();
@@ -42,10 +44,10 @@
 
 }
 <div class="row" style="margin-top:25px;">
-    <div class="col-md-4">
+    <div class="col-md-5">
         @Html.Partial("Index/_FormCargaEmpleado")
     </div>
-    <div class="col-md-8">
+    <div class="col-md-7">
         @Html.Partial("Index/_ListadoEmpleados")
     </div>
 </div>

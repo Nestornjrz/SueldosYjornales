@@ -1,6 +1,6 @@
 ﻿<style type="text/css">
     .form-group {
-        margin-bottom:1px;
+        margin-bottom: 1px;
     }
 </style>
 <div class="panel panel-primary">
@@ -39,7 +39,7 @@
                 <div class="col-md-8">
                     <select name="sexo" required
                             ng-model="empleado.sexo"
-                            ng-options="r.sexo for r in sexos" class="form-control"
+                            ng-options="r.nombreSexo for r in sexos" class="form-control"
                             ng-required="true"
                             class="form-control">
                         <!--<option value="">-- Seleccione el concepto --</option>-->
@@ -70,12 +70,12 @@
                 <label for="nacionalidad" class="col-md-4 control-label">Nacionalidad</label>
                 <div class="col-md-8">
                     <select name="nacionalidad" required
-                            ng-model="empleado.nacionalidad"
+                            ng-model="empleado.nacionalidade"
                             ng-options="r.nombreNacionalidad for r in nacionalidades" class="form-control"
                             ng-required="true"
                             class="form-control">
                         <!--<option value="">-- Seleccione el concepto --</option>-->
-                        <option value="" ng-hide="empleado.sexo">Seleccione Nacionalidad</option>
+                        <option value="" ng-hide="empleado.nacionalidade">Seleccione Nacionalidad</option>
                     </select>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                             ng-required="true"
                             class="form-control">
                         <!--<option value="">-- Seleccione el concepto --</option>-->
-                        <option value="" ng-hide="empleado.profesione">Seleccione Nacionalidad</option>
+                        <option value="" ng-hide="empleado.profesione">Seleccione Profesion</option>
                     </select>
                 </div>
             </div>
@@ -104,23 +104,27 @@
                     <input type="text" class="form-control" ng-model="empleado.cantidadHijos" name="cantidadHijos" ng-required="true">
                 </div>
             </div>
-            <div class="col-md-8 col-md-offset-4" style="margin-bottom:25px;">
-                <button ng-click="vm.guardar()" ng-disabled="empleadoForm.$invalid" class="btn btn-default">
-                    <span ng-show="empleado.empleadoID == null">Cargar</span>
-                    <span ng-show="empleado.empleadoID != null">
-                        Editar Nro: {{empleado.empleadoID}}
-                    </span>
-                </button>
-                <button ng-click="vm.nuevoParaCargar()" class="btn btn-default">
-                    Nuevo
-                </button>
+            <div class="form-group" style="margin-top:10px;margin-bottom:10px;">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-2">
+                        <button ng-click="guardar()" ng-disabled="empleadoForm.$invalid" class="btn btn-default">
+                            <span ng-show="empleado.empleadoID == null">Cargar</span>
+                            <span ng-show="empleado.empleadoID != null">
+                                Editar Nro: {{empleado.empleadoID}}
+                            </span>
+                        </button>
+                        <button ng-click="nuevoParaCargar()" class="btn btn-default">
+                            Nuevo
+                        </button>
+                    </div>
+                </div>
             </div>
             <div class="col-md-12">
                 <div class="form-group">
                     <div class="panel panel-default">
                         <div class="panel-heading">Aviso</div>
                         <div class="panel-body">
-                            {{vm.mensajeDelServidor}}
+                            {{mensajeDelServidor}}
                         </div>
                     </div>
                 </div>
