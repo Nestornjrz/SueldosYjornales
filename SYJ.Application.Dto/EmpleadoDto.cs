@@ -13,7 +13,7 @@ namespace SYJ.Application.Dto {
         public System.DateTime FechaNacimiento { get; set; }
         public SexoDto Sexo { get; set; }
         public int NroCedula { get; set; }
-        public EstadoCivileDto EstadoCivil { get; set; }
+        public EstadoCivileDto EstadoCivile { get; set; }
         public NacionalidadeDto Nacionalidade { get; set; }
         public Nullable<int> NumeroIps { get; set; }
         public Nullable<int> NumeroMjt { get; set; }

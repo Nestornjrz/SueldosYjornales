@@ -40,5 +40,29 @@
             }
           );
         }
+
+        //Captura del evento
+        $rootScope.$on('actualizarEmpleado', function (event, objValRecibido) {
+            $scope.empleado = objValRecibido;
+            $scope.empleado.fechaNacimiento = new Date(objValRecibido.fechaNacimiento);
+            refrescarCampoSelect("empleado", $scope.sexos, "sexo", "sexoID");
+            refrescarCampoSelect("empleado", $scope.estadosCiviles, "estadoCivile", "estadoCivilID");
+            refrescarCampoSelect("empleado", $scope.nacionalidades, "nacionalidade", "nacionalidadID");
+            refrescarCampoSelect("empleado", $scope.profesiones, "profesione", "profesionID");
+        });
+
+        //Funciones
+        function refrescarCampoSelect(objetoPrincipal, array, nombreObjeto, campoID) {
+            if (array != null) {
+                for (var i = 0; i < array.length; i++) {
+                    if ($scope[objetoPrincipal][nombreObjeto] == null) { break; }
+                    if ($scope[objetoPrincipal][nombreObjeto][campoID] == null) { break; }
+                    if (array[i][campoID] == $scope[objetoPrincipal][nombreObjeto][campoID]) {
+                        $scope[objetoPrincipal][nombreObjeto] = array[i];
+                        break;
+                    }
+                };
+            }
+        }
     }
 })();

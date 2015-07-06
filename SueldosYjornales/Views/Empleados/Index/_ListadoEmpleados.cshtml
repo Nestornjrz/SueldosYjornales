@@ -1,1 +1,27 @@
-﻿
+﻿<h2>Listado Empleados</h2>
+<div class="row" ng-controller="listadoEmpleadosCtrl" ng-cloak style="margin-top:25px;">
+    <div class="col-md-12">
+        <table class="table table-bordered table-hover table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th colspan="2">Acciones</th>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Fecha Nac.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="o in empleados">
+                    <td><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
+                    <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
+                    <td>{{o.empleadoID}}</td>
+                    <td>{{o.nombres}}</td>
+                    <td>{{o.apellidos}}</td>
+                    <td>{{o.fechaNacimiento | date:"dd/MM/yyyy"}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <pre>{{empleados | json}}</pre>
+</div>

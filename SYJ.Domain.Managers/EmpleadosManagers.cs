@@ -28,7 +28,7 @@ namespace SYJ.Domain.Managers {
                             NombreSexo = (s.Sexo == 1)?"Masculino":"Femenino"
                         },
                         NroCedula = s.NroCedula,
-                        EstadoCivil = new EstadoCivileDto() {
+                        EstadoCivile = new EstadoCivileDto() {
                             EstadoCivilID = s.EstadoCivilID,
                             NombreEstadoCivil = s.EstadoCivile.NombreEstadoCivil
                         },
@@ -72,7 +72,7 @@ namespace SYJ.Domain.Managers {
                 empleadoDb.FechaNacimiento = eDto.FechaNacimiento;
                 empleadoDb.Sexo = eDto.Sexo.SexoID;
                 empleadoDb.NroCedula = eDto.NroCedula;
-                empleadoDb.EstadoCivilID = eDto.EstadoCivil.EstadoCivilID;
+                empleadoDb.EstadoCivilID = eDto.EstadoCivile.EstadoCivilID;
                 empleadoDb.NacionalidadID = eDto.Nacionalidade.NacionalidadID;
                 empleadoDb.NumeroIps = eDto.NumeroIps;
                 empleadoDb.NumeroMjt = eDto.NumeroMjt;
@@ -114,7 +114,7 @@ namespace SYJ.Domain.Managers {
                 empleadoDb.FechaNacimiento = eDto.FechaNacimiento;
                 empleadoDb.Sexo = eDto.Sexo.SexoID;
                 empleadoDb.NroCedula = eDto.NroCedula;
-                empleadoDb.EstadoCivilID = eDto.EstadoCivil.EstadoCivilID;
+                empleadoDb.EstadoCivilID = eDto.EstadoCivile.EstadoCivilID;
                 empleadoDb.NacionalidadID = eDto.Nacionalidade.NacionalidadID;
                 empleadoDb.NumeroIps = eDto.NumeroIps;
                 empleadoDb.NumeroMjt = eDto.NumeroMjt;
