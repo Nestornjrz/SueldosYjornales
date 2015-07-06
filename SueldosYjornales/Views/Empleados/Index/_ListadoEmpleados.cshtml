@@ -25,3 +25,33 @@
     </div>
     <pre>{{empleados | json}}</pre>
 </div>
+
+@*////////////////////////////////////////////////////////////////////
+    //////////////////////TEMPLETE DE LOS MODALES////////////////////////*@
+<script type="text/ng-template" id="ModalEliminacionEmpleado.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{objeto.mensaje}} {{objeto.id}}</h3>
+        <p class="text-muted">Esta seguro?</p>
+    </div>
+    <div class="modal-body">
+        <table class="table table-hover table-striped">
+            <tr>
+                <th>ID</th>
+                <td>{{empleado.empleadoID}}</td>
+            </tr>
+            <tr>
+                <th>Nombres</th>
+                <td>{{empleado.nombres}}</td>
+            </tr>
+            <tr>
+                <th>Apellidos</th>
+                <td>{{empleado.apellidos}}</td>
+            </tr>           
+        </table>
+        {{respuesta.mensajeDelProceso}}
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" ng-click="cancel()" id="btn_cancelar">Salir</button>
+        <button class="btn btn-primary" ng-click="ok()" id="btn_save">Eliminar</button>
+    </div>
+</script>
