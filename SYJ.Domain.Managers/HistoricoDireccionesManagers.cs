@@ -44,7 +44,28 @@ namespace SYJ.Domain.Managers {
         }
 
         public MensajeDto EliminarHistoricoDireccion(int id) {
-            throw new NotImplementedException();
+            using (var context = new SueldosJornalesEntities()) {
+                MensajeDto mensajeDto = null;
+                var historicoDireccioneDb = context.HistoricoDirecciones
+                   .Where(h => h.HistoricoDireccionID == id)
+                   .FirstOrDefault();
+                if (historicoDireccioneDb == null) {
+                    return new MensajeDto() {
+                        Error = true,
+                        MensajeDelProceso = "No existe el historico de direccion numero: " +
+                        id
+                    };
+                }
+                context.HistoricoDirecciones.Remove(historicoDireccioneDb);
+
+                mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
+                if (mensajeDto != null) { return mensajeDto; }
+
+                return new MensajeDto() {
+                    Error = false,
+                    MensajeDelProceso = "Se elimino el historico de direccion : " + id
+                };
+            }
         }
 
         public List<HistoricoDireccioneDto> ListadoHistoricoDirecciones(long empleadoID) {
