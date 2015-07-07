@@ -42,4 +42,29 @@
             </div>
         </div>
     </div>
+    <div class="col-md-7">
+        <h2>Listado de Usuarios</h2>
+        <div class="row" ng-controller="listadoHistoricoDireccionesCtrl as vm" ng-cloak style="margin-top:25px;">
+            <div class="col-md-12">
+                <table class="table table-bordered table-hover table-striped table-condensed">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Acciones</th>
+                            <th>ID</th>
+                            <th>Direccion</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="o in vm.historicoDirecciones">
+                            <td><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="vm.actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
+                            <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
+                            <td>{{o.historicoDireccionID}}</td>
+                            <td>{{o.direccion}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <pre>{{vm.historicoDirecciones | json}}</pre>
+        </div>
+    </div>
 </div>

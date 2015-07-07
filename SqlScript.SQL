@@ -1,6 +1,6 @@
 ﻿/*
 Created: 15/06/2015
-Modified: 03/07/2015
+Modified: 07/07/2015
 Model: Sueldos y Jornales
 Database: MS SQL Server 2014
 */
@@ -52,6 +52,9 @@ CREATE INDEX [IX_Empleados:ProfesionID] ON [Sj].[Empleados] ([ProfesionID])
 go
 
 CREATE INDEX [IX_Empleados:UsuarioID] ON [Sj].[Empleados] ([UsuarioID])
+go
+
+CREATE UNIQUE INDEX [IX_Unique_Empleados_Nombres_Apellidos] ON [Sj].[Empleados] ([Nombres],[Apellidos])
 go
 
 -- Add keys for table Sj.Empleados
@@ -158,10 +161,9 @@ go
 
 CREATE TABLE [Sj].[HistoricoDirecciones]
 (
- [HistoricoDireccionID] Bigint NOT NULL,
+ [HistoricoDireccionID] Bigint IDENTITY(1,1) NOT NULL,
  [EmpleadoID] Bigint NOT NULL,
  [Direccion] Text NOT NULL,
- [FechaDireccion] Date NOT NULL,
  [UsuarioID] Bigint NOT NULL,
  [MomentoCarga] Datetime2 NOT NULL
 )

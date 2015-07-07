@@ -13,6 +13,7 @@
         vm.historicoDireccion = {};
         vm.nuevoParaCargar = function () {
             vm.historicoDireccion = {};
+            vm.historicoDireccion.empleadoID = vm.empleadoID;
         };
 
         vm.guardar = function () {
@@ -35,6 +36,7 @@
         //Eventos
         $rootScope.$on('empleadoID', function (event, objValRecibido) {
             vm.historicoDireccion.empleadoID = objValRecibido;
+            vm.empleadoID = objValRecibido;
         });        
     }
 })();

@@ -238,6 +238,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoDireccion\historicoDireccionCtrl.js" />
+    <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoDireccion\listadoHistoricoDireccionesCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\menuCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Services\common.services.js" />
     <Content Include="Scripts\Empleados\Index\Controllers\empleadoCtrl.js" />
