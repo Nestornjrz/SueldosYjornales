@@ -13,7 +13,7 @@ namespace SYJ.Domain.Managers {
             throw new NotImplementedException();
         }
 
-        public MensajeDto CargarHistoricoSalario(HistoricoSalarioDto hsDto,  Guid userID) {
+        public MensajeDto CargarHistoricoSalario(HistoricoSalarioDto hsDto, Guid userID) {
             using (var context = new SueldosJornalesEntities()) {
                 MensajeDto mensajeDto = null;
                 var historicoSalarioDb = new HistoricoSalario();
@@ -48,7 +48,23 @@ namespace SYJ.Domain.Managers {
         }
 
         public List<HistoricoSalarioDto> ListadoHistoricoSalarios(long empleadoID) {
-            throw new NotImplementedException();
+            using (var context = new SueldosJornalesEntities()) {
+                var listado = context.HistoricoSalarios
+                    .Where(h => h.EmpleadoID == empleadoID)
+                    .Select(s => new HistoricoSalarioDto() {
+                        HistoricoSalarioID = s.HistoricoSalarioID,
+                        EmpleadoID = s.EmpleadoID,
+                        Cargo = new CargoDto() {
+                            CargoID = s.CargoID,
+                            NombreCargo = s.Cargo.NombreCargo,
+                            Abreviatura = s.Cargo.Abreviatura
+                        },
+                        FechaSalario = s.FechaSalario,
+                        Monto = s.Monto,
+                        Observacion = s.Observacion
+                    }).ToList();
+                return listado;
+            }
         }
     }
 }

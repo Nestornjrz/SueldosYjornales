@@ -20,6 +20,7 @@
                 var empleados = $resource("@Href("~/api/Empleados")");
                 var historicoSalarios = $resource("@Href("~/api/HistoricoSalarios")");
                 var cargos = $resource("@Href("~/api/Cargos")");
+                var historicoSalariosByEmpleadoID = $resource("@Href("~/api/HistoricoSalarios/ByEmpleadoID")");
 
                 return {
                     "ubicacionSucUsuarios": ubicacionSucUsuarios,
@@ -27,7 +28,8 @@
                     "historicoDireccionesByEmpleadoID": historicoDireccionesByEmpleadoID,
                     "empleados": empleados,
                     "historicoSalarios": historicoSalarios,
-                    "cargos": cargos
+                    "cargos": cargos,
+                    "historicoSalariosByEmpleadoID": historicoSalariosByEmpleadoID
                 }
             }
         })();
@@ -37,6 +39,7 @@
     <script src="~/Scripts/Empleados/Historicos/Controllers/HistoricoDireccion/historicoDireccionCtrl.js"></script>
     <script src="~/Scripts/Empleados/Historicos/Controllers/HistoricoDireccion/listadoHistoricoDireccionesCtrl.js"></script>
     <script src="~/Scripts/Empleados/Historicos/Controllers/HistoricoSalario/historicoSalariosCtrl.js"></script>
+<script src="~/Scripts/Empleados/Historicos/Controllers/HistoricoSalario/listadoHitoricoSalariosCtrl.js"></script>
 }
 <style type="text/css">
     .form-group {
