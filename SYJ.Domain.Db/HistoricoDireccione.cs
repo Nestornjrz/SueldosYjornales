@@ -17,7 +17,6 @@ namespace SYJ.Domain.Db
         public long HistoricoDireccionID { get; set; }
         public long EmpleadoID { get; set; }
         public string Direccion { get; set; }
-        public System.DateTime FechaDireccion { get; set; }
         public long UsuarioID { get; set; }
         public System.DateTime MomentoCarga { get; set; }
     

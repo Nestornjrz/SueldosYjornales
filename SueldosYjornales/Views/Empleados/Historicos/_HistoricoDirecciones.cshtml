@@ -5,6 +5,7 @@
             <div class="panel-body">
                 <form class="form-horizontal" role="form" ng-controller="historicoDireccionCtrl as vm" name="historicoDireccionForm" ng-cloak>
                     <div class="col-md-12">
+                        @*<input type="text" class="form-control" ng-model="vm.historicoDireccion.empleadoID" name="empleadoID" ng-required="true">*@
                         <div class="form-group">
                             <!--<label for="observacion" class="col-md-3 control-label">Observacion</label>-->
                             <div class="col-md-12">
@@ -36,7 +37,7 @@
                     </div>
                     <pre>
     {{vm.historicoDireccion | json}}
-    </pre>
+    </pre>            
                 </form>
             </div>
         </div>

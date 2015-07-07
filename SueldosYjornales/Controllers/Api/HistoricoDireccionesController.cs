@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 
 namespace SueldosYjornales.Controllers.Api {
     public class HistoricoDireccionesController : ApiController {
@@ -13,6 +14,14 @@ namespace SueldosYjornales.Controllers.Api {
         public HttpResponseMessage Get() {
             HistoricoDireccionesManagers hdm = new HistoricoDireccionesManagers();
             List<HistoricoDireccioneDto> listado = hdm.ListadoHistoricoDirecciones();
+            return Request.CreateResponse<List<HistoricoDireccioneDto>>(HttpStatusCode.OK, listado);
+        }
+
+        [HttpGet]
+        [Route("api/HistoricoDirecciones/ByEmpleadoID")]
+        public HttpResponseMessage GetByEmpleadosID(long empleadoID) {
+            HistoricoDireccionesManagers hdm = new HistoricoDireccionesManagers();
+            List<HistoricoDireccioneDto> listado = hdm.ListadoHistoricoDirecciones(empleadoID);
             return Request.CreateResponse<List<HistoricoDireccioneDto>>(HttpStatusCode.OK, listado);
         }
 
@@ -24,7 +33,7 @@ namespace SueldosYjornales.Controllers.Api {
         // POST: api/HistoricoDirecciones
         public HttpResponseMessage Post(HistoricoDireccioneDto hdDto) {
             HistoricoDireccionesManagers hdm = new HistoricoDireccionesManagers();
-            MensajeDto mensaje = hdm.CargarHistoricoDirecciones(hdDto);
+            MensajeDto mensaje = hdm.CargarHistoricoDirecciones(hdDto, Guid.Parse(User.Identity.GetUserId()));
             return Request.CreateResponse(HttpStatusCode.Created, mensaje);
         }
 

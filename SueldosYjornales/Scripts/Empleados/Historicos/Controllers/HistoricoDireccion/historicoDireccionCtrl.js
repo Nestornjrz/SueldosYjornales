@@ -5,11 +5,11 @@
         .module('sueldosYjornalesApp')
         .controller('historicoDireccionCtrl', historicoDireccionCtrl);
 
-    historicoDireccionCtrl.$inject = ['$location']; 
+    historicoDireccionCtrl.$inject = ['$rootScope', 'sYjResource'];
 
-    function historicoDireccionCtrl($location) {
+    function historicoDireccionCtrl($rootScope, sYjResource) {
         /* jshint validthis:true */
-        var vm = this;
+        var vm = this;     
         vm.historicoDireccion = {};
         vm.nuevoParaCargar = function () {
             vm.historicoDireccion = {};
@@ -32,5 +32,9 @@
             }
           );
         }
+        //Eventos
+        $rootScope.$on('empleadoID', function (event, objValRecibido) {
+            vm.historicoDireccion.empleadoID = objValRecibido;
+        });        
     }
 })();

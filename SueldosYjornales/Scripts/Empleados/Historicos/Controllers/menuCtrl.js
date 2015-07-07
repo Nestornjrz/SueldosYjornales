@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('menuCtrl', menuCtrl);
 
-    menuCtrl.$inject = ['$rootScope'];
+    menuCtrl.$inject = ['$rootScope', '$timeout'];
 
-    function menuCtrl($rootScope) {
+    function menuCtrl($rootScope, $timeout) {
         var vm = this;
         vm.menu = {};
         vm.menu.introduccion = true;
@@ -16,12 +16,17 @@
             ocultar();
             vm.menu.historicoDirecciones.class = "active";
             vm.menu.historicoDirecciones.mostrar = true;
-        }     
-      
+        }
+
         //////
         function ocultar() {
             vm.menu.introduccion = false;
             vm.menu.historicoDirecciones = {};
         }
+
+        //Eventos
+        $timeout(function () {
+            $rootScope.$broadcast('empleadoID', vm.empleadoID);
+        });
     }
 })();

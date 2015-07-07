@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Historicos";
+    long empleadoID = ViewBag.empleadoID;
 }
 @section scripts{
     <script src="~/Scripts/Empleados/Historicos/Services/common.services.js"></script>
@@ -15,10 +16,12 @@
             function sYjResource($resource) {
                 var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
                 var historicoDirecciones = $resource("@Href("~/api/HistoricoDirecciones")");
+                var historicoDireccionesByEmpleadoID = $resource("@Href("~/api/HistoricoDirecciones/ByEmpleadoID")");
 
                 return {
                     "ubicacionSucUsuarios": ubicacionSucUsuarios,
-                    "historicoDirecciones": historicoDirecciones
+                    "historicoDirecciones": historicoDirecciones,
+                    "historicoDireccionesByEmpleadoID": historicoDireccionesByEmpleadoID
                 }
             }
         })();
@@ -27,8 +30,8 @@
     <script src="~/Scripts/Empleados/Historicos/Controllers/menuCtrl.js"></script>
     <script src="~/Scripts/Empleados/Historicos/Controllers/HistoricoDireccion/historicoDireccionCtrl.js"></script>
 }
-<h2>Padrones</h2>
-<div class="container" ng-controller="menuCtrl as vm" ng-cloak>
+<h2>Historicos</h2>
+<div class="container" ng-controller="menuCtrl as vm" ng-cloak ng-init="vm.empleadoID = @empleadoID">
     <ul class="nav nav-tabs" style="margin-top:25px;">
         <li role="presentation" class="{{vm.menu.historicoDirecciones.class}}">
             <a href="#" ng-click="vm.historicoDireccionesFn()">Direcciones</a>
@@ -41,5 +44,5 @@
         <div class="alert alert-info">
             Por favor elija uno de las opciones a cargar dentro de los padrones
         </div>
-    </div>
+    </div>   
 </div>

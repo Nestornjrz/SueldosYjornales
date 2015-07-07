@@ -29,7 +29,6 @@ namespace SYJ.Domain.Db
         public virtual DbSet<Empleado> Empleados { get; set; }
         public virtual DbSet<Empresa> Empresas { get; set; }
         public virtual DbSet<EstadoCivile> EstadoCiviles { get; set; }
-        public virtual DbSet<HistoricoDireccione> HistoricoDirecciones { get; set; }
         public virtual DbSet<HistoricoIngresoSalida> HistoricoIngresoSalidas { get; set; }
         public virtual DbSet<HistoricoSalario> HistoricoSalarios { get; set; }
         public virtual DbSet<HistoricosHorario> HistoricosHorarios { get; set; }
@@ -43,5 +42,6 @@ namespace SYJ.Domain.Db
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<UbicacionSucUsuario> UbicacionSucUsuarios { get; set; }
+        public virtual DbSet<HistoricoDireccione> HistoricoDirecciones { get; set; }
     }
 }
