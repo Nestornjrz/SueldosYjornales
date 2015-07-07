@@ -23,5 +23,9 @@
             vm.historicoDirecciones = sYjResource
               .historicoDireccionesByEmpleadoID.query({ 'empleadoID': vm.empleadoID });
         });
+
+        vm.actualizar = function (historicoDireccion) {
+            $rootScope.$broadcast('actualizarHistoricoDireccion', historicoDireccion);
+        }
     }
 })();

@@ -14,6 +14,9 @@ namespace SYJ.Domain.Managers {
         }
 
         public MensajeDto CargarHistoricoDirecciones(HistoricoDireccioneDto hdDto, Guid userID) {
+            if (hdDto.HistoricoDireccionID > 0) {
+                return EditarHistoricoDirecciones(hdDto);
+            }
             using (var context = new SueldosJornalesEntities()) {
                 MensajeDto mensajeDto = null;
                 var historicoDireccioneDb = new HistoricoDireccione();
@@ -53,6 +56,31 @@ namespace SYJ.Domain.Managers {
                         Direccion = s.Direccion
                     }).ToList();
                 return listado;
+            }
+        }
+        private MensajeDto EditarHistoricoDirecciones(HistoricoDireccioneDto hdDto) {
+            using (var context = new SueldosJornalesEntities()) {
+                MensajeDto mensajeDto = null;
+                var historicoDireccioneDb = context.HistoricoDirecciones
+                    .Where(h => h.HistoricoDireccionID == hdDto.HistoricoDireccionID)
+                    .FirstOrDefault();
+                if (historicoDireccioneDb == null) {
+                    return new MensajeDto() {
+                        Error = true,
+                        MensajeDelProceso = "No existe el historico de direccion numero: " + hdDto.HistoricoDireccionID
+                    };
+                }             
+                historicoDireccioneDb.Direccion = hdDto.Direccion;
+
+                context.Entry(historicoDireccioneDb).State = System.Data.Entity.EntityState.Modified;
+                mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
+                if (mensajeDto != null) { return mensajeDto; }
+
+                return new MensajeDto() {
+                    Error = false,
+                    MensajeDelProceso = "Se Edito el historico de direccion : " + hdDto.HistoricoDireccionID,
+                    ObjetoDto = hdDto
+                };
             }
         }
     }

@@ -9,7 +9,7 @@
 
     function historicoDireccionCtrl($rootScope, sYjResource) {
         /* jshint validthis:true */
-        var vm = this;     
+        var vm = this;
         vm.historicoDireccion = {};
         vm.nuevoParaCargar = function () {
             vm.historicoDireccion = {};
@@ -37,6 +37,10 @@
         $rootScope.$on('empleadoID', function (event, objValRecibido) {
             vm.historicoDireccion.empleadoID = objValRecibido;
             vm.empleadoID = objValRecibido;
-        });        
+        });
+
+        $rootScope.$on('actualizarHistoricoDireccion', function (event, objValRecibido) {
+            vm.historicoDireccion = objValRecibido;
+        });
     }
 })();
