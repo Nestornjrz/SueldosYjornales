@@ -17,11 +17,15 @@
                 var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
                 var historicoDirecciones = $resource("@Href("~/api/HistoricoDirecciones")");
                 var historicoDireccionesByEmpleadoID = $resource("@Href("~/api/HistoricoDirecciones/ByEmpleadoID")");
+                var empleados = $resource("@Href("~/api/Empleados")");
+                var historicoSalarios = $resource("@Href("~/api/HistoricoSalarios")");
 
                 return {
                     "ubicacionSucUsuarios": ubicacionSucUsuarios,
                     "historicoDirecciones": historicoDirecciones,
-                    "historicoDireccionesByEmpleadoID": historicoDireccionesByEmpleadoID
+                    "historicoDireccionesByEmpleadoID": historicoDireccionesByEmpleadoID,
+                    "empleados": empleados,
+                    "historicoSalarios": historicoSalarios
                 }
             }
         })();
@@ -30,20 +34,62 @@
     <script src="~/Scripts/Empleados/Historicos/Controllers/menuCtrl.js"></script>
     <script src="~/Scripts/Empleados/Historicos/Controllers/HistoricoDireccion/historicoDireccionCtrl.js"></script>
     <script src="~/Scripts/Empleados/Historicos/Controllers/HistoricoDireccion/listadoHistoricoDireccionesCtrl.js"></script>
+    <script src="~/Scripts/Empleados/Historicos/Controllers/HistoricoSalario/historicoSalariosCtrl.js"></script>
 }
-<h2>Historicos</h2>
+
 <div class="container" ng-controller="menuCtrl as vm" ng-cloak ng-init="vm.empleadoID = @empleadoID">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h2 class="text-center">
+                {{vm.empleado.objetoDto.nombres}} {{vm.empleado.objetoDto.apellidos}}
+            </h2>
+            <table class="table table-bordered table-condensed table-responsive table-striped">
+                <tr>
+                    <th>Fecha Nacimiento</th>
+                    <td>{{vm.empleado.objetoDto.fechaNacimiento | date:"dd/MM/yyyy"}}</td>
+
+                    <th>Sexo</th>
+                    <td>{{vm.empleado.objetoDto.sexo.nombreSexo}}</td>
+                </tr>
+                <tr>
+                    <th>Numero Cedula</th>
+                    <td>{{vm.empleado.objetoDto.nroCedula}}</td>
+
+                    <th>Estado Civil</th>
+                    <td>{{vm.empleado.objetoDto.estadoCivile.nombreEstadoCivil}}</td>
+                </tr>
+                <tr>
+                    <th>Nacionalidad</th>
+                    <td>{{vm.empleado.objetoDto.nacionalidade.nombreNacionalidad}}</td>
+
+                    <th>Profesion</th>
+                    <td>{{vm.empleado.objetoDto.profesione.nombreProfesion}}</td>
+                </tr>
+                <tr>
+                    <th>Cantidad Hijos</th>
+                    <td>{{vm.empleado.objetoDto.cantidadHijos}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
     <ul class="nav nav-tabs" style="margin-top:25px;">
         <li role="presentation" class="{{vm.menu.historicoDirecciones.class}}">
             <a href="#" ng-click="vm.historicoDireccionesFn()">Direcciones</a>
         </li>
+        <li role="presentation" class="{{vm.menu.salarios.class}}">
+            <a href="#" ng-click="vm.salariosFn()">Salarios</a>
+        </li>
     </ul>
     <div style="margin-top:25px;" ng-show="vm.menu.historicoDirecciones.mostrar">
         @Html.Partial("Historicos/_HistoricoDirecciones")
+    </div>
+    <div style="margin-top:25px;" ng-show="vm.menu.salarios.mostrar">
+        @Html.Partial("Historicos/_Salarios")
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
         <div class="alert alert-info">
             Por favor elija uno de las opciones a cargar dentro de los historicos
         </div>
     </div>
+    @*<pre>{{vm.empleado | json}}</pre>*@
 </div>

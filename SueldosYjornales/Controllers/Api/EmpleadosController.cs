@@ -21,9 +21,11 @@ namespace SueldosYjornales.Controllers.Api
         }
 
         // GET: api/Empleados/5
-        public string Get(int id)
+        public HttpResponseMessage Get(int id)
         {
-            return "value";
+            EmpleadosManagers em = new EmpleadosManagers();
+            MensajeDto mensaje = em.RecuperarEmpleado(id);
+            return Request.CreateResponse(HttpStatusCode.OK, mensaje);
         }
 
         // POST: api/Empleados

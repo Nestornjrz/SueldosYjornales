@@ -25,7 +25,7 @@ namespace SYJ.Domain.Managers {
                         FechaNacimiento = s.FechaNacimiento,
                         Sexo = new SexoDto() {
                             SexoID = s.Sexo,
-                            NombreSexo = (s.Sexo == 1)?"Masculino":"Femenino"
+                            NombreSexo = (s.Sexo == 1) ? "Masculino" : "Femenino"
                         },
                         NroCedula = s.NroCedula,
                         EstadoCivile = new EstadoCivileDto() {
@@ -153,6 +153,60 @@ namespace SYJ.Domain.Managers {
                 return new MensajeDto() {
                     Error = false,
                     MensajeDelProceso = "Se elimino el empleado : " + id
+                };
+            }
+        }
+
+        public MensajeDto RecuperarEmpleado(int id) {
+            using (var context = new SueldosJornalesEntities()) {
+                var empleadoDto = context.Empleados.
+                      Select(s => new EmpleadoDto() {
+                          EmpleadoID = s.EmpleadoID,
+                          Sucursale = new SucursaleDto() {
+                              SucursalID = s.SucursalID,
+                              NombreSucursal = s.Sucursale.NombreSucursal,
+                              Abreviatura = s.Sucursale.Abreviatura,
+                              Descripcion = s.Sucursale.Descripcion
+                          },
+                          Nombres = s.Nombres,
+                          Apellidos = s.Apellidos,
+                          FechaNacimiento = s.FechaNacimiento,
+                          Sexo = new SexoDto() {
+                              SexoID = s.Sexo,
+                              NombreSexo = (s.Sexo == 1) ? "Masculino" : "Femenino"
+                          },
+                          NroCedula = s.NroCedula,
+                          EstadoCivile = new EstadoCivileDto() {
+                              EstadoCivilID = s.EstadoCivilID,
+                              NombreEstadoCivil = s.EstadoCivile.NombreEstadoCivil
+                          },
+                          Nacionalidade = new NacionalidadeDto() {
+                              NacionalidadID = s.NacionalidadID,
+                              NombreNacionalidad = s.Nacionalidade.NombreNacionalidad
+                          },
+                          NumeroIps = s.NumeroIps,
+                          NumeroMjt = s.NumeroMjt,
+                          Profesione = new ProfesioneDto() {
+                              ProfesionID = s.ProfesionID,
+                              NombreProfesion = s.Profesione.NombreProfesion,
+                              Abreviatura = s.Profesione.Abreviatura,
+                              Descripcion = s.Profesione.Descripcion
+                          },
+                          CantidadHijos = s.CantidadHijos
+                      })
+                  .Where(e => e.EmpleadoID == id)
+                  .FirstOrDefault();
+                if (empleadoDto == null) {
+                    return new MensajeDto() {
+                        Error = true,
+                        MensajeDelProceso = "El empleado ID : " + id + " no existe en la base de datos"
+                    };
+                }
+                return new MensajeDto() {
+                    Error = false,
+                    MensajeDelProceso = "Se encontro al empleado : " + empleadoDto.Nombres + ' ' +
+                    empleadoDto.Apellidos,
+                    ObjetoDto = empleadoDto
                 };
             }
         }
