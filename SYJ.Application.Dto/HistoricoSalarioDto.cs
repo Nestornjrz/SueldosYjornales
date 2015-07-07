@@ -6,5 +6,11 @@ using System.Threading.Tasks;
 
 namespace SYJ.Application.Dto {
     public class HistoricoSalarioDto {
+        public long HistoricoSalarioID { get; set; }
+        public long EmpleadoID { get; set; }
+        public decimal Monto { get; set; }
+        public CargoDto Cargo { get; set; }
+        public string Observacion { get; set; }
+        public System.DateTime FechaSalario { get; set; }       
     }
 }

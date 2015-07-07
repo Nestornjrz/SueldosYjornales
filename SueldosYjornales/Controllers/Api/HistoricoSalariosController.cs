@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 
 namespace SueldosYjornales.Controllers.Api
 {
@@ -37,7 +38,7 @@ namespace SueldosYjornales.Controllers.Api
         public HttpResponseMessage Post(HistoricoSalarioDto hsDto)
         {
             HistoricoSalariosManagers hsm = new HistoricoSalariosManagers();
-            MensajeDto mensaje = hsm.CargarHistoricoSalario(hsDto);
+            MensajeDto mensaje = hsm.CargarHistoricoSalario(hsDto, Guid.Parse(User.Identity.GetUserId()));
             return Request.CreateResponse(HttpStatusCode.Created, mensaje);
         }
 

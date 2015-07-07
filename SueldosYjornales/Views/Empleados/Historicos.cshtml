@@ -19,13 +19,15 @@
                 var historicoDireccionesByEmpleadoID = $resource("@Href("~/api/HistoricoDirecciones/ByEmpleadoID")");
                 var empleados = $resource("@Href("~/api/Empleados")");
                 var historicoSalarios = $resource("@Href("~/api/HistoricoSalarios")");
+                var cargos = $resource("@Href("~/api/Cargos")");
 
                 return {
                     "ubicacionSucUsuarios": ubicacionSucUsuarios,
                     "historicoDirecciones": historicoDirecciones,
                     "historicoDireccionesByEmpleadoID": historicoDireccionesByEmpleadoID,
                     "empleados": empleados,
-                    "historicoSalarios": historicoSalarios
+                    "historicoSalarios": historicoSalarios,
+                    "cargos": cargos
                 }
             }
         })();
