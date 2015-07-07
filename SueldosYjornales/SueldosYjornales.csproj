@@ -177,6 +177,7 @@
     <Compile Include="Controllers\Api\EmpleadosController.cs" />
     <Compile Include="Controllers\Api\EmpresasController.cs" />
     <Compile Include="Controllers\Api\EstadosCivilesController.cs" />
+    <Compile Include="Controllers\Api\HistoricoDireccionesController.cs" />
     <Compile Include="Controllers\Api\NacionalidadesController.cs" />
     <Compile Include="Controllers\Api\ProfesionesController.cs" />
     <Compile Include="Controllers\Api\SucursalesController.cs" />

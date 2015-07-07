@@ -14,9 +14,11 @@
 
             function sYjResource($resource) {
                 var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
+                var historicoDirecciones = $resource("@Href("~/api/HistoricoDirecciones")");
 
                 return {
-                    "ubicacionSucUsuarios": ubicacionSucUsuarios
+                    "ubicacionSucUsuarios": ubicacionSucUsuarios,
+                    "historicoDirecciones": historicoDirecciones
                 }
             }
         })();
