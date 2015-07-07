@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Historicos";
+}
+@section scripts{
+    <script src="~/Scripts/Empleados/Historicos/Services/common.services.js"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            angular
+                .module('sueldosYjornalesApp')
+                .factory('sYjResource', sYjResource);
+
+            sYjResource.$inject = ['$resource'];
+
+            function sYjResource($resource) {
+                var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
+
+                return {
+                    "ubicacionSucUsuarios": ubicacionSucUsuarios
+                }
+            }
+        })();
+    </script>
+    @*controladores*@
+    <script src="~/Scripts/Empleados/Historicos/Controllers/menuCtrl.js"></script>
+    <script src="~/Scripts/Empleados/Historicos/Controllers/HistoricoDireccion/historicoDireccionCtrl.js"></script>
+}
+<h2>Padrones</h2>
+<div class="container" ng-controller="menuCtrl as vm" ng-cloak>
+    <ul class="nav nav-tabs" style="margin-top:25px;">
+        <li role="presentation" class="{{vm.menu.historicoDirecciones.class}}">
+            <a href="#" ng-click="vm.historicoDireccionesFn()">Direcciones</a>
+        </li>
+    </ul>
+    <div style="margin-top:25px;" ng-show="vm.menu.historicoDirecciones.mostrar">
+        @Html.Partial("Historicos/_HistoricoDirecciones")
+    </div>
+    <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
+        <div class="alert alert-info">
+            Por favor elija uno de las opciones a cargar dentro de los padrones
+        </div>
+    </div>
+</div>

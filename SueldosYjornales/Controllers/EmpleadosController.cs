@@ -13,5 +13,11 @@ namespace SueldosYjornales.Controllers
         {
             return View();
         }
+
+        // GET: Empleados/Historicos/5
+        public ActionResult Historicos(int id) {
+            return View();
+        }
+
     }
 }

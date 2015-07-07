@@ -236,6 +236,9 @@
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoDireccion\historicoDireccionCtrl.js" />
+    <Content Include="Scripts\Empleados\Historicos\Controllers\menuCtrl.js" />
+    <Content Include="Scripts\Empleados\Historicos\Services\common.services.js" />
     <Content Include="Scripts\Empleados\Index\Controllers\empleadoCtrl.js" />
     <Content Include="Scripts\Empleados\Index\Controllers\listadoEmpleadosCtrl.js" />
     <Content Include="Scripts\Empleados\Index\Controllers\menuCtrl.js" />
@@ -1085,11 +1088,15 @@
     <Content Include="Views\RolesAdmin\Details.cshtml" />
     <Content Include="Views\RolesAdmin\Edit.cshtml" />
     <Content Include="Views\RolesAdmin\Index.cshtml" />
+    <Content Include="Views\Empleados\Historicos.cshtml" />
+    <Content Include="Views\Empleados\Historicos\_Salarios.cshtml" />
+    <Content Include="Views\Empleados\Historicos\_HistoricoDirecciones.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\" />
     <Folder Include="Views\Home\Index\" />
+    <Folder Include="Views\Probando\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

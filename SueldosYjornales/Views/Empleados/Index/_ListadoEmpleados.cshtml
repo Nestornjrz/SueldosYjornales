@@ -14,12 +14,13 @@
                     <th ng-hide="mostrarFormCargaEmpleado">Nacionalidad</th>
                     <th ng-hide="mostrarFormCargaEmpleado">Profesion</th>
                     <th ng-hide="mostrarFormCargaEmpleado">Cant. Hijos</th>
+                    <th>Historicos</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="o in empleados">
-                    <td><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
-                    <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
+                    <td class="text-center"><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
+                    <td class="text-center"><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
                     <td>{{o.empleadoID}}</td>
                     <td>{{o.nombres}}</td>
                     <td>{{o.apellidos}}</td>
@@ -29,6 +30,7 @@
                     <td ng-hide="mostrarFormCargaEmpleado">{{o.nacionalidade.nombreNacionalidad}}</td>
                     <td ng-hide="mostrarFormCargaEmpleado">{{o.profesione.nombreProfesion}}</td>
                     <td ng-hide="mostrarFormCargaEmpleado">{{o.cantidadHijos}}</td>
+                    <td class="text-center"><a title="Actualizar" target="_blank" href="@Url.Action("Historicos","Empleados")/{{o.empleadoID}}" class="btn btn-warning btn-sm"> <i class="glyphicon glyphicon-new-window" /></a></td>
                 </tr>
             </tbody>
         </table>
