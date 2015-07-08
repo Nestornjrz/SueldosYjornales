@@ -78,7 +78,28 @@ namespace SYJ.Domain.Managers {
         }
 
         public MensajeDto EliminarHistoricoSalario(int id) {
-            throw new NotImplementedException();
+            using (var context = new SueldosJornalesEntities()) {
+                MensajeDto mensajeDto = null;
+                var historicoSalarioDb = context.HistoricoSalarios
+                    .Where(h => h.HistoricoSalarioID == id)
+                    .FirstOrDefault();
+                if (historicoSalarioDb == null) {
+                    return new MensajeDto() {
+                        Error = true,
+                        MensajeDelProceso = "No existe el historico de salario : "
+                        + id
+                    };
+                }
+                context.HistoricoSalarios.Remove(historicoSalarioDb);
+
+                mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
+                if (mensajeDto != null) { return mensajeDto; }
+
+                return new MensajeDto() {
+                    Error = false,
+                    MensajeDelProceso = "Se elimino el historico de salario : " + id
+                };
+            }
         }
 
         public List<HistoricoSalarioDto> ListadoHistoricoSalarios(long empleadoID) {

@@ -12,6 +12,11 @@
         var vm = this;
         vm.historicoSalario = {};
         vm.cargos = sYjResource.cargos.query();
+
+        vm.nuevoParaCargar = function () {
+            vm.historicoSalario = {};
+            vm.historicoSalario.empleadoID = vm.empleadoID;
+        };
         
         vm.guardar = function () {
             sYjResource.historicoSalarios.save(vm.historicoSalario)
