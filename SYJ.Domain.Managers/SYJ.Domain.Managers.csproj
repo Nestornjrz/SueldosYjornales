@@ -55,6 +55,7 @@
     <Compile Include="EmpresasManagers.cs" />
     <Compile Include="EstadosCivilesManagers.cs" />
     <Compile Include="HistoricoDireccionesManagers.cs" />
+    <Compile Include="HistoricoIngresoSalidasManagers.cs" />
     <Compile Include="HistoricoSalariosManagers.cs" />
     <Compile Include="NacionalidadesManagers.cs" />
     <Compile Include="ProfesionesManagers.cs" />
