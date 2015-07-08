@@ -10,7 +10,10 @@
     function listadoHitoricoSalariosCtrl($rootScope, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
-       
+        
+        vm.actualizar = function (historicoSalario) {
+            $rootScope.$broadcast('actualizarhistoricoSalario', historicoSalario);
+        }
 
         //Eventos
         $rootScope.$on('empleadoID', function (event, objValRecibido) {

@@ -41,6 +41,12 @@
             vm.empleadoID = objValRecibido;
         });
 
+        $rootScope.$on('actualizarhistoricoSalario', function (event,objValRecibido) {
+            vm.historicoSalario = objValRecibido;
+            refrescarCampoSelect("historicoSalario", vm.cargos, "cargo", "cargoID");
+            vm.historicoSalario.fechaSalario = new Date(objValRecibido.fechaSalario);
+        });
+
         //Funciones
         function refrescarCampoSelect(objetoPrincipal, array, nombreObjeto, campoID) {
             if (array != null) {

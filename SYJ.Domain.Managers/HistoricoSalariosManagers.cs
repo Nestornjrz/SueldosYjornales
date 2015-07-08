@@ -14,6 +14,9 @@ namespace SYJ.Domain.Managers {
         }
 
         public MensajeDto CargarHistoricoSalario(HistoricoSalarioDto hsDto, Guid userID) {
+            if (hsDto.HistoricoSalarioID > 0) {
+                return EditarHistoricoSalario(hsDto);
+            }
             using (var context = new SueldosJornalesEntities()) {
                 MensajeDto mensajeDto = null;
                 var historicoSalarioDb = new HistoricoSalario();
@@ -38,6 +41,37 @@ namespace SYJ.Domain.Managers {
                 return new MensajeDto() {
                     Error = false,
                     MensajeDelProceso = "Se cargo el historico salario : " + hsDto.HistoricoSalarioID,
+                    ObjetoDto = hsDto
+                };
+            }
+        }
+
+        private MensajeDto EditarHistoricoSalario(HistoricoSalarioDto hsDto) {
+            using (var context = new SueldosJornalesEntities()) {
+                MensajeDto mensajeDto = null;
+                var historicoSalarioDb = context.HistoricoSalarios
+                    .Where(h => h.HistoricoSalarioID == hsDto.HistoricoSalarioID)
+                    .FirstOrDefault();
+                if (historicoSalarioDb == null) {
+                    return new MensajeDto() {
+                        Error = true,
+                        MensajeDelProceso = "No existe el historico de salario : " 
+                        + hsDto.HistoricoSalarioID 
+                    };
+                }
+                historicoSalarioDb.Monto = hsDto.Monto;
+                historicoSalarioDb.CargoID = hsDto.Cargo.CargoID;
+                historicoSalarioDb.Observacion = hsDto.Observacion;
+                historicoSalarioDb.FechaSalario = hsDto.FechaSalario;
+
+                context.Entry(historicoSalarioDb).State = System.Data.Entity.EntityState.Modified;
+
+                mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
+                if (mensajeDto != null) { return mensajeDto; }
+
+                return new MensajeDto() {
+                    Error = false,
+                    MensajeDelProceso = "Se Edito el historico de salario : " + hsDto.HistoricoSalarioID,
                     ObjetoDto = hsDto
                 };
             }
