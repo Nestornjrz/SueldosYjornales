@@ -98,6 +98,9 @@
         <li role="presentation" class="{{vm.menu.ingresoSalidas.class}}">
             <a href="#" ng-click="vm.ingresoSalidasFn()">Ingresos y Salidas</a>
         </li>
+        <li role="presentation" class="{{vm.menu.horarios.class}}">
+            <a href="#" ng-click="vm.horariosFn()">Horarios</a>
+        </li>
     </ul>
     <div style="margin-top:25px;" ng-show="vm.menu.historicoDirecciones.mostrar">
         @Html.Partial("Historicos/_HistoricoDirecciones")
@@ -107,6 +110,9 @@
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.ingresoSalidas.mostrar">
         @Html.Partial("Historicos/_IngresosSalidas")
+    </div>
+    <div style="margin-top:25px;" ng-show="vm.menu.horarios.mostrar">
+        @Html.Partial("Historicos/_Horarios")
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
         <div class="alert alert-info">

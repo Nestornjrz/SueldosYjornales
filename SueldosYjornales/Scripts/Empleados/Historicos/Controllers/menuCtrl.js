@@ -27,6 +27,11 @@
             vm.menu.ingresoSalidas.class = "active";
             vm.menu.ingresoSalidas.mostrar = true;
         }
+        vm.horariosFn = function () {
+            ocultar();
+            vm.menu.horarios.class = "active";
+            vm.menu.horarios.mostrar = true;
+        }
 
         //////
         function ocultar() {
@@ -34,6 +39,7 @@
             vm.menu.historicoDirecciones = {};
             vm.menu.salarios = {};
             vm.menu.ingresoSalidas = {};
+            vm.menu.horarios = {};
         }
 
         //Eventos
