@@ -22,12 +22,18 @@
             vm.menu.salarios.class = "active";
             vm.menu.salarios.mostrar = true;
         }
+        vm.ingresoSalidasFn = function () {
+            ocultar();
+            vm.menu.ingresoSalidas.class = "active";
+            vm.menu.ingresoSalidas.mostrar = true;
+        }
 
         //////
         function ocultar() {
             vm.menu.introduccion = false;
             vm.menu.historicoDirecciones = {};
             vm.menu.salarios = {};
+            vm.menu.ingresoSalidas = {};
         }
 
         //Eventos

@@ -1096,6 +1096,7 @@
     <Content Include="Views\Empleados\Historicos.cshtml" />
     <Content Include="Views\Empleados\Historicos\_Salarios.cshtml" />
     <Content Include="Views\Empleados\Historicos\_HistoricoDirecciones.cshtml" />
+    <Content Include="Views\Empleados\Historicos\_IngresosSalidas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

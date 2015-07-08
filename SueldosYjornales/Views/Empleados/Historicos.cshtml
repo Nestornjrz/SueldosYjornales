@@ -88,12 +88,18 @@
         <li role="presentation" class="{{vm.menu.salarios.class}}">
             <a href="#" ng-click="vm.salariosFn()">Salarios</a>
         </li>
+        <li role="presentation" class="{{vm.menu.ingresoSalidas.class}}">
+            <a href="#" ng-click="vm.ingresoSalidasFn()">Ingresos y Salidas</a>
+        </li>
     </ul>
     <div style="margin-top:25px;" ng-show="vm.menu.historicoDirecciones.mostrar">
         @Html.Partial("Historicos/_HistoricoDirecciones")
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.salarios.mostrar">
         @Html.Partial("Historicos/_Salarios")
+    </div>
+    <div style="margin-top:25px;" ng-show="vm.menu.ingresoSalidas.mostrar">
+        @Html.Partial("Historicos/_IngresosSalidas")
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
         <div class="alert alert-info">
