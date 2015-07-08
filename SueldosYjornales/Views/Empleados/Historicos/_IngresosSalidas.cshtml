@@ -1,1 +1,65 @@
-﻿
+﻿<div class="row">
+    <div class="col-md-5">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Ingresos y salidas</div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" ng-controller="historicoIngresoSalidasCtrl as vm" name="historicoIngresoSalidasForm" ng-cloak>
+                    <div class="col-md-12">
+
+
+                        <div class="form-group">
+                            <label for="fechaIngreso" class="col-md-4 control-label">Fecha Ingreso</label>
+                            <div class="col-sm-8">
+                                <p class="input-group">
+                                    <input type="date" id="fechaIngreso"
+                                           name="fechaIngreso"
+                                           class="form-control"
+                                           ng-model="vm.historicoIngresoSalida.fechaIngreso"
+                                           ng-required="true" />
+                                </p>
+                                <div style="color:red" ng-show="historicoIngresoSalidasForm.fechaIngreso.$dirty && historicoIngresoSalidasForm.fechaIngreso.$invalid">
+                                    <span ng-show="historicoIngresoSalidasForm.fechaIngreso.$error.date">No es un formato valido</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="fechaIngreso" class="col-md-4 control-label">Fecha Salida</label>
+                            <div class="col-sm-8">
+                                <p class="input-group">
+                                    <input type="date" id="fechaSalida"
+                                           name="fechaSalida"
+                                           class="form-control"
+                                           ng-model="vm.historicoIngresoSalida.fechaSalida"
+                                           ng-required="true" />
+                                </p>
+                                <div style="color:red" ng-show="historicoIngresoSalidasForm.fechaSalida.$dirty && historicoIngresoSalidasForm.fechaSalida.$invalid">
+                                    <span ng-show="historicoIngresoSalidasForm.fechaSalida.$error.date">No es un formato valido</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <button ng-click="vm.guardar()" ng-disabled="historicoIngresoSalidasForm.$invalid" class="btn btn-default">
+                                    <span ng-show="vm.historicoIngresoSalida.historicoIngresoSalidaID == null">Cargar</span>
+                                    <span ng-show="vm.historicoIngresoSalida.historicoIngresoSalidaID != null">Editar I/S ID: {{vm.historicoIngresoSalida.historicoIngresoSalidaID}}</span>
+                                </button>
+                                <button ng-click="vm.nuevoParaCargar()" class="btn btn-default">
+                                    Nuevo
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Aviso</div>
+                                <div class="panel-body">
+                                    {{vm.mensajeDelServidor}}
+                                </div>
+                            </div>
+                        </div>
+                        @*<pre>{{vm.historicoIngresoSalida | json}}</pre>*@
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
