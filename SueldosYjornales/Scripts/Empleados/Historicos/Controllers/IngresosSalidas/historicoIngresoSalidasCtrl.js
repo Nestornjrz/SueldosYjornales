@@ -44,5 +44,11 @@
             vm.historicoIngresoSalida.empleadoID = objValRecibido;
             vm.empleadoID = objValRecibido;
         });
+
+        $rootScope.$on('actualizarHistoricoIngresoSalida', function (event, objValRecibido) {
+            vm.historicoIngresoSalida = objValRecibido;
+            vm.historicoIngresoSalida.fechaIngreso = new Date(objValRecibido.fechaIngreso);
+            vm.historicoIngresoSalida.fechaSalida = new Date(objValRecibido.fechaSalida);
+        });
     }
 })();
