@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 namespace SYJ.Domain.Managers {
     public class UbicacionSucUsuariosManagers {
         public List<UbicacionSucUsuarioDto> ListadoUbicacionSucUsuarios(Guid userID) {
-            using (var context = new SueldosJornalesEntities()) { 
-                var listado = context.UbicacionSucUsuarios                 
+            using (var context = new SueldosJornalesEntities()) {
+                var listado = context.UbicacionSucUsuarios
                     .Select(s => new UbicacionSucUsuarioDto() {
                         Sucursale = new SucursaleDto() {
                             SucursalID = s.SucursalID,
@@ -33,9 +33,31 @@ namespace SYJ.Domain.Managers {
         public MensajeDto RecuperarUbicacionSucUsuario(Guid userID) {
             using (var context = new SueldosJornalesEntities()) {
                 //Se busca el usuario
-                var usuarioID = context.Usuarios
+                var usuario = context.Usuarios
                     .Where(u => u.UserID == userID)
-                    .First().UsuarioID;
+                    .FirstOrDefault();
+                if (usuario == null) {
+                    return new MensajeDto() {
+                        Error = true,
+                        MensajeDelProceso = "For favor loguese primero",
+                        ObjetoDto = new UbicacionSucUsuarioDto() {
+                            Sucursale = new SucursaleDto() {
+                                SucursalID = 0,
+                                NombreSucursal = "Sin logeo",
+                                Descripcion = "Falsta usuario logeado",
+                                Abreviatura = "SL",
+                                Empresa = new EmpresaDto() {
+                                    EmpresaID = 0,
+                                    NombreEmpresa = "Sin Logeo",
+                                    Abreviatura = "SL",
+                                    Descripcion = "Falta logeo de usuario",
+                                    Ruc = "Sin logeo"
+                                }
+                            }
+                        }
+                    };
+                }
+                var usuarioID = usuario.UsuarioID;
 
                 var ubicacionSucUsuario = context.UbicacionSucUsuarios
                     .Where(u => u.UsuarioID == usuarioID)

@@ -1,6 +1,6 @@
 ﻿/*
 Created: 15/06/2015
-Modified: 07/07/2015
+Modified: 08/07/2015
 Model: Sueldos y Jornales
 Database: MS SQL Server 2014
 */
@@ -313,11 +313,11 @@ go
 ALTER TABLE [Sj].[Profesiones] ADD CONSTRAINT [pk_Profesiones] PRIMARY KEY ([ProfesionID])
 go
 
--- Table Sj.HistoricosHorarios
+-- Table Sj.HistoricoHorarios
 
-CREATE TABLE [Sj].[HistoricosHorarios]
+CREATE TABLE [Sj].[HistoricoHorarios]
 (
- [HistoricosHorarioID] Bigint IDENTITY(1,1) NOT NULL,
+ [HistoricoHorarioID] Bigint IDENTITY(1,1) NOT NULL,
  [EmpleadoID] Bigint NOT NULL,
  [HoraEntradaManana] Time NULL,
  [HoraSalidaManana] Time NULL,
@@ -330,17 +330,17 @@ CREATE TABLE [Sj].[HistoricosHorarios]
 )
 go
 
--- Create indexes for table Sj.HistoricosHorarios
+-- Create indexes for table Sj.HistoricoHorarios
 
-CREATE INDEX [IX_HistoricosHorarios:EmpleadoID] ON [Sj].[HistoricosHorarios] ([EmpleadoID])
+CREATE INDEX [IX_HistoricoHorarios:EmpleadoID] ON [Sj].[HistoricoHorarios] ([EmpleadoID])
 go
 
-CREATE INDEX [IX_HistoricosHorarios:UsuarioID] ON [Sj].[HistoricosHorarios] ([UsuarioID])
+CREATE INDEX [IX_HistoricoHorarios:UsuarioID] ON [Sj].[HistoricoHorarios] ([UsuarioID])
 go
 
--- Add keys for table Sj.HistoricosHorarios
+-- Add keys for table Sj.HistoricoHorarios
 
-ALTER TABLE [Sj].[HistoricosHorarios] ADD CONSTRAINT [pk_HistoricosHorarios] PRIMARY KEY ([HistoricosHorarioID])
+ALTER TABLE [Sj].[HistoricoHorarios] ADD CONSTRAINT [pk_HistoricoHorarios] PRIMARY KEY ([HistoricoHorarioID])
 go
 
 -- Table Sj.Usuarios
@@ -411,13 +411,13 @@ go
 ALTER TABLE [Sj].[Empleados] ADD CONSTRAINT [fk_Empleados>Profesiones] FOREIGN KEY ([ProfesionID]) REFERENCES [Sj].[Profesiones] ([ProfesionID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
-ALTER TABLE [Sj].[HistoricosHorarios] ADD CONSTRAINT [fk_HistoricosHorarios>Empleados] FOREIGN KEY ([EmpleadoID]) REFERENCES [Sj].[Empleados] ([EmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+ALTER TABLE [Sj].[HistoricoHorarios] ADD CONSTRAINT [fk_HistoricosHorarios>Empleados] FOREIGN KEY ([EmpleadoID]) REFERENCES [Sj].[Empleados] ([EmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
 ALTER TABLE [Sj].[Empleados] ADD CONSTRAINT [fk_Empleados>Usuarios] FOREIGN KEY ([UsuarioID]) REFERENCES [Sj].[Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
-ALTER TABLE [Sj].[HistoricosHorarios] ADD CONSTRAINT [fk_HistoricosHorarios>Usuarios] FOREIGN KEY ([UsuarioID]) REFERENCES [Sj].[Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+ALTER TABLE [Sj].[HistoricoHorarios] ADD CONSTRAINT [fk_HistoricosHorarios>Usuarios] FOREIGN KEY ([UsuarioID]) REFERENCES [Sj].[Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
 ALTER TABLE [Sj].[HistoricoIngresoSalidas] ADD CONSTRAINT [fk_HistoricoIngresoSalidas>Usuarios] FOREIGN KEY ([UsuarioID]) REFERENCES [Sj].[Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION

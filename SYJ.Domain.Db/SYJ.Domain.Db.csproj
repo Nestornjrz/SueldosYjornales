@@ -79,13 +79,13 @@
     <Compile Include="HistoricoDireccione.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="HistoricoHorario.cs">
+      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="HistoricoIngresoSalida.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="HistoricoSalario.cs">
-      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="HistoricosHorario.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="HistoricoTelefono.cs">

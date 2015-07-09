@@ -12,9 +12,9 @@ namespace SYJ.Domain.Db
     using System;
     using System.Collections.Generic;
     
-    public partial class HistoricosHorario
+    public partial class HistoricoHorario
     {
-        public long HistoricosHorarioID { get; set; }
+        public long HistoricoHorarioID { get; set; }
         public long EmpleadoID { get; set; }
         public Nullable<System.TimeSpan> HoraEntradaManana { get; set; }
         public Nullable<System.TimeSpan> HoraSalidaManana { get; set; }
@@ -26,6 +26,5 @@ namespace SYJ.Domain.Db
         public System.DateTime MomentoCarga { get; set; }
     
         public virtual Empleado Empleado { get; set; }
-        public virtual Usuario Usuario { get; set; }
     }
 }

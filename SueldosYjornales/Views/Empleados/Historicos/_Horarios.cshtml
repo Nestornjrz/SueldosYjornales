@@ -6,41 +6,47 @@
                 <form class="form-horizontal" role="form" ng-controller="historicoHorariosCtrl as vm" name="historicoHorariosForm" ng-cloak>
                     <div class="row">
                         <div class="col-md-2">
-                        <label class="control-label">Mañana</label>
+                            <label class="control-label">Mañana</label>
                         </div>
                         <div class="col-md-5">
-                        <div class="form-group">
-                        <label for="horaEntradaManana" class="col-md-4 control-label">Entrada</label>
-                        <div class="col-md-8">
-                        <p class="input-group">
-                        <input type="time" id="horaEntradaManana"
-                        name="horaEntradaManana"
-                        class="form-control"
-                        ng-model="vm.historicoHorario.horaEntradaManana"
-                        ng-required="true" />
-                        </p>
-                        <div style="color:red" ng-show="historicoHorariosForm.horaEntradaManana.$dirty && historicoHorariosForm.horaEntradaManana.$invalid">
-                        <span ng-show="historicoHorariosForm.horaEntradaManana.$error.date">No es un formato valido</span>
-                        </div>
-                        </div>
-                        </div>
+                            <div class="form-group">
+                                <label for="horaEntradaManana" class="col-md-4 control-label">Entrada</label>
+                                <div class="col-md-8">
+                                    <p class="input-group">
+                                        <input type="time" id="horaEntradaManana"
+                                               name="horaEntradaManana"
+                                               class="form-control"
+                                               ng-model="vm.historicoHorario.horaEntradaManana"
+                                               ng-required="true"
+                                               min="00:00:00"
+                                               max="12:00:00"
+                                               placeholder="HH:mm:ss" />
+                                    </p>
+                                    <div style="color:red" ng-show="historicoHorariosForm.horaEntradaManana.$dirty && historicoHorariosForm.horaEntradaManana.$invalid">
+                                        <span ng-show="historicoHorariosForm.horaEntradaManana.$error.date">No es un formato valido</span>
+                                    </div>
+                                    <span style="color:red" ng-show="historicoHorariosForm.horaEntradaManana.$error.max">
+                                        Fuera de rango
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-5">
-                        <div class="form-group">
-                        <label for="horaSalidaManana" class="col-md-4 control-label">Salida</label>
-                        <div class="col-md-8">
-                        <p class="input-group">
-                        <input type="time" id="horaSalidaManana"
-                        name="horaSalidaManana"
-                        class="form-control"
-                        ng-model="vm.historicoHorario.horaSalidaManana"
-                        ng-required="true" />
-                        </p>
-                        <div style="color:red" ng-show="historicoHorariosForm.horaSalidaManana.$dirty && historicoHorariosForm.horaSalidaManana.$invalid">
-                        <span ng-show="historicoHorariosForm.horaSalidaManana.$error.date">No es un formato valido</span>
-                        </div>
-                        </div>
-                        </div>
+                            <div class="form-group">
+                                <label for="horaSalidaManana" class="col-md-4 control-label">Salida</label>
+                                <div class="col-md-8">
+                                    <p class="input-group">
+                                        <input type="time" id="horaSalidaManana"
+                                               name="horaSalidaManana"
+                                               class="form-control"
+                                               ng-model="vm.historicoHorario.horaSalidaManana"
+                                               ng-required="true" />
+                                    </p>
+                                    <div style="color:red" ng-show="historicoHorariosForm.horaSalidaManana.$dirty && historicoHorariosForm.horaSalidaManana.$invalid">
+                                        <span ng-show="historicoHorariosForm.horaSalidaManana.$error.date">No es un formato valido</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -121,7 +127,36 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <button ng-click="vm.guardar()" ng-disabled="historicoHorariosForm.$invalid" class="btn btn-default">
+                                        <span ng-show="vm.historicoHorariosForm.historicoHorarioID == null">Cargar</span>
+                                        <span ng-show="vm.historicoHorariosForm.historicoHorarioID != null">Editar Horario ID: {{vm.historicoHorariosForm.historicoHorarioID}}</span>
+                                    </button>
+                                    <button ng-click="vm.nuevoParaCargar()" class="btn btn-default">
+                                        Nuevo
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">Aviso</div>
+                                        <div class="panel-body">
+                                            {{vm.mensajeDelServidor}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <pre>{{vm.historicoHorario.horaEntradaManana.toUTCString()}}</pre>
+                    <pre>{{historicoHorariosForm.horaEntradaManana.$error | json}}</pre>
                     <pre>{{vm.historicoHorario | json}}</pre>
+                    <pre>{{vm.historicoHorario.horaEntradaManana | date:"HH:mm:ss"}}</pre>
                 </form>
             </div>
         </div>
