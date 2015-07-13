@@ -21,5 +21,10 @@
             vm.historicoHorarios = sYjResource
               .historicoHorariosByEmpleadoID.query({ 'empleadoID': vm.empleadoID });
         });
+
+        $rootScope.$on('actualizarListadoHistoricoHorarios', function (event, objValRecibido) {
+            vm.historicoHorarios = sYjResource
+              .historicoHorariosByEmpleadoID.query({ 'empleadoID': vm.empleadoID });
+        });
     }
 })();

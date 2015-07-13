@@ -11,9 +11,12 @@
         /* jshint validthis:true */
         var vm = this;
         //vm.hora = moment().format();
-
-
         vm.historicoHorario = {};
+
+        vm.nuevoParaCargar = function () {
+            vm.historicoHorario = {};
+            vm.historicoHorario.empleadoID = vm.empleadoID;
+        };
 
         vm.guardar = function () {
             sYjResource.historicoHorarios.save(vm.historicoHorario)
@@ -32,7 +35,7 @@
                 vm.mensajeDelServidor = mensaje.data.mensajeDelProceso;
             }
           );
-        }  
+        }
 
         //Eventos
         $rootScope.$on('empleadoID', function (event, objValRecibido) {
