@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace SueldosYjornales.Controllers
 {
+    [Authorize]
     public class EmpleadosController : Controller
     {
         // GET: Empleados

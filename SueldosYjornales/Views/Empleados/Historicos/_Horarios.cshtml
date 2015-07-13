@@ -21,6 +21,8 @@
                                                min="00:00:00"
                                                max="12:00:00"
                                                placeholder="HH:mm:ss" />
+                                        @*<timepicker ng-model="vm.historicoHorario.horaEntradaManana" ng-change="changed()" 
+                                                    hour-step="1" minute-step="15" show-meridian="false"></timepicker>*@
                                     </p>
                                     <div style="color:red" ng-show="historicoHorariosForm.horaEntradaManana.$dirty && historicoHorariosForm.horaEntradaManana.$invalid">
                                         <span ng-show="historicoHorariosForm.horaEntradaManana.$error.date">No es un formato valido</span>
@@ -137,7 +139,7 @@
                                     </button>
                                     <button ng-click="vm.nuevoParaCargar()" class="btn btn-default">
                                         Nuevo
-                                    </button>
+                                    </button>                                   
                                 </div>
                             </div>
                             <div class="form-group">
@@ -152,11 +154,20 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <pre>{{vm.historicoHorario.horaEntradaManana.toUTCString()}}</pre>
+                    </div>                    
+                    <pre>.toUTCString() :{{vm.historicoHorario.horaEntradaManana.toUTCString()}}</pre>
+                    <pre>.toISOString(): {{vm.historicoHorario.horaEntradaManana.toISOString()}}</pre>
+                    <pre>.toTimeString() :{{vm.historicoHorario.horaEntradaManana.toTimeString()}}</pre>
+                    <pre>.getUTCHours() :{{vm.historicoHorario.horaEntradaManana.getUTCHours()}}</pre>
+                    <pre>.getHours() :{{vm.historicoHorario.horaEntradaManana.getHours()}}</pre>
+                    <pre>.getUTCMinutes() :{{vm.historicoHorario.horaEntradaManana.getUTCMinutes()}}</pre>
+                    <pre>.toJSON() :{{vm.historicoHorario.horaEntradaManana.toJSON()}}</pre>
+                    <pre>.getTimezoneOffset() :{{vm.historicoHorario.horaEntradaManana.getTimezoneOffset()}}</pre>
                     <pre>{{historicoHorariosForm.horaEntradaManana.$error | json}}</pre>
                     <pre>{{vm.historicoHorario | json}}</pre>
                     <pre>{{vm.historicoHorario.horaEntradaManana | date:"HH:mm:ss"}}</pre>
+                    <hr />
+                    <pre>{{vm.hora}}</pre>                              
                 </form>
             </div>
         </div>

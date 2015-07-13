@@ -9,6 +9,7 @@ using System.Web.Http;
 using Microsoft.AspNet.Identity;
 
 namespace SueldosYjornales.Controllers.Api {
+    [Authorize]
     public class UbicacionSucUsuariosController : ApiController {
         // GET: api/UbicacionSucUsuarios
         public HttpResponseMessage GetUbicacionSucUsuario() {

@@ -10,6 +10,8 @@
     function historicoHorariosCtrl($rootScope, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
+        //vm.hora = moment().format();
+        vm.hora = new Date();       
 
         vm.historicoHorario = {};
 
@@ -29,6 +31,10 @@
                 vm.mensajeDelServidor = mensaje.data.mensajeDelProceso;
             }
           );
+        }
+
+        vm.probar = function () {
+            vm.historicoHorario.horaEntradaManana = new Date(milliseconds);
         }
 
         //Eventos
