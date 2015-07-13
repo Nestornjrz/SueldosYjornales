@@ -117,12 +117,12 @@
           </Key>
           <Property Name="HistoricoHorarioID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmpleadoID" Type="bigint" Nullable="false" />
-          <Property Name="HoraEntradaManana" Type="time" Precision="7" />
-          <Property Name="HoraSalidaManana" Type="time" Precision="7" />
-          <Property Name="HoraEntradaTarde" Type="time" Precision="7" />
-          <Property Name="HoraSalidaTarde" Type="time" Precision="7" />
-          <Property Name="HoraEntradaNoche" Type="time" Precision="7" />
-          <Property Name="HoraSalidaNoche" Type="time" Precision="7" />
+          <Property Name="HoraEntradaManana" Type="datetime2" Precision="7" />
+          <Property Name="HoraSalidaManana" Type="datetime2" Precision="7" />
+          <Property Name="HoraEntradaTarde" Type="datetime2" Precision="7" />
+          <Property Name="HoraSalidaTarde" Type="datetime2" Precision="7" />
+          <Property Name="HoraEntradaNoche" Type="datetime2" Precision="7" />
+          <Property Name="HoraSalidaNoche" Type="datetime2" Precision="7" />
           <Property Name="UsuarioID" Type="bigint" Nullable="false" />
           <Property Name="MomentoCarga" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
@@ -1154,12 +1154,12 @@
           </Key>
           <Property Name="HistoricoHorarioID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmpleadoID" Type="Int64" Nullable="false" />
-          <Property Name="HoraEntradaManana" Type="Time" Precision="7" />
-          <Property Name="HoraSalidaManana" Type="Time" Precision="7" />
-          <Property Name="HoraEntradaTarde" Type="Time" Precision="7" />
-          <Property Name="HoraSalidaTarde" Type="Time" Precision="7" />
-          <Property Name="HoraEntradaNoche" Type="Time" Precision="7" />
-          <Property Name="HoraSalidaNoche" Type="Time" Precision="7" />
+          <Property Name="HoraEntradaManana" Type="DateTime" Precision="7" />
+          <Property Name="HoraSalidaManana" Type="DateTime" Precision="7" />
+          <Property Name="HoraEntradaTarde" Type="DateTime" Precision="7" />
+          <Property Name="HoraSalidaTarde" Type="DateTime" Precision="7" />
+          <Property Name="HoraEntradaNoche" Type="DateTime" Precision="7" />
+          <Property Name="HoraSalidaNoche" Type="DateTime" Precision="7" />
           <Property Name="UsuarioID" Type="Int64" Nullable="false" />
           <Property Name="MomentoCarga" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="Empleado" Relationship="SueldosJornalesModel.fk_HistoricosHorarios_Empleados" FromRole="HistoricoHorario" ToRole="Empleado" />

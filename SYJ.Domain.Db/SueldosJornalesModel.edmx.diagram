@@ -42,7 +42,7 @@
         <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoDireccione" Width="1.5" PointX="8.25" PointY="6.625" />
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoDirecciones_Empleados" />
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoDirecciones_Usuarios" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoHorario" Width="2.875" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoHorario" Width="1.5" PointX="8.25" PointY="2.25" />
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricosHorarios_Empleados" />
       </Diagram>
     </edmx:Diagrams>
