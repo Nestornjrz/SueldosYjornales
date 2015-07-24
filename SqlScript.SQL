@@ -1,6 +1,6 @@
 ﻿/*
 Created: 15/06/2015
-Modified: 08/07/2015
+Modified: 13/07/2015
 Model: Sueldos y Jornales
 Database: MS SQL Server 2014
 */
@@ -319,12 +319,12 @@ CREATE TABLE [Sj].[HistoricoHorarios]
 (
  [HistoricoHorarioID] Bigint IDENTITY(1,1) NOT NULL,
  [EmpleadoID] Bigint NOT NULL,
- [HoraEntradaManana] Time NULL,
- [HoraSalidaManana] Time NULL,
- [HoraEntradaTarde] Time NULL,
- [HoraSalidaTarde] Time NULL,
- [HoraEntradaNoche] Time NULL,
- [HoraSalidaNoche] Time NULL,
+ [HoraEntradaMananaUTC] Datetime2 NULL,
+ [HoraSalidaMananaUTC] Datetime2 NULL,
+ [HoraEntradaTardeUTC] Datetime2 NULL,
+ [HoraSalidaTardeUTC] Datetime2 NULL,
+ [HoraEntradaNocheUTC] Datetime2 NULL,
+ [HoraSalidaNocheUTC] Datetime2 NULL,
  [UsuarioID] Bigint NOT NULL,
  [MomentoCarga] Datetime2 NOT NULL
 )
