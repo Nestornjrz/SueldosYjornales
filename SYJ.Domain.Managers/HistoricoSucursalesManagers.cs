@@ -30,34 +30,45 @@ namespace SYJ.Domain.Managers {
             }
         }
 
-        public MensajeDto CargarHistoricoSucursal(HistoricoSucursaleDto hsDto, Guid userID) {
+        public MensajeDto CargarHistoricoSucursal(HistoricoSucursaleDto hsDto,
+            Guid userID,
+            SueldosJornalesEntities contextAlter = null) {
             if (hsDto.HistoricoSucursalID > 0) {
                 return EditarHistoricoSucursale(hsDto);
             }
-            using (var context = new SueldosJornalesEntities()) {
-                MensajeDto mensajeDto = null;
-                var hisSucursaleDb = new HistoricoSucursale();
-                hisSucursaleDb.EmpleadoID = hsDto.EmpleadoID;
-                hisSucursaleDb.SucursalID = hsDto.Sucursal.SucursalID;
-                hisSucursaleDb.MomentoCarga = DateTime.Now;
-                //Se recupera el usuarioID
-                var usuarioID = context.Usuarios.Where(u => u.UserID == userID)
-                    .First().UsuarioID;
-                hisSucursaleDb.UsuarioID = usuarioID;
+            var context = CrearContext(contextAlter);
+            MensajeDto mensajeDto = null;
+            var hisSucursaleDb = new HistoricoSucursale();
+            hisSucursaleDb.EmpleadoID = hsDto.EmpleadoID;
+            hisSucursaleDb.SucursalID = hsDto.Sucursal.SucursalID;
+            hisSucursaleDb.MomentoCarga = DateTime.Now;
+            //Se recupera el usuarioID
+            var usuarioID = context.Usuarios.Where(u => u.UserID == userID)
+                .First().UsuarioID;
+            hisSucursaleDb.UsuarioID = usuarioID;
 
-                context.HistoricoSucursales.Add(hisSucursaleDb);
+            context.HistoricoSucursales.Add(hisSucursaleDb);
 
-                mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
-                if (mensajeDto != null) { return mensajeDto; }
+            mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
+            if (mensajeDto != null) { return mensajeDto; }
 
-                hsDto.HistoricoSucursalID = hisSucursaleDb.HistoricoSucursalID;
+            hsDto.HistoricoSucursalID = hisSucursaleDb.HistoricoSucursalID;
 
-                return new MensajeDto() {
-                    Error = false,
-                    MensajeDelProceso = "Se cargo el historico salario : " + hsDto.HistoricoSucursalID,
-                    ObjetoDto = hsDto
-                };
+            if (contextAlter == null) { context.Dispose(); }
+
+            return new MensajeDto() {
+                Error = false,
+                MensajeDelProceso = "Se cargo el historico sucursal : " + hsDto.HistoricoSucursalID,
+                ObjetoDto = hsDto
+            };
+
+        }
+
+        private static SueldosJornalesEntities CrearContext(SueldosJornalesEntities contextAlter) {
+            if (contextAlter != null) {
+                return contextAlter;
             }
+            return new SueldosJornalesEntities();
         }
 
         private static MensajeDto EditarHistoricoSucursale(HistoricoSucursaleDto hsDto) {

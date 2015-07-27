@@ -13,7 +13,7 @@ namespace SYJ.Domain.Managers {
             using (var context = new SueldosJornalesEntities()) {
                 var listado = context.Empleados
                     .Select(s => new EmpleadoDto() {
-                        EmpleadoID = s.EmpleadoID,                       
+                        EmpleadoID = s.EmpleadoID,
                         Nombres = s.Nombres,
                         Apellidos = s.Apellidos,
                         FechaNacimiento = s.FechaNacimiento,
@@ -49,43 +49,57 @@ namespace SYJ.Domain.Managers {
                 return EditarEmpleado(eDto);
             }
             using (var context = new SueldosJornalesEntities()) {
-                MensajeDto mensajeDto = null;
-                var empleadoDb = new Empleado();
-                //Se recupera la sucursal
-                var usuarioID = context.Usuarios
-                    .Where(u => u.UserID == userID)
-                    .First().UsuarioID;
+                using (var dbContextTransaction = context.Database.BeginTransaction()) {
+                    MensajeDto mensajeDto = null;
+                    var empleadoDb = new Empleado();
+                    //Se recupera la sucursal
+                    var usuarioID = context.Usuarios
+                        .Where(u => u.UserID == userID)
+                        .First().UsuarioID;
 
-                var sucursalID = context.UbicacionSucUsuarios
-                    .Where(u => u.UsuarioID == usuarioID)
-                    .First().SucursalID;
-              
-                empleadoDb.Nombres = eDto.Nombres;
-                empleadoDb.Apellidos = eDto.Apellidos;
-                empleadoDb.FechaNacimiento = eDto.FechaNacimiento;
-                empleadoDb.Sexo = eDto.Sexo.SexoID;
-                empleadoDb.NroCedula = eDto.NroCedula;
-                empleadoDb.EstadoCivilID = eDto.EstadoCivile.EstadoCivilID;
-                empleadoDb.NacionalidadID = eDto.Nacionalidade.NacionalidadID;
-                empleadoDb.NumeroIps = eDto.NumeroIps;
-                empleadoDb.NumeroMjt = eDto.NumeroMjt;
-                empleadoDb.ProfesionID = eDto.Profesione.ProfesionID;
-                empleadoDb.CantidadHijos = eDto.CantidadHijos;
-                empleadoDb.UsuarioID = usuarioID;
-                empleadoDb.MomentoCarga = DateTime.Now;
+                    var sucursalID = context.UbicacionSucUsuarios
+                        .Where(u => u.UsuarioID == usuarioID)
+                        .First().SucursalID;
 
-                context.Empleados.Add(empleadoDb);
+                    empleadoDb.Nombres = eDto.Nombres;
+                    empleadoDb.Apellidos = eDto.Apellidos;
+                    empleadoDb.FechaNacimiento = eDto.FechaNacimiento;
+                    empleadoDb.Sexo = eDto.Sexo.SexoID;
+                    empleadoDb.NroCedula = eDto.NroCedula;
+                    empleadoDb.EstadoCivilID = eDto.EstadoCivile.EstadoCivilID;
+                    empleadoDb.NacionalidadID = eDto.Nacionalidade.NacionalidadID;
+                    empleadoDb.NumeroIps = eDto.NumeroIps;
+                    empleadoDb.NumeroMjt = eDto.NumeroMjt;
+                    empleadoDb.ProfesionID = eDto.Profesione.ProfesionID;
+                    empleadoDb.CantidadHijos = eDto.CantidadHijos;
+                    empleadoDb.UsuarioID = usuarioID;
+                    empleadoDb.MomentoCarga = DateTime.Now;
 
-                mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
-                if (mensajeDto != null) { return mensajeDto; }
+                    context.Empleados.Add(empleadoDb);
 
-                eDto.EmpleadoID = empleadoDb.EmpleadoID;
+                    mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
+                    if (mensajeDto != null) { return mensajeDto; }
 
-                return new MensajeDto() {
-                    Error = false,
-                    MensajeDelProceso = "Se cargo el empleado : " + eDto.EmpleadoID,
-                    ObjetoDto = eDto
-                };
+                    eDto.EmpleadoID = empleadoDb.EmpleadoID;
+
+                    //Se carga el historico sucursales
+                    HistoricoSucursalesManagers hsm = new HistoricoSucursalesManagers();
+                    HistoricoSucursaleDto hsDto = new HistoricoSucursaleDto();
+                    hsDto.EmpleadoID = eDto.EmpleadoID;
+                    hsDto.Sucursal = new SucursaleDto() {
+                        SucursalID = sucursalID
+                    };
+                    MensajeDto mensajeDto2 = hsm.CargarHistoricoSucursal(hsDto, userID, context);
+                    if (mensajeDto2.Error) { return mensajeDto2; }
+
+                    dbContextTransaction.Commit();
+                    return new MensajeDto() {
+                        Error = false,
+                        MensajeDelProceso = "Se cargo el empleado : " + eDto.EmpleadoID + " " +
+                        mensajeDto2.MensajeDelProceso,
+                        ObjetoDto = eDto
+                    };
+                }
             }
         }
 
@@ -154,7 +168,7 @@ namespace SYJ.Domain.Managers {
             using (var context = new SueldosJornalesEntities()) {
                 var empleadoDto = context.Empleados.
                       Select(s => new EmpleadoDto() {
-                          EmpleadoID = s.EmpleadoID,                         
+                          EmpleadoID = s.EmpleadoID,
                           Nombres = s.Nombres,
                           Apellidos = s.Apellidos,
                           FechaNacimiento = s.FechaNacimiento,
