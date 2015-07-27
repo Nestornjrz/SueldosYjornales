@@ -9,6 +9,6 @@ namespace SYJ.Application.Dto {
         public long HistoricoIngresoSalidaID { get; set; }
         public long EmpleadoID { get; set; }
         public System.DateTime FechaIngreso { get; set; }
-        public System.DateTime FechaSalida { get; set; }       
+        public Nullable<System.DateTime> FechaSalida { get; set; }       
     }
 }

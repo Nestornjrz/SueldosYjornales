@@ -1112,6 +1112,7 @@
     <Content Include="Views\Empleados\Historicos\_IngresosSalidas.cshtml" />
     <Content Include="Views\Empleados\Historicos\_Horarios.cshtml" />
     <Content Include="Views\Empleados\Historicos\_Telefonos.cshtml" />
+    <Content Include="Views\Empleados\Historicos\_Sucursales.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -37,6 +37,11 @@
             vm.menu.telefonos.class = "active";
             vm.menu.telefonos.mostrar = true;
         }
+        vm.sucursalesFn = function () {
+            ocultar();
+            vm.menu.sucursales.class = "active";
+            vm.menu.sucursales.mostrar = true;
+        }
 
         //////
         function ocultar() {
@@ -46,6 +51,7 @@
             vm.menu.ingresoSalidas = {};
             vm.menu.horarios = {};
             vm.menu.telefonos = {};
+            vm.menu.sucursales = {};
         }
 
         //Eventos
