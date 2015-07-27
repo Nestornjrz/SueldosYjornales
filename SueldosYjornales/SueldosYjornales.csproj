@@ -181,6 +181,7 @@
     <Compile Include="Controllers\Api\HistoricoHorariosController.cs" />
     <Compile Include="Controllers\Api\HistoricoIngresoSalidasController.cs" />
     <Compile Include="Controllers\Api\HistoricoSalariosController.cs" />
+    <Compile Include="Controllers\Api\HistoricoTelefonosController.cs" />
     <Compile Include="Controllers\Api\NacionalidadesController.cs" />
     <Compile Include="Controllers\Api\ProfesionesController.cs" />
     <Compile Include="Controllers\Api\SucursalesController.cs" />
@@ -247,6 +248,7 @@
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoSalario\historicoSalariosCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoSalario\listadoHitoricoSalariosCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoTelefonos\historicoTelefonosCtrl.js" />
+    <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoTelefonos\listadoHistoricoTelefonosCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\IngresosSalidas\historicoIngresoSalidasCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\IngresosSalidas\listadoHistoricoIngresoSalidasCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\menuCtrl.js" />

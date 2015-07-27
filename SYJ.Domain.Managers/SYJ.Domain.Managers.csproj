@@ -58,6 +58,7 @@
     <Compile Include="HistoricoHorariosManagers.cs" />
     <Compile Include="HistoricoIngresoSalidasManagers.cs" />
     <Compile Include="HistoricoSalariosManagers.cs" />
+    <Compile Include="HistoricoTelefonosManagers.cs" />
     <Compile Include="NacionalidadesManagers.cs" />
     <Compile Include="ProfesionesManagers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -37,11 +37,30 @@
                             </div>
                         </div>
                     </div>
+                    <pre>{{vm.historicoTelefono | json}}</pre>
                 </form>
             </div>
         </div>
     </div>
     <div class="col-md-8">
-
+        <h2>Listado de telefonos</h2>
+        <div class="row" ng-controller="listadoHistoricoTelefonosCtrl as vm" ng-cloak style="margin-top:25px;">
+            <table class="table table-condensed table-bordered table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th colspan="2">Acciones</th>
+                        <th>Id</th>
+                        <th>Telefono</th>
+                    </tr>
+                </thead>
+                <tr ng-repeat="o in vm.historicoTelefonos">
+                    <td><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="vm.actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
+                    <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
+                    <td>{{o.historicoTelefonoID}}</td>
+                    <td>{{o.telefonos}}</td>
+                </tr>
+            </table>
+            <pre>{{vm.historicoTelefonos | json}}</pre>
+        </div>
     </div>
 </div>
