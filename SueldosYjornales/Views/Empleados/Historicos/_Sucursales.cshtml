@@ -1,1 +1,27 @@
-﻿
+﻿<div class="row">
+    <div class="col-md-5">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Cargar Sucursal</div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" ng-controller="historicoSucursalesCtrl as vm" name="historicoSucursalesForm" ng-cloak>
+                    <div class="form-group">
+                        <label for="cargo" class="col-md-4 control-label">Sucursal</label>
+                        <div class="col-md-8">
+                            <select name="sucursal" required
+                                    ng-model="vm.historicoSalario.sucursal"
+                                    ng-options="r.nombreSucursal for r in vm.sucursales" class="form-control"
+                                    ng-required="true">
+                                <!--<option value="">-- Seleccione el concepto --</option>-->
+                                <option value="" ng-hide="vm.historicoSalario.cargo">Seleccione sucursal</option>
+                            </select>
+                        </div>
+                    </div>
+                    <pre>{{vm.historicoSalario | json}}</pre>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+
+    </div>
+</div>
