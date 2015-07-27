@@ -17,11 +17,11 @@ namespace SYJ.Domain.Db
         public Empleado()
         {
             this.HistoricoDirecciones = new HashSet<HistoricoDireccione>();
-            this.HistoricoIngresoSalidas = new HashSet<HistoricoIngresoSalida>();
             this.HistoricoSalarios = new HashSet<HistoricoSalario>();
             this.HistoricoHorarios = new HashSet<HistoricoHorario>();
             this.HistoricoSucursales = new HashSet<HistoricoSucursale>();
             this.HistoricoTelefonos = new HashSet<HistoricoTelefono>();
+            this.HistoricoIngresoSalidas = new HashSet<HistoricoIngresoSalida>();
         }
     
         public long EmpleadoID { get; set; }
@@ -44,10 +44,10 @@ namespace SYJ.Domain.Db
         public virtual Profesione Profesione { get; set; }
         public virtual Usuario Usuario { get; set; }
         public virtual ICollection<HistoricoDireccione> HistoricoDirecciones { get; set; }
-        public virtual ICollection<HistoricoIngresoSalida> HistoricoIngresoSalidas { get; set; }
         public virtual ICollection<HistoricoSalario> HistoricoSalarios { get; set; }
         public virtual ICollection<HistoricoHorario> HistoricoHorarios { get; set; }
         public virtual ICollection<HistoricoSucursale> HistoricoSucursales { get; set; }
         public virtual ICollection<HistoricoTelefono> HistoricoTelefonos { get; set; }
+        public virtual ICollection<HistoricoIngresoSalida> HistoricoIngresoSalidas { get; set; }
     }
 }

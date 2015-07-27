@@ -17,11 +17,11 @@ namespace SYJ.Domain.Db
         public long HistoricoIngresoSalidaID { get; set; }
         public long EmpleadoID { get; set; }
         public System.DateTime FechaIngreso { get; set; }
-        public System.DateTime FechaSalida { get; set; }
+        public Nullable<System.DateTime> FechaSalida { get; set; }
         public long UsuarioID { get; set; }
         public System.DateTime MomentoCarga { get; set; }
     
-        public virtual Usuario Usuario { get; set; }
         public virtual Empleado Empleado { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }
