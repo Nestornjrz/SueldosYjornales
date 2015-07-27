@@ -18,10 +18,10 @@
                                                class="form-control"
                                                ng-model="vm.historicoHorario.horaEntradaManana"
                                                ng-required="false"
-                                               min="00:00:00"                                               
+                                               min="00:00:00"
                                                placeholder="HH:mm:ss" />
                                         @*<timepicker ng-model="vm.historicoHorario.horaEntradaManana" ng-change="changed()"
-                                hour-step="1" minute-step="15" show-meridian="false"></timepicker>*@
+                                            hour-step="1" minute-step="15" show-meridian="false"></timepicker>*@
                                     </p>
                                     <div style="color:red" ng-show="historicoHorariosForm.horaEntradaManana.$dirty && historicoHorariosForm.horaEntradaManana.$invalid">
                                         <span ng-show="historicoHorariosForm.horaEntradaManana.$error.date">No es un formato valido</span>
@@ -41,13 +41,13 @@
                                                name="horaSalidaManana"
                                                class="form-control"
                                                ng-model="vm.historicoHorario.horaSalidaManana"
-                                               ng-required="false"                                                
+                                               ng-required="false"
                                                placeholder="HH:mm:ss" />
                                     </p>
                                     <div style="color:red" ng-show="historicoHorariosForm.horaSalidaManana.$dirty && historicoHorariosForm.horaSalidaManana.$invalid">
                                         <span ng-show="historicoHorariosForm.horaSalidaManana.$error.date">No es un formato valido</span>
                                     </div>
-                              
+
                                 </div>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                                                name="horaSalidaTarde"
                                                class="form-control"
                                                ng-model="vm.historicoHorario.horaSalidaTarde"
-                                               ng-required="false" 
+                                               ng-required="false"
                                                placeholder="HH:mm:ss" />
                                     </p>
                                     <div style="color:red" ng-show="historicoHorariosForm.horaSalidaTarde.$dirty && historicoHorariosForm.horaSalidaTarde.$invalid">
@@ -167,19 +167,19 @@
                         </div>
                     </div>
                     @*<pre>.toUTCString() :{{vm.historicoHorario.horaEntradaManana.toUTCString()}}</pre>*@
-            @*<pre>.toISOString(): {{vm.historicoHorario.horaEntradaManana.toISOString()}}</pre>*@
-            @*<pre>.toTimeString() :{{vm.historicoHorario.horaEntradaManana.toTimeString()}}</pre>*@
-            @*<pre>.getUTCHours() :{{vm.historicoHorario.horaEntradaManana.getUTCHours()}}</pre>*@
-            @*<pre>.getHours() :{{vm.historicoHorario.horaEntradaManana.getHours()}}</pre>*@
-            @*<pre>.getUTCMinutes() :{{vm.historicoHorario.horaEntradaManana.getUTCMinutes()}}</pre>*@
-            @*<pre>.toJSON() :{{vm.historicoHorario.horaEntradaManana.toJSON()}}</pre>*@
-            @*<pre>.getTimezoneOffset() :{{vm.historicoHorario.horaEntradaManana.getTimezoneOffset()}}</pre>*@
-                    <pre>{{vm.historicoHorario | json}}</pre>
-            <pre>{{historicoHorariosForm.horaEntradaManana.$error | json}}</pre>
+                    @*<pre>.toISOString(): {{vm.historicoHorario.horaEntradaManana.toISOString()}}</pre>*@
+                    @*<pre>.toTimeString() :{{vm.historicoHorario.horaEntradaManana.toTimeString()}}</pre>*@
+                    @*<pre>.getUTCHours() :{{vm.historicoHorario.horaEntradaManana.getUTCHours()}}</pre>*@
+                    @*<pre>.getHours() :{{vm.historicoHorario.horaEntradaManana.getHours()}}</pre>*@
+                    @*<pre>.getUTCMinutes() :{{vm.historicoHorario.horaEntradaManana.getUTCMinutes()}}</pre>*@
+                    @*<pre>.toJSON() :{{vm.historicoHorario.horaEntradaManana.toJSON()}}</pre>*@
+                    @*<pre>.getTimezoneOffset() :{{vm.historicoHorario.horaEntradaManana.getTimezoneOffset()}}</pre>*@
+                    @*<pre>{{vm.historicoHorario | json}}</pre>*@
+                    @*<pre>{{historicoHorariosForm.horaEntradaManana.$error | json}}</pre>*@
                     @*<pre>{{vm.historicoHorario.horaEntradaManana | date:"HH:mm:ss"}}</pre>
-            <hr />
-            <pre>{{vm.hora}}</pre>*@
-                    <pre>{{historicoHorariosForm | json}}</pre>
+                        <hr />
+                        <pre>{{vm.hora}}</pre>*@
+                    @*<pre>{{historicoHorariosForm | json}}</pre>*@
 
                 </form>
             </div>
@@ -198,7 +198,7 @@
                             <th style="background-color:#63859d;" colspan="2" class="text-center">Tarde</th>
                             <th colspan="2" class="text-center">Noche</th>
                         </tr>
-                        <tr>                         
+                        <tr>
                             <th>Entrada</th>
                             <th>Salida</th>
                             <th>Entrada</th>
@@ -220,7 +220,56 @@
                     </tr>
                 </table>
             </div>
-            <pre>{{vm.historicoHorarios | json}}</pre>
+            @*<pre>{{vm.historicoHorarios | json}}</pre>*@
         </div>
     </div>
 </div>
+@*////////////////////////////////////////////////////////////////////
+    //////////////////////TEMPLETE DE LOS MODALES////////////////////////*@
+
+<script type="text/ng-template" id="ModalEliminacionHorarios.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{objeto.mensaje}} {{objeto.id}}</h3>
+        <p class="text-muted">Esta seguro?</p>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <table class="table table-striped table-bordered table-hover">
+                    <caption>ID: {{historicoHorario.historicoHorarioID}}</caption>
+                    <tr>
+                        <th>Turno</th>
+                        <td>Entrada</td>
+                        <td>Salida</td>
+                    </tr>
+                    <tr>
+                        <th>Mañana</th>
+                        <td>{{historicoHorario.horaEntradaManana | date:"HH:mm"}}</td>
+                        <td>{{historicoHorario.horaSalidaManana | date:"HH:mm"}}</td>
+                    </tr>
+                    <tr>
+                        <th>Tarde</th>
+                        <td>{{historicoHorario.horaEntradaTarde | date:"HH:mm"}}</td>
+                        <td>{{historicoHorario.horaSalidaTarde | date:"HH:mm"}}</td>
+                    </tr>
+                    <tr>
+                        <th>Noche</th>
+                        <td>{{historicoHorario.horaEntradaNoche | date:"HH:mm"}}</td>
+                        <td>{{historicoHorario.horaSalidaNoche | date:"HH:mm"}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div ng-show="respuesta.mensajeDelProceso != null" class="alert alert-info">
+            {{respuesta.mensajeDelProceso}}
+        </div>
+        @*<pre>
+            {{historicoHorario | json}}
+            </pre>*@
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" ng-click="cancel()" id="btn_cancelar">Salir</button>
+        <button class="btn btn-primary" ng-click="ok()" id="btn_save">Eliminar</button>
+    </div>
+</script>

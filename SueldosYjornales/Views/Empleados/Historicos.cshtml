@@ -53,6 +53,7 @@
     <script src="~/Scripts/Empleados/Historicos/Controllers/IngresosSalidas/listadoHistoricoIngresoSalidasCtrl.js"></script>
     <script src="~/Scripts/Empleados/Historicos/Controllers/HistoricoHorarios/historicoHorariosCtrl.js"></script>
 <script src="~/Scripts/Empleados/Historicos/Controllers/HistoricoHorarios/listadoHitoricoHorariosCtrl.js"></script>
+<script src="~/Scripts/Empleados/Historicos/Controllers/HistoricoTelefonos/historicoTelefonosCtrl.js"></script>
 }
 <style type="text/css">
     .form-group {
@@ -107,6 +108,9 @@
         <li role="presentation" class="{{vm.menu.horarios.class}}">
             <a href="#" ng-click="vm.horariosFn()">Horarios</a>
         </li>
+        <li role="presentation" class="{{vm.menu.telefonos.class}}">
+            <a href="#" ng-click="vm.telefonosFn()">Telefonos</a>
+        </li>
     </ul>
     <div style="margin-top:25px;" ng-show="vm.menu.historicoDirecciones.mostrar">
         @Html.Partial("Historicos/_HistoricoDirecciones")
@@ -119,6 +123,9 @@
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.horarios.mostrar">
         @Html.Partial("Historicos/_Horarios")
+    </div>
+    <div style="margin-top:25px;" ng-show="vm.menu.telefonos.mostrar">
+        @Html.Partial("Historicos/_Telefonos")
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
         <div class="alert alert-info">

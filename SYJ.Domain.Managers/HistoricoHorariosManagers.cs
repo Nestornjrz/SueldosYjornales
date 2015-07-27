@@ -30,7 +30,26 @@ namespace SYJ.Domain.Managers {
         }
 
         public MensajeDto EliminarHistoricoHorario(int id) {
-            throw new NotImplementedException();
+            using (var context = new SueldosJornalesEntities()) {
+                MensajeDto mensajeDto = null;
+                var historicoHorarioDb = context.HistoricoHorarios
+                 .Where(h => h.HistoricoHorarioID == id)
+                 .FirstOrDefault();
+                if (historicoHorarioDb == null) {
+                    return new MensajeDto() {
+                        Error = true,
+                        MensajeDelProceso = "No existe el historico de horario : " + id
+                    };
+                }
+                context.HistoricoHorarios.Remove(historicoHorarioDb);
+                mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
+                if (mensajeDto != null) { return mensajeDto; }
+
+                return new MensajeDto() {
+                    Error = false,
+                    MensajeDelProceso = "Se elimino el historico de horario : " + id
+                };
+            }
         }
 
         public MensajeDto CargarHistoricoHorario(HistoricoHorarioDto hhDto, Guid userID) {

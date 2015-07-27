@@ -246,6 +246,7 @@
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoHorarios\listadoHitoricoHorariosCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoSalario\historicoSalariosCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoSalario\listadoHitoricoSalariosCtrl.js" />
+    <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoTelefonos\historicoTelefonosCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\IngresosSalidas\historicoIngresoSalidasCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\IngresosSalidas\listadoHistoricoIngresoSalidasCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\menuCtrl.js" />
@@ -1108,6 +1109,7 @@
     <Content Include="Views\Empleados\Historicos\_HistoricoDirecciones.cshtml" />
     <Content Include="Views\Empleados\Historicos\_IngresosSalidas.cshtml" />
     <Content Include="Views\Empleados\Historicos\_Horarios.cshtml" />
+    <Content Include="Views\Empleados\Historicos\_Telefonos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

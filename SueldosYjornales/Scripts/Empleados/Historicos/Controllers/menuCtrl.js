@@ -32,6 +32,11 @@
             vm.menu.horarios.class = "active";
             vm.menu.horarios.mostrar = true;
         }
+        vm.telefonosFn = function () {
+            ocultar();
+            vm.menu.telefonos.class = "active";
+            vm.menu.telefonos.mostrar = true;
+        }
 
         //////
         function ocultar() {
@@ -40,6 +45,7 @@
             vm.menu.salarios = {};
             vm.menu.ingresoSalidas = {};
             vm.menu.horarios = {};
+            vm.menu.telefonos = {};
         }
 
         //Eventos
