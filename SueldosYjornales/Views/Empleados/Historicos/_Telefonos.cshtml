@@ -37,7 +37,7 @@
                             </div>
                         </div>
                     </div>
-                    <pre>{{vm.historicoTelefono | json}}</pre>
+                    @*<pre>{{vm.historicoTelefono | json}}</pre>*@
                 </form>
             </div>
         </div>
@@ -45,22 +45,61 @@
     <div class="col-md-8">
         <h2>Listado de telefonos</h2>
         <div class="row" ng-controller="listadoHistoricoTelefonosCtrl as vm" ng-cloak style="margin-top:25px;">
-            <table class="table table-condensed table-bordered table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th colspan="2">Acciones</th>
-                        <th>Id</th>
-                        <th>Telefono</th>
+            <div class="col-md-8 col-md-offset-2">
+                <table class="table table-condensed table-bordered table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Acciones</th>
+                            <th>Id</th>
+                            <th>Telefono</th>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="o in vm.historicoTelefonos">
+                        <td><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="vm.actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
+                        <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
+                        <td>{{o.historicoTelefonoID}}</td>
+                        <td>{{o.telefonos}}</td>
                     </tr>
-                </thead>
-                <tr ng-repeat="o in vm.historicoTelefonos">
-                    <td><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="vm.actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
-                    <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
-                    <td>{{o.historicoTelefonoID}}</td>
-                    <td>{{o.telefonos}}</td>
-                </tr>
-            </table>
-            <pre>{{vm.historicoTelefonos | json}}</pre>
+                </table>
+            </div>
+            @*<pre>{{vm.historicoTelefonos | json}}</pre>*@
         </div>
     </div>
 </div>
+
+@*////////////////////////////////////////////////////////////////////
+    //////////////////////TEMPLETE DE LOS MODALES////////////////////////*@
+
+<script type="text/ng-template" id="ModalEliminacionHistoricoTelefono.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{objeto.mensaje}} {{objeto.id}}</h3>
+        <p class="text-muted">Esta seguro?</p>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <table class="table table-striped">
+                    <tr>
+                        <th>ID</th>
+                        <td>{{historicoTelefono.historicoTelefonoID}}</td>
+                    </tr>
+                    <tr>
+                        <th>Telefono</th>
+                        <th>{{historicoTelefono.telefonos}}</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div ng-show="respuesta.mensajeDelProceso != null" class="alert alert-info">
+            {{respuesta.mensajeDelProceso}}
+        </div>
+        @*<pre>
+            {{historicoTelefono | json}}
+            </pre>*@
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" ng-click="cancel()" id="btn_cancelar">Salir</button>
+        <button class="btn btn-primary" ng-click="ok()" id="btn_save">Eliminar</button>
+    </div>
+</script>
