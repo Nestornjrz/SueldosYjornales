@@ -245,10 +245,11 @@
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoDireccion\historicoDireccionCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoDireccion\listadoHistoricoDireccionesCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoHorarios\historicoHorariosCtrl.js" />
-    <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoHorarios\listadoHitoricoHorariosCtrl.js" />
+    <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoHorarios\listadoHistoricoHorariosCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoSalario\historicoSalariosCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoSalario\listadoHitoricoSalariosCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoSucursales\historicoSucursalesCtrl.js" />
+    <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoSucursales\listadoHistoricoSucursalesCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoTelefonos\historicoTelefonosCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoTelefonos\listadoHistoricoTelefonosCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\IngresosSalidas\historicoIngresoSalidasCtrl.js" />

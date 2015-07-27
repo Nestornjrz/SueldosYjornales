@@ -28,6 +28,9 @@
                 var historicoHorariosByEmpleadoID = $resource("@Href("~/api/HistoricoHorarios/ByEmpleadoID")");
                 var historicoTelefonosByEmpleadoID = $resource("@Href("~/api/HistoricoTelefonos/ByEmpleadoID")");
                 var historicoTelefonos = $resource("@Href("~/api/HistoricoTelefonos")");
+                var sucursales = $resource("@Href("~/api/Sucursales")");
+                var historicoSucursales = $resource("@Href("~/api/HistoricoSucursales")");
+                var historicoSucursalesByEmpleadoID = $resource("@Href("~/api/HistoricoSucursales/ByEmpleadoID")");
 
                 return {
                     "ubicacionSucUsuarios": ubicacionSucUsuarios,
@@ -42,7 +45,10 @@
                     "historicoHorarios": historicoHorarios,
                     "historicoHorariosByEmpleadoID": historicoHorariosByEmpleadoID,
                     "historicoTelefonosByEmpleadoID": historicoTelefonosByEmpleadoID,
-                    "historicoTelefonos": historicoTelefonos
+                    "historicoTelefonos": historicoTelefonos,
+                    "sucursales": sucursales,
+                    "historicoSucursales": historicoSucursales,
+                    "historicoSucursalesByEmpleadoID": historicoSucursalesByEmpleadoID
                 }
             }
         })();
@@ -56,10 +62,11 @@
     <script src="~/Scripts/Empleados/Historicos/Controllers/IngresosSalidas/historicoIngresoSalidasCtrl.js"></script>
     <script src="~/Scripts/Empleados/Historicos/Controllers/IngresosSalidas/listadoHistoricoIngresoSalidasCtrl.js"></script>
     <script src="~/Scripts/Empleados/Historicos/Controllers/HistoricoHorarios/historicoHorariosCtrl.js"></script>
-    <script src="~/Scripts/Empleados/Historicos/Controllers/HistoricoHorarios/listadoHitoricoHorariosCtrl.js"></script>
+    <script src="~/Scripts/Empleados/Historicos/Controllers/HistoricoHorarios/listadoHistoricoHorariosCtrl.js"></script>
     <script src="~/Scripts/Empleados/Historicos/Controllers/HistoricoTelefonos/historicoTelefonosCtrl.js"></script>
     <script src="~/Scripts/Empleados/Historicos/Controllers/HistoricoTelefonos/listadoHistoricoTelefonosCtrl.js"></script>
     <script src="~/Scripts/Empleados/Historicos/Controllers/HistoricoSucursales/historicoSucursalesCtrl.js"></script>
+    <script src="~/Scripts/Empleados/Historicos/Controllers/HistoricoSucursales/listadoHistoricoSucursalesCtrl.js"></script>
 }
 <style type="text/css">
     .form-group {

@@ -4,24 +4,102 @@
             <div class="panel-heading">Cargar Sucursal</div>
             <div class="panel-body">
                 <form class="form-horizontal" role="form" ng-controller="historicoSucursalesCtrl as vm" name="historicoSucursalesForm" ng-cloak>
-                    <div class="form-group">
-                        <label for="cargo" class="col-md-4 control-label">Sucursal</label>
-                        <div class="col-md-8">
-                            <select name="sucursal" required
-                                    ng-model="vm.historicoSalario.sucursal"
-                                    ng-options="r.nombreSucursal for r in vm.sucursales" class="form-control"
-                                    ng-required="true">
-                                <!--<option value="">-- Seleccione el concepto --</option>-->
-                                <option value="" ng-hide="vm.historicoSalario.cargo">Seleccione sucursal</option>
-                            </select>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="cargo" class="col-md-4 control-label">Sucursal</label>
+                            <div class="col-md-8">
+                                <select name="sucursal" required
+                                        ng-model="vm.historicoSucursale.sucursal"
+                                        ng-options="r.nombreSucursal for r in vm.sucursales" class="form-control"
+                                        ng-required="true">
+                                    <!--<option value="">-- Seleccione el concepto --</option>-->
+                                    <option value="" ng-hide="vm.historicoSucursale.cargo">Seleccione sucursal</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <button ng-click="vm.guardar()" ng-disabled="historicoSucursalesForm.$invalid" class="btn btn-default">
+                                    <span ng-show="vm.historicoSucursale.historicoSucursalID == null">Cargar</span>
+                                    <span ng-show="vm.historicoSucursale.historicoSucursalID != null">Editar I/S ID: {{vm.historicoSucursale.historicoSucursalID}}</span>
+                                </button>
+                                <button ng-click="vm.nuevoParaCargar()" class="btn btn-default">
+                                    Nuevo
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Aviso</div>
+                                <div class="panel-body">
+                                    {{vm.mensajeDelServidor}}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <pre>{{vm.historicoSalario | json}}</pre>
+                    @*<pre>{{vm.historicoSucursale | json}}</pre>*@
                 </form>
             </div>
         </div>
     </div>
     <div class="col-md-7">
-
+        <h2>Listado de sucursales</h2>
+        <div class="row" ng-controller="listadoHistoricoSucursalesCtrl as vm" ng-cloak style="margin-top:25px;">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Acciones</th>
+                            <th>Id</th>
+                            <th>Nombre Sucursal</th>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="o in vm.historicoSucursales">
+                        <td><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="vm.actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
+                        <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
+                        <td>{{o.historicoSucursalID}}</td>
+                        <td>{{o.sucursal.nombreSucursal}}</td>
+                    </tr>
+                </table>
+            </div>
+            @*<pre>{{vm.historicoSucursales | json}}</pre>*@
+        </div>
     </div>
 </div>
+
+@*////////////////////////////////////////////////////////////////////
+    //////////////////////TEMPLETE DE LOS MODALES////////////////////////*@
+
+<script type="text/ng-template" id="ModalEliminacionSucursale.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{objeto.mensaje}} {{objeto.id}}</h3>
+        <p class="text-muted">Esta seguro?</p>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <table class="table table-striped">
+                    <tr>
+                        <th>ID</th>
+                        <td>{{historicoSucursale.historicoSucursalID}}</td>
+                    </tr>
+                    <tr>
+                        <th>Sucursal</th>
+                        <td>{{historicoSucursale.sucursal.nombreSucursal}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div ng-show="respuesta.mensajeDelProceso != null" class="alert alert-info">
+            {{respuesta.mensajeDelProceso}}
+        </div>
+        @*<pre>
+            {{historicoSucursale | json}}
+            </pre>*@
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" ng-click="cancel()" id="btn_cancelar">Salir</button>
+        <button class="btn btn-primary" ng-click="ok()" id="btn_save">Eliminar</button>
+    </div>
+</script>

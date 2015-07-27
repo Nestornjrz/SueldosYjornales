@@ -3,11 +3,11 @@
 
     angular
         .module('sueldosYjornalesApp')
-        .controller('listadoHitoricoHorariosCtrl', listadoHitoricoHorariosCtrl);
+        .controller('listadoHistoricoHorariosCtrl', listadoHistoricoHorariosCtrl);
 
-    listadoHitoricoHorariosCtrl.$inject = ['$rootScope', '$modal', 'sYjResource'];
+    listadoHistoricoHorariosCtrl.$inject = ['$rootScope', '$modal', 'sYjResource'];
 
-    function listadoHitoricoHorariosCtrl($rootScope, $modal, sYjResource) {
+    function listadoHistoricoHorariosCtrl($rootScope, $modal, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
 
