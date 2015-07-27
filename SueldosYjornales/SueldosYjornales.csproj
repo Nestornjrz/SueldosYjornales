@@ -181,6 +181,7 @@
     <Compile Include="Controllers\Api\HistoricoHorariosController.cs" />
     <Compile Include="Controllers\Api\HistoricoIngresoSalidasController.cs" />
     <Compile Include="Controllers\Api\HistoricoSalariosController.cs" />
+    <Compile Include="Controllers\Api\HistoricoSucursalesController.cs" />
     <Compile Include="Controllers\Api\HistoricoTelefonosController.cs" />
     <Compile Include="Controllers\Api\NacionalidadesController.cs" />
     <Compile Include="Controllers\Api\ProfesionesController.cs" />

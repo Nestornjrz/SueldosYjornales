@@ -47,6 +47,7 @@
     <Compile Include="HistoricoHorarioDto.cs" />
     <Compile Include="HistoricoIngresoSalidaDto.cs" />
     <Compile Include="HistoricoSalarioDto.cs" />
+    <Compile Include="HistoricoSucursaleDto.cs" />
     <Compile Include="MensajeDto.cs" />
     <Compile Include="NacionalidadeDto.cs" />
     <Compile Include="ProfesioneDto.cs" />
