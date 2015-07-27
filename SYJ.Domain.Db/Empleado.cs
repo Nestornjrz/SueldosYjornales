@@ -16,15 +16,15 @@ namespace SYJ.Domain.Db
     {
         public Empleado()
         {
+            this.HistoricoDirecciones = new HashSet<HistoricoDireccione>();
             this.HistoricoIngresoSalidas = new HashSet<HistoricoIngresoSalida>();
             this.HistoricoSalarios = new HashSet<HistoricoSalario>();
-            this.HistoricoTelefonos = new HashSet<HistoricoTelefono>();
-            this.HistoricoDirecciones = new HashSet<HistoricoDireccione>();
             this.HistoricoHorarios = new HashSet<HistoricoHorario>();
+            this.HistoricoSucursales = new HashSet<HistoricoSucursale>();
+            this.HistoricoTelefonos = new HashSet<HistoricoTelefono>();
         }
     
         public long EmpleadoID { get; set; }
-        public int SucursalID { get; set; }
         public string Nombres { get; set; }
         public string Apellidos { get; set; }
         public System.DateTime FechaNacimiento { get; set; }
@@ -41,13 +41,13 @@ namespace SYJ.Domain.Db
     
         public virtual EstadoCivile EstadoCivile { get; set; }
         public virtual Nacionalidade Nacionalidade { get; set; }
-        public virtual Sucursale Sucursale { get; set; }
+        public virtual Profesione Profesione { get; set; }
         public virtual Usuario Usuario { get; set; }
+        public virtual ICollection<HistoricoDireccione> HistoricoDirecciones { get; set; }
         public virtual ICollection<HistoricoIngresoSalida> HistoricoIngresoSalidas { get; set; }
         public virtual ICollection<HistoricoSalario> HistoricoSalarios { get; set; }
-        public virtual ICollection<HistoricoTelefono> HistoricoTelefonos { get; set; }
-        public virtual Profesione Profesione { get; set; }
-        public virtual ICollection<HistoricoDireccione> HistoricoDirecciones { get; set; }
         public virtual ICollection<HistoricoHorario> HistoricoHorarios { get; set; }
+        public virtual ICollection<HistoricoSucursale> HistoricoSucursales { get; set; }
+        public virtual ICollection<HistoricoTelefono> HistoricoTelefonos { get; set; }
     }
 }

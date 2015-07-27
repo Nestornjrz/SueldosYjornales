@@ -17,7 +17,6 @@ namespace SYJ.Domain.Db
         public long HistoricoTelefonoID { get; set; }
         public long EmpleadoID { get; set; }
         public string Telefonos { get; set; }
-        public System.DateTime FechaTelefonos { get; set; }
         public long UsuarioID { get; set; }
         public System.DateTime MomentoCarga { get; set; }
     

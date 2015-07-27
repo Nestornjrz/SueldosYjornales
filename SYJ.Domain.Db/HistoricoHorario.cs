@@ -25,7 +25,7 @@ namespace SYJ.Domain.Db
         public long UsuarioID { get; set; }
         public System.DateTime MomentoCarga { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
         public virtual Usuario Usuario { get; set; }
+        public virtual Empleado Empleado { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿/*
 Created: 15/06/2015
-Modified: 13/07/2015
+Modified: 27/07/2015
 Model: Sueldos y Jornales
 Database: MS SQL Server 2014
 */
@@ -13,7 +13,6 @@ Database: MS SQL Server 2014
 CREATE TABLE [Sj].[Empleados]
 (
  [EmpleadoID] Bigint IDENTITY(1,1) NOT NULL,
- [SucursalID] Int NOT NULL,
  [Nombres] Varchar(50) NOT NULL,
  [Apellidos] Varchar(50) NOT NULL,
  [FechaNacimiento] Date NOT NULL,
@@ -35,9 +34,6 @@ EXEC sp_addextendedproperty 'MS_Description', 'Numero del ministerio de justicia
 go
 
 -- Create indexes for table Sj.Empleados
-
-CREATE INDEX [IX_Empleados:SucursalID] ON [Sj].[Empleados] ([SucursalID])
-go
 
 CREATE INDEX [IX_Empleados:EstadoCivilID] ON [Sj].[Empleados] ([EstadoCivilID])
 go
@@ -224,7 +220,6 @@ CREATE TABLE [Sj].[HistoricoTelefonos]
  [HistoricoTelefonoID] Bigint IDENTITY(1,1) NOT NULL,
  [EmpleadoID] Bigint NOT NULL,
  [Telefonos] Varchar(200) NOT NULL,
- [FechaTelefonos] Date NOT NULL,
  [UsuarioID] Bigint NOT NULL,
  [MomentoCarga] Datetime2 NOT NULL
 )
@@ -256,19 +251,6 @@ go
 -- Add keys for table Sj.Cargos
 
 ALTER TABLE [Sj].[Cargos] ADD CONSTRAINT [pk_Cargos] PRIMARY KEY ([CargoID])
-go
-
--- Table Jornaleros
-
-CREATE TABLE [Jornaleros]
-(
- [JornaleroID] Bigint IDENTITY(1,1) NOT NULL
-)
-go
-
--- Add keys for table Jornaleros
-
-ALTER TABLE [Jornaleros] ADD CONSTRAINT [Key2] PRIMARY KEY ([JornaleroID])
 go
 
 -- Table Sj.HistoricoIngresoSalidas
@@ -379,12 +361,37 @@ go
 ALTER TABLE [Sj].[UbicacionSucUsuarios] ADD CONSTRAINT [pfk_UbicacionSucUsuarios] PRIMARY KEY ([UsuarioID])
 go
 
+-- Table Sj.HistoricoSucursales
+
+CREATE TABLE [Sj].[HistoricoSucursales]
+(
+ [HistoricoSucursalID] Bigint IDENTITY(1,1) NOT NULL,
+ [EmpleadoID] Bigint NOT NULL,
+ [SucursalID] Int NOT NULL,
+ [UsuarioID] Bigint NOT NULL,
+ [MomentoCarga] Datetime2 NOT NULL
+)
+go
+
+-- Create indexes for table Sj.HistoricoSucursales
+
+CREATE INDEX [IX_HistoricoSucursales_EmpleadoID] ON [Sj].[HistoricoSucursales] ([EmpleadoID])
+go
+
+CREATE INDEX [IX_HistoricoSucursales_SucursalID] ON [Sj].[HistoricoSucursales] ([SucursalID])
+go
+
+CREATE INDEX [IX_HistoricoSucursales_UsuarioID] ON [Sj].[HistoricoSucursales] ([UsuarioID])
+go
+
+-- Add keys for table Sj.HistoricoSucursales
+
+ALTER TABLE [Sj].[HistoricoSucursales] ADD CONSTRAINT [Key4] PRIMARY KEY ([HistoricoSucursalID])
+go
+
 -- Create relationships section ------------------------------------------------- 
 
 ALTER TABLE [Sj].[Sucursales] ADD CONSTRAINT [fk_Sucursales>Empresas] FOREIGN KEY ([EmpresaID]) REFERENCES [Sj].[Empresas] ([EmpresaID]) ON UPDATE NO ACTION ON DELETE NO ACTION
-go
-
-ALTER TABLE [Sj].[Empleados] ADD CONSTRAINT [fk_Empleados>Sucursales] FOREIGN KEY ([SucursalID]) REFERENCES [Sj].[Sucursales] ([SucursalID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
 ALTER TABLE [Sj].[Empleados] ADD CONSTRAINT [fk_Empleados>EstadoCiviles] FOREIGN KEY ([EstadoCivilID]) REFERENCES [Sj].[EstadoCiviles] ([EstadoCivilID]) ON UPDATE NO ACTION ON DELETE NO ACTION
@@ -436,6 +443,15 @@ ALTER TABLE [Sj].[UbicacionSucUsuarios] ADD CONSTRAINT [pfk_UbicacionSucUsuarios
 go
 
 ALTER TABLE [Sj].[UbicacionSucUsuarios] ADD CONSTRAINT [fk_UbicacionSucUsuarios>Sucursales] FOREIGN KEY ([SucursalID]) REFERENCES [Sj].[Sucursales] ([SucursalID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[HistoricoSucursales] ADD CONSTRAINT [Fk_HistoricoSucursales->Empleados] FOREIGN KEY ([EmpleadoID]) REFERENCES [Sj].[Empleados] ([EmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[HistoricoSucursales] ADD CONSTRAINT [fk_HistoricoSucursales->Sucursales] FOREIGN KEY ([SucursalID]) REFERENCES [Sj].[Sucursales] ([SucursalID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[HistoricoSucursales] ADD CONSTRAINT [Relationship3] FOREIGN KEY ([UsuarioID]) REFERENCES [Sj].[Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
 

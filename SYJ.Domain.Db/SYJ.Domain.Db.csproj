@@ -88,6 +88,9 @@
     <Compile Include="HistoricoSalario.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="HistoricoSucursale.cs">
+      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="HistoricoTelefono.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>

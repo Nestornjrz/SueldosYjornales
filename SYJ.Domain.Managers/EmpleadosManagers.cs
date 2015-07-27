@@ -13,13 +13,7 @@ namespace SYJ.Domain.Managers {
             using (var context = new SueldosJornalesEntities()) {
                 var listado = context.Empleados
                     .Select(s => new EmpleadoDto() {
-                        EmpleadoID = s.EmpleadoID,
-                        Sucursale = new SucursaleDto() {
-                            SucursalID = s.SucursalID,
-                            NombreSucursal = s.Sucursale.NombreSucursal,
-                            Abreviatura = s.Sucursale.Abreviatura,
-                            Descripcion = s.Sucursale.Descripcion
-                        },
+                        EmpleadoID = s.EmpleadoID,                       
                         Nombres = s.Nombres,
                         Apellidos = s.Apellidos,
                         FechaNacimiento = s.FechaNacimiento,
@@ -65,8 +59,7 @@ namespace SYJ.Domain.Managers {
                 var sucursalID = context.UbicacionSucUsuarios
                     .Where(u => u.UsuarioID == usuarioID)
                     .First().SucursalID;
-
-                empleadoDb.SucursalID = sucursalID;
+              
                 empleadoDb.Nombres = eDto.Nombres;
                 empleadoDb.Apellidos = eDto.Apellidos;
                 empleadoDb.FechaNacimiento = eDto.FechaNacimiento;
@@ -161,13 +154,7 @@ namespace SYJ.Domain.Managers {
             using (var context = new SueldosJornalesEntities()) {
                 var empleadoDto = context.Empleados.
                       Select(s => new EmpleadoDto() {
-                          EmpleadoID = s.EmpleadoID,
-                          Sucursale = new SucursaleDto() {
-                              SucursalID = s.SucursalID,
-                              NombreSucursal = s.Sucursale.NombreSucursal,
-                              Abreviatura = s.Sucursale.Abreviatura,
-                              Descripcion = s.Sucursale.Descripcion
-                          },
+                          EmpleadoID = s.EmpleadoID,                         
                           Nombres = s.Nombres,
                           Apellidos = s.Apellidos,
                           FechaNacimiento = s.FechaNacimiento,
