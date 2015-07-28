@@ -1,6 +1,6 @@
 ﻿/*
 Created: 15/06/2015
-Modified: 27/07/2015
+Modified: 28/07/2015
 Model: Sueldos y Jornales
 Database: MS SQL Server 2014
 */
@@ -260,7 +260,7 @@ CREATE TABLE [Sj].[HistoricoIngresoSalidas]
  [HistoricoIngresoSalidaID] Bigint IDENTITY(1,1) NOT NULL,
  [EmpleadoID] Bigint NOT NULL,
  [FechaIngreso] Date NOT NULL,
- [FechaSalida] Date NOT NULL,
+ [FechaSalida] Date NULL,
  [UsuarioID] Bigint NOT NULL,
  [MomentoCarga] Datetime2 NOT NULL
 )
@@ -389,6 +389,86 @@ go
 ALTER TABLE [Sj].[HistoricoSucursales] ADD CONSTRAINT [Key4] PRIMARY KEY ([HistoricoSucursalID])
 go
 
+-- Table Sj.Comisiones
+
+CREATE TABLE [Sj].[Comisiones]
+(
+ [ComisionID] Bigint IDENTITY(1,1) NOT NULL,
+ [EmpleadoID] Bigint NOT NULL,
+ [FechaComision] Date NOT NULL,
+ [MontoComision] Money NOT NULL,
+ [Observacion] Text NOT NULL,
+ [UsuarioID] Bigint NOT NULL,
+ [MomentoCarga] Char(1) NOT NULL
+)
+go
+
+-- Create indexes for table Sj.Comisiones
+
+CREATE INDEX [IX_Comisiones_EmpleadoID] ON [Sj].[Comisiones] ([EmpleadoID])
+go
+
+CREATE INDEX [IX_Comisiones_UsuarioID] ON [Sj].[Comisiones] ([UsuarioID])
+go
+
+-- Add keys for table Sj.Comisiones
+
+ALTER TABLE [Sj].[Comisiones] ADD CONSTRAINT [pk_Comisiones] PRIMARY KEY ([ComisionID])
+go
+
+-- Table Sj.Ausencias
+
+CREATE TABLE [Sj].[Ausencias]
+(
+ [AusenciaID] Bigint IDENTITY(1,1) NOT NULL,
+ [EmpleadoID] Bigint NOT NULL,
+ [FechaAusencia] Date NOT NULL,
+ [Observacion] Text NOT NULL,
+ [UsuarioID] Bigint NOT NULL,
+ [MomentoCarga] Datetime2 NOT NULL
+)
+go
+
+-- Create indexes for table Sj.Ausencias
+
+CREATE INDEX [IX_Ausencias_EmpleadoID] ON [Sj].[Ausencias] ([EmpleadoID])
+go
+
+CREATE INDEX [IX_Ausencias_UsuarioID] ON [Sj].[Ausencias] ([UsuarioID])
+go
+
+-- Add keys for table Sj.Ausencias
+
+ALTER TABLE [Sj].[Ausencias] ADD CONSTRAINT [pk_Ausencias] PRIMARY KEY ([AusenciaID])
+go
+
+-- Table Sj.Anticipos
+
+CREATE TABLE [Sj].[Anticipos]
+(
+ [AnticipoID] Bigint IDENTITY(1,1) NOT NULL,
+ [EmpleadoID] Bigint NOT NULL,
+ [FechaAnticipo] Date NOT NULL,
+ [MontoAnticipo] Money NOT NULL,
+ [Observacion] Text NULL,
+ [UsuarioID] Bigint NOT NULL,
+ [MomentoCarga] Datetime2 NOT NULL
+)
+go
+
+-- Create indexes for table Sj.Anticipos
+
+CREATE INDEX [IX_Anticipos_EmpleadoID] ON [Sj].[Anticipos] ([EmpleadoID])
+go
+
+CREATE INDEX [IX_Anticipos_UsuarioID] ON [Sj].[Anticipos] ([UsuarioID])
+go
+
+-- Add keys for table Sj.Anticipos
+
+ALTER TABLE [Sj].[Anticipos] ADD CONSTRAINT [pk_Anticipos] PRIMARY KEY ([AnticipoID])
+go
+
 -- Create relationships section ------------------------------------------------- 
 
 ALTER TABLE [Sj].[Sucursales] ADD CONSTRAINT [fk_Sucursales>Empresas] FOREIGN KEY ([EmpresaID]) REFERENCES [Sj].[Empresas] ([EmpresaID]) ON UPDATE NO ACTION ON DELETE NO ACTION
@@ -452,6 +532,24 @@ ALTER TABLE [Sj].[HistoricoSucursales] ADD CONSTRAINT [fk_HistoricoSucursales->S
 go
 
 ALTER TABLE [Sj].[HistoricoSucursales] ADD CONSTRAINT [Relationship3] FOREIGN KEY ([UsuarioID]) REFERENCES [Sj].[Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[Comisiones] ADD CONSTRAINT [fk_Comisiones->Empleados] FOREIGN KEY ([EmpleadoID]) REFERENCES [Sj].[Empleados] ([EmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[Comisiones] ADD CONSTRAINT [fk_Comisiones->Usuarios] FOREIGN KEY ([UsuarioID]) REFERENCES [Sj].[Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[Ausencias] ADD CONSTRAINT [fk_Ausencias->Empleados] FOREIGN KEY ([EmpleadoID]) REFERENCES [Sj].[Empleados] ([EmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[Ausencias] ADD CONSTRAINT [fk_Ausencias->Usuarios] FOREIGN KEY ([UsuarioID]) REFERENCES [Sj].[Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[Anticipos] ADD CONSTRAINT [fk_Anticipos->Empleados] FOREIGN KEY ([EmpleadoID]) REFERENCES [Sj].[Empleados] ([EmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[Anticipos] ADD CONSTRAINT [fk_Anticipos->Usuarios] FOREIGN KEY ([UsuarioID]) REFERENCES [Sj].[Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
 

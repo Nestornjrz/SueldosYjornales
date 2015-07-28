@@ -52,6 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Anticipos.cs">
+      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="AspNetRole.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>
@@ -64,7 +67,13 @@
     <Compile Include="AspNetUserLogin.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Ausencia.cs">
+      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Cargo.cs">
+      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Comisione.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Empleado.cs">
