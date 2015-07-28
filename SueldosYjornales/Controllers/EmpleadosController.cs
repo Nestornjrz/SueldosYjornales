@@ -15,6 +15,12 @@ namespace SueldosYjornales.Controllers
             return View();
         }
 
+        // GET: Empleados/Details/5
+        public ActionResult Details(int id) {
+            ViewBag.empleadoID = id;
+            return View();
+        }
+
         // GET: Empleados/Historicos/5
         public ActionResult Historicos(int id) {
             ViewBag.empleadoID = id;

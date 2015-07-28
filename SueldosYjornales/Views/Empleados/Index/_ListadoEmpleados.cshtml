@@ -7,7 +7,6 @@
                     <th colspan="2">Acciones</th>
                     <th>ID</th>
                     <th>Nombre</th>
-                    <th>Apellido</th>
                     <th>Fecha Nac.</th>
                     <th ng-hide="mostrarFormCargaEmpleado">Nro Cedula</th>
                     <th ng-hide="mostrarFormCargaEmpleado">Estado Civil</th>
@@ -22,8 +21,11 @@
                     <td class="text-center"><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
                     <td class="text-center"><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
                     <td>{{o.empleadoID}}</td>
-                    <td>{{o.nombres}}</td>
-                    <td>{{o.apellidos}}</td>
+                    <td>
+                        <a href="@Url.Action("Details","Empleados")/{{o.empleadoID}}">
+                            {{o.nombres}} {{o.apellidos}}
+                        </a>
+                    </td>
                     <td>{{o.fechaNacimiento | date:"dd/MM/yyyy"}}</td>
                     <td ng-hide="mostrarFormCargaEmpleado">{{o.nroCedula}}</td>
                     <td ng-hide="mostrarFormCargaEmpleado">{{o.estadoCivile.nombreEstadoCivil}}</td>
@@ -58,7 +60,7 @@
             <tr>
                 <th>Apellidos</th>
                 <td>{{empleado.apellidos}}</td>
-            </tr>           
+            </tr>
         </table>
         {{respuesta.mensajeDelProceso}}
     </div>

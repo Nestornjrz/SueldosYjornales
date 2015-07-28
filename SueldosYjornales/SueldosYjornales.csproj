@@ -242,6 +242,9 @@
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Empleados\Details\Controllers\Comisiones\comisionesCtrl.js" />
+    <Content Include="Scripts\Empleados\Details\Controllers\menuCtrl.js" />
+    <Content Include="Scripts\Empleados\Details\Services\common.services.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoDireccion\historicoDireccionCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoDireccion\listadoHistoricoDireccionesCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoHorarios\historicoHorariosCtrl.js" />
@@ -1116,10 +1119,13 @@
     <Content Include="Views\Empleados\Historicos\_Horarios.cshtml" />
     <Content Include="Views\Empleados\Historicos\_Telefonos.cshtml" />
     <Content Include="Views\Empleados\Historicos\_Sucursales.cshtml" />
+    <Content Include="Views\Empleados\Details.cshtml" />
+    <Content Include="Views\Empleados\Details\_Comisiones.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\" />
+    <Folder Include="Views\EmpleadosBorrar\" />
     <Folder Include="Views\Home\Index\" />
     <Folder Include="Views\Probando\" />
   </ItemGroup>

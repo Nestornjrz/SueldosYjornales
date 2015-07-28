@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "Detalles";
+    long empleadoID = ViewBag.empleadoID;
+}
+@section scripts{
+    <script src="~/Scripts/Empleados/Details/Services/common.services.js"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            angular
+                .module('sueldosYjornalesApp')
+                .factory('sYjResource', sYjResource);
+
+            sYjResource.$inject = ['$resource'];
+
+            function sYjResource($resource) {
+                var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
+                var empleados = $resource("@Href("~/api/Empleados")");
+
+                return {
+                    "ubicacionSucUsuarios": ubicacionSucUsuarios,
+                    "empleados": empleados
+                }
+            }
+        })();
+    </script>
+    @*controladores*@
+    <script src="~/Scripts/Empleados/Details/Controllers/menuCtrl.js"></script>
+    <script src="~/Scripts/Empleados/Details/Controllers/Comisiones/comisionesCtrl.js"></script>
+}
+<div class="container" ng-controller="menuCtrl as vm" ng-cloak ng-init="vm.empleadoID = @empleadoID">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h2 class="text-center">
+                {{vm.empleado.objetoDto.nombres}} {{vm.empleado.objetoDto.apellidos}}
+            </h2>
+            <table class="table table-bordered table-condensed table-responsive table-striped">
+                <tr>
+                    <th>Fecha Nacimiento</th>
+                    <td>{{vm.empleado.objetoDto.fechaNacimiento | date:"dd/MM/yyyy"}}</td>
+
+                    <th>Sexo</th>
+                    <td>{{vm.empleado.objetoDto.sexo.nombreSexo}}</td>
+                </tr>
+                <tr>
+                    <th>Numero Cedula</th>
+                    <td>{{vm.empleado.objetoDto.nroCedula}}</td>
+
+                    <th>Estado Civil</th>
+                    <td>{{vm.empleado.objetoDto.estadoCivile.nombreEstadoCivil}}</td>
+                </tr>
+                <tr>
+                    <th>Nacionalidad</th>
+                    <td>{{vm.empleado.objetoDto.nacionalidade.nombreNacionalidad}}</td>
+
+                    <th>Profesion</th>
+                    <td>{{vm.empleado.objetoDto.profesione.nombreProfesion}}</td>
+                </tr>
+                <tr>
+                    <th>Cantidad Hijos</th>
+                    <td>{{vm.empleado.objetoDto.cantidadHijos}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center">Cargas varias</h3>
+        </div>
+    </div>
+    <ul class="nav nav-tabs" style="margin-top:2px;">
+        <li role="presentation" class="{{vm.menu.comisiones.class}}">
+            <a href="#" ng-click="vm.comisionesFn()">Comisiones</a>
+        </li>
+
+    </ul>
+    <div style="margin-top:25px;" ng-show="vm.menu.comisiones.mostrar">
+        @Html.Partial("Details/_Comisiones")
+    </div>
+
+    <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
+        <div class="alert alert-info">
+            Por favor elija uno de las opciones
+        </div>
+    </div>
+    @*<pre>{{vm.empleado | json}}</pre>*@
+</div>
