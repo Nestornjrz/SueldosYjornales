@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CargosManagers.cs" />
+    <Compile Include="ComisionesManagers.cs" />
     <Compile Include="EmpleadosManagers.cs" />
     <Compile Include="EmpresasManagers.cs" />
     <Compile Include="EstadosCivilesManagers.cs" />
