@@ -55,5 +55,9 @@
             vm.historicoSucursales = sYjResource
               .historicoSucursalesByEmpleadoID.query({ 'empleadoID': vm.empleadoID });
         });
+        $rootScope.$on('actualizarListadoHistoricoSucursales', function (event, objValRecibido) {
+            vm.historicoSucursales = sYjResource
+              .historicoSucursalesByEmpleadoID.query({ 'empleadoID': vm.empleadoID });
+        });
     }
 })();
