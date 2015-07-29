@@ -1,6 +1,6 @@
 ﻿/*
 Created: 15/06/2015
-Modified: 28/07/2015
+Modified: 29/07/2015
 Model: Sueldos y Jornales
 Database: MS SQL Server 2014
 */
@@ -301,12 +301,12 @@ CREATE TABLE [Sj].[HistoricoHorarios]
 (
  [HistoricoHorarioID] Bigint IDENTITY(1,1) NOT NULL,
  [EmpleadoID] Bigint NOT NULL,
- [HoraEntradaMananaUTC] Datetime2 NULL,
- [HoraSalidaMananaUTC] Datetime2 NULL,
- [HoraEntradaTardeUTC] Datetime2 NULL,
- [HoraSalidaTardeUTC] Datetime2 NULL,
- [HoraEntradaNocheUTC] Datetime2 NULL,
- [HoraSalidaNocheUTC] Datetime2 NULL,
+ [HoraEntradaManana] Datetime2 NULL,
+ [HoraSalidaManana] Datetime2 NULL,
+ [HoraEntradaTarde] Datetime2 NULL,
+ [HoraSalidaTarde] Datetime2 NULL,
+ [HoraEntradaNoche] Datetime2 NULL,
+ [HoraSalidaNoche] Datetime2 NULL,
  [UsuarioID] Bigint NOT NULL,
  [MomentoCarga] Datetime2 NOT NULL
 )
@@ -399,7 +399,7 @@ CREATE TABLE [Sj].[Comisiones]
  [MontoComision] Money NOT NULL,
  [Observacion] Text NOT NULL,
  [UsuarioID] Bigint NOT NULL,
- [MomentoCarga] Char(1) NOT NULL
+ [MomentoCarga] Datetime2 NOT NULL
 )
 go
 

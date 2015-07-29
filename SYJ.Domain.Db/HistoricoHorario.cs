@@ -16,16 +16,16 @@ namespace SYJ.Domain.Db
     {
         public long HistoricoHorarioID { get; set; }
         public long EmpleadoID { get; set; }
-        public Nullable<System.DateTime> HoraEntradaMananaUTC { get; set; }
-        public Nullable<System.DateTime> HoraSalidaMananaUTC { get; set; }
-        public Nullable<System.DateTime> HoraEntradaTardeUTC { get; set; }
-        public Nullable<System.DateTime> HoraSalidaTardeUTC { get; set; }
-        public Nullable<System.DateTime> HoraEntradaNocheUTC { get; set; }
-        public Nullable<System.DateTime> HoraSalidaNocheUTC { get; set; }
+        public Nullable<System.DateTime> HoraEntradaManana { get; set; }
+        public Nullable<System.DateTime> HoraSalidaManana { get; set; }
+        public Nullable<System.DateTime> HoraEntradaTarde { get; set; }
+        public Nullable<System.DateTime> HoraSalidaTarde { get; set; }
+        public Nullable<System.DateTime> HoraEntradaNoche { get; set; }
+        public Nullable<System.DateTime> HoraSalidaNoche { get; set; }
         public long UsuarioID { get; set; }
         public System.DateTime MomentoCarga { get; set; }
     
-        public virtual Usuario Usuario { get; set; }
         public virtual Empleado Empleado { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

@@ -28,8 +28,6 @@
         <AssociationConnector Association="SueldosJornalesModel.pfk_UbicacionSucUsuarios_Usuarios" />
         <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoDireccione" Width="1.5" PointX="8.25" PointY="6.625" />
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoDirecciones_Usuarios" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoHorario" Width="2.375" PointX="11.25" PointY="10.125" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricosHorarios_Usuarios" />
         <EntityTypeShape EntityType="SueldosJornalesModel.Empleado" Width="1.5" PointX="6" PointY="8.5" />
         <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoSucursale" Width="1.5" PointX="11.25" PointY="14.5" />
         <AssociationConnector Association="SueldosJornalesModel.fk_Empleados_EstadoCiviles" />
@@ -38,7 +36,6 @@
         <AssociationConnector Association="SueldosJornalesModel.fk_Empleados_Usuarios" />
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoDirecciones_Empleados" />
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoSalarios_Empleados" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricosHorarios_Empleados" />
         <AssociationConnector Association="SueldosJornalesModel.Fk_HistoricoSucursales__Empleados" />
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoSucursales__Sucursales" />
         <AssociationConnector Association="SueldosJornalesModel.Relationship3" />
@@ -57,6 +54,9 @@
         <EntityTypeShape EntityType="SueldosJornalesModel.Comisione" Width="1.5" PointX="8.25" PointY="18.25" />
         <AssociationConnector Association="SueldosJornalesModel.fk_Comisiones__Empleados" />
         <AssociationConnector Association="SueldosJornalesModel.fk_Comisiones__Usuarios" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoHorario" Width="2.125" PointX="11.25" PointY="10" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricosHorarios_Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricosHorarios_Usuarios" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

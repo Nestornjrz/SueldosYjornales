@@ -16,14 +16,14 @@ namespace SYJ.Domain.Managers {
                     .Select(s => new HistoricoHorarioDto() {
                         HistoricoHorarioID = s.HistoricoHorarioID,
                         EmpleadoID = s.EmpleadoID,
-                        HoraEntradaManana = s.HoraEntradaMananaUTC,
-                        HoraSalidaManana = s.HoraSalidaMananaUTC,
+                        HoraEntradaManana = s.HoraEntradaManana,
+                        HoraSalidaManana = s.HoraSalidaManana,
 
-                        HoraEntradaTarde = s.HoraEntradaTardeUTC,
-                        HoraSalidaTarde = s.HoraSalidaTardeUTC,
+                        HoraEntradaTarde = s.HoraEntradaTarde,
+                        HoraSalidaTarde = s.HoraSalidaTarde,
 
-                        HoraEntradaNoche = s.HoraEntradaNocheUTC,
-                        HoraSalidaNoche = s.HoraSalidaNocheUTC
+                        HoraEntradaNoche = s.HoraEntradaNoche,
+                        HoraSalidaNoche = s.HoraSalidaNoche
                     }).ToList();
                 return listado;
             }
@@ -73,16 +73,16 @@ namespace SYJ.Domain.Managers {
                 }
 
                 if (hhDto.HoraEntradaManana != null && hhDto.HoraSalidaManana != null) {
-                    historicoHorarioDb.HoraEntradaMananaUTC = hhDto.HoraEntradaManana.Value;
-                    historicoHorarioDb.HoraSalidaMananaUTC = hhDto.HoraSalidaManana.Value;
+                    historicoHorarioDb.HoraEntradaManana = hhDto.HoraEntradaManana.Value;
+                    historicoHorarioDb.HoraSalidaManana = hhDto.HoraSalidaManana.Value;
                 }
                 if (hhDto.HoraEntradaTarde != null && hhDto.HoraSalidaTarde != null) {
-                    historicoHorarioDb.HoraEntradaTardeUTC = hhDto.HoraEntradaTarde.Value;
-                    historicoHorarioDb.HoraSalidaTardeUTC = hhDto.HoraSalidaTarde.Value;
+                    historicoHorarioDb.HoraEntradaTarde = hhDto.HoraEntradaTarde.Value;
+                    historicoHorarioDb.HoraSalidaTarde = hhDto.HoraSalidaTarde.Value;
                 }
                 if (hhDto.HoraEntradaNoche != null && hhDto.HoraSalidaNoche != null) {
-                    historicoHorarioDb.HoraEntradaNocheUTC = hhDto.HoraEntradaNoche.Value;
-                    historicoHorarioDb.HoraSalidaNocheUTC = hhDto.HoraSalidaNoche.Value;
+                    historicoHorarioDb.HoraEntradaNoche = hhDto.HoraEntradaNoche.Value;
+                    historicoHorarioDb.HoraSalidaNoche = hhDto.HoraSalidaNoche.Value;
                 }
                 historicoHorarioDb.MomentoCarga = DateTime.Now;
 
@@ -118,14 +118,14 @@ namespace SYJ.Domain.Managers {
                         MensajeDelProceso = "No existe el historico de horario : " + hhDto.HistoricoHorarioID
                     };
                 }
-                historicoHorarioDb.HoraEntradaMananaUTC = (hhDto.HoraEntradaManana == null) ? hhDto.HoraEntradaManana : hhDto.HoraEntradaManana.Value;
-                historicoHorarioDb.HoraSalidaMananaUTC = (hhDto.HoraSalidaManana == null) ? hhDto.HoraSalidaManana : hhDto.HoraSalidaManana.Value;
+                historicoHorarioDb.HoraEntradaManana = (hhDto.HoraEntradaManana == null) ? hhDto.HoraEntradaManana : hhDto.HoraEntradaManana.Value;
+                historicoHorarioDb.HoraSalidaManana = (hhDto.HoraSalidaManana == null) ? hhDto.HoraSalidaManana : hhDto.HoraSalidaManana.Value;
 
-                historicoHorarioDb.HoraEntradaTardeUTC = (hhDto.HoraEntradaTarde == null) ? hhDto.HoraEntradaTarde : hhDto.HoraEntradaTarde.Value;
-                historicoHorarioDb.HoraSalidaTardeUTC = (hhDto.HoraSalidaTarde == null) ? hhDto.HoraSalidaTarde : hhDto.HoraSalidaTarde.Value;
+                historicoHorarioDb.HoraEntradaTarde = (hhDto.HoraEntradaTarde == null) ? hhDto.HoraEntradaTarde : hhDto.HoraEntradaTarde.Value;
+                historicoHorarioDb.HoraSalidaTarde = (hhDto.HoraSalidaTarde == null) ? hhDto.HoraSalidaTarde : hhDto.HoraSalidaTarde.Value;
 
-                historicoHorarioDb.HoraEntradaNocheUTC = (hhDto.HoraEntradaNoche == null) ? hhDto.HoraEntradaNoche : hhDto.HoraEntradaNoche.Value;
-                historicoHorarioDb.HoraSalidaNocheUTC = (hhDto.HoraSalidaNoche == null) ? hhDto.HoraSalidaNoche : hhDto.HoraSalidaNoche.Value;
+                historicoHorarioDb.HoraEntradaNoche = (hhDto.HoraEntradaNoche == null) ? hhDto.HoraEntradaNoche : hhDto.HoraEntradaNoche.Value;
+                historicoHorarioDb.HoraSalidaNoche = (hhDto.HoraSalidaNoche == null) ? hhDto.HoraSalidaNoche : hhDto.HoraSalidaNoche.Value;
 
                 context.Entry(historicoHorarioDb).State = System.Data.Entity.EntityState.Modified;
 
