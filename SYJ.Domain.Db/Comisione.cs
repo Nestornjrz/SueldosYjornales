@@ -20,7 +20,7 @@ namespace SYJ.Domain.Db
         public decimal MontoComision { get; set; }
         public string Observacion { get; set; }
         public long UsuarioID { get; set; }
-        public string MomentoCarga { get; set; }
+        public System.DateTime MomentoCarga { get; set; }
     
         public virtual Empleado Empleado { get; set; }
         public virtual Usuario Usuario { get; set; }

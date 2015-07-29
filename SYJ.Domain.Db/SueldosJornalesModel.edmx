@@ -97,7 +97,7 @@
           <Property Name="MontoComision" Type="money" Nullable="false" />
           <Property Name="Observacion" Type="text" Nullable="false" />
           <Property Name="UsuarioID" Type="bigint" Nullable="false" />
-          <Property Name="MomentoCarga" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="MomentoCarga" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Empleados">
           <Key>
@@ -899,7 +899,6 @@
           </AssociationSet>
           <EntitySet Name="Anticipos" EntityType="SueldosJornalesModel.Anticipos" />
           <EntitySet Name="Ausencias" EntityType="SueldosJornalesModel.Ausencia" />
-          <EntitySet Name="Comisiones" EntityType="SueldosJornalesModel.Comisione" />
           <AssociationSet Name="fk_Anticipos__Empleados" Association="SueldosJornalesModel.fk_Anticipos__Empleados">
             <End Role="Empleado" EntitySet="Empleados" />
             <End Role="Anticipos" EntitySet="Anticipos" />
@@ -916,6 +915,7 @@
             <End Role="Usuario" EntitySet="Usuarios" />
             <End Role="Ausencia" EntitySet="Ausencias" />
           </AssociationSet>
+          <EntitySet Name="Comisiones" EntityType="SueldosJornalesModel.Comisione" />
           <AssociationSet Name="fk_Comisiones__Empleados" Association="SueldosJornalesModel.fk_Comisiones__Empleados">
             <End Role="Empleado" EntitySet="Empleados" />
             <End Role="Comisione" EntitySet="Comisiones" />
@@ -924,7 +924,7 @@
             <End Role="Usuario" EntitySet="Usuarios" />
             <End Role="Comisione" EntitySet="Comisiones" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Cargo">
           <Key>
             <PropertyRef Name="CargoID" />
@@ -1490,20 +1490,6 @@
           <NavigationProperty Name="Empleado" Relationship="SueldosJornalesModel.fk_Ausencias__Empleados" FromRole="Ausencia" ToRole="Empleado" />
           <NavigationProperty Name="Usuario" Relationship="SueldosJornalesModel.fk_Ausencias__Usuarios" FromRole="Ausencia" ToRole="Usuario" />
         </EntityType>
-        <EntityType Name="Comisione">
-          <Key>
-            <PropertyRef Name="ComisionID" />
-          </Key>
-          <Property Name="ComisionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmpleadoID" Type="Int64" Nullable="false" />
-          <Property Name="FechaComision" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="MontoComision" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="Observacion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="UsuarioID" Type="Int64" Nullable="false" />
-          <Property Name="MomentoCarga" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="Empleado" Relationship="SueldosJornalesModel.fk_Comisiones__Empleados" FromRole="Comisione" ToRole="Empleado" />
-          <NavigationProperty Name="Usuario" Relationship="SueldosJornalesModel.fk_Comisiones__Usuarios" FromRole="Comisione" ToRole="Usuario" />
-        </EntityType>
         <Association Name="fk_Anticipos__Empleados">
           <End Type="SueldosJornalesModel.Empleado" Role="Empleado" Multiplicity="1" />
           <End Type="SueldosJornalesModel.Anticipos" Role="Anticipos" Multiplicity="*" />
@@ -1552,6 +1538,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Comisione">
+          <Key>
+            <PropertyRef Name="ComisionID" />
+          </Key>
+          <Property Name="ComisionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpleadoID" Type="Int64" Nullable="false" />
+          <Property Name="FechaComision" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MontoComision" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Observacion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioID" Type="Int64" Nullable="false" />
+          <Property Name="MomentoCarga" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Empleado" Relationship="SueldosJornalesModel.fk_Comisiones__Empleados" FromRole="Comisione" ToRole="Empleado" />
+          <NavigationProperty Name="Usuario" Relationship="SueldosJornalesModel.fk_Comisiones__Usuarios" FromRole="Comisione" ToRole="Usuario" />
+        </EntityType>
         <Association Name="fk_Comisiones__Empleados">
           <End Type="SueldosJornalesModel.Empleado" Role="Empleado" Multiplicity="1" />
           <End Type="SueldosJornalesModel.Comisione" Role="Comisione" Multiplicity="*" />
@@ -1576,7 +1576,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
