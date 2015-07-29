@@ -32,6 +32,7 @@
     <script src="~/Scripts/Empleados/Details/Controllers/menuCtrl.js"></script>
     <script src="~/Scripts/Empleados/Details/Controllers/Comisiones/comisionesCtrl.js"></script>
     <script src="~/Scripts/Empleados/Details/Controllers/Comisiones/listadoComisionesCtrl.js"></script>
+    <script src="~/Scripts/Empleados/Details/Controllers/Anticipos/anticipoCtrl.js"></script>
 }
 <style type="text/css">
     .form-group {
@@ -47,7 +48,7 @@
             <table class="table table-bordered table-condensed table-responsive table-striped">
                 <tr>
                     <th>Fecha Nacimiento</th>
-                    <td>{{vm.empleado.objetoDto.fechaNacimiento | date:"dd/MM/yyyy"}}</td>
+                    <td>{{vm.empleado.objetoDto.fechaNacimiento | date:"dd/MM/yyyy":"UTC"}}</td>
 
                     <th>Sexo</th>
                     <td>{{vm.empleado.objetoDto.sexo.nombreSexo}}</td>
@@ -82,12 +83,16 @@
         <li role="presentation" class="{{vm.menu.comisiones.class}}">
             <a href="#" ng-click="vm.comisionesFn()">Comisiones</a>
         </li>
-
+        <li role="presentation" class="{{vm.menu.anticipos.class}}">
+            <a href="#" ng-click="vm.anticiposFn()">Anticipos</a>
+        </li>
     </ul>
     <div style="margin-top:25px;" ng-show="vm.menu.comisiones.mostrar">
         @Html.Partial("Details/_Comisiones")
     </div>
-
+    <div style="margin-top:25px;" ng-show="vm.menu.anticipos.mostrar">
+        @Html.Partial("Details/_Anticipos")
+    </div>
     <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
         <div class="alert alert-info">
             Por favor elija uno de las opciones

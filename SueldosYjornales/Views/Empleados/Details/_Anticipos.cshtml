@@ -1,0 +1,68 @@
+﻿<div class="row">
+    <div class="col-md-5">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Cargar Anticipos</div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" ng-controller="anticipoCtrl as vm" name="anticipoForm" ng-cloak>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="fechaAnticipo" class="col-md-4 control-label">Fecha Anticipo</label>
+                            <div class="col-md-8">
+                                <p class="input-group">
+                                    <input type="date" id="fechaAnticipo"
+                                           name="fechaAnticipo"
+                                           class="form-control"
+                                           ng-model="vm.anticipo.fechaAnticipo"
+                                           placeholder="yyyy-MM-dd"
+                                           ng-model-options="{timezone:'UTC'}"
+                                           ng-required="true" />
+                                </p>
+                                <div style="color:red" ng-show="anticipoForm.fechaAnticipo.$dirty && anticipoForm.fechaAnticipo.$invalid">
+                                    <span ng-show="anticipoForm.fechaAnticipo.$error.date">No es un formato valido</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="montoAnticipo" class="col-md-4 control-label">Monto</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" ng-model="vm.anticipo.montoAnticipo" name="montoAnticipo" ng-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!--<label for="observacion" class="col-md-3 control-label">Observacion</label>-->
+                            <div class="col-md-12">
+                                <textarea class="form-control" style="max-width:100%;"
+                                          ng-model="vm.anticipo.observacion"
+                                          rows="5"
+                                          placeholder="Cargar la observacion..."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <button ng-click="vm.guardar()" ng-disabled="anticipoForm.$invalid" class="btn btn-default">
+                                    <span ng-show="vm.anticipo.anticipoID == null">Cargar</span>
+                                    <span ng-show="vm.anticipo.anticipoID != null">Editar Comision ID: {{vm.comisione.comisionID}}</span>
+                                </button>
+                                <button ng-click="vm.nuevoParaCargar()" class="btn btn-default">
+                                    Nuevo
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Aviso</div>
+                                <div class="panel-body">
+                                    {{vm.mensajeDelServidor}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <pre>{{vm.anticipo | json}}</pre>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+
+    </div>
+</div>

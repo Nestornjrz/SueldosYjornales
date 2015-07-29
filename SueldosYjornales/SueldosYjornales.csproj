@@ -243,6 +243,7 @@
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Empleados\Details\Controllers\Anticipos\anticipoCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Controllers\Comisiones\comisionesCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Controllers\Comisiones\listadoComisionesCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Controllers\menuCtrl.js" />
@@ -1123,6 +1124,7 @@
     <Content Include="Views\Empleados\Details.cshtml" />
     <Content Include="Views\Empleados\Details\_Comisiones.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\Empleados\Details\_Anticipos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

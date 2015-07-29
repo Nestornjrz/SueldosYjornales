@@ -17,12 +17,17 @@
             vm.menu.comisiones.class = "active";
             vm.menu.comisiones.mostrar = true;
         }
-     
+        vm.anticiposFn = function () {
+            ocultar();
+            vm.menu.anticipos.class = "active";
+            vm.menu.anticipos.mostrar = true;
+        }
 
         //////
         function ocultar() {
             vm.menu.introduccion = false;
             vm.menu.comisiones = {};
+            vm.menu.anticipos = {};
         }
 
         //Eventos
