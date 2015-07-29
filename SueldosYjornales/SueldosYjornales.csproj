@@ -244,6 +244,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Empleados\Details\Controllers\Comisiones\comisionesCtrl.js" />
+    <Content Include="Scripts\Empleados\Details\Controllers\Comisiones\listadoComisionesCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Controllers\menuCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Services\common.services.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoDireccion\historicoDireccionCtrl.js" />
@@ -1090,7 +1091,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Scripts\version.json" />
     <Content Include="Views\Empleados\Index.cshtml" />
     <Content Include="Views\Empleados\Index\_FormCargaEmpleado.cshtml" />
     <Content Include="Views\Empleados\Index\_ListadoEmpleados.cshtml" />
@@ -1122,6 +1122,7 @@
     <Content Include="Views\Empleados\Historicos\_Sucursales.cshtml" />
     <Content Include="Views\Empleados\Details.cshtml" />
     <Content Include="Views\Empleados\Details\_Comisiones.cshtml" />
+    <Content Include="Scripts\version.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1134,7 +1135,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>

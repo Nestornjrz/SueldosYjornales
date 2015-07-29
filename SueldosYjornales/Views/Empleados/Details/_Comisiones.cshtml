@@ -13,6 +13,8 @@
                                            name="fechaComision"
                                            class="form-control"
                                            ng-model="vm.comisione.fechaComision"
+                                           placeholder="yyyy-MM-dd"
+                                           ng-model-options="{timezone:'UTC'}"
                                            ng-required="true" />
                                 </p>
                                 <div style="color:red" ng-show="comisionesForm.fechaComision.$dirty && comisionesForm.fechaComision.$invalid">
@@ -61,6 +63,30 @@
         </div>
     </div>
     <div class="col-md-7">
-
+        <h2>Listado de Comisiones</h2>
+        <div class="row" ng-controller="listadoComisionesCtrl as vm" ng-cloak style="margin-top:25px;">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Acciones</th>
+                            <th>Id</th>
+                            <th>Fecha Comision</th>
+                            <th>Monto</th>
+                            <th>Observacion</th>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="o in vm.comisiones">
+                        <td><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="vm.actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
+                        <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
+                        <td>{{o.comisionID}}</td>                      
+                        <td>{{o.fechaComision | date:"dd/MM/yyyy":"UTC"}}</td>
+                        <td>{{o.montoComision | currency:"Gs.":0}}</td>
+                        <td>{{o.observacion}}</td>
+                    </tr>
+                </table>
+            </div>
+            <pre>{{vm.comisiones | json}}</pre>
+        </div>
     </div>
 </div>

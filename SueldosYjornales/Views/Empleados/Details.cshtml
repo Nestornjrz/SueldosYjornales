@@ -16,10 +16,14 @@
             function sYjResource($resource) {
                 var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
                 var empleados = $resource("@Href("~/api/Empleados")");
+                var comisiones = $resource("@Href("~/api/Comisiones")");
+                var comisionesByEmpleadoID = $resource("@Href("~/api/Comisiones/ByEmpleadoID")");
 
                 return {
                     "ubicacionSucUsuarios": ubicacionSucUsuarios,
-                    "empleados": empleados
+                    "empleados": empleados,
+                    "comisiones": comisiones,
+                    "comisionesByEmpleadoID": comisionesByEmpleadoID
                 }
             }
         })();
@@ -27,7 +31,13 @@
     @*controladores*@
     <script src="~/Scripts/Empleados/Details/Controllers/menuCtrl.js"></script>
     <script src="~/Scripts/Empleados/Details/Controllers/Comisiones/comisionesCtrl.js"></script>
+    <script src="~/Scripts/Empleados/Details/Controllers/Comisiones/listadoComisionesCtrl.js"></script>
 }
+<style type="text/css">
+    .form-group {
+        margin-bottom: 3px;
+    }
+</style>
 <div class="container" ng-controller="menuCtrl as vm" ng-cloak ng-init="vm.empleadoID = @empleadoID">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
