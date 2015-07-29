@@ -18,7 +18,8 @@
                                                class="form-control"
                                                ng-model="vm.historicoHorario.horaEntradaManana"
                                                ng-required="false"
-                                               min="00:00:00"
+                                               min="00:00:00"                                            
+                                               ng-model-options="{timezone:'UTC'}"
                                                placeholder="HH:mm:ss" />
                                         @*<timepicker ng-model="vm.historicoHorario.horaEntradaManana" ng-change="changed()"
                                             hour-step="1" minute-step="15" show-meridian="false"></timepicker>*@
@@ -41,7 +42,8 @@
                                                name="horaSalidaManana"
                                                class="form-control"
                                                ng-model="vm.historicoHorario.horaSalidaManana"
-                                               ng-required="false"
+                                               ng-required="false" 
+                                               ng-model-options="{timezone:'UTC'}"
                                                placeholder="HH:mm:ss" />
                                     </p>
                                     <div style="color:red" ng-show="historicoHorariosForm.horaSalidaManana.$dirty && historicoHorariosForm.horaSalidaManana.$invalid">
@@ -65,7 +67,9 @@
                                                name="horaEntradaTarde"
                                                class="form-control"
                                                ng-model="vm.historicoHorario.horaEntradaTarde"
-                                               ng-required="false" min="12:00:00"
+                                               ng-required="false" 
+                                               @*min="12:00:00"*@
+                                               ng-model-options="{timezone:'UTC'}"
                                                placeholder="HH:mm:ss" />
                                     </p>
                                     <div style="color:red" ng-show="historicoHorariosForm.horaEntradaTarde.$dirty && historicoHorariosForm.horaEntradaTarde.$invalid">
@@ -87,6 +91,7 @@
                                                class="form-control"
                                                ng-model="vm.historicoHorario.horaSalidaTarde"
                                                ng-required="false"
+                                               ng-model-options="{timezone:'UTC'}"
                                                placeholder="HH:mm:ss" />
                                     </p>
                                     <div style="color:red" ng-show="historicoHorariosForm.horaSalidaTarde.$dirty && historicoHorariosForm.horaSalidaTarde.$invalid">
@@ -109,7 +114,9 @@
                                                name="horaEntradaNoche"
                                                class="form-control"
                                                ng-model="vm.historicoHorario.horaEntradaNoche"
-                                               ng-required="false" min="17:00:00"
+                                               ng-required="false" 
+                                               @*min="17:00:00"*@
+                                               ng-model-options="{timezone:'UTC'}"
                                                placeholder="HH:mm:ss" />
                                     </p>
                                     <div style="color:red" ng-show="historicoHorariosForm.horaEntradaNoche.$dirty && historicoHorariosForm.horaEntradaNoche.$invalid">
@@ -130,6 +137,7 @@
                                                name="horaSalidaNoche"
                                                class="form-control"
                                                ng-model="vm.historicoHorario.horaSalidaNoche"
+                                               ng-model-options="{timezone:'UTC'}"
                                                ng-required="false" />
                                     </p>
                                     <div style="color:red" ng-show="historicoHorariosForm.horaSalidaNoche.$dirty && historicoHorariosForm.horaSalidaNoche.$invalid">
@@ -211,12 +219,12 @@
                         <td><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="vm.actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
                         <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
                         <td>{{o.historicoHorarioID}}</td>
-                        <td>{{o.horaEntradaManana | date:"HH:mm"}}</td>
-                        <td>{{o.horaSalidaManana | date:"HH:mm"}}</td>
-                        <td style="background-color:#63859d;">{{o.horaEntradaTarde | date:"HH:mm"}}</td>
-                        <td style="background-color:#63859d;">{{o.horaSalidaTarde | date:"HH:mm"}}</td>
-                        <td>{{o.horaEntradaNoche | date:"HH:mm"}}</td>
-                        <td>{{o.horaSalidaNoche | date:"HH:mm"}}</td>
+                        <td>{{o.horaEntradaManana | date:"HH:mm":'UTC'}}</td>
+                        <td>{{o.horaSalidaManana | date:"HH:mm":'UTC'}}</td>
+                        <td style="background-color:#63859d;">{{o.horaEntradaTarde | date:"HH:mm":'UTC'}}</td>
+                        <td style="background-color:#63859d;">{{o.horaSalidaTarde | date:"HH:mm":'UTC'}}</td>
+                        <td>{{o.horaEntradaNoche | date:"HH:mm":'UTC'}}</td>
+                        <td>{{o.horaSalidaNoche | date:"HH:mm":'UTC'}}</td>
                     </tr>
                 </table>
             </div>

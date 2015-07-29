@@ -26,7 +26,9 @@
                       //Crear un objeto date es para evitar el error al asignar la fecha
                       //http://stackoverflow.com/questions/26782917/model-is-not-a-date-object-on-input-in-angularjs
                       vm.historicoIngresoSalida.fechaIngreso = new Date(mensaje.objetoDto.fechaIngreso);
-                      vm.historicoIngresoSalida.fechaSalida = new Date(mensaje.objetoDto.fechaSalida);                    
+                      if (mensaje.objetoDto.fechaSalida != null) {
+                          vm.historicoIngresoSalida.fechaSalida = new Date(mensaje.objetoDto.fechaSalida);
+                      }
                       vm.mensajeDelServidor = mensaje.mensajeDelProceso;
                       $rootScope.$broadcast('actualizarListadohistoricoIngresoSalidas', {});
                   } else {
@@ -38,7 +40,7 @@
             }
           );
         }
-       
+
         //Eventos
         $rootScope.$on('empleadoID', function (event, objValRecibido) {
             vm.historicoIngresoSalida.empleadoID = objValRecibido;
@@ -48,7 +50,9 @@
         $rootScope.$on('actualizarHistoricoIngresoSalida', function (event, objValRecibido) {
             vm.historicoIngresoSalida = objValRecibido;
             vm.historicoIngresoSalida.fechaIngreso = new Date(objValRecibido.fechaIngreso);
-            vm.historicoIngresoSalida.fechaSalida = new Date(objValRecibido.fechaSalida);
+            if (objValRecibido.fechaSalida != null) {
+                vm.historicoIngresoSalida.fechaSalida = new Date(objValRecibido.fechaSalida);
+            }
         });
     }
 })();

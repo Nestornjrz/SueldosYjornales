@@ -13,6 +13,8 @@
                                            name="fechaIngreso"
                                            class="form-control"
                                            ng-model="vm.historicoIngresoSalida.fechaIngreso"
+                                           placeholder="yyyy-MM-dd"
+                                           ng-model-options="{timezone:'UTC'}"
                                            ng-required="true" />
                                 </p>
                                 <div style="color:red" ng-show="historicoIngresoSalidasForm.fechaIngreso.$dirty && historicoIngresoSalidasForm.fechaIngreso.$invalid">
@@ -28,6 +30,8 @@
                                            name="fechaSalida"
                                            class="form-control"
                                            ng-model="vm.historicoIngresoSalida.fechaSalida"
+                                           placeholder="yyyy-MM-dd"
+                                           ng-model-options="{timezone:'UTC'}"
                                            ng-required="false" />
                                 </p>
                                 <div style="color:red" ng-show="historicoIngresoSalidasForm.fechaSalida.$dirty && historicoIngresoSalidasForm.fechaSalida.$invalid">
@@ -77,8 +81,8 @@
                         <td><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="vm.actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
                         <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
                         <td>{{o.historicoIngresoSalidaID}}</td>
-                        <td>{{o.fechaIngreso | date:"dd/MM/yyyy"}}</td>
-                        <td>{{o.fechaSalida | date:"dd/MM/yyyy"}}</td>                    
+                        <td>{{o.fechaIngreso | date:"dd/MM/yyyy":'UTC'}}</td>
+                        <td>{{o.fechaSalida | date:"dd/MM/yyyy":'UTC'}}</td>                    
                     </tr>
                 </table>
             </div>
@@ -104,11 +108,11 @@
                     </tr>
                     <tr>
                         <th>Fecha Ingreso</th>
-                        <td>{{historicoIngresoSalida.fechaIngreso | date:"dd/MM/yyyy"}}</td>
+                        <td>{{historicoIngresoSalida.fechaIngreso | date:"dd/MM/yyyy":'UTC'}}</td>
                     </tr>
                     <tr>
                         <th>Fecha Salida</th>
-                        <td>{{historicoIngresoSalida.fechaSalida | date:"dd/MM/yyyy"}}</td>
+                        <td>{{historicoIngresoSalida.fechaSalida | date:"dd/MM/yyyy":'UTC'}}</td>
                     </tr>
                 </table>
             </div>

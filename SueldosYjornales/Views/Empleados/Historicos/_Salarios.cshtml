@@ -13,6 +13,8 @@
                                            name="fechaSalario"
                                            class="form-control"
                                            ng-model="vm.historicoSalario.fechaSalario"
+                                           placeholder="yyyy-MM-dd"
+                                           ng-model-options="{timezone:'UTC'}"
                                            ng-required="true" />
                                 </p>
                                 <div style="color:red" ng-show="historicoSalariosForm.fechaSalario.$dirty && historicoSalariosForm.fechaSalario.$invalid">
@@ -94,7 +96,7 @@
                         <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
                         <td>{{o.historicoSalarioID}}</td>
                         <td>{{o.cargo.nombreCargo}}</td>
-                        <td>{{o.fechaSalario | date:"dd/MM/yyyy"}}</td>
+                        <td>{{o.fechaSalario | date:"dd/MM/yyyy":'UTC'}}</td>
                         <td>{{o.monto | currency:"":0}}</td>
                         <td>{{o.observacion}}</td>
                     </tr>
@@ -131,7 +133,7 @@
                     </tr>
                     <tr>
                         <th>Fecha Salario</th>
-                        <td>{{historicoSalario.fechaSalario | date:"dd/MM/yyyy"}}</td>
+                        <td>{{historicoSalario.fechaSalario | date:"dd/MM/yyyy":'UTC'}}</td>
                     </tr>
                     <tr>
                         <th>Observacion</th>
