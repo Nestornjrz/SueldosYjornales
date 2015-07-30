@@ -43,42 +43,12 @@
     .form-group {
         margin-bottom: 3px;
     }
+    .active{
+        color:blue;
+    }
 </style>
 <div class="container" ng-controller="menuCtrl as vm" ng-cloak ng-init="vm.empleadoID = @empleadoID">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <h2 class="text-center">
-                {{vm.empleado.objetoDto.nombres}} {{vm.empleado.objetoDto.apellidos}}
-            </h2>
-            <table class="table table-bordered table-condensed table-responsive table-striped">
-                <tr>
-                    <th>Fecha Nacimiento</th>
-                    <td>{{vm.empleado.objetoDto.fechaNacimiento | date:"dd/MM/yyyy":"UTC"}}</td>
-
-                    <th>Sexo</th>
-                    <td>{{vm.empleado.objetoDto.sexo.nombreSexo}}</td>
-                </tr>
-                <tr>
-                    <th>Numero Cedula</th>
-                    <td>{{vm.empleado.objetoDto.nroCedula}}</td>
-
-                    <th>Estado Civil</th>
-                    <td>{{vm.empleado.objetoDto.estadoCivile.nombreEstadoCivil}}</td>
-                </tr>
-                <tr>
-                    <th>Nacionalidad</th>
-                    <td>{{vm.empleado.objetoDto.nacionalidade.nombreNacionalidad}}</td>
-
-                    <th>Profesion</th>
-                    <td>{{vm.empleado.objetoDto.profesione.nombreProfesion}}</td>
-                </tr>
-                <tr>
-                    <th>Cantidad Hijos</th>
-                    <td>{{vm.empleado.objetoDto.cantidadHijos}}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
+    @Html.Partial("Common/_Encabezado")
     <div class="row">
         <div class="col-md-12">
             <h3 class="text-center">Cargas varias</h3>

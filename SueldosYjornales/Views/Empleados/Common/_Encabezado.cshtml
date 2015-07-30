@@ -1,0 +1,51 @@
+﻿<div class="row" style="margin-top:25px;">
+    <div class="col-md-12" style="border:solid;padding:3px;">
+        <ul class="nav nav-pills nav-justified">
+            <li role="presentation" id="detallesEmpleado">
+                <a href="@Url.Action("Details","Empleados")/{{vm.empleado.objetoDto.empleadoID}}">
+                    CARGAR/EDITAR DETALLES
+                </a>
+            </li>
+            <li role="presentation" id="historicosEmpleado">
+                <a href="@Url.Action("Historicos","Empleados")/{{vm.empleado.objetoDto.empleadoID}}">
+                    CARGAR/EDITAR HISTORICOS
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2" ng-cloak>
+        <h2 class="text-center">
+            {{vm.empleado.objetoDto.nombres}} {{vm.empleado.objetoDto.apellidos}}
+        </h2>
+        <table class="table table-bordered table-condensed table-responsive table-striped">
+            <tr>
+                <th>Fecha Nacimiento</th>
+                <td>{{vm.empleado.objetoDto.fechaNacimiento | date:"dd/MM/yyyy":"UTC"}}</td>
+
+                <th>Sexo</th>
+                <td>{{vm.empleado.objetoDto.sexo.nombreSexo}}</td>
+            </tr>
+            <tr>
+                <th>Numero Cedula</th>
+                <td>{{vm.empleado.objetoDto.nroCedula}}</td>
+
+                <th>Estado Civil</th>
+                <td>{{vm.empleado.objetoDto.estadoCivile.nombreEstadoCivil}}</td>
+            </tr>
+            <tr>
+                <th>Nacionalidad</th>
+                <td>{{vm.empleado.objetoDto.nacionalidade.nombreNacionalidad}}</td>
+
+                <th>Profesion</th>
+                <td>{{vm.empleado.objetoDto.profesione.nombreProfesion}}</td>
+            </tr>
+            <tr>
+                <th>Cantidad Hijos</th>
+                <td>{{vm.empleado.objetoDto.cantidadHijos}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+@*<pre>{{vm.empleado | json}}</pre>*@

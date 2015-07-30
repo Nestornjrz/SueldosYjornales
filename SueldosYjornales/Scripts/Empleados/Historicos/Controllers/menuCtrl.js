@@ -11,6 +11,7 @@
         var vm = this;
         vm.menu = {};
         vm.menu.introduccion = true;
+        $('#historicosEmpleado').addClass('active');
 
         vm.historicoDireccionesFn = function () {
             ocultar();

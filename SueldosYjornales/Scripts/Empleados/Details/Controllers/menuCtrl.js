@@ -11,6 +11,7 @@
         var vm = this;
         vm.menu = {};
         vm.menu.introduccion = true;
+        $('#detallesEmpleado').addClass('active');
 
         vm.comisionesFn = function () {
             ocultar();
