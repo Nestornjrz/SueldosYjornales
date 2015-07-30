@@ -72,6 +72,7 @@ namespace SYJ.Domain.Managers {
                 comisioneDb.MontoComision = cDto.MontoComision;
                 comisioneDb.Observacion = cDto.Observacion;
 
+                context.Entry(comisioneDb).State = System.Data.Entity.EntityState.Modified;
                 mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
                 if (mensajeDto != null) { return mensajeDto; }
 

@@ -888,16 +888,7 @@
             <End Role="Usuario" EntitySet="Usuarios" />
             <End Role="HistoricoIngresoSalida" EntitySet="HistoricoIngresoSalidas" />
           </AssociationSet>
-          <EntitySet Name="Anticipos" EntityType="SueldosJornalesModel.Anticipos" />
           <EntitySet Name="Ausencias" EntityType="SueldosJornalesModel.Ausencia" />
-          <AssociationSet Name="fk_Anticipos__Empleados" Association="SueldosJornalesModel.fk_Anticipos__Empleados">
-            <End Role="Empleado" EntitySet="Empleados" />
-            <End Role="Anticipos" EntitySet="Anticipos" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Anticipos__Usuarios" Association="SueldosJornalesModel.fk_Anticipos__Usuarios">
-            <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="Anticipos" EntitySet="Anticipos" />
-          </AssociationSet>
           <AssociationSet Name="fk_Ausencias__Empleados" Association="SueldosJornalesModel.fk_Ausencias__Empleados">
             <End Role="Empleado" EntitySet="Empleados" />
             <End Role="Ausencia" EntitySet="Ausencias" />
@@ -923,6 +914,15 @@
           <AssociationSet Name="fk_HistoricosHorarios_Usuarios" Association="SueldosJornalesModel.fk_HistoricosHorarios_Usuarios">
             <End Role="Usuario" EntitySet="Usuarios" />
             <End Role="HistoricoHorario" EntitySet="HistoricoHorarios" />
+          </AssociationSet>
+          <EntitySet Name="Anticipos" EntityType="SueldosJornalesModel.Anticipos" />
+          <AssociationSet Name="fk_Anticipos__Empleados" Association="SueldosJornalesModel.fk_Anticipos__Empleados">
+            <End Role="Empleado" EntitySet="Empleados" />
+            <End Role="Anticipos" EntitySet="Anticipos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Anticipos__Usuarios" Association="SueldosJornalesModel.fk_Anticipos__Usuarios">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Anticipos" EntitySet="Anticipos" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Cargo">
@@ -1006,10 +1006,10 @@
           <NavigationProperty Name="HistoricoSucursales" Relationship="SueldosJornalesModel.Relationship3" FromRole="Usuario" ToRole="HistoricoSucursale" />
           <NavigationProperty Name="HistoricoTelefonos" Relationship="SueldosJornalesModel.fk_HistoricoTelefono_Usuarios" FromRole="Usuario" ToRole="HistoricoTelefono" />
           <NavigationProperty Name="HistoricoIngresoSalidas" Relationship="SueldosJornalesModel.fk_HistoricoIngresoSalidas_Usuarios" FromRole="Usuario" ToRole="HistoricoIngresoSalida" />
-          <NavigationProperty Name="Anticipos" Relationship="SueldosJornalesModel.fk_Anticipos__Usuarios" FromRole="Usuario" ToRole="Anticipos" />
           <NavigationProperty Name="Ausencias" Relationship="SueldosJornalesModel.fk_Ausencias__Usuarios" FromRole="Usuario" ToRole="Ausencia" />
           <NavigationProperty Name="Comisiones" Relationship="SueldosJornalesModel.fk_Comisiones__Usuarios" FromRole="Usuario" ToRole="Comisione" />
           <NavigationProperty Name="HistoricoHorarios" Relationship="SueldosJornalesModel.fk_HistoricosHorarios_Usuarios" FromRole="Usuario" ToRole="HistoricoHorario" />
+          <NavigationProperty Name="Anticipos" Relationship="SueldosJornalesModel.fk_Anticipos__Usuarios" FromRole="Usuario" ToRole="Anticipos" />
         </EntityType>
         <Association Name="fk_HistoricoSalarios_Cargos">
           <End Type="SueldosJornalesModel.Cargo" Role="Cargo" Multiplicity="1" />
@@ -1223,10 +1223,10 @@
           <NavigationProperty Name="HistoricoSucursales" Relationship="SueldosJornalesModel.Fk_HistoricoSucursales__Empleados" FromRole="Empleado" ToRole="HistoricoSucursale" />
           <NavigationProperty Name="HistoricoTelefonos" Relationship="SueldosJornalesModel.fk_HistoricoTelefonos_Empleados" FromRole="Empleado" ToRole="HistoricoTelefono" />
           <NavigationProperty Name="HistoricoIngresoSalidas" Relationship="SueldosJornalesModel.fk_HistoricoIngresoEgresos_Empleados" FromRole="Empleado" ToRole="HistoricoIngresoSalida" />
-          <NavigationProperty Name="Anticipos" Relationship="SueldosJornalesModel.fk_Anticipos__Empleados" FromRole="Empleado" ToRole="Anticipos" />
           <NavigationProperty Name="Ausencias" Relationship="SueldosJornalesModel.fk_Ausencias__Empleados" FromRole="Empleado" ToRole="Ausencia" />
           <NavigationProperty Name="Comisiones" Relationship="SueldosJornalesModel.fk_Comisiones__Empleados" FromRole="Empleado" ToRole="Comisione" />
           <NavigationProperty Name="HistoricoHorarios" Relationship="SueldosJornalesModel.fk_HistoricosHorarios_Empleados" FromRole="Empleado" ToRole="HistoricoHorario" />
+          <NavigationProperty Name="Anticipos" Relationship="SueldosJornalesModel.fk_Anticipos__Empleados" FromRole="Empleado" ToRole="Anticipos" />
         </EntityType>
         <EntityType Name="HistoricoSucursale">
           <Key>
@@ -1422,20 +1422,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Anticipos">
-          <Key>
-            <PropertyRef Name="AnticipoID" />
-          </Key>
-          <Property Name="AnticipoID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmpleadoID" Type="Int64" Nullable="false" />
-          <Property Name="FechaAnticipo" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="MontoAnticipo" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="UsuarioID" Type="Int64" Nullable="false" />
-          <Property Name="MomentoCarga" Type="DateTime" Nullable="false" Precision="7" />
-          <NavigationProperty Name="Empleado" Relationship="SueldosJornalesModel.fk_Anticipos__Empleados" FromRole="Anticipos" ToRole="Empleado" />
-          <NavigationProperty Name="Usuario" Relationship="SueldosJornalesModel.fk_Anticipos__Usuarios" FromRole="Anticipos" ToRole="Usuario" />
-        </EntityType>
         <EntityType Name="Ausencia">
           <Key>
             <PropertyRef Name="AusenciaID" />
@@ -1449,30 +1435,6 @@
           <NavigationProperty Name="Empleado" Relationship="SueldosJornalesModel.fk_Ausencias__Empleados" FromRole="Ausencia" ToRole="Empleado" />
           <NavigationProperty Name="Usuario" Relationship="SueldosJornalesModel.fk_Ausencias__Usuarios" FromRole="Ausencia" ToRole="Usuario" />
         </EntityType>
-        <Association Name="fk_Anticipos__Empleados">
-          <End Type="SueldosJornalesModel.Empleado" Role="Empleado" Multiplicity="1" />
-          <End Type="SueldosJornalesModel.Anticipos" Role="Anticipos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleado">
-              <PropertyRef Name="EmpleadoID" />
-            </Principal>
-            <Dependent Role="Anticipos">
-              <PropertyRef Name="EmpleadoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Anticipos__Usuarios">
-          <End Type="SueldosJornalesModel.Usuario" Role="Usuario" Multiplicity="1" />
-          <End Type="SueldosJornalesModel.Anticipos" Role="Anticipos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="UsuarioID" />
-            </Principal>
-            <Dependent Role="Anticipos">
-              <PropertyRef Name="UsuarioID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_Ausencias__Empleados">
           <End Type="SueldosJornalesModel.Empleado" Role="Empleado" Multiplicity="1" />
           <End Type="SueldosJornalesModel.Ausencia" Role="Ausencia" Multiplicity="*" />
@@ -1572,6 +1534,44 @@
               <PropertyRef Name="UsuarioID" />
             </Principal>
             <Dependent Role="HistoricoHorario">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Anticipos">
+          <Key>
+            <PropertyRef Name="AnticipoID" />
+          </Key>
+          <Property Name="AnticipoID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpleadoID" Type="Int64" Nullable="false" />
+          <Property Name="FechaAnticipo" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MontoAnticipo" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioID" Type="Int64" Nullable="false" />
+          <Property Name="MomentoCarga" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Empleado" Relationship="SueldosJornalesModel.fk_Anticipos__Empleados" FromRole="Anticipos" ToRole="Empleado" />
+          <NavigationProperty Name="Usuario" Relationship="SueldosJornalesModel.fk_Anticipos__Usuarios" FromRole="Anticipos" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="fk_Anticipos__Empleados">
+          <End Type="SueldosJornalesModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="SueldosJornalesModel.Anticipos" Role="Anticipos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Anticipos">
+              <PropertyRef Name="EmpleadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Anticipos__Usuarios">
+          <End Type="SueldosJornalesModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="SueldosJornalesModel.Anticipos" Role="Anticipos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Anticipos">
               <PropertyRef Name="UsuarioID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1791,19 +1791,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Anticipos">
-            <EntityTypeMapping TypeName="SueldosJornalesModel.Anticipos">
-              <MappingFragment StoreEntitySet="Anticipos">
-                <ScalarProperty Name="MomentoCarga" ColumnName="MomentoCarga" />
-                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
-                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
-                <ScalarProperty Name="MontoAnticipo" ColumnName="MontoAnticipo" />
-                <ScalarProperty Name="FechaAnticipo" ColumnName="FechaAnticipo" />
-                <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
-                <ScalarProperty Name="AnticipoID" ColumnName="AnticipoID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Ausencias">
             <EntityTypeMapping TypeName="SueldosJornalesModel.Ausencia">
               <MappingFragment StoreEntitySet="Ausencias">
@@ -1842,6 +1829,19 @@
                 <ScalarProperty Name="HoraEntradaManana" ColumnName="HoraEntradaManana" />
                 <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
                 <ScalarProperty Name="HistoricoHorarioID" ColumnName="HistoricoHorarioID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Anticipos">
+            <EntityTypeMapping TypeName="SueldosJornalesModel.Anticipos">
+              <MappingFragment StoreEntitySet="Anticipos">
+                <ScalarProperty Name="MomentoCarga" ColumnName="MomentoCarga" />
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="MontoAnticipo" ColumnName="MontoAnticipo" />
+                <ScalarProperty Name="FechaAnticipo" ColumnName="FechaAnticipo" />
+                <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
+                <ScalarProperty Name="AnticipoID" ColumnName="AnticipoID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

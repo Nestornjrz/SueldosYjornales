@@ -43,9 +43,9 @@ namespace SYJ.Domain.Db
         public virtual DbSet<HistoricoSucursale> HistoricoSucursales { get; set; }
         public virtual DbSet<HistoricoTelefono> HistoricoTelefonos { get; set; }
         public virtual DbSet<HistoricoIngresoSalida> HistoricoIngresoSalidas { get; set; }
-        public virtual DbSet<Anticipos> Anticipos { get; set; }
         public virtual DbSet<Ausencia> Ausencias { get; set; }
         public virtual DbSet<Comisione> Comisiones { get; set; }
         public virtual DbSet<HistoricoHorario> HistoricoHorarios { get; set; }
+        public virtual DbSet<Anticipos> Anticipos { get; set; }
     }
 }
