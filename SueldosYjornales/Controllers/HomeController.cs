@@ -4,8 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SueldosYjornales.Controllers {
-    [Authorize]
+namespace SueldosYjornales.Controllers {   
     public class HomeController : Controller {
         public ActionResult Index() {
             return View();
