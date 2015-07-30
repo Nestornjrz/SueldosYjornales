@@ -26,6 +26,14 @@ namespace SueldosYjornales.Controllers.Api
             return Request.CreateResponse<List<ComisioneDto>>(HttpStatusCode.OK, listado);
         }
 
+        [HttpGet]
+        [Route("api/Comisiones/Ultimo2meses")]
+        public HttpResponseMessage GetUltimo2meses(long empleadoID) {
+            ComisionesManagers cm = new ComisionesManagers();
+            List<ComisioneDto> listado = cm.ListadoUltimo2meses(empleadoID);
+            return Request.CreateResponse<List<ComisioneDto>>(HttpStatusCode.OK, listado);
+        }
+
         // GET: api/Comisiones/5
         public string Get(int id)
         {

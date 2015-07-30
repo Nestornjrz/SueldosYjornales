@@ -121,5 +121,36 @@ namespace SYJ.Domain.Managers {
                 return listado;
             }
         }
+
+        public MensajeDto SalarioActual(long empleadoID) {
+            using (var context = new SueldosJornalesEntities()) {
+                var salarioActualDb = context.HistoricoSalarios
+                    .Where(h=>h.EmpleadoID == empleadoID)
+                    .OrderByDescending(h => h.FechaSalario)
+                    .FirstOrDefault();
+                if (salarioActualDb == null) {
+                    return new MensajeDto() {
+                        Error = true,
+                        MensajeDelProceso = "No existen datos de Salarios"
+                    };
+                }
+                var hsDto = new HistoricoSalarioDto();
+                hsDto.HistoricoSalarioID = salarioActualDb.HistoricoSalarioID;
+                hsDto.EmpleadoID = salarioActualDb.EmpleadoID;
+                hsDto.Monto = salarioActualDb.Monto;
+                hsDto.Cargo = new CargoDto() {
+                     CargoID = salarioActualDb.CargoID,
+                     NombreCargo = salarioActualDb.Cargo.NombreCargo
+                };
+                hsDto.Observacion = salarioActualDb.Observacion;
+                hsDto.FechaSalario = salarioActualDb.FechaSalario;
+
+                return new MensajeDto() {
+                    Error = false,
+                    MensajeDelProceso = "Ultima salario y cargo encontrado",
+                    ObjetoDto = hsDto
+                };
+            }
+        }
     }
 }

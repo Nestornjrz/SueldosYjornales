@@ -26,6 +26,14 @@ namespace SueldosYjornales.Controllers.Api
             return Request.CreateResponse<List<HistoricoIngresoSalidaDto>>(HttpStatusCode.OK, listado);
         }
 
+        [HttpGet]
+        [Route("api/HistoricoIngresoSalidas/UltimoIngreso")]
+        public HttpResponseMessage GetUltimoIngreso(long empleadoID) {
+            HistoricoIngresoSalidasManagers hism = new HistoricoIngresoSalidasManagers();
+            MensajeDto mensaje = hism.UltimoIngreso(empleadoID);
+            return Request.CreateResponse(HttpStatusCode.Created, mensaje);
+        }
+
         // GET: api/HistoricoIngresoSalidas/5
         public string Get(int id)
         {

@@ -106,5 +106,22 @@ namespace SYJ.Domain.Managers {
                 };
             }
         }
+
+        public List<AnticipoDto> ListadoUltimo2Meses(long empleadoID) {
+            using (var context = new SueldosJornalesEntities()) {
+                var ultimos2Meses = DateTime.Today.AddMonths(-2);
+                var listado = context.Anticipos
+                   .Where(a => a.EmpleadoID == empleadoID &&
+                               a.FechaAnticipo >= ultimos2Meses)
+                   .Select(s => new AnticipoDto() {
+                       AnticipoID = s.AnticipoID,
+                       EmpleadoID = s.EmpleadoID,
+                       FechaAnticipo = s.FechaAnticipo,
+                       MontoAnticipo = s.MontoAnticipo,
+                       Observacion = s.Observacion
+                   }).ToList();
+                return listado;
+            }
+        }
     }
 }

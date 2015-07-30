@@ -121,5 +121,34 @@ namespace SYJ.Domain.Managers {
                 };
             }
         }
+
+        public MensajeDto UltimoSucursales(long empleadoID) {
+            using (var context = new SueldosJornalesEntities()) {
+                var ultimoSucursal = context.HistoricoSucursales
+                    .Where(h=>h.EmpleadoID == empleadoID)
+                    .OrderByDescending(h => h.MomentoCarga)
+                    .FirstOrDefault();
+                if (ultimoSucursal == null) {
+                    return new MensajeDto() {
+                        Error = true,
+                        MensajeDelProceso = "No existen datos de sucursales"
+                    };
+                }
+                var hsDto = new HistoricoSucursaleDto() {
+                    HistoricoSucursalID = ultimoSucursal.HistoricoSucursalID,
+                    EmpleadoID = ultimoSucursal.EmpleadoID,
+                    Sucursal = new SucursaleDto() {
+                        SucursalID = ultimoSucursal.SucursalID,
+                        NombreSucursal = ultimoSucursal.Sucursale.NombreSucursal,
+                        Descripcion = ultimoSucursal.Sucursale.Descripcion
+                    }
+                };
+                return new MensajeDto() {
+                    Error = false,
+                    MensajeDelProceso = "Ultima sucursal encontrada",
+                    ObjetoDto = hsDto
+                };
+            }
+        }
     }
 }

@@ -26,6 +26,14 @@ namespace SueldosYjornales.Controllers.Api
             return Request.CreateResponse<List<HistoricoHorarioDto>>(HttpStatusCode.OK, listado);
         }
 
+        [HttpGet]
+        [Route("api/HistoricoHorarios/UltimoHorario")]
+        public HttpResponseMessage GetUltimoHorario(long empleadoID) {
+            HistoricoHorariosManagers hhm = new HistoricoHorariosManagers();
+            MensajeDto mensaje = hhm.UltimoHorario(empleadoID);
+            return Request.CreateResponse(HttpStatusCode.Created, mensaje);
+        }
+
         // GET: api/HistoricoHorarios/5
         public string Get(int id)
         {

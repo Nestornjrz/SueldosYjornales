@@ -104,5 +104,31 @@ namespace SYJ.Domain.Managers {
                 };
             }
         }
+
+        public MensajeDto DireccionaActual(long empleadoID) {
+            using (var context = new SueldosJornalesEntities()) {
+                var direccionActualDb = context.HistoricoDirecciones
+                    .Where(h=>h.EmpleadoID == empleadoID)
+                    .OrderByDescending(a => a.MomentoCarga)
+                    .FirstOrDefault();
+                if (direccionActualDb == null) {
+                    return new MensajeDto() {
+                        Error = true,
+                        MensajeDelProceso = "No existen datos de Direccion"
+                    };
+                }
+                var hdDto = new HistoricoDireccioneDto();
+                hdDto.HistoricoDireccionID = direccionActualDb.HistoricoDireccionID;
+                hdDto.HistoricoDireccionID = direccionActualDb.HistoricoDireccionID;
+                hdDto.EmpleadoID = direccionActualDb.EmpleadoID;
+                hdDto.Direccion = direccionActualDb.Direccion;
+
+                return new MensajeDto() {
+                    Error = false,
+                    MensajeDelProceso ="Ultima direccion encontrada",
+                    ObjetoDto = hdDto
+                };
+            }
+        }
     }
 }

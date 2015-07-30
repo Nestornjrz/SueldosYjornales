@@ -288,6 +288,7 @@
     <Content Include="Scripts\Empleados\Index\Controllers\listadoEmpleadosCtrl.js" />
     <Content Include="Scripts\Empleados\Index\Controllers\menuCtrl.js" />
     <Content Include="Scripts\Empleados\Index\Services\common.services.js" />
+    <Content Include="Scripts\Empleados\Resumen\Controllers\menuCtrl.js" />
     <Content Include="Scripts\Empleados\Resumen\Services\common.services.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular-touch.min.js.map" />
@@ -1162,7 +1163,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\" />
-    <Folder Include="Scripts\Empleados\Resumen\Controllers\" />
     <Folder Include="Views\EmpleadosBorrar\" />
     <Folder Include="Views\Empleados\Resumen\" />
     <Folder Include="Views\Home\Index\" />

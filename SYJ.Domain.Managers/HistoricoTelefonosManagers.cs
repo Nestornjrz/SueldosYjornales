@@ -106,5 +106,31 @@ namespace SYJ.Domain.Managers {
                 };
             }
         }
+
+        public MensajeDto UltimoTelefono(long empleadoID) {
+            using (var context = new SueldosJornalesEntities()) {
+                var ultimoTelefono = context.HistoricoTelefonos
+                    .Where(h => h.EmpleadoID == empleadoID)
+                    .OrderByDescending(h => h.MomentoCarga)
+                    .FirstOrDefault();
+                if (ultimoTelefono == null) {
+                    return new MensajeDto() {
+                        Error = true,
+                        MensajeDelProceso = "No existen datos de telefono"
+                    };
+                }
+                var htDto = new HistoricoTelefonoDto() {
+                    HistoricoTelefonoID = ultimoTelefono.HistoricoTelefonoID,
+                    EmpleadoID = ultimoTelefono.EmpleadoID,
+                    Telefonos = ultimoTelefono.Telefonos
+                };
+
+                return new MensajeDto() {
+                    Error = false,
+                    MensajeDelProceso = "Ultimo telefono encontrado",
+                    ObjetoDto = htDto
+                };
+            }
+        }
     }
 }

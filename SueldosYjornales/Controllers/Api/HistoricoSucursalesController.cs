@@ -28,6 +28,14 @@ namespace SueldosYjornales.Controllers.Api
             return Request.CreateResponse<List<HistoricoSucursaleDto>>(HttpStatusCode.OK, listado);
         }
 
+        [HttpGet]
+        [Route("api/HistoricoSucursales/UltimoSucursales")]
+        public HttpResponseMessage GetUltimoSucursales(long empleadoID) {
+            HistoricoSucursalesManagers hsm = new HistoricoSucursalesManagers();
+            MensajeDto mensaje = hsm.UltimoSucursales(empleadoID);
+            return Request.CreateResponse(HttpStatusCode.Created, mensaje);
+        }
+
         // GET: api/HistoricoSucursales/5
         public string Get(int id)
         {

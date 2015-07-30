@@ -28,6 +28,14 @@ namespace SueldosYjornales.Controllers.Api
             return Request.CreateResponse<List<HistoricoSalarioDto>>(HttpStatusCode.OK, listado);
         }
 
+        [HttpGet]
+        [Route("api/HistoricoSalarios/SalarioActual")]
+        public HttpResponseMessage GetSalarioActual(long empleadoID) {
+            HistoricoSalariosManagers hsm = new HistoricoSalariosManagers();
+            MensajeDto mensaje = hsm.SalarioActual(empleadoID);
+            return Request.CreateResponse(HttpStatusCode.Created, mensaje);
+        }
+
         // GET: api/HistoricoSalarios/5
         public string Get(int id)
         {

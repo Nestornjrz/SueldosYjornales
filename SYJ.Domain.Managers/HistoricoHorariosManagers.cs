@@ -139,5 +139,36 @@ namespace SYJ.Domain.Managers {
                 };
             }
         }
+
+        public MensajeDto UltimoHorario(long empleadoID) {
+            using (var context = new SueldosJornalesEntities()) {
+                var ultimoHorario = context.HistoricoHorarios
+                    .Where(h=>h.EmpleadoID == empleadoID)
+                    .OrderByDescending(h => h.MomentoCarga)
+                    .FirstOrDefault();
+                if (ultimoHorario == null) {
+                    return new MensajeDto() {
+                        Error = true,
+                        MensajeDelProceso = "No existen datos horario"
+                    };
+                }
+                var hhDto = new HistoricoHorarioDto();
+                hhDto.EmpleadoID = ultimoHorario.EmpleadoID;
+                hhDto.HoraEntradaManana = ultimoHorario.HoraEntradaManana;
+                hhDto.HoraSalidaManana = ultimoHorario.HoraSalidaManana;
+
+                hhDto.HoraEntradaTarde = ultimoHorario.HoraEntradaTarde;
+                hhDto.HoraSalidaTarde = ultimoHorario.HoraSalidaTarde;
+
+                hhDto.HoraEntradaNoche = ultimoHorario.HoraEntradaNoche;
+                hhDto.HoraSalidaNoche = ultimoHorario.HoraSalidaNoche;
+
+                return new MensajeDto() {
+                    Error = false,
+                    MensajeDelProceso = "Ultimo horario encontrado",
+                    ObjetoDto = hhDto
+                };
+            }
+        }
     }
 }

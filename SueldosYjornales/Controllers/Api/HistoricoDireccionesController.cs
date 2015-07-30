@@ -25,6 +25,14 @@ namespace SueldosYjornales.Controllers.Api {
             return Request.CreateResponse<List<HistoricoDireccioneDto>>(HttpStatusCode.OK, listado);
         }
 
+        [HttpGet]
+        [Route("api/HistoricoDirecciones/DireccionActual")]
+        public HttpResponseMessage GetDireccionActual(long empleadoID) {
+            HistoricoDireccionesManagers hdm = new HistoricoDireccionesManagers();
+            MensajeDto mensaje = hdm.DireccionaActual(empleadoID);
+            return Request.CreateResponse(HttpStatusCode.Created, mensaje);
+        }
+
         // GET: api/HistoricoDirecciones/5
         public string Get(int id) {
             return "value";

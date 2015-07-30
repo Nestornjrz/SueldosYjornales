@@ -106,5 +106,30 @@ namespace SYJ.Domain.Managers {
                 };
             }
         }
+
+        public MensajeDto UltimoIngreso(long empleadoID) {
+            using (var context = new SueldosJornalesEntities()) {
+                var ingresoSalidaDb = context.HistoricoIngresoSalidas
+                    .Where(h => h.FechaSalida == null && h.EmpleadoID == empleadoID)
+                    .OrderByDescending(h => h.FechaIngreso)
+                    .FirstOrDefault();
+                if (ingresoSalidaDb == null) {
+                    return new MensajeDto() {
+                        Error = true,
+                        MensajeDelProceso = "No existen datos de Ingreso y egreso"
+                    };
+                }
+                var hismDto = new HistoricoIngresoSalidaDto();
+                hismDto.EmpleadoID = ingresoSalidaDb.EmpleadoID;
+                hismDto.FechaIngreso = ingresoSalidaDb.FechaIngreso;
+                hismDto.FechaSalida = ingresoSalidaDb.FechaSalida;
+
+                return new MensajeDto() {
+                    Error = false,
+                    MensajeDelProceso = "Ultimo dato de ingreso a la empresa",
+                    ObjetoDto = hismDto
+                };
+            }
+        }
     }
 }

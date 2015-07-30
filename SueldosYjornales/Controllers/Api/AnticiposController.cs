@@ -26,6 +26,14 @@ namespace SueldosYjornales.Controllers.Api
             return Request.CreateResponse<List<AnticipoDto>>(HttpStatusCode.OK, listado);
         }
 
+        [HttpGet]
+        [Route("api/Anticipos/Ultimo2Meses")]
+        public HttpResponseMessage GetUltimo2Meses(long empleadoID) {
+            AnticiposManagers am = new AnticiposManagers();
+            List<AnticipoDto> listado = am.ListadoUltimo2Meses(empleadoID);
+            return Request.CreateResponse<List<AnticipoDto>>(HttpStatusCode.OK, listado);
+        }
+
         // GET: api/Anticipos/5
         public string Get(int id)
         {
