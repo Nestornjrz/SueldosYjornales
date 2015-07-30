@@ -57,7 +57,7 @@
                             </div>
                         </div>
                     </div>
-                    <pre>{{vm.anticipo | json}}</pre>
+                    @*<pre>{{vm.anticipo | json}}</pre>*@
                 </form>
             </div>
         </div>
@@ -86,7 +86,44 @@
                     </tr>
                 </table>
             </div>
-            <pre>{{vm.anticipos | json}}</pre>
+            @*<pre>{{vm.anticipos | json}}</pre>*@
         </div>
     </div>
 </div>
+@*////////////////////////////////////////////////////////////////////
+    //////////////////////TEMPLETE DE LOS MODALES////////////////////////*@
+
+<script type="text/ng-template" id="ModalEliminacionAnticipo.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{objeto.mensaje}} {{objeto.id}}</h3>
+        <p class="text-muted">Esta seguro?</p>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha Anticipo</th>
+                        <th>Monto</th>
+                        <th>Observacion</th>
+                    </tr>
+                    <tr>
+                        <td>{{anticipo.anticipoID}}</td>
+                        <td>{{anticipo.fechaAnticipo | date:"dd/MM/yyyy":"UTC"}}</td>
+                        <td>{{anticipo.montoAnticipo | currency:"Gs":0}}</td>
+                        <td>{{anticipo.observacion}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div ng-show="respuesta.mensajeDelProceso != null" class="alert alert-info">
+            {{respuesta.mensajeDelProceso}}
+        </div>
+        @*<pre>{{anticipo | json}}</pre>*@
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" ng-click="cancel()" id="btn_cancelar">Salir</button>
+        <button class="btn btn-primary" ng-click="ok()" id="btn_save">Eliminar</button>
+    </div>
+</script>
