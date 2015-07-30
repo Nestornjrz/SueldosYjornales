@@ -5,15 +5,11 @@
         .module('sueldosYjornalesApp')
         .controller('anticipoCtrl', anticipoCtrl);
 
-    anticipoCtrl.$inject = ['$location']; 
+    anticipoCtrl.$inject = ['$rootScope', 'sYjResource'];
 
-    function anticipoCtrl($location) {
+    function anticipoCtrl($rootScope, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
-        vm.title = 'anticipoCtrl';
-
-        activate();
-
-        function activate() { }
+        
     }
 })();
