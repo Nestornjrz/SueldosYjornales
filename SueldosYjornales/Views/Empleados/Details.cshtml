@@ -18,12 +18,16 @@
                 var empleados = $resource("@Href("~/api/Empleados")");
                 var comisiones = $resource("@Href("~/api/Comisiones")");
                 var comisionesByEmpleadoID = $resource("@Href("~/api/Comisiones/ByEmpleadoID")");
+                var anticipos = $resource("@Href("~/api/Anticipos")");
+                var anticiposByEmpleadoID = $resource("@Href("~/api/Anticipos/ByEmpleadoID")");
 
                 return {
                     "ubicacionSucUsuarios": ubicacionSucUsuarios,
                     "empleados": empleados,
                     "comisiones": comisiones,
-                    "comisionesByEmpleadoID": comisionesByEmpleadoID
+                    "comisionesByEmpleadoID": comisionesByEmpleadoID,
+                    "anticipos": anticipos,
+                    "anticiposByEmpleadoID": anticiposByEmpleadoID
                 }
             }
         })();
