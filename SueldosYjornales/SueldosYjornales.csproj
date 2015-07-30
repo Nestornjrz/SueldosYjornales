@@ -265,6 +265,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Empleados\Details\Controllers\Anticipos\anticipoCtrl.js" />
+    <Content Include="Scripts\Empleados\Details\Controllers\Anticipos\listadoAnticiposCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Controllers\Comisiones\comisionesCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Controllers\Comisiones\listadoComisionesCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Controllers\menuCtrl.js" />

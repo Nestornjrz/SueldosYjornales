@@ -40,5 +40,10 @@
             vm.anticipo.empleadoID = objValRecibido;
             vm.empleadoID = objValRecibido;
         });
+
+        $rootScope.$on('actualizarAnticipo', function (event, objValRecibido) {
+            vm.anticipo = objValRecibido;
+            vm.anticipo.fechaAnticipo = new Date(objValRecibido.fechaAnticipo);
+        });
     }
 })();

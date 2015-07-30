@@ -63,6 +63,30 @@
         </div>
     </div>
     <div class="col-md-7">
-
+        <h2>Listado de Anticipos</h2>
+        <div class="row" ng-controller="listadoAnticiposCtrl as vm" ng-cloak style="margin-top:25px;">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Acciones</th>
+                            <th>Id</th>
+                            <th>Fecha anticipo</th>
+                            <th>Monto</th>
+                            <th>Observacion</th>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="o in vm.anticipos">
+                        <td><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="vm.actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
+                        <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
+                        <td>{{o.anticipoID}}</td>                       
+                        <td>{{o.fechaAnticipo | date:"dd/MM/yyyy":'UTC'}}</td>
+                        <td>{{o.montoAnticipo | currency:"Gs":0}}</td>
+                        <td>{{o.observacion}}</td>
+                    </tr>
+                </table>
+            </div>
+            <pre>{{vm.anticipos | json}}</pre>
+        </div>
     </div>
 </div>
