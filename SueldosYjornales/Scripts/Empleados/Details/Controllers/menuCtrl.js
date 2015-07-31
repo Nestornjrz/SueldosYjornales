@@ -13,12 +13,16 @@
         vm.menu.introduccion = true;
         $('#detallesEmpleado').addClass('active');
 
-        vm.comisionesFn = function () {
+        vm.comisionesFn = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
             ocultar();
             vm.menu.comisiones.class = "active";
             vm.menu.comisiones.mostrar = true;
         }
-        vm.anticiposFn = function () {
+        vm.anticiposFn = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
             ocultar();
             vm.menu.anticipos.class = "active";
             vm.menu.anticipos.mostrar = true;
