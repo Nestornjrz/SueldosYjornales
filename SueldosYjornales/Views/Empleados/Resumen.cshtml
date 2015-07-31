@@ -54,11 +54,16 @@
         <div class="col-md-4">
             <p><b>Direccion:</b> {{vm.direccion.objetoDto.direccion}}</p>
             <p><b>Salario base:</b> {{vm.salarioYcargo.objetoDto.monto | currency:"Gs":0}}</p>
-            <p><b>Carga:</b> {{vm.salarioYcargo.objetoDto.cargo.nombreCargo}}</p>
+            <p><b>Cargo:</b> {{vm.salarioYcargo.objetoDto.cargo.nombreCargo}}</p>
+            <p>
+                <b>¿Tiene IPS?</b>
+                <span ng-show="vm.salarioYcargo.objetoDto.ips_Sn == true">SI</span>
+                <span style="color:yellow;background-color:red;" ng-show="vm.salarioYcargo.objetoDto.ips_Sn == false">NO</span>
+            </p>
             <p><b>Fecha de Ingreso a la empresa:</b> {{vm.ingresoSalida.objetoDto.fechaIngreso | date:"dd/MM/yyyy":"UTC"}}</p>
             <p><b>Telefonos:</b> {{vm.telefono.objetoDto.telefonos}}</p>
             <p><b>Sucursal donde trabaja:</b> {{vm.sucursal.objetoDto.sucursal.nombreSucursal}}</p>
-            @*<pre>{{vm.sucursal | json}}</pre>*@
+            @*<pre>{{vm.salarioYcargo | json}}</pre>*@
         </div>
         <div class="col-md-4">
             <table class="table table-striped table-bordered table-hover table-condensed">
@@ -110,7 +115,7 @@
                         <th>Observacion</th>
                     </tr>
                 </thead>
-                <tr ng-repeat="o in vm.anticipos"> 
+                <tr ng-repeat="o in vm.anticipos">
                     <td>{{o.fechaAnticipo | date:"dd/MM/yyyy":'UTC'}}</td>
                     <td>{{o.montoAnticipo | currency:"Gs":0}}</td>
                     <td>{{o.observacion}}</td>
