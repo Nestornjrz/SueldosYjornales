@@ -19,38 +19,69 @@
         </ul>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-8 col-md-offset-2" ng-cloak>
-        <h2 class="text-center">
-            {{vm.empleado.objetoDto.nombres}} {{vm.empleado.objetoDto.apellidos}}
-        </h2>
-        <table class="table table-bordered table-condensed table-responsive table-striped">
-            <tr>
-                <th>Fecha Nacimiento</th>
-                <td>{{vm.empleado.objetoDto.fechaNacimiento | date:"dd/MM/yyyy":"UTC"}}</td>
 
-                <th>Sexo</th>
-                <td>{{vm.empleado.objetoDto.sexo.nombreSexo}}</td>
-            </tr>
-            <tr>
-                <th>Numero Cedula</th>
-                <td>{{vm.empleado.objetoDto.nroCedula}}</td>
+<div class="row" style="margin-top:25px;">
+    <div class="col-md-6" ng-cloak>
+        <div class="panel panel-default">
+            <div class="panel-heading">Funcionario</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2 class="text-center" style="margin-top:10px;">
+                            {{vm.empleado.objetoDto.nombres}} {{vm.empleado.objetoDto.apellidos}}
+                        </h2>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <a href="@Url.Action("Index","Empleados")" class="btn btn-default  btn-sm active" role="button">Ver listado de funcionarios</a>
+                    </div>
+                </div>
+                <table class="table table-bordered table-condensed table-responsive table-striped">
+                    <tr>
+                        <th>Fecha Nacimiento</th>
+                        <td>{{vm.empleado.objetoDto.fechaNacimiento | date:"dd/MM/yyyy":"UTC"}}</td>
 
-                <th>Estado Civil</th>
-                <td>{{vm.empleado.objetoDto.estadoCivile.nombreEstadoCivil}}</td>
-            </tr>
-            <tr>
-                <th>Nacionalidad</th>
-                <td>{{vm.empleado.objetoDto.nacionalidade.nombreNacionalidad}}</td>
+                        <th>Sexo</th>
+                        <td>{{vm.empleado.objetoDto.sexo.nombreSexo}}</td>
+                    </tr>
+                    <tr>
+                        <th>Numero Cedula</th>
+                        <td>{{vm.empleado.objetoDto.nroCedula}}</td>
 
-                <th>Profesion</th>
-                <td>{{vm.empleado.objetoDto.profesione.nombreProfesion}}</td>
-            </tr>
-            <tr>
-                <th>Cantidad Hijos</th>
-                <td>{{vm.empleado.objetoDto.cantidadHijos}}</td>
-            </tr>
-        </table>
+                        <th>Estado Civil</th>
+                        <td>{{vm.empleado.objetoDto.estadoCivile.nombreEstadoCivil}}</td>
+                    </tr>
+                    <tr>
+                        <th>Nacionalidad</th>
+                        <td>{{vm.empleado.objetoDto.nacionalidade.nombreNacionalidad}}</td>
+
+                        <th>Profesion</th>
+                        <td>{{vm.empleado.objetoDto.profesione.nombreProfesion}}</td>
+                    </tr>
+                    <tr>
+                        <th>Cantidad Hijos</th>
+                        <td>{{vm.empleado.objetoDto.cantidadHijos}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">Foto</div>
+            <div class="panel-body">
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">Informes</div>
+            <div class="panel-body">
+                <p>Liquidacion de salario</p>
+
+            </div>
+        </div>
     </div>
 </div>
+<hr style="margin:2px;" />
 @*<pre>{{vm.empleado | json}}</pre>*@
