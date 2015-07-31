@@ -52,6 +52,7 @@
                             <th colspan="2">Acciones</th>
                             <th>Id</th>
                             <th>Nombre Sucursal</th>
+                            <th>Momento Carga</th>
                         </tr>
                     </thead>
                     <tr ng-repeat="o in vm.historicoSucursales">
@@ -59,6 +60,7 @@
                         <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
                         <td>{{o.historicoSucursalID}}</td>
                         <td>{{o.sucursal.nombreSucursal}}</td>
+                        <td>{{o.momentoCarga | date:"dd/MM/yyyy":"UTC"}}</td>
                     </tr>
                 </table>
             </div>

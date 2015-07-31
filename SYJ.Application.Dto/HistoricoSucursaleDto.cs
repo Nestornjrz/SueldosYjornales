@@ -9,5 +9,6 @@ namespace SYJ.Application.Dto {
         public long HistoricoSucursalID { get; set; }
         public long EmpleadoID { get; set; }
         public SucursaleDto Sucursal { get; set; }
+        public System.DateTime MomentoCarga { get; set; }
     }
 }

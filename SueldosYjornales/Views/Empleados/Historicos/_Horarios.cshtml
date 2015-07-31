@@ -206,6 +206,7 @@
                             <th colspan="2" class="text-center">Mañana</th>
                             <th style="background-color:#63859d;" colspan="2" class="text-center">Tarde</th>
                             <th colspan="2" class="text-center">Noche</th>
+                            <th>Momento Carga</th>
                         </tr>
                         <tr>
                             <th>Entrada</th>
@@ -226,6 +227,7 @@
                         <td style="background-color:#63859d;">{{o.horaSalidaTarde | date:"HH:mm":'UTC'}}</td>
                         <td>{{o.horaEntradaNoche | date:"HH:mm":'UTC'}}</td>
                         <td>{{o.horaSalidaNoche | date:"HH:mm":'UTC'}}</td>
+                        <td>{{o.momentoCarga | date:"dd/MM/yyyy":'UTC'}}</td>
                     </tr>
                 </table>
             </div>

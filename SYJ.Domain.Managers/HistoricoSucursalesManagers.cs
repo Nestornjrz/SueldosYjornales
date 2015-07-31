@@ -18,13 +18,15 @@ namespace SYJ.Domain.Managers {
             using (var context = new SueldosJornalesEntities()) {
                 var listado = context.HistoricoSucursales
                     .Where(hs => hs.EmpleadoID == empleadoID)
+                    .OrderByDescending(hs=>hs.MomentoCarga)
                     .Select(s => new HistoricoSucursaleDto() {
                         HistoricoSucursalID = s.HistoricoSucursalID,
                         EmpleadoID = empleadoID,
                         Sucursal = new SucursaleDto() {
                             SucursalID = s.SucursalID,
                             NombreSucursal = s.Sucursale.NombreSucursal
-                        }
+                        },
+                        MomentoCarga = s.MomentoCarga
                     }).ToList();
                 return listado;
             }

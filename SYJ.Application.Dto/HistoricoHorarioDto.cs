@@ -14,5 +14,6 @@ namespace SYJ.Application.Dto {
         public Nullable<System.DateTime> HoraSalidaTarde { get; set; }
         public Nullable<System.DateTime> HoraEntradaNoche { get; set; }
         public Nullable<System.DateTime> HoraSalidaNoche { get; set; }
+        public System.DateTime MomentoCarga { get; set; }
     }
 }

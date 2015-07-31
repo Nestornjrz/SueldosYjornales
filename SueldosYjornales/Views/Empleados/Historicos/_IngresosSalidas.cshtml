@@ -74,7 +74,8 @@
                             <th colspan="2">Acciones</th>
                             <th>Id</th>
                             <th>Fecha Ingreso</th>
-                            <th>Fecha Salida</th>                          
+                            <th>Fecha Salida</th>
+                            <th>Momento Carga</th>
                         </tr>
                     </thead>
                     <tr ng-repeat="o in vm.historicoIngresoSalidas">
@@ -83,6 +84,7 @@
                         <td>{{o.historicoIngresoSalidaID}}</td>
                         <td>{{o.fechaIngreso | date:"dd/MM/yyyy":'UTC'}}</td>
                         <td>{{o.fechaSalida | date:"dd/MM/yyyy":'UTC'}}</td>                    
+                        <td>{{o.momentoCarga | date:"dd/MM/yyyy":'UTC'}}</td>
                     </tr>
                 </table>
             </div>

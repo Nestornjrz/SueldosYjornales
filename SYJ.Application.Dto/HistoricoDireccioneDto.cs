@@ -8,6 +8,7 @@ namespace SYJ.Application.Dto {
     public class HistoricoDireccioneDto {
         public long HistoricoDireccionID { get; set; }
         public long EmpleadoID { get; set; }
-        public string Direccion { get; set; } 
+        public string Direccion { get; set; }
+        public System.DateTime MomentoCarga { get; set; }
     }
 }

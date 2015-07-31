@@ -72,9 +72,12 @@ namespace SYJ.Domain.Managers {
             using (var context = new SueldosJornalesEntities()) {
                 var listado = context.HistoricoDirecciones
                     .Where(h => h.EmpleadoID == empleadoID)
+                    .OrderByDescending(h=>h.MomentoCarga)
                     .Select(s => new HistoricoDireccioneDto() {
                         HistoricoDireccionID = s.HistoricoDireccionID,
-                        Direccion = s.Direccion
+                        Direccion = s.Direccion,
+                        EmpleadoID = s.EmpleadoID,
+                        MomentoCarga = s.MomentoCarga
                     }).ToList();
                 return listado;
             }

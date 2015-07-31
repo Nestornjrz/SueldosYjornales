@@ -13,11 +13,13 @@ namespace SYJ.Domain.Managers {
             using (var context = new SueldosJornalesEntities()) {
                 var listado = context.HistoricoIngresoSalidas
                     .Where(h => h.EmpleadoID == empleadoID)
+                    .OrderByDescending(h=>h.MomentoCarga)
                     .Select(s => new HistoricoIngresoSalidaDto() {
                         HistoricoIngresoSalidaID = s.HistoricoIngresoSalidaID,
                         EmpleadoID = s.EmpleadoID,
                         FechaIngreso = s.FechaIngreso,
-                        FechaSalida = s.FechaSalida
+                        FechaSalida = s.FechaSalida,
+                        MomentoCarga = s.MomentoCarga
                     }).ToList();
                 return listado;
             }
@@ -33,6 +35,7 @@ namespace SYJ.Domain.Managers {
                 historicoIngresoSalidaDb.EmpleadoID = hisDto.EmpleadoID;
                 historicoIngresoSalidaDb.FechaIngreso = hisDto.FechaIngreso;
                 historicoIngresoSalidaDb.FechaSalida = hisDto.FechaSalida;
+                historicoIngresoSalidaDb.MomentoCarga = DateTime.Now;
                 //Se recupera el usuarioID
                 var usuarioID = context.Usuarios.Where(u => u.UserID == userID)
                     .First().UsuarioID;

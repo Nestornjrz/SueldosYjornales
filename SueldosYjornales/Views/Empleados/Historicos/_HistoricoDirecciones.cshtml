@@ -51,7 +51,8 @@
                         <tr>
                             <th colspan="2">Acciones</th>
                             <th>ID</th>
-                            <th>Direccion</th>                            
+                            <th>Direccion</th>
+                            <th>Momento Carga</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,6 +61,7 @@
                             <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
                             <td>{{o.historicoDireccionID}}</td>
                             <td>{{o.direccion}}</td>
+                            <td>{{o.momentoCarga | date:"dd/MM/yyyy":"UTC"}}</td>
                         </tr>
                     </tbody>
                 </table>

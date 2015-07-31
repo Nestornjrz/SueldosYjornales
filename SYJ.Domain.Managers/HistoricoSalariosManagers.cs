@@ -108,6 +108,7 @@ namespace SYJ.Domain.Managers {
             using (var context = new SueldosJornalesEntities()) {
                 var listado = context.HistoricoSalarios
                     .Where(h => h.EmpleadoID == empleadoID)
+                    .OrderByDescending(h=>h.FechaSalario)
                     .Select(s => new HistoricoSalarioDto() {
                         HistoricoSalarioID = s.HistoricoSalarioID,
                         EmpleadoID = s.EmpleadoID,

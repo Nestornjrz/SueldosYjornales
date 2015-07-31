@@ -13,6 +13,7 @@ namespace SYJ.Domain.Managers {
             using (var context = new SueldosJornalesEntities()) {
                 var listado = context.HistoricoHorarios
                     .Where(h => h.EmpleadoID == empleadoID)
+                    .OrderByDescending(h=>h.MomentoCarga)
                     .Select(s => new HistoricoHorarioDto() {
                         HistoricoHorarioID = s.HistoricoHorarioID,
                         EmpleadoID = s.EmpleadoID,
@@ -23,7 +24,8 @@ namespace SYJ.Domain.Managers {
                         HoraSalidaTarde = s.HoraSalidaTarde,
 
                         HoraEntradaNoche = s.HoraEntradaNoche,
-                        HoraSalidaNoche = s.HoraSalidaNoche
+                        HoraSalidaNoche = s.HoraSalidaNoche,
+                        MomentoCarga = s.MomentoCarga
                     }).ToList();
                 return listado;
             }
