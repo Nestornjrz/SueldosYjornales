@@ -3,6 +3,26 @@
 @{
     ViewBag.Title = "Index";
 }
+@section scripts{
+    <script src="~/Scripts/UsersAdmin/Index/Service/common.services.js"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            angular
+                .module('sueldosYjornalesApp')
+                .factory('sYjResource', sYjResource);
+
+            sYjResource.$inject = ['$resource'];
+
+            function sYjResource($resource) {
+                var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
+                return {
+                    "ubicacionSucUsuarios": ubicacionSucUsuarios
+                }
+            }
+        })();
+    </script>
+}
 <h2>Index</h2>
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -17,8 +37,7 @@
         </th>
     </tr>
 
-    @foreach (var item in Model)
-    {
+    @foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.UserName)
@@ -32,9 +51,3 @@
     }
 
 </table>
-
-@section scripts{
-    <script type="text/javascript">
-        var tareaApp = angular.module("tareaApp", ['ngResource']);
-    </script>
-}

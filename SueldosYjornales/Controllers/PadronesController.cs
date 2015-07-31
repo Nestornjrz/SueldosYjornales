@@ -9,6 +9,7 @@ namespace SueldosYjornales.Controllers
     public class PadronesController : Controller
     {
         // GET: Padrones
+         [Authorize(Roles = "Padrones,Operador,Admin")]
         public ActionResult Index()
         {
             return View();

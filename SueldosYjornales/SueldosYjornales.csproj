@@ -234,6 +234,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\empleados.jpg" />
+    <Content Include="Scripts\Account\Login\Services\common.services.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-aria.js" />
@@ -1090,8 +1091,10 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\RolesAdmin\Index\Services\common.services.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
+    <Content Include="Scripts\UsersAdmin\Index\Service\common.services.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1168,6 +1171,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\RolesAdmin\Index\Controllers\" />
+    <Folder Include="Scripts\UsersAdmin\Index\Controllers\" />
     <Folder Include="Views\EmpleadosBorrar\" />
     <Folder Include="Views\Empleados\Resumen\" />
     <Folder Include="Views\Home\Index\" />
