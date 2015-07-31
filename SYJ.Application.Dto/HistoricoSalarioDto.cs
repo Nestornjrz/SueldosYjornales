@@ -11,6 +11,7 @@ namespace SYJ.Application.Dto {
         public decimal Monto { get; set; }
         public CargoDto Cargo { get; set; }
         public string Observacion { get; set; }
-        public System.DateTime FechaSalario { get; set; }       
+        public System.DateTime FechaSalario { get; set; }
+        public bool Ips_Sn { get; set; }
     }
 }

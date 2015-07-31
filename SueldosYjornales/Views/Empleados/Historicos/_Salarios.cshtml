@@ -41,6 +41,14 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-md-8 control-label">
+                                ¿Tiene Ips? <span style="background-color:red;color:yellow;" ng-show="vm.historicoSalario.ips_Sn == false">NO</span> <span ng-show="vm.historicoSalario.ips_Sn == true">SI</span>
+                            </label>
+                            <div class="col-md-2">
+                                <input type="checkbox" class="form-control" ng-model="vm.historicoSalario.ips_Sn">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <!--<label for="observacion" class="col-md-3 control-label">Observacion</label>-->
                             <div class="col-md-12">
                                 <textarea class="form-control" style="max-width:100%;"
@@ -88,6 +96,7 @@
                             <th>Cargo</th>
                             <th>Fecha Salario</th>
                             <th>Monto</th>
+                            <th>IPS</th>
                             <th>Observacion</th>
                         </tr>
                     </thead>
@@ -98,6 +107,10 @@
                         <td>{{o.cargo.nombreCargo}}</td>
                         <td>{{o.fechaSalario | date:"dd/MM/yyyy":'UTC'}}</td>
                         <td>{{o.monto | currency:"":0}}</td>
+                        <td>
+                            <span ng-show="o.ips_Sn == true ">SI</span>
+                            <span style="color:red;" ng-show="o.ips_Sn == false ">NO</span>
+                        </td>
                         <td>{{o.observacion}}</td>
                     </tr>
                 </table>

@@ -28,7 +28,6 @@ namespace SYJ.Domain.Db
         public virtual DbSet<Cargo> Cargos { get; set; }
         public virtual DbSet<Empresa> Empresas { get; set; }
         public virtual DbSet<EstadoCivile> EstadoCiviles { get; set; }
-        public virtual DbSet<HistoricoSalario> HistoricoSalarios { get; set; }
         public virtual DbSet<Nacionalidade> Nacionalidades { get; set; }
         public virtual DbSet<Sucursale> Sucursales { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
@@ -47,5 +46,6 @@ namespace SYJ.Domain.Db
         public virtual DbSet<Comisione> Comisiones { get; set; }
         public virtual DbSet<HistoricoHorario> HistoricoHorarios { get; set; }
         public virtual DbSet<Anticipos> Anticipos { get; set; }
+        public virtual DbSet<HistoricoSalario> HistoricoSalarios { get; set; }
     }
 }

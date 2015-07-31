@@ -26,6 +26,7 @@ namespace SYJ.Domain.Managers {
                 historicoSalarioDb.Observacion = hsDto.Observacion;
                 historicoSalarioDb.FechaSalario = hsDto.FechaSalario;
                 historicoSalarioDb.MomentoCarga = DateTime.Now;
+                historicoSalarioDb.Ips_Sn = hsDto.Ips_Sn;
                 //Se recupera el usuarioID
                 var usuarioID = context.Usuarios.Where(u => u.UserID == userID)
                     .First().UsuarioID;
@@ -63,6 +64,7 @@ namespace SYJ.Domain.Managers {
                 historicoSalarioDb.CargoID = hsDto.Cargo.CargoID;
                 historicoSalarioDb.Observacion = hsDto.Observacion;
                 historicoSalarioDb.FechaSalario = hsDto.FechaSalario;
+                historicoSalarioDb.Ips_Sn = hsDto.Ips_Sn;
 
                 context.Entry(historicoSalarioDb).State = System.Data.Entity.EntityState.Modified;
 
@@ -116,7 +118,8 @@ namespace SYJ.Domain.Managers {
                         },
                         FechaSalario = s.FechaSalario,
                         Monto = s.Monto,
-                        Observacion = s.Observacion
+                        Observacion = s.Observacion,
+                        Ips_Sn = s.Ips_Sn
                     }).ToList();
                 return listado;
             }
@@ -144,6 +147,7 @@ namespace SYJ.Domain.Managers {
                 };
                 hsDto.Observacion = salarioActualDb.Observacion;
                 hsDto.FechaSalario = salarioActualDb.FechaSalario;
+                hsDto.Ips_Sn = salarioActualDb.Ips_Sn;
 
                 return new MensajeDto() {
                     Error = false,

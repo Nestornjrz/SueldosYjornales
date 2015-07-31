@@ -22,9 +22,10 @@ namespace SYJ.Domain.Db
         public System.DateTime FechaSalario { get; set; }
         public long UsuarioID { get; set; }
         public System.DateTime MomentoCarga { get; set; }
+        public bool Ips_Sn { get; set; }
     
         public virtual Cargo Cargo { get; set; }
-        public virtual Usuario Usuario { get; set; }
         public virtual Empleado Empleado { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

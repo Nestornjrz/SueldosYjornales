@@ -20,7 +20,7 @@
                                                ng-required="false"
                                                min="00:00:00"                                            
                                                ng-model-options="{timezone:'UTC'}"
-                                               placeholder="HH:mm:ss" />
+                                               placeholder="HH:mm" />
                                         @*<timepicker ng-model="vm.historicoHorario.horaEntradaManana" ng-change="changed()"
                                             hour-step="1" minute-step="15" show-meridian="false"></timepicker>*@
                                     </p>
@@ -44,7 +44,7 @@
                                                ng-model="vm.historicoHorario.horaSalidaManana"
                                                ng-required="false" 
                                                ng-model-options="{timezone:'UTC'}"
-                                               placeholder="HH:mm:ss" />
+                                               placeholder="HH:mm" />
                                     </p>
                                     <div style="color:red" ng-show="historicoHorariosForm.horaSalidaManana.$dirty && historicoHorariosForm.horaSalidaManana.$invalid">
                                         <span ng-show="historicoHorariosForm.horaSalidaManana.$error.date">No es un formato valido</span>
@@ -70,7 +70,7 @@
                                                ng-required="false" 
                                                @*min="12:00:00"*@
                                                ng-model-options="{timezone:'UTC'}"
-                                               placeholder="HH:mm:ss" />
+                                               placeholder="HH:mm" />
                                     </p>
                                     <div style="color:red" ng-show="historicoHorariosForm.horaEntradaTarde.$dirty && historicoHorariosForm.horaEntradaTarde.$invalid">
                                         <span ng-show="historicoHorariosForm.horaEntradaTarde.$error.date">No es un formato valido</span>
@@ -92,7 +92,7 @@
                                                ng-model="vm.historicoHorario.horaSalidaTarde"
                                                ng-required="false"
                                                ng-model-options="{timezone:'UTC'}"
-                                               placeholder="HH:mm:ss" />
+                                               placeholder="HH:mm" />
                                     </p>
                                     <div style="color:red" ng-show="historicoHorariosForm.horaSalidaTarde.$dirty && historicoHorariosForm.horaSalidaTarde.$invalid">
                                         <span ng-show="historicoHorariosForm.horaSalidaTarde.$error.date">No es un formato valido</span>
@@ -117,7 +117,7 @@
                                                ng-required="false" 
                                                @*min="17:00:00"*@
                                                ng-model-options="{timezone:'UTC'}"
-                                               placeholder="HH:mm:ss" />
+                                               placeholder="HH:mm" />
                                     </p>
                                     <div style="color:red" ng-show="historicoHorariosForm.horaEntradaNoche.$dirty && historicoHorariosForm.horaEntradaNoche.$invalid">
                                         <span ng-show="historicoHorariosForm.horaEntradaNoche.$error.date">No es un formato valido</span>
@@ -138,7 +138,8 @@
                                                class="form-control"
                                                ng-model="vm.historicoHorario.horaSalidaNoche"
                                                ng-model-options="{timezone:'UTC'}"
-                                               ng-required="false" />
+                                               ng-required="false"
+                                               placeholder="HH:mm" />
                                     </p>
                                     <div style="color:red" ng-show="historicoHorariosForm.horaSalidaNoche.$dirty && historicoHorariosForm.horaSalidaNoche.$invalid">
                                         <span ng-show="historicoHorariosForm.horaSalidaNoche.$error.date">No es un formato valido</span>
