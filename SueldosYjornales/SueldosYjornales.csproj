@@ -212,6 +212,7 @@
     <Compile Include="Controllers\EmpleadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Admin\ManageController.cs" />
+    <Compile Include="Controllers\InformesController.cs" />
     <Compile Include="Controllers\PadronesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1060,6 +1061,8 @@
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\produccion.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\Informes\Index\Controlles\liquidacionSalarioCtrl.js" />
+    <Content Include="Scripts\Informes\Index\Services\common.services.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -1166,6 +1169,7 @@
     <Content Include="Views\Empleados\Details\_Anticipos.cshtml" />
     <Content Include="Views\Empleados\Common\_Encabezado.cshtml" />
     <Content Include="Views\Empleados\Resumen.cshtml" />
+    <Content Include="Views\Informes\Index.cshtml" />
     <None Include="Web.ProduccionRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
