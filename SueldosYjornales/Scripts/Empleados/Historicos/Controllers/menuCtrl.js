@@ -13,32 +13,44 @@
         vm.menu.introduccion = true;
         $('#historicosEmpleado').addClass('active');
 
-        vm.historicoDireccionesFn = function () {
+        vm.historicoDireccionesFn = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
             ocultar();
             vm.menu.historicoDirecciones.class = "active";
             vm.menu.historicoDirecciones.mostrar = true;
         }
-        vm.salariosFn = function () {
+        vm.salariosFn = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
             ocultar();
             vm.menu.salarios.class = "active";
             vm.menu.salarios.mostrar = true;
         }
-        vm.ingresoSalidasFn = function () {
+        vm.ingresoSalidasFn = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
             ocultar();
             vm.menu.ingresoSalidas.class = "active";
             vm.menu.ingresoSalidas.mostrar = true;
         }
-        vm.horariosFn = function () {
+        vm.horariosFn = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
             ocultar();
             vm.menu.horarios.class = "active";
             vm.menu.horarios.mostrar = true;
         }
-        vm.telefonosFn = function () {
+        vm.telefonosFn = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
             ocultar();
             vm.menu.telefonos.class = "active";
             vm.menu.telefonos.mostrar = true;
         }
-        vm.sucursalesFn = function () {
+        vm.sucursalesFn = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
             ocultar();
             vm.menu.sucursales.class = "active";
             vm.menu.sucursales.mostrar = true;
