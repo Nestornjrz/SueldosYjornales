@@ -148,7 +148,8 @@ namespace SYJ.Domain.Managers {
                 return new MensajeDto() {
                     Error = false,
                     MensajeDelProceso = "Ultima sucursal encontrada",
-                    ObjetoDto = hsDto
+                    ObjetoDto = hsDto,
+                    Valor = ultimoSucursal.SucursalID.ToString()
                 };
             }
         }

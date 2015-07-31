@@ -211,5 +211,52 @@ namespace SYJ.Domain.Managers {
                 };
             }
         }
+
+        public List<EmpleadoDto> ListadoEmpleadosSegunUbicacionSucursal(Guid userID) {
+            using (var context = new SueldosJornalesEntities()) {
+
+                var listado = context.Empleados
+                    .Select(s => new EmpleadoDto() {
+                        EmpleadoID = s.EmpleadoID,
+                        Nombres = s.Nombres,
+                        Apellidos = s.Apellidos,
+                        FechaNacimiento = s.FechaNacimiento,
+                        Sexo = new SexoDto() {
+                            SexoID = s.Sexo,
+                            NombreSexo = (s.Sexo == 1) ? "Masculino" : "Femenino"
+                        },
+                        NroCedula = s.NroCedula,
+                        EstadoCivile = new EstadoCivileDto() {
+                            EstadoCivilID = s.EstadoCivilID,
+                            NombreEstadoCivil = s.EstadoCivile.NombreEstadoCivil
+                        },
+                        Nacionalidade = new NacionalidadeDto() {
+                            NacionalidadID = s.NacionalidadID,
+                            NombreNacionalidad = s.Nacionalidade.NombreNacionalidad
+                        },
+                        NumeroIps = s.NumeroIps,
+                        NumeroMjt = s.NumeroMjt,
+                        Profesione = new ProfesioneDto() {
+                            ProfesionID = s.ProfesionID,
+                            NombreProfesion = s.Profesione.NombreProfesion,
+                            Abreviatura = s.Profesione.Abreviatura,
+                            Descripcion = s.Profesione.Descripcion
+                        },
+                        CantidadHijos = s.CantidadHijos
+                    }).ToList();
+                UbicacionSucUsuariosManagers usum = new UbicacionSucUsuariosManagers();
+                HistoricoSucursalesManagers hsm = new HistoricoSucursalesManagers();
+
+                var sucursaleIDposicionUsuario = usum.RecuperarSucursalSegunUsuario(userID);
+                var listadoFiltrado = new List<EmpleadoDto>();
+                foreach (var l in listado) {
+                    int ultimaSucursalDeTrabajoEmpleado = int.Parse(hsm.UltimoSucursales(l.EmpleadoID).Valor);
+                    if (sucursaleIDposicionUsuario == ultimaSucursalDeTrabajoEmpleado) {
+                        listadoFiltrado.Add(l);
+                    }
+                }
+                return listadoFiltrado;
+            }
+        }
     }
 }

@@ -84,6 +84,19 @@ namespace SYJ.Domain.Managers {
             }
         }
 
+        public int RecuperarSucursalSegunUsuario(Guid userID) {
+            using (var context = new SueldosJornalesEntities()) {
+                //Se busca el usuario
+                var usuario = context.Usuarios
+                    .Where(u => u.UserID == userID)
+                    .First();
+                int sucursaleID = context.UbicacionSucUsuarios
+                    .Where(u => u.Usuario.UserID == userID)
+                    .First().SucursalID;
+                return sucursaleID;
+            }
+        }
+
         public MensajeDto CargarUbicacionSucUsuario(UbicacionSucUsuarioDto usuDto, Guid userID) {
             using (var context = new SueldosJornalesEntities()) {
                 MensajeDto mensajeDto = null;

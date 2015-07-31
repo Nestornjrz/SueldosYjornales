@@ -54,6 +54,16 @@ namespace SYJ.Domain.Managers {
                     .Where(c => c.CargoID == cDto.CargoID)
                     .FirstOrDefault();
 
+                if (cargoDb == null) {
+                    return new MensajeDto() {
+                        Error = true,
+                        MensajeDelProceso = "No existe el cargo : " + cDto.CargoID
+                    };
+                }
+
+                cargoDb.NombreCargo = cDto.NombreCargo;
+                cargoDb.Abreviatura = cDto.Abreviatura;
+
                 context.Entry(cargoDb).State = System.Data.Entity.EntityState.Modified;
                 mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
                 if (mensajeDto != null) { return mensajeDto; }

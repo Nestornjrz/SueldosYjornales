@@ -8,7 +8,7 @@
     listadoEmpleadosCtrl.$inject = ['$scope','$rootScope', '$modal', 'sYjResource'];
 
     function listadoEmpleadosCtrl($scope, $rootScope, $modal, sYjResource) {
-        $scope.empleados = sYjResource.empleados.query();
+        $scope.empleados = sYjResource.empleadosSegunUbicacionSucursal.query();
 
         $scope.actualizar = function (empleado) {
             $rootScope.$broadcast('actualizarEmpleado', empleado);
@@ -44,7 +44,7 @@
             });
         }
         $rootScope.$on('actualizarListadoEmpleados', function (event,objValRecibido) {
-            $scope.empleados = sYjResource.empleados.query();
+            $scope.empleados = sYjResource.empleadosSegunUbicacionSucursal.query();
         });
     }
 })();
