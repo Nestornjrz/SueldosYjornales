@@ -49,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnticipoDto.cs" />
+    <Compile Include="Auxiliares\LiquidacionSueldoFormDto.cs" />
+    <Compile Include="Auxiliares\MesDto.cs" />
     <Compile Include="CargoDto.cs" />
     <Compile Include="ComisioneDto.cs" />
     <Compile Include="EmpleadoDto.cs" />

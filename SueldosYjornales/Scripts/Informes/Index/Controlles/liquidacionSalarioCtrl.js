@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('liquidacionSalarioCtrl', liquidacionSalarioCtrl);
 
-    liquidacionSalarioCtrl.$inject = ['$rootScope', 'sYjResource'];
+    liquidacionSalarioCtrl.$inject = ['$scope','$rootScope', 'sYjResource'];
 
-    function liquidacionSalarioCtrl($rootScope, sYjResource) {
+    function liquidacionSalarioCtrl($scope,$rootScope, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
         vm.empresas = sYjResource.empresas.query();
@@ -45,5 +45,17 @@
         vm.nuevoParaCargar = function () {
             vm.liquidacionSalario = {};
         }
+
+        vm.guardar = function () {
+
+        }
+
+        $scope.$watch('vm.liquidacionSalario.empresa', function (newVal, oldVal) {
+            if (vm.liquidacionSalario.empresa == null) {
+                return;
+            }
+            vm.sucursales = sYjResource.sucursalesSegunEmpresaID
+            .query({ "empresaID": vm.liquidacionSalario.empresa.empresaID });
+        });
     }
 })();

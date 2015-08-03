@@ -1170,6 +1170,7 @@
     <Content Include="Views\Empleados\Common\_Encabezado.cshtml" />
     <Content Include="Views\Empleados\Resumen.cshtml" />
     <Content Include="Views\Informes\Index.cshtml" />
+    <Content Include="Views\Informes\LiquidacionSueldo.cshtml" />
     <None Include="Web.ProduccionRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

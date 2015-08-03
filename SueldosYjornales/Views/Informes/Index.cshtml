@@ -17,10 +17,12 @@
                 var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
                 var empleados = $resource("@Href("~/api/Empleados")");
                 var empresas = $resource("@Href("~/api/Empresas")");
+                var sucursalesSegunEmpresaID = $resource("@Href("~/api/Sucursales/SegunEmpresaID")");
                 return {
                     "ubicacionSucUsuarios": ubicacionSucUsuarios,
                     "empleados": empleados,
-                    "empresas": empresas
+                    "empresas": empresas,
+                    "sucursalesSegunEmpresaID": sucursalesSegunEmpresaID
                 }
             }
         })();
@@ -32,8 +34,8 @@
     <div class="col-md-3">
         <div class="panel panel-info">
             <div class="panel-heading">Liquidacion de salario</div>
-            <div class="panel-body">
-                <form class="form-horizontal" role="form" ng-controller="liquidacionSalarioCtrl as vm" name="liquidacionSalarioForm" ng-cloak>
+            <div class="panel-body" ng-controller="liquidacionSalarioCtrl as vm">
+                <form class="form-horizontal" role="form" name="liquidacionSalarioForm" method="get" ng-cloak>
                     <div class="form-group">
                         <label for="cargo" class="col-md-4 control-label">Mes</label>
                         <div class="col-md-8">
@@ -47,14 +49,14 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="cargo" class="col-md-4 control-label">Año</label>
+                        <label for="year" class="col-md-4 control-label">Año</label>
                         <div class="col-md-8">
-                            <select name="mes" required
+                            <select name="year" required
                                     ng-model="vm.liquidacionSalario.year"
                                     ng-options="r for r in vm.years" class="form-control"
                                     ng-required="true">
                                 <!--<option value="">-- Seleccione el concepto --</option>-->
-                                <option value="" ng-hide="vm.historicoSalario.cargo">Seleccione</option>
+                                <option value="" ng-hide="vm.historicoSalario.year">Seleccione</option>
                             </select>
                         </div>
                     </div>
@@ -66,11 +68,23 @@
                                     ng-options="r.nombreEmpresa for r in vm.empresas" class="form-control"
                                     ng-required="true">
                                 <!--<option value="">-- Seleccione el concepto --</option>-->
-                                <option value="" ng-hide="vm.liquidacionSalario.empresa">Seleccione Sucursal</option>
+                                <option value="" ng-hide="vm.liquidacionSalario.empresa">Seleccione Empresa</option>
                             </select>
                         </div>
                     </div>
-                  
+                    <div class="form-group">
+                        <label for="sucursale" class="col-md-4 control-label">Sucursal</label>
+                        <div class="col-md-8">
+                            <select name="sucursale" required
+                                    ng-model="vm.liquidacionSalario.sucursale"
+                                    ng-options="r.nombreSucursal for r in vm.sucursales" class="form-control"
+                                    ng-required="true">
+                                <!--<option value="">-- Seleccione el concepto --</option>-->
+                                <option value="" ng-hide="vm.liquidacionSalario.sucursale">Seleccione Sucursal</option>
+                            </select>
+                        </div>
+                    </div>
+                    @*<button type="submit" ng-disabled="liquidacionSalarioForm.$invalid" class="btn btn-default">Generar Informe</button>*@
                     <div class="form-group">
                         <div class="col-md-12">
                             <button ng-click="vm.guardar()" ng-disabled="liquidacionSalarioForm.$invalid" class="btn btn-default">
@@ -81,14 +95,14 @@
                             </button>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">Aviso</div>
-                            <div class="panel-body">
-                                {{vm.mensajeDelServidor}}
-                            </div>
+                    @*<div class="form-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Aviso</div>
+                        <div class="panel-body">
+                            {{vm.mensajeDelServidor}}
                         </div>
                     </div>
+                </div>*@
                     <pre>{{vm.liquidacionSalario | json}}</pre>
                     <pre>{{vm.years | json}}</pre>
                 </form>
