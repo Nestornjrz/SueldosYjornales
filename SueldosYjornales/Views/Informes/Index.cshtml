@@ -35,7 +35,7 @@
         <div class="panel panel-info">
             <div class="panel-heading">Liquidacion de salario</div>
             <div class="panel-body" ng-controller="liquidacionSalarioCtrl as vm">
-                <form class="form-horizontal" role="form" name="liquidacionSalarioForm" method="get" ng-cloak>
+                <form class="form-horizontal" role="form" name="liquidacionSalarioForm" method="post" action="@Url.Action("LiquidacionSueldo","Informes")" target="_blank"  ng-cloak>
                     <div class="form-group">
                         <label for="cargo" class="col-md-4 control-label">Mes</label>
                         <div class="col-md-8">
@@ -84,8 +84,8 @@
                             </select>
                         </div>
                     </div>
-                    @*<button type="submit" ng-disabled="liquidacionSalarioForm.$invalid" class="btn btn-default">Generar Informe</button>*@
-                    <div class="form-group">
+                    <button type="submit" ng-disabled="liquidacionSalarioForm.$invalid" class="btn btn-default">Generar Informe</button>
+                    @*<div class="form-group">
                         <div class="col-md-12">
                             <button ng-click="vm.guardar()" ng-disabled="liquidacionSalarioForm.$invalid" class="btn btn-default">
                                 Generar informe
@@ -94,7 +94,7 @@
                                 Nuevo
                             </button>
                         </div>
-                    </div>
+                    </div>*@
                     @*<div class="form-group">
                     <div class="panel panel-default">
                         <div class="panel-heading">Aviso</div>

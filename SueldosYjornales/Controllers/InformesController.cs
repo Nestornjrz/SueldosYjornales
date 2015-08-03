@@ -12,8 +12,10 @@ namespace SueldosYjornales.Controllers {
             return View();
         }
 
-        [HttpGet]
+        [HttpPost]
         public ActionResult LiquidacionSueldo(LiquidacionSueldoFormDto lsfDto) {
+            HttpRequestBase request  = ControllerContext.HttpContext.Request;
+            var empresa = request.Form.Get("empresa");
             return View();
         }
     }
