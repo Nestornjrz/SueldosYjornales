@@ -9,6 +9,6 @@ namespace SYJ.Application.Dto.Auxiliares {
         public MesDto Mes { get; set; }
         public int Year { get; set; }
         public EmpresaDto Empresa { get; set; }
-        public SucursaleDto Sucursal { get; set; }
+        public SucursaleDto Sucursale { get; set; }
     }
 }

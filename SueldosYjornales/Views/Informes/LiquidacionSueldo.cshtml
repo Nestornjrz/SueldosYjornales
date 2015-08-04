@@ -1,7 +1,50 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "LiquidacionSueldo";
+    SYJ.Application.Dto.Auxiliares.LiquidacionSueldoFormDto lsfDto = ViewBag.lsfDto;
+    Layout = null;
 }
 
-<h2>LiquidacionSueldo</h2>
 
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Informe liquidacion de sueldos</title>
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-resource.min.js"></script>
+    <script src="~/Scripts/i18n/angular-locale_es-py.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="~/Scripts/underscore.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
+
+    <script src="~/Scripts/Common/Services/common.services.js"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            angular
+                .module('sueldosYjornalesApp')
+                .factory('sYjResource', sYjResource);
+
+            sYjResource.$inject = ['$resource'];
+
+            function sYjResource($resource) {
+                var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
+                var empleados = $resource("@Href("~/api/Empleados")");
+                return {
+                    "ubicacionSucUsuarios": ubicacionSucUsuarios,
+                    "empleados": empleados
+                }
+            }
+        })();
+    </script>
+    @*controladores*@
+    <script src="~/Scripts/Informes/LiquidacionSueldo/Controllers/liquidacionSalarioInfoCtrl.js"></script>
+</head>
+<body ng-app="sueldosYjornalesApp">
+    <div class="container" ng-controller="liquidacionSalarioInfoCtrl">
+        
+    </div>
+</body>

@@ -46,9 +46,10 @@
             vm.liquidacionSalario = {};
         }
 
-        vm.guardar = function () {
-
-        }
+        //vm.guardar = function () {
+        //    var json = angular.toJson(vm.liquidacionSalario);
+        //    $('#jsonInput').val(json);
+        //}
 
         $scope.$watch('vm.liquidacionSalario.empresa', function (newVal, oldVal) {
             if (vm.liquidacionSalario.empresa == null) {
@@ -56,6 +57,14 @@
             }
             vm.sucursales = sYjResource.sucursalesSegunEmpresaID
             .query({ "empresaID": vm.liquidacionSalario.empresa.empresaID });
+        });
+
+        $scope.$watch('vm.liquidacionSalario.sucursale', function (newVal, oldVal) {
+            if (vm.liquidacionSalario.sucursale == null) {
+                return;
+            }
+            var json = angular.toJson(vm.liquidacionSalario);
+            $('#jsonInput').val(json);
         });
     }
 })();
