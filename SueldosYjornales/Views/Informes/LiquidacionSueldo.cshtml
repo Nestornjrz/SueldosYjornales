@@ -1,25 +1,21 @@
 ﻿@{
     ViewBag.Title = "LiquidacionSueldo";
-    SYJ.Application.Dto.Auxiliares.LiquidacionSueldoFormDto lsfDto = ViewBag.lsfDto;
+    string lsfDto = ViewBag.lsfDto;
     Layout = null;
 }
-
-
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Informe liquidacion de sueldos</title>
     @*@Styles.Render("~/Content/css")*@
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
     <script src="~/Scripts/angular.min.js"></script>
     <script src="~/Scripts/angular-resource.min.js"></script>
     <script src="~/Scripts/i18n/angular-locale_es-py.js"></script>
     <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
     <script src="~/Scripts/underscore.min.js"></script>
     <script src="~/Scripts/app.js"></script>
-
     <script src="~/Scripts/Common/Services/common.services.js"></script>
     <script type="text/javascript">
         (function () {
@@ -42,9 +38,178 @@
     </script>
     @*controladores*@
     <script src="~/Scripts/Informes/LiquidacionSueldo/Controllers/liquidacionSalarioInfoCtrl.js"></script>
+    <style type="text/css" media="all">
+        @@page {
+            size: letter portrait;
+            margin: 10%;
+        }
+
+        .pagina {
+            page-break-after: always;
+            page-break-before: avoid;
+            border: 1px solid red;
+            height: 27.9cm;
+            width: 21.6cm;
+            padding: 2px;
+        }
+
+        .linea {
+            /*border: 1px solid red;*/
+        }
+
+        .titulo {
+            text-align: center;
+        }
+
+            .titulo table {
+                border: 1px solid #000000;
+                -ms-align-content: center;
+                -webkit-align-content: center;
+                align-content: center;
+                margin: auto;
+            }
+
+                .titulo table th {
+                    border: 1px solid #000000;
+                    padding: 2px;
+                    background-color: #a58989;
+                }
+
+                .titulo table td {
+                    border: 1px solid #000000;
+                    padding: 2px;
+                    min-width: 250px;
+                }
+
+        .row_encabezado {
+            /*border: 1px solid #000000;*/
+            height: 160px;
+        }
+
+        .row_datos {
+            /*border: 1px solid #000000;*/
+        }
+
+            .row_datos table th {
+                text-align: left;
+            }
+
+        .row_datos2 {
+            /*border: 1px solid #000000;*/
+            margin-top:25px;
+        }
+
+            .row_datos2 table {
+                font-size: 12px;
+            }
+
+                .row_datos2 table th {
+                    border: 1px solid black;
+                }
+
+                .row_datos2 table td {
+                    border: 1px solid black;
+                }
+
+        .row_firma {
+            margin-top: 50px;
+            padding-right:50px;
+        }
+        .row_firma table th,td{
+            text-align:center
+        }
+
+        .contenedor_imagen {
+            width: 400px;
+        }
+
+        .titulo h1 {
+            font-size: 16px;
+            margin-top: 50px;
+        }
+    </style>
 </head>
+
 <body ng-app="sueldosYjornalesApp">
-    <div class="container" ng-controller="liquidacionSalarioInfoCtrl">
-        
+    <div ng-controller="liquidacionSalarioInfoCtrl as vm" ng-init="vm.lsfDto = '@lsfDto'">
+        <div class="pagina">
+            <div class="row_encabezado">
+                <div style="float:left;" class="linea contenedor_imagen">
+                    <img width="300" height="150" src="~/Images/la aragonesa sa-02.jpg" />
+                </div>
+                <div class="linea titulo">
+                    <h1>LIQUIDACION DE SALARIOS</h1>
+                    <table>
+                        <tr>
+                            <th>C.COSTO</th>
+                            <td>GRAN 7</td>
+                        </tr>
+                        <tr>
+                            <th>CARGO</th>
+                            <td>Programador</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row_datos">
+                <table>
+                    <tr>
+                        <th>EMPLEADO</th>
+                        <td>Nestor Rodriguez</td>
+                    </tr>
+                    <tr>
+                        <th>FECHA</th>
+                        <td>31/07/2015</td>
+                        <td style="width:100px;"></td>
+                        <th>PERIODO</th>
+                        <td>julio/2015</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row_datos2">
+                <table>
+                    <tr>
+                        <th rowspan="2">DIAS TRAB.</th>
+                        <th rowspan="2">SALARIO BASICO</th>
+                        <th rowspan="2">SUB TOTAL INGRESOS</th>
+                        <th rowspan="2">COMISIONES</th>
+                        <th rowspan="2">TOTAL INGRESOS</th>
+                        <th colspan="2">DESCUENTOS</th>
+                        <th rowspan="2">TOTAL DESC. GS.</th>
+                        <th rowspan="2">NETO A COBRAR GS.</th>
+                    </tr>
+                    <tr>
+                        <th>I.P.S.</th>
+                        <th>OTROS</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row_firma">
+                <div style="float:right;">
+                    <table>
+                        <tr>
+                            <td colspan="2" style="border-top: 1px dotted black;">Firma del empleado</td>
+                        </tr>
+                        <tr>
+                            <td>C.I.:</td>
+                            <td>xxxxxxxx</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <pre>{{vm.lsfDto | json}}</pre>
+            <pre>{{vm.lsfDto.Mes.MesID}}</pre>
+        </div>
     </div>
 </body>

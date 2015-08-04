@@ -83,34 +83,13 @@
                                 <option value="" ng-hide="vm.liquidacionSalario.sucursale">Seleccione Sucursal</option>
                             </select>
                         </div>
-                    </div>
-                    @*<button type="submit" ng-disabled="liquidacionSalarioForm.$invalid" class="btn btn-default">Generar Informe</button>*@
-                    @*<div class="form-group">
-                            <div class="col-md-12">
-                                <button ng-click="vm.guardar()" ng-disabled="liquidacionSalarioForm.$invalid" class="btn btn-default">
-                                    Generar informe
-                                </button>
-                                <button ng-click="vm.nuevoParaCargar()" class="btn btn-default">
-                                    Nuevo
-                                </button>
-                            </div>
-                        </div>*@
-                    @*<div class="form-group">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">Aviso</div>
-                                <div class="panel-body">
-                                    {{vm.mensajeDelServidor}}
-                                </div>
-                            </div>
-                        </div>*@
-                    @*<pre>{{vm.years | json}}</pre>*@
+                    </div>                   
                 </form>
                 <form method="post" action="@Url.Action("LiquidacionSueldo","Informes")" target="_blank">
                     <input type="text" value="" id="jsonInput" name="jsonInput" />
                     <button type="submit" ng-disabled="liquidacionSalarioForm.$invalid" class="btn btn-default">Generar Informe</button>
                 </form>
                 <pre>{{vm.liquidacionSalario | json}}</pre>
-
             </div>
         </div>
     </div>

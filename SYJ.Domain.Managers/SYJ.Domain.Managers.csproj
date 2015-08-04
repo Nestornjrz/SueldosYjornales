@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnticiposManagers.cs" />
+    <Compile Include="Auxiliares\LiquidacionSalariosManagers.cs" />
     <Compile Include="CargosManagers.cs" />
     <Compile Include="ComisionesManagers.cs" />
     <Compile Include="EmpleadosManagers.cs" />

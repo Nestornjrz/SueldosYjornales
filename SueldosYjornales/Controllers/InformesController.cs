@@ -17,7 +17,7 @@ namespace SueldosYjornales.Controllers {
         [HttpPost]
         public ActionResult LiquidacionSueldo(string jsonInput) {
             LiquidacionSueldoFormDto lsfDto = JsonConvert.DeserializeObject<LiquidacionSueldoFormDto>(jsonInput);
-            ViewBag.lsfDto = lsfDto;
+            ViewBag.lsfDto = jsonInput;
             return View();
         }
     }

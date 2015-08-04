@@ -5,10 +5,12 @@
         .module('sueldosYjornalesApp')
         .controller('liquidacionSalarioInfoCtrl', liquidacionSalarioInfoCtrl);
 
-    liquidacionSalarioInfoCtrl.$inject = ['$scope', '$rootScope', 'sYjResource'];
+    liquidacionSalarioInfoCtrl.$inject = ['$scope', '$timeout', '$rootScope', 'sYjResource'];
 
-    function liquidacionSalarioInfoCtrl($scope, $rootScope, sYjResource) {
+    function liquidacionSalarioInfoCtrl($scope, $timeout, $rootScope, sYjResource) {
         var vm = this;
-       
+        $timeout(function () {
+            vm.lsfDto = angular.fromJson(vm.lsfDto);
+        });
     }
 })();
