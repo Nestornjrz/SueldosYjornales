@@ -1,4 +1,7 @@
-﻿using System;
+﻿using SYJ.Application.Dto;
+using SYJ.Application.Dto.Auxiliares;
+using SYJ.Domain.Managers.Auxiliares;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -22,8 +25,11 @@ namespace SueldosYjornales.Controllers.Api.Auxiliares
         }
 
         // POST: api/LiquidacionSalarios
-        public void Post([FromBody]string value)
+        public HttpResponseMessage Post(LiquidacionSueldoFormDto lsfDto)
         {
+            LiquidacionSalariosManagers lsm = new LiquidacionSalariosManagers();
+            MensajeDto mensaje = lsm.ConsultarLiquidacionSalario(lsfDto);
+            return Request.CreateResponse(HttpStatusCode.Created, mensaje);
         }
 
         // PUT: api/LiquidacionSalarios/5

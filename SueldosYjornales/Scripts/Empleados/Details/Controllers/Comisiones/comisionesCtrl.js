@@ -17,7 +17,7 @@
         };
 
         vm.guardar = function () {
-            sYjResource.comisiones.save(vm.comisione)
+           sYjResource.comisiones.save(vm.comisione)
           .$promise.then(
               function (mensaje) {
                   if (!mensaje.error) {

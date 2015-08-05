@@ -16,5 +16,8 @@ namespace SYJ.Application.Dto.Auxiliares {
         public Decimal DescOtros { get; set; }
         public Decimal TotalDescuentos { get; set; }
         public Decimal NetoAcobrar { get; set; }
+        public DateTime Periodo { get; set; }
+        public DateTime UltimoDiaPeriodo { get; set; }
+        public string MensajeCalculos { get; set; }
     }
 }

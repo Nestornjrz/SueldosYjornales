@@ -124,5 +124,22 @@ namespace SYJ.Domain.Managers {
                 return listado;
             }
         }
+        public List<ComisioneDto> ListadoSegunMesYanosYempleado(long empleadoID, int mesID, int year) {
+            using (var context = new SueldosJornalesEntities()) {
+                var dosMesesAtras = DateTime.Today.AddMonths(-2);
+                var listado = context.Comisiones
+                   .Where(c => c.EmpleadoID == empleadoID &&
+                               c.FechaComision.Month == mesID &&
+                               c.FechaComision.Year == year)
+                   .Select(s => new ComisioneDto() {
+                       ComisionID = s.ComisionID,
+                       EmpleadoID = s.EmpleadoID,
+                       FechaComision = s.FechaComision,
+                       MontoComision = s.MontoComision,
+                       Observacion = s.Observacion
+                   }).ToList();
+                return listado;
+            }
+        }
     }
 }

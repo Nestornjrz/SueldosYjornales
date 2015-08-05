@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 namespace SYJ.Application.Dto {
     public class EmpleadoDto {
         public long EmpleadoID { get; set; }
-        public SucursaleDto Sucursale { get; set; }
         public string Nombres { get; set; }
         public string Apellidos { get; set; }
         public System.DateTime FechaNacimiento { get; set; }
@@ -19,5 +18,9 @@ namespace SYJ.Application.Dto {
         public Nullable<int> NumeroMjt { get; set; }
         public ProfesioneDto Profesione { get; set; }
         public int CantidadHijos { get; set; }
+        #region auxiliares
+        public SucursaleDto Sucursale { get; set; }
+        public CargoDto Cargo { get; set; }
+        #endregion
     }
 }

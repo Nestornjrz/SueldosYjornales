@@ -123,7 +123,11 @@ namespace SYJ.Domain.Managers {
                 };
             }
         }
-
+        /// <summary>
+        /// Devuelve el mensajeDto conteniendo la sucursal actual donde trabaja.
+        /// </summary>
+        /// <param name="empleadoID"></param>
+        /// <returns></returns>
         public MensajeDto UltimoSucursales(long empleadoID) {
             using (var context = new SueldosJornalesEntities()) {
                 var ultimoSucursal = context.HistoricoSucursales

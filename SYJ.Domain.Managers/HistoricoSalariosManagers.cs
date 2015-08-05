@@ -153,7 +153,8 @@ namespace SYJ.Domain.Managers {
                 return new MensajeDto() {
                     Error = false,
                     MensajeDelProceso = "Ultima salario y cargo encontrado",
-                    ObjetoDto = hsDto
+                    ObjetoDto = hsDto,
+                    Valor = hsDto.Monto.ToString()
                 };
             }
         }
