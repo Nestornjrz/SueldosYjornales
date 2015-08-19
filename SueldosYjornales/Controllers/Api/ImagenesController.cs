@@ -27,7 +27,10 @@ namespace SueldosYjornales.Controllers.Api {
             Image image = (Image)mensaje.ObjetoDto;
             MemoryStream memoryStream = new MemoryStream();
             if (mensaje.Valor == "jpg") {
-                image.Save(memoryStream, ImageFormat.Jpeg);
+                //Error arreglado en el jpg gracias al siguiente enlace
+                //http://stackoverflow.com/questions/15571022/how-to-find-reason-for-generic-gdi-error-when-saving-an-image
+                var imageJpg = new Bitmap(image);
+                imageJpg.Save(memoryStream, ImageFormat.Jpeg);
                 result.Content = new ByteArrayContent(memoryStream.ToArray());
                 result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
             } else if (mensaje.Valor == "png") {
