@@ -57,6 +57,11 @@
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoSalarios_Cargos" />
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoSalarios_Empleados" />
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoSalarios_Usuarios" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.Imagene" Width="1.5" PointX="8.25" PointY="2.25" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.TipoImagene" Width="1.5" PointX="6" PointY="2.875" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_Imagenes__Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_imagenes__TipoImagenes" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_Imagenes__Usuarios" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

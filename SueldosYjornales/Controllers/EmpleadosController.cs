@@ -32,5 +32,10 @@ namespace SueldosYjornales.Controllers
             ViewBag.empleadoID = id;
             return View();
         }
+
+        public ActionResult SubirImagenes(int id) {
+            ViewBag.empleadoID = id;
+            return View();
+        }
     }
 }

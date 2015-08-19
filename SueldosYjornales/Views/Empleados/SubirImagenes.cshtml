@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "SubirImagenes";
+    long empleadoID = ViewBag.empleadoID;
+}
+@section scripts{
+    <script src="~/Scripts/ng-file-upload-shim.min.js"></script>
+    <script src="~/Scripts/ng-file-upload.min.js"></script>
+    <script src="~/Scripts/Empleados/SubirImagenes/Services/common.services.js"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            angular
+                .module('sueldosYjornalesApp')
+                .factory('sYjResource', sYjResource);
+
+            sYjResource.$inject = ['$resource'];
+
+            function sYjResource($resource) {
+                var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
+                var empleados = $resource("@Href("~/api/Empleados")");
+                var tipoImagenes = $resource("@Href("~/api/TipoImagenes")");
+                var imagenesUrl = "@Href("~/api/Imagenes")";;
+                return {
+                    "ubicacionSucUsuarios": ubicacionSucUsuarios,
+                    "empleados": empleados,
+                    "tipoImagenes": tipoImagenes,
+                    "imagenesUrl": imagenesUrl
+                }
+            }
+        })();
+    </script>
+    @*controladores*@
+    <script src="~/Scripts/Empleados/SubirImagenes/Controllers/menuCtrl.js"></script>
+}
+<div class="container" ng-controller="menuCtrl as vm" ng-cloak ng-init="vm.empleadoID = @empleadoID">
+    @Html.Partial("Common/_Encabezado")
+    <div class="col-md-7">
+        <h2>Cargar foto, amberso y reverso de cedula</h2>
+        @Html.Partial("SubirImagenes/_FormCargaImagenes")
+    </div>
+    <div class="col-md-5">
+        <h3>Archivo seleccionado</h3>
+        <ul>
+            <li ng-model="vm.file" style="font:smaller">{{vm.file.name}}</li>
+        </ul>
+        <h3 ng-show="vm.log != ''">Progreso de carga</h3>
+        <pre ng-show="vm.log != ''">{{vm.log}}</pre>
+    </div>
+</div>
+

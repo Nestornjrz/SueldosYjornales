@@ -11,6 +11,11 @@
                     CARGAR/EDITAR HISTORICOS
                 </a>
             </li>
+            <li role="presentation" id="subirImagenes">
+                <a href="@Url.Action("SubirImagenes", "Empleados")/{{vm.empleado.objetoDto.empleadoID}}">
+                    SUBIR IMAGENES
+                </a>
+            </li>
             <li role="presentation" id="resumenEmpleado">
                 <a href="@Url.Action("Resumen","Empleados")/{{vm.empleado.objetoDto.empleadoID}}">
                     RESUMEN

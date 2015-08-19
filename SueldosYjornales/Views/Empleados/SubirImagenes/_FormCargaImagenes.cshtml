@@ -1,0 +1,36 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading">Cargar archivos</div>
+    <div class="panel-body">
+        <form class="form-horizontal" role="form" name="imagenesForm">
+            <div class="form-group">
+                <label for="empleadoID" class="col-md-2 control-label">EmpleadoID</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" ng-model="vm.imagene.empleadoID" name="empleadoID" ng-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="tipoImagene" class="col-md-2 control-label">Tipo Imagen</label>
+                <div class="col-md-10">
+                    <select name="subir" required
+                            ng-model="vm.imagene.tipoImagene"
+                            ng-options="l.nombreTipoImagen for l in vm.tipoImagenes" class="form-control"
+                            ng-required="true">
+                        <!--<option value="">-- Seleccione el concepto --</option>-->
+                        <option value="" ng-hide="vm.imagene.tipoImagene">Seleccione tipo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">                  
+                    <button ngf-select ng-model="vm.file" ngf-multiple="false" ng-disabled="imagenesForm.$invalid">
+                        Cargar archivo
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<pre>{{vm.imagene | json}}</pre>
+<pre>
+{{vm.tipoImagenes | json}}
+</pre>

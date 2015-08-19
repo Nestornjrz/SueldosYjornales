@@ -112,6 +112,9 @@
     <Compile Include="HistoricoTelefono.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Imagene.cs">
+      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Nacionalidade.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>
@@ -136,6 +139,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SueldosJornalesModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="TipoImagene.cs">
+      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UbicacionSucUsuario.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>

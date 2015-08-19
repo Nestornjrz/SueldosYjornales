@@ -70,6 +70,7 @@
     <Compile Include="SucursaleDto.cs" />
     <Compile Include="SueldosJornalesEntities.cs" />
     <Compile Include="HistoricoTelefonoDto.cs" />
+    <Compile Include="TipoImageneDto.cs" />
     <Compile Include="UbicacionSucUsuarioDto.cs" />
     <Compile Include="UsuarioDto.cs" />
   </ItemGroup>

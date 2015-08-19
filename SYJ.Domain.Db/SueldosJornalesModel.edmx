@@ -205,6 +205,18 @@
           <Property Name="UsuarioID" Type="bigint" Nullable="false" />
           <Property Name="MomentoCarga" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
+        <EntityType Name="Imagenes">
+          <Key>
+            <PropertyRef Name="ImagenID" />
+          </Key>
+          <Property Name="ImagenID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpleadoID" Type="bigint" Nullable="false" />
+          <Property Name="TipoImagenID" Type="int" Nullable="false" />
+          <Property Name="Imagen" Type="varbinary(max)" Nullable="false" />
+          <Property Name="Extencion" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="UsuarioID" Type="bigint" Nullable="false" />
+          <Property Name="MomentoCarga" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
         <EntityType Name="Nacionalidades">
           <Key>
             <PropertyRef Name="NacionalidadID" />
@@ -231,6 +243,13 @@
           <Property Name="NombreSucursal" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Abreviatura" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="Descripcion" Type="text" />
+        </EntityType>
+        <EntityType Name="TipoImagenes">
+          <Key>
+            <PropertyRef Name="TipoImagenID" />
+          </Key>
+          <Property Name="TipoImagenID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreTipoImagen" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="UbicacionSucUsuarios">
           <Key>
@@ -581,6 +600,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_Imagenes-&gt;Empleados">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Imagenes" Type="Self.Imagenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Imagenes">
+              <PropertyRef Name="EmpleadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_imagenes-&gt;TipoImagenes">
+          <End Role="TipoImagenes" Type="Self.TipoImagenes" Multiplicity="1" />
+          <End Role="Imagenes" Type="Self.Imagenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoImagenes">
+              <PropertyRef Name="TipoImagenID" />
+            </Principal>
+            <Dependent Role="Imagenes">
+              <PropertyRef Name="TipoImagenID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Imagenes-&gt;Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Imagenes" Type="Self.Imagenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Imagenes">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_Sucursales&gt;Empresas">
           <End Role="Empresas" Type="Self.Empresas" Multiplicity="1" />
           <End Role="Sucursales" Type="Self.Sucursales" Multiplicity="*" />
@@ -648,9 +703,11 @@
           <EntitySet Name="HistoricoSalarios" EntityType="Self.HistoricoSalarios" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="HistoricoSucursales" EntityType="Self.HistoricoSucursales" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="HistoricoTelefonos" EntityType="Self.HistoricoTelefonos" Schema="Sj" store:Type="Tables" />
+          <EntitySet Name="Imagenes" EntityType="Self.Imagenes" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="Nacionalidades" EntityType="Self.Nacionalidades" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="Profesiones" EntityType="Self.Profesiones" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="Sucursales" EntityType="Self.Sucursales" Schema="Sj" store:Type="Tables" />
+          <EntitySet Name="TipoImagenes" EntityType="Self.TipoImagenes" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="UbicacionSucUsuarios" EntityType="Self.UbicacionSucUsuarios" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="Sj" store:Type="Tables" />
           <AssociationSet Name="fk_Anticipos-&gt;Empleados" Association="Self.fk_Anticipos-&gt;Empleados">
@@ -760,6 +817,18 @@
           <AssociationSet Name="fk_HistoricoTelefonos&gt;Empleados" Association="Self.fk_HistoricoTelefonos&gt;Empleados">
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="HistoricoTelefonos" EntitySet="HistoricoTelefonos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Imagenes-&gt;Empleados" Association="Self.fk_Imagenes-&gt;Empleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Imagenes" EntitySet="Imagenes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_imagenes-&gt;TipoImagenes" Association="Self.fk_imagenes-&gt;TipoImagenes">
+            <End Role="TipoImagenes" EntitySet="TipoImagenes" />
+            <End Role="Imagenes" EntitySet="Imagenes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Imagenes-&gt;Usuarios" Association="Self.fk_Imagenes-&gt;Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Imagenes" EntitySet="Imagenes" />
           </AssociationSet>
           <AssociationSet Name="fk_Sucursales&gt;Empresas" Association="Self.fk_Sucursales&gt;Empresas">
             <End Role="Empresas" EntitySet="Empresas" />
@@ -925,6 +994,20 @@
             <End Role="Usuario" EntitySet="Usuarios" />
             <End Role="HistoricoSalario" EntitySet="HistoricoSalarios" />
           </AssociationSet>
+          <EntitySet Name="Imagenes" EntityType="SueldosJornalesModel.Imagene" />
+          <EntitySet Name="TipoImagenes" EntityType="SueldosJornalesModel.TipoImagene" />
+          <AssociationSet Name="fk_Imagenes__Empleados" Association="SueldosJornalesModel.fk_Imagenes__Empleados">
+            <End Role="Empleado" EntitySet="Empleados" />
+            <End Role="Imagene" EntitySet="Imagenes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_imagenes__TipoImagenes" Association="SueldosJornalesModel.fk_imagenes__TipoImagenes">
+            <End Role="TipoImagene" EntitySet="TipoImagenes" />
+            <End Role="Imagene" EntitySet="Imagenes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Imagenes__Usuarios" Association="SueldosJornalesModel.fk_Imagenes__Usuarios">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Imagene" EntitySet="Imagenes" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Cargo">
           <Key>
@@ -995,6 +1078,7 @@
           <NavigationProperty Name="HistoricoHorarios" Relationship="SueldosJornalesModel.fk_HistoricosHorarios_Usuarios" FromRole="Usuario" ToRole="HistoricoHorario" />
           <NavigationProperty Name="Anticipos" Relationship="SueldosJornalesModel.fk_Anticipos__Usuarios" FromRole="Usuario" ToRole="Anticipos" />
           <NavigationProperty Name="HistoricoSalarios" Relationship="SueldosJornalesModel.fk_HistoricoSalarios_Usuarios" FromRole="Usuario" ToRole="HistoricoSalario" />
+          <NavigationProperty Name="Imagenes" Relationship="SueldosJornalesModel.fk_Imagenes__Usuarios" FromRole="Usuario" ToRole="Imagene" />
         </EntityType>
         <Association Name="fk_Sucursales_Empresas">
           <End Type="SueldosJornalesModel.Empresa" Role="Empresa" Multiplicity="1" />
@@ -1188,6 +1272,7 @@
           <NavigationProperty Name="HistoricoHorarios" Relationship="SueldosJornalesModel.fk_HistoricosHorarios_Empleados" FromRole="Empleado" ToRole="HistoricoHorario" />
           <NavigationProperty Name="Anticipos" Relationship="SueldosJornalesModel.fk_Anticipos__Empleados" FromRole="Empleado" ToRole="Anticipos" />
           <NavigationProperty Name="HistoricoSalarios" Relationship="SueldosJornalesModel.fk_HistoricoSalarios_Empleados" FromRole="Empleado" ToRole="HistoricoSalario" />
+          <NavigationProperty Name="Imagenes" Relationship="SueldosJornalesModel.fk_Imagenes__Empleados" FromRole="Empleado" ToRole="Imagene" />
         </EntityType>
         <EntityType Name="HistoricoSucursale">
           <Key>
@@ -1578,6 +1663,65 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Imagene">
+          <Key>
+            <PropertyRef Name="ImagenID" />
+          </Key>
+          <Property Name="ImagenID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpleadoID" Type="Int64" Nullable="false" />
+          <Property Name="TipoImagenID" Type="Int32" Nullable="false" />
+          <Property Name="Imagen" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="Extencion" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioID" Type="Int64" Nullable="false" />
+          <Property Name="MomentoCarga" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Empleado" Relationship="SueldosJornalesModel.fk_Imagenes__Empleados" FromRole="Imagene" ToRole="Empleado" />
+          <NavigationProperty Name="TipoImagene" Relationship="SueldosJornalesModel.fk_imagenes__TipoImagenes" FromRole="Imagene" ToRole="TipoImagene" />
+          <NavigationProperty Name="Usuario" Relationship="SueldosJornalesModel.fk_Imagenes__Usuarios" FromRole="Imagene" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="TipoImagene">
+          <Key>
+            <PropertyRef Name="TipoImagenID" />
+          </Key>
+          <Property Name="TipoImagenID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreTipoImagen" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Imagenes" Relationship="SueldosJornalesModel.fk_imagenes__TipoImagenes" FromRole="TipoImagene" ToRole="Imagene" />
+        </EntityType>
+        <Association Name="fk_Imagenes__Empleados">
+          <End Type="SueldosJornalesModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="SueldosJornalesModel.Imagene" Role="Imagene" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Imagene">
+              <PropertyRef Name="EmpleadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_imagenes__TipoImagenes">
+          <End Type="SueldosJornalesModel.TipoImagene" Role="TipoImagene" Multiplicity="1" />
+          <End Type="SueldosJornalesModel.Imagene" Role="Imagene" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoImagene">
+              <PropertyRef Name="TipoImagenID" />
+            </Principal>
+            <Dependent Role="Imagene">
+              <PropertyRef Name="TipoImagenID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Imagenes__Usuarios">
+          <End Type="SueldosJornalesModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="SueldosJornalesModel.Imagene" Role="Imagene" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Imagene">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1845,6 +1989,27 @@
                 <ScalarProperty Name="Monto" ColumnName="Monto" />
                 <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
                 <ScalarProperty Name="HistoricoSalarioID" ColumnName="HistoricoSalarioID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Imagenes">
+            <EntityTypeMapping TypeName="SueldosJornalesModel.Imagene">
+              <MappingFragment StoreEntitySet="Imagenes">
+                <ScalarProperty Name="MomentoCarga" ColumnName="MomentoCarga" />
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="Extencion" ColumnName="Extencion" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="TipoImagenID" ColumnName="TipoImagenID" />
+                <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
+                <ScalarProperty Name="ImagenID" ColumnName="ImagenID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoImagenes">
+            <EntityTypeMapping TypeName="SueldosJornalesModel.TipoImagene">
+              <MappingFragment StoreEntitySet="TipoImagenes">
+                <ScalarProperty Name="NombreTipoImagen" ColumnName="NombreTipoImagen" />
+                <ScalarProperty Name="TipoImagenID" ColumnName="TipoImagenID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

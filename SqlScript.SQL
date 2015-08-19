@@ -1,6 +1,6 @@
 ﻿/*
 Created: 15/06/2015
-Modified: 29/07/2015
+Modified: 18/08/2015
 Model: Sueldos y Jornales
 Database: MS SQL Server 2014
 */
@@ -186,8 +186,9 @@ CREATE TABLE [Sj].[HistoricoSalarios]
  [EmpleadoID] Bigint NOT NULL,
  [Monto] Money NOT NULL,
  [CargoID] Int NOT NULL,
- [Observacion] Text NOT NULL,
+ [Observacion] Text NULL,
  [FechaSalario] Date NOT NULL,
+ [Ips_Sn] Bit NOT NULL,
  [UsuarioID] Bigint NOT NULL,
  [MomentoCarga] Datetime2 NOT NULL
 )
@@ -469,6 +470,55 @@ go
 ALTER TABLE [Sj].[Anticipos] ADD CONSTRAINT [pk_Anticipos] PRIMARY KEY ([AnticipoID])
 go
 
+-- Table Sj.Imagenes
+
+CREATE TABLE [Sj].[Imagenes]
+(
+ [ImagenID] Int IDENTITY(1,1) NOT NULL,
+ [EmpleadoID] Bigint NOT NULL,
+ [TipoImagenID] Int NOT NULL,
+ [Imagen] Varbinary(max) NOT NULL,
+ [Extencion] Varchar(5) NOT NULL,
+ [UsuarioID] Bigint NOT NULL,
+ [MomentoCarga] Datetime2 NOT NULL
+)
+go
+
+-- Create indexes for table Sj.Imagenes
+
+CREATE INDEX [IX_Imagenes_UsuarioID] ON [Sj].[Imagenes] ([UsuarioID])
+go
+
+CREATE INDEX [IX_Imagenes_EmpleadoID] ON [Sj].[Imagenes] ([EmpleadoID])
+go
+
+CREATE INDEX [IX_Imagenes_TipoImagenID] ON [Sj].[Imagenes] ([TipoImagenID])
+go
+
+-- Add keys for table Sj.Imagenes
+
+ALTER TABLE [Sj].[Imagenes] ADD CONSTRAINT [pk_Imagenes] PRIMARY KEY ([ImagenID])
+go
+
+-- Table Sj.TipoImagenes
+
+CREATE TABLE [Sj].[TipoImagenes]
+(
+ [TipoImagenID] Int IDENTITY(1,1) NOT NULL,
+ [NombreTipoImagen] Varchar(100) NOT NULL
+)
+go
+
+INSERT INTO [Sj].[TipoImagenes]
+           ([NombreTipoImagen])
+     VALUES
+           ('Foto Empleado'), ('Cedula Amberso'),('Cedula Reverso')
+
+-- Add keys for table Sj.TipoImagenes
+
+ALTER TABLE [Sj].[TipoImagenes] ADD CONSTRAINT [pk_TipoImagenes] PRIMARY KEY ([TipoImagenID])
+go
+
 -- Create relationships section ------------------------------------------------- 
 
 ALTER TABLE [Sj].[Sucursales] ADD CONSTRAINT [fk_Sucursales>Empresas] FOREIGN KEY ([EmpresaID]) REFERENCES [Sj].[Empresas] ([EmpresaID]) ON UPDATE NO ACTION ON DELETE NO ACTION
@@ -550,6 +600,15 @@ ALTER TABLE [Sj].[Anticipos] ADD CONSTRAINT [fk_Anticipos->Empleados] FOREIGN KE
 go
 
 ALTER TABLE [Sj].[Anticipos] ADD CONSTRAINT [fk_Anticipos->Usuarios] FOREIGN KEY ([UsuarioID]) REFERENCES [Sj].[Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[Imagenes] ADD CONSTRAINT [fk_Imagenes->Usuarios] FOREIGN KEY ([UsuarioID]) REFERENCES [Sj].[Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[Imagenes] ADD CONSTRAINT [fk_Imagenes->Empleados] FOREIGN KEY ([EmpleadoID]) REFERENCES [Sj].[Empleados] ([EmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[Imagenes] ADD CONSTRAINT [fk_imagenes->TipoImagenes] FOREIGN KEY ([TipoImagenID]) REFERENCES [Sj].[TipoImagenes] ([TipoImagenID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
 
