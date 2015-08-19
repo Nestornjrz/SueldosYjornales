@@ -38,7 +38,7 @@
                     if (!data.error) {
                         //$scope.archivosMovimiento = {};
                     }
-                    $scope.data = data;
+                    vm.data = data;
                     $timeout(function () {
                         //$scope.log = 'file: ' + config.file.name + ', Response: ' + JSON.stringify(data) + '\n' + $scope.log;
                         //$scope.listadoMensajes.push(data);

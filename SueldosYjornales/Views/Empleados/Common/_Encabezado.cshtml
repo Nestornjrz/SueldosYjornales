@@ -1,92 +1,100 @@
-﻿<div class="row" style="margin-top:25px;">
-    <div class="col-md-12" style="border:solid;padding:3px;">
-        <ul class="nav nav-pills nav-justified">
-            <li role="presentation" id="detallesEmpleado">
-                <a href="@Url.Action("Details","Empleados")/{{vm.empleado.objetoDto.empleadoID}}">
-                    CARGAR/EDITAR DETALLES
-                </a>
-            </li>
-            <li role="presentation" id="historicosEmpleado">
-                <a href="@Url.Action("Historicos","Empleados")/{{vm.empleado.objetoDto.empleadoID}}">
-                    CARGAR/EDITAR HISTORICOS
-                </a>
-            </li>
-            <li role="presentation" id="subirImagenes">
-                <a href="@Url.Action("SubirImagenes", "Empleados")/{{vm.empleado.objetoDto.empleadoID}}">
-                    SUBIR IMAGENES
-                </a>
-            </li>
-            <li role="presentation" id="resumenEmpleado">
-                <a href="@Url.Action("Resumen","Empleados")/{{vm.empleado.objetoDto.empleadoID}}">
-                    RESUMEN
-                </a>
-            </li>
-        </ul>
+﻿@{ 
+    long empleadoID = ViewBag.empleadoID;
+}
+<div ng-controller="encabezadoCtrl as vm"  ng-init="vm.empleadoID = @empleadoID">    
+    <div class="row" style="margin-top:25px;">
+        <div class="col-md-12" style="border:solid;padding:3px;">
+            <ul class="nav nav-pills nav-justified">
+                <li role="presentation" id="detallesEmpleado">
+                    <a href="@Url.Action("Details","Empleados")/{{vm.empleado.objetoDto.empleadoID}}">
+                        CARGAR/EDITAR DETALLES
+                    </a>
+                </li>
+                <li role="presentation" id="historicosEmpleado">
+                    <a href="@Url.Action("Historicos","Empleados")/{{vm.empleado.objetoDto.empleadoID}}">
+                        CARGAR/EDITAR HISTORICOS
+                    </a>
+                </li>
+                <li role="presentation" id="subirImagenes">
+                    <a href="@Url.Action("SubirImagenes", "Empleados")/{{vm.empleado.objetoDto.empleadoID}}">
+                        SUBIR IMAGENES
+                    </a>
+                </li>
+                <li role="presentation" id="resumenEmpleado">
+                    <a href="@Url.Action("Resumen","Empleados")/{{vm.empleado.objetoDto.empleadoID}}">
+                        RESUMEN
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
 
-<div class="row" style="margin-top:25px;">
-    <div class="col-md-6" ng-cloak>
-        <div class="panel panel-default">
-            <div class="panel-heading">Funcionario</div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h2 class="text-center" style="margin-top:10px;">
-                            {{vm.empleado.objetoDto.nombres}} {{vm.empleado.objetoDto.apellidos}}
-                        </h2>
+    <div class="row" style="margin-top:25px;">
+        <div class="col-md-6" ng-cloak>
+            <div class="panel panel-default">
+                <div class="panel-heading">Funcionario</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h2 class="text-center" style="margin-top:10px;">
+                                {{vm.empleado.objetoDto.nombres}} {{vm.empleado.objetoDto.apellidos}}
+                            </h2>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <a href="@Url.Action("Index","Empleados")" class="btn btn-default  btn-sm active" role="button">Ver listado de funcionarios</a>
+                        </div>
                     </div>
-                    <div class="col-md-6 text-center">
-                        <a href="@Url.Action("Index","Empleados")" class="btn btn-default  btn-sm active" role="button">Ver listado de funcionarios</a>
-                    </div>
+                    <table class="table table-bordered table-condensed table-responsive table-striped">
+                        <tr>
+                            <th>Fecha Nacimiento</th>
+                            <td>{{vm.empleado.objetoDto.fechaNacimiento | date:"dd/MM/yyyy":"UTC"}}</td>
+
+                            <th>Sexo</th>
+                            <td>{{vm.empleado.objetoDto.sexo.nombreSexo}}</td>
+                        </tr>
+                        <tr>
+                            <th>Numero Cedula</th>
+                            <td>{{vm.empleado.objetoDto.nroCedula}}</td>
+
+                            <th>Estado Civil</th>
+                            <td>{{vm.empleado.objetoDto.estadoCivile.nombreEstadoCivil}}</td>
+                        </tr>
+                        <tr>
+                            <th>Nacionalidad</th>
+                            <td>{{vm.empleado.objetoDto.nacionalidade.nombreNacionalidad}}</td>
+
+                            <th>Profesion</th>
+                            <td>{{vm.empleado.objetoDto.profesione.nombreProfesion}}</td>
+                        </tr>
+                        <tr>
+                            <th>Cantidad Hijos</th>
+                            <td>{{vm.empleado.objetoDto.cantidadHijos}}</td>
+                        </tr>
+                    </table>
                 </div>
-                <table class="table table-bordered table-condensed table-responsive table-striped">
-                    <tr>
-                        <th>Fecha Nacimiento</th>
-                        <td>{{vm.empleado.objetoDto.fechaNacimiento | date:"dd/MM/yyyy":"UTC"}}</td>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-info">
+                <div class="panel-heading">Foto</div>
+                <div class="panel-body" style="max-height:250px;overflow-y:scroll;">
+                    <img class="img-responsive img-thumbnail" ng-src="@Href("~/api/Imagenes")?empleadoID={{vm.empleado.objetoDto.empleadoID}}&tipoImagenID=1" alt="Alternate Text" />
+                    <img class="img-responsive img-thumbnail" ng-src="@Href("~/api/Imagenes")?empleadoID={{vm.empleado.objetoDto.empleadoID}}&tipoImagenID=2" alt="Cedula Amberso" />
+                    <img class="img-responsive img-thumbnail" ng-src="@Href("~/api/Imagenes")?empleadoID={{vm.empleado.objetoDto.empleadoID}}&tipoImagenID=3" alt="Cedula Reverso" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-info">
+                <div class="panel-heading">Informes</div>
+                <div class="panel-body">
+                    <p>Liquidacion de salario</p>
 
-                        <th>Sexo</th>
-                        <td>{{vm.empleado.objetoDto.sexo.nombreSexo}}</td>
-                    </tr>
-                    <tr>
-                        <th>Numero Cedula</th>
-                        <td>{{vm.empleado.objetoDto.nroCedula}}</td>
-
-                        <th>Estado Civil</th>
-                        <td>{{vm.empleado.objetoDto.estadoCivile.nombreEstadoCivil}}</td>
-                    </tr>
-                    <tr>
-                        <th>Nacionalidad</th>
-                        <td>{{vm.empleado.objetoDto.nacionalidade.nombreNacionalidad}}</td>
-
-                        <th>Profesion</th>
-                        <td>{{vm.empleado.objetoDto.profesione.nombreProfesion}}</td>
-                    </tr>
-                    <tr>
-                        <th>Cantidad Hijos</th>
-                        <td>{{vm.empleado.objetoDto.cantidadHijos}}</td>
-                    </tr>
-                </table>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="panel panel-info">
-            <div class="panel-heading">Foto</div>
-            <div class="panel-body">
-
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="panel panel-info">
-            <div class="panel-heading">Informes</div>
-            <div class="panel-body">
-                <p>Liquidacion de salario</p>
-
-            </div>
-        </div>
-    </div>
+    @*<pre>{{vm.empleado | json}}</pre>*@
 </div>
 <hr style="margin:2px;" />
-@*<pre>{{vm.empleado | json}}</pre>*@
+

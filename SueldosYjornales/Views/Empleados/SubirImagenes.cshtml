@@ -30,6 +30,7 @@
         })();
     </script>
     @*controladores*@
+<script src="~/Scripts/Empleados/Common/Controllers/encabezadoCtrl.js"></script>
     <script src="~/Scripts/Empleados/SubirImagenes/Controllers/menuCtrl.js"></script>
 }
 <div class="container" ng-controller="menuCtrl as vm" ng-cloak ng-init="vm.empleadoID = @empleadoID">
@@ -40,11 +41,13 @@
     </div>
     <div class="col-md-5">
         <h3>Archivo seleccionado</h3>
+        <p>{{vm.data.mensajeDelProceso}}</p>
         <ul>
             <li ng-model="vm.file" style="font:smaller">{{vm.file.name}}</li>
         </ul>
         <h3 ng-show="vm.log != ''">Progreso de carga</h3>
         <pre ng-show="vm.log != ''">{{vm.log}}</pre>
     </div>
+    
 </div>
 

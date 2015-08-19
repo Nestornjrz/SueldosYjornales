@@ -22,6 +22,7 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -273,6 +274,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Common\Services\common.services.js" />
+    <Content Include="Scripts\Empleados\Common\Controllers\encabezadoCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Controllers\Anticipos\anticipoCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Controllers\Anticipos\listadoAnticiposCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Controllers\Comisiones\comisionesCtrl.js" />
@@ -1195,6 +1197,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\Empleados\Common\Services\" />
     <Folder Include="Scripts\Informes\LiquidacionSueldo\Services\" />
     <Folder Include="Scripts\RolesAdmin\Index\Controllers\" />
     <Folder Include="Scripts\UsersAdmin\Index\Controllers\" />

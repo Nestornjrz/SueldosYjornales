@@ -9,15 +9,17 @@ using System.Configuration;
 using System.Web.Configuration;
 using System.Data.SqlClient;
 using System.Data;
+using System.IO;
+using System.Drawing;
 
 namespace SYJ.Domain.Managers {
     public class ImagenesManagers {
-        public MensajeDto guardarImagen(long empleadoID, 
-            int tipoImagenID, 
-            byte[] imagen,         
-            string nombreArchivo, 
+        public MensajeDto guardarImagen(long empleadoID,
+            int tipoImagenID,
+            byte[] imagen,
+            string nombreArchivo,
             Guid userID) {
-            long usuarioIDCarga = 0; 
+            long usuarioIDCarga = 0;
             using (var context = new SueldosJornalesEntities()) {
                 //Se carga el usuario
                 var usuarioDb = context.Usuarios
@@ -88,6 +90,58 @@ namespace SYJ.Domain.Managers {
                 MensajeDelProceso = "Insercion Exitosa del archivo: " + nombreArchivo
             };
         }
+
+        public MensajeDto RecuperarImagen(long empleadoID, int tipoImagenID) {
+            var mensajeConnString = RecuperarElconnectionStrings("SueldoJornalesDb");
+            if (mensajeConnString.Error) {
+                return mensajeConnString;
+            }
+            Image image = null;
+            string CadConexion = mensajeConnString.Valor;
+            using (SqlConnection conexionBD = new SqlConnection(CadConexion)) {
+                try {
+                    conexionBD.Open();
+                    if (conexionBD.State == ConnectionState.Open) {
+                        string selectQuery = @"Select [Imagen] From  [Sj].[Imagenes] 
+                                               Where [EmpleadoID] = @empleadoID and
+                                                     [TipoImagenID] = @tipoImagenID";
+                        using (SqlCommand selectCommand = new SqlCommand(selectQuery, conexionBD)) {
+                            selectCommand.Parameters.AddWithValue("@empleadoID", empleadoID);
+                            selectCommand.Parameters.AddWithValue("@tipoImagenID",tipoImagenID);
+                            SqlDataReader reader = selectCommand.ExecuteReader();
+                            if (reader.Read()) {
+                                byte[] imgData = (byte[])reader[0];
+                                using (MemoryStream ms = new MemoryStream(imgData)) {
+                                    image = Image.FromStream(ms);
+                                    //image.Save(@"C:\Users\Administrator\Desktop\UserPhoto.jpg");
+                                }
+                            }
+                        }
+                    }
+                } catch (UnauthorizedAccessException ex) {
+                    return new MensajeDto() {
+                        Error = true,
+                        MensajeDelProceso = "No tiene autorizacion para acceder al recurso: " + ex.Message
+                    };
+                } catch (Exception ex) {
+                    return new MensajeDto() {
+                        Error = true,
+                        MensajeDelProceso = "Error: " + ex.Message
+                    };
+                } finally {
+                    if ((conexionBD != null) && (conexionBD.State == ConnectionState.Open)) {
+                        conexionBD.Close();
+                    }
+                }
+            }
+            return new MensajeDto() {
+                Error = false,
+                MensajeDelProceso = "Imagen Recuperada",
+                ObjetoDto = image
+            };
+
+        }
+
         #region Auxiliares
         private MensajeDto RecuperarElconnectionStrings(string nombreConeccion) {
             Configuration rootWebConfig;

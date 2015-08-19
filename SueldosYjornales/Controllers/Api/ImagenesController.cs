@@ -9,12 +9,27 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Net.Http.Headers;
 
 namespace SueldosYjornales.Controllers.Api {
     public class ImagenesController : ApiController {
         // GET: api/Imagenes
-        public IEnumerable<string> Get() {
-            return new string[] { "value1", "value2" };
+        [HttpGet]
+        public HttpResponseMessage Get([FromUri] long empleadoID, [FromUri] int tipoImagenID) {
+            ImagenesManagers im = new ImagenesManagers();
+            MensajeDto mensaje = im.RecuperarImagen(empleadoID, tipoImagenID);
+            if (mensaje.Error) {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, mensaje.MensajeDelProceso);
+            }
+            var result = new HttpResponseMessage(HttpStatusCode.OK);
+            Image image = (Image)mensaje.ObjetoDto;
+            MemoryStream memoryStream = new MemoryStream();
+            image.Save(memoryStream, ImageFormat.Jpeg);
+            result.Content = new ByteArrayContent(memoryStream.ToArray());
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+            return result;
         }
 
         // GET: api/Imagenes/5
