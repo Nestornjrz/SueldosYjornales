@@ -1,6 +1,6 @@
 ﻿/*
 Created: 15/06/2015
-Modified: 18/08/2015
+Modified: 19/08/2015
 Model: Sueldos y Jornales
 Database: MS SQL Server 2014
 */
@@ -493,6 +493,9 @@ CREATE INDEX [IX_Imagenes_EmpleadoID] ON [Sj].[Imagenes] ([EmpleadoID])
 go
 
 CREATE INDEX [IX_Imagenes_TipoImagenID] ON [Sj].[Imagenes] ([TipoImagenID])
+go
+
+CREATE UNIQUE INDEX [IX_Imagenes_Unique_EmpleadoID_TipoImagenID] ON [Sj].[Imagenes] ([EmpleadoID],[TipoImagenID])
 go
 
 -- Add keys for table Sj.Imagenes
