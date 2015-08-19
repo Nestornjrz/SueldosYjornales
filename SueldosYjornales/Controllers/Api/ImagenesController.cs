@@ -26,9 +26,19 @@ namespace SueldosYjornales.Controllers.Api {
             var result = new HttpResponseMessage(HttpStatusCode.OK);
             Image image = (Image)mensaje.ObjetoDto;
             MemoryStream memoryStream = new MemoryStream();
-            image.Save(memoryStream, ImageFormat.Jpeg);
-            result.Content = new ByteArrayContent(memoryStream.ToArray());
-            result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+            if (mensaje.Valor == "jpg") {
+                image.Save(memoryStream, ImageFormat.Jpeg);
+                result.Content = new ByteArrayContent(memoryStream.ToArray());
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+            } else if (mensaje.Valor == "png") {
+                image.Save(memoryStream, ImageFormat.Png);
+                result.Content = new ByteArrayContent(memoryStream.ToArray());
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+            } else if (mensaje.Valor == "gif") {
+                image.Save(memoryStream, ImageFormat.Gif);
+                result.Content = new ByteArrayContent(memoryStream.ToArray());
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/gif");
+            }
             return result;
         }
 

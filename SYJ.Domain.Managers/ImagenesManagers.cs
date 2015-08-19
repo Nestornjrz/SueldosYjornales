@@ -20,7 +20,12 @@ namespace SYJ.Domain.Managers {
             string nombreArchivo,
             Guid userID) {
             long usuarioIDCarga = 0;
+            int cantidadReg = 0;
             using (var context = new SueldosJornalesEntities()) {
+                //Se calcula si la imagen que se quiere cargar ya esta cargado
+                cantidadReg = context.Imagenes
+                    .Where(i => i.EmpleadoID == empleadoID && i.TipoImagenID == tipoImagenID)
+                    .Count();
                 //Se carga el usuario
                 var usuarioDb = context.Usuarios
                     .Where(u => u.UserID == userID).FirstOrDefault();
@@ -48,27 +53,32 @@ namespace SYJ.Domain.Managers {
                             //Se ve su extencion
                             string[] nomArchi = nombreArchivo.Split('.');
                             var extension = nomArchi[nomArchi.Length - 1];
+                            string cadSql = "";
+                            if (cantidadReg > 0) {
+                                cadSql = @"UPDATE [Sj].[Imagenes]
+                                            SET [Imagen] = @Imagen,
+                                                [Extencion] = @Extencion
+                                            Where [EmpleadoID] = @empleadoID and
+                                                  [TipoImagenID] = @tipoImagenID";
+                            } else {
+                                cadSql = @"INSERT INTO [Sj].[Imagenes]
+                                        (EmpleadoID, TipoImagenID,
+                                         Imagen,Extencion,
+                                         UsuarioID,MomentoCarga) 
+                                           VALUES
+                                        (@EmpleadoID,@TipoImagenID,
+                                         @Imagen,@Extencion,
+                                         @UsuarioID, GETDATE())";
+                            }
 
-                            string cadSql = @"INSERT INTO [Sj].[Imagenes]
-                            (EmpleadoID,
-                             TipoImagenID,
-                             Imagen,
-                             Extencion,
-                             UsuarioID, 
-                             MomentoCarga) 
-                               VALUES
-                            (@EmpleadoID,
-                             @TipoImagenID,
-                             @Imagen,
-                             @Extencion,
-                             @UsuarioID, 
-                             GETDATE())";
                             using (SqlCommand cmd = new SqlCommand(cadSql, conexionBD, transaccion)) {
                                 cmd.Parameters.AddWithValue("@EmpleadoID", empleadoID);
                                 cmd.Parameters.AddWithValue("@TipoImagenID", tipoImagenID);
                                 cmd.Parameters.AddWithValue("@Imagen", imagen);
                                 cmd.Parameters.AddWithValue("@Extencion", extension);
-                                cmd.Parameters.AddWithValue("@UsuarioID", usuarioIDCarga);
+                                if (cantidadReg == 0) {
+                                    cmd.Parameters.AddWithValue("@UsuarioID", usuarioIDCarga);
+                                }
                                 cmd.ExecuteNonQuery();
                                 transaccion.Commit();
                             }
@@ -84,6 +94,12 @@ namespace SYJ.Domain.Managers {
                         conexionBD.Close();
                     }
                 }
+            }
+            string mensajeFinal = "";
+            if (cantidadReg > 0) {
+                mensajeFinal = "Se actualizo con exito el archivo: " + nombreArchivo;
+            } else {
+                mensajeFinal = "Insercion Exitosa del archivo: " + nombreArchivo;
             }
             return new MensajeDto() {
                 Error = false,
@@ -107,7 +123,7 @@ namespace SYJ.Domain.Managers {
                                                      [TipoImagenID] = @tipoImagenID";
                         using (SqlCommand selectCommand = new SqlCommand(selectQuery, conexionBD)) {
                             selectCommand.Parameters.AddWithValue("@empleadoID", empleadoID);
-                            selectCommand.Parameters.AddWithValue("@tipoImagenID",tipoImagenID);
+                            selectCommand.Parameters.AddWithValue("@tipoImagenID", tipoImagenID);
                             SqlDataReader reader = selectCommand.ExecuteReader();
                             if (reader.Read()) {
                                 byte[] imgData = (byte[])reader[0];
@@ -134,10 +150,17 @@ namespace SYJ.Domain.Managers {
                     }
                 }
             }
+            string extencion = "";
+            using (var context = new SueldosJornalesEntities()) {
+                extencion = context.Imagenes
+                    .Where(i => i.EmpleadoID == empleadoID && i.TipoImagenID == tipoImagenID)
+                    .First().Extencion;
+            }
             return new MensajeDto() {
                 Error = false,
                 MensajeDelProceso = "Imagen Recuperada",
-                ObjetoDto = image
+                ObjetoDto = image,
+                Valor = extencion
             };
 
         }
