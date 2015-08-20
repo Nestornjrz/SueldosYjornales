@@ -6,6 +6,7 @@
                 <tr>
                     <th colspan="2">Acciones</th>
                     <th>ID</th>
+                    <th>Foto</th>
                     <th>Nombre</th>
                     <th>Fecha Nac.</th>
                     <th ng-hide="mostrarFormCargaEmpleado">Nro Cedula</th>
@@ -21,6 +22,9 @@
                     <td class="text-center"><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
                     <td class="text-center"><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
                     <td>{{o.empleadoID}}</td>
+                    <td>
+                        <img class="img-responsive img-thumbnail" ng-src="@Href("~/api/Imagenes")?empleadoID={{o.empleadoID}}&tipoImagenID=1" alt="Foto" style="max-height:40px;" />
+                    </td>
                     <td>
                         <a href="@Url.Action("Details","Empleados")/{{o.empleadoID}}">
                             {{o.nombres}} {{o.apellidos}}
