@@ -10,6 +10,7 @@
     function menuCtrl($rootScope, $timeout, sYjResource) {
         var vm = this;
         $('#resumenEmpleado').addClass('active');
+        $('#resumenEmpleado a').attr('href', '#');
 
 
         //Eventos

@@ -12,6 +12,7 @@
         vm.menu = {};
         vm.menu.introduccion = true;
         $('#detallesEmpleado').addClass('active');
+        $('#detallesEmpleado a').attr('href', '#');
 
         vm.comisionesFn = function ($event) {
             $event.preventDefault();

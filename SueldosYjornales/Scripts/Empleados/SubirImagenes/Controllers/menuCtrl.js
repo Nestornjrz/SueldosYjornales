@@ -11,6 +11,7 @@
         var vm = this;
         vm.imagene = {};
         $('#subirImagenes').addClass('active');
+        $('#subirImagenes a').attr('href', '#');
 
         vm.tipoImagenes = sYjResource.tipoImagenes.query();
 

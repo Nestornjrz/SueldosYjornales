@@ -12,6 +12,7 @@
         vm.menu = {};
         vm.menu.introduccion = true;
         $('#historicosEmpleado').addClass('active');
+        $('#historicosEmpleado a').attr('href', '#');
 
         vm.historicoDireccionesFn = function ($event) {
             $event.preventDefault();

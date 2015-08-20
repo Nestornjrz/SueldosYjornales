@@ -6,22 +6,22 @@
         <div class="col-md-12" style="border:solid;padding:3px;">
             <ul class="nav nav-pills nav-justified">
                 <li role="presentation" id="detallesEmpleado">
-                    <a href="@Url.Action("Details","Empleados")/{{vm.empleado.objetoDto.empleadoID}}">
+                    <a href="@Url.Action("Details","Empleados")/@empleadoID">
                         CARGAR/EDITAR DETALLES
-                    </a>
+                    </a>                  
                 </li>
                 <li role="presentation" id="historicosEmpleado">
-                    <a href="@Url.Action("Historicos","Empleados")/{{vm.empleado.objetoDto.empleadoID}}">
+                    <a href="@Url.Action("Historicos","Empleados")/@empleadoID">
                         CARGAR/EDITAR HISTORICOS
                     </a>
                 </li>
                 <li role="presentation" id="subirImagenes">
-                    <a href="@Url.Action("SubirImagenes", "Empleados")/{{vm.empleado.objetoDto.empleadoID}}">
+                    <a href="@Url.Action("SubirImagenes", "Empleados")/@empleadoID">
                         SUBIR IMAGENES
                     </a>
                 </li>
                 <li role="presentation" id="resumenEmpleado">
-                    <a href="@Url.Action("Resumen","Empleados")/{{vm.empleado.objetoDto.empleadoID}}">
+                    <a href="@Url.Action("Resumen","Empleados")/@empleadoID">
                         RESUMEN
                     </a>
                 </li>
@@ -76,7 +76,7 @@
         </div>
         <div class="col-md-3">
             <div class="panel panel-info">
-                <div class="panel-heading">Foto</div>
+                <div class="panel-heading">Fotos</div>
                 <div class="panel-body" style="max-height:250px;overflow-y:scroll;">
                     <img class="img-responsive img-thumbnail" ng-src="@Href("~/api/Imagenes")?empleadoID={{vm.empleado.objetoDto.empleadoID}}&tipoImagenID=1" alt="Foto" />
                     <img class="img-responsive img-thumbnail" ng-src="@Href("~/api/Imagenes")?empleadoID={{vm.empleado.objetoDto.empleadoID}}&tipoImagenID=2" alt="Cedula Amberso" />

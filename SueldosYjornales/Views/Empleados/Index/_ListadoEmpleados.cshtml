@@ -26,7 +26,7 @@
                         <img class="img-responsive img-thumbnail" ng-src="@Href("~/api/Imagenes")?empleadoID={{o.empleadoID}}&tipoImagenID=1" alt="Foto" style="max-height:40px;" />
                     </td>
                     <td>
-                        <a href="@Url.Action("Details","Empleados")/{{o.empleadoID}}">
+                        <a href="@Url.Action("Resumen","Empleados")/{{o.empleadoID}}">
                             {{o.nombres}} {{o.apellidos}}
                         </a>
                     </td>
