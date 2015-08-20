@@ -1,0 +1,39 @@
+﻿
+@{
+    Layout = null;
+    long empleadoID = ViewBag.empleadoID;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Imprimir Cedula</title>
+    <style type="text/css" media="screen">
+        .pagina {
+            border: 1px solid red;
+        }
+    </style>
+    <style type="text/css" media="all">
+        @@page {
+            size: letter portrait;
+            margin: 0 10% 10% 10%;
+        }
+
+        .pagina {
+            page-break-after: always;
+            page-break-before: avoid;
+            height: 27.9cm;
+            width: 21.6cm;
+            padding: 2px;
+        }   
+    </style>
+</head>
+<body>
+    <div class="pagina"> 
+        <img style="max-width:250px;" src="@Href("~/api/Imagenes")?empleadoID=@empleadoID&tipoImagenID=2" alt="Foto" />
+        <img style="max-width:250px;" src="@Href("~/api/Imagenes")?empleadoID=@empleadoID&tipoImagenID=3" alt="Foto" />
+    </div>
+</body>
+</html>

@@ -86,10 +86,10 @@
                     </div>                   
                 </form>
                 <form method="post" action="@Url.Action("LiquidacionSueldo","Informes")" target="_blank">
-                    <input type="text" value="" id="jsonInput" name="jsonInput" />
+                    <input type="hidden" value="" id="jsonInput" name="jsonInput" />
                     <button type="submit" ng-disabled="liquidacionSalarioForm.$invalid" class="btn btn-default">Generar Informe</button>
                 </form>
-                <pre>{{vm.liquidacionSalario | json}}</pre>
+                @*<pre>{{vm.liquidacionSalario | json}}</pre>*@
             </div>
         </div>
     </div>

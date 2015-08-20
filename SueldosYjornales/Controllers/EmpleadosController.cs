@@ -37,5 +37,9 @@ namespace SueldosYjornales.Controllers
             ViewBag.empleadoID = id;
             return View();
         }
+        public ActionResult ImprimirCedula(int id) {
+            ViewBag.empleadoID = id;
+            return View();
+        }
     }
 }

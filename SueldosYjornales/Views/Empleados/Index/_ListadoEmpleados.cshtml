@@ -6,7 +6,7 @@
                 <tr>
                     <th colspan="2">Acciones</th>
                     <th>ID</th>
-                    <th>Foto</th>
+                    <th>Foto/Ci</th>
                     <th>Nombre</th>
                     <th>Fecha Nac.</th>
                     <th ng-hide="mostrarFormCargaEmpleado">Nro Cedula</th>
@@ -23,7 +23,9 @@
                     <td class="text-center"><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
                     <td>{{o.empleadoID}}</td>
                     <td>
-                        <img class="img-responsive img-thumbnail" ng-src="@Href("~/api/Imagenes")?empleadoID={{o.empleadoID}}&tipoImagenID=1" alt="Foto" style="max-height:40px;" />
+                        <a href="@Url.Action("ImprimirCedula","Empleados")/{{o.empleadoID}}" target="_blank">
+                            <img class="img-responsive img-thumbnail" ng-src="@Href("~/api/Imagenes")?empleadoID={{o.empleadoID}}&tipoImagenID=1" alt="Foto" style="max-height:40px;" />
+                        </a>
                     </td>
                     <td>
                         <a href="@Url.Action("Resumen","Empleados")/{{o.empleadoID}}">
