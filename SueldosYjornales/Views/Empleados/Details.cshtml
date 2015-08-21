@@ -62,12 +62,18 @@
         <li role="presentation" class="{{vm.menu.anticipos.class}}">
             <a href="#" ng-click="vm.anticiposFn($event)">Anticipos</a>
         </li>
+        <li role="presentation" class="{{vm.menu.prestamosSimples.class}}">
+            <a href="#" ng-click="vm.prestamosSimplesFn($event)">Prestamos simples</a>
+        </li>
     </ul>
     <div style="margin-top:25px;" ng-show="vm.menu.comisiones.mostrar">
         @Html.Partial("Details/_Comisiones")
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.anticipos.mostrar">
         @Html.Partial("Details/_Anticipos")
+    </div>
+    <div style="margin-top:25px;" ng-show="vm.menu.prestamosSimples.mostrar">
+        @Html.Partial("Details/_PrestamosSimples")
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
         <div class="alert alert-info">

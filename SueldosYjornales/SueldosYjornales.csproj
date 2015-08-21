@@ -1192,6 +1192,7 @@
     <Content Include="Views\Empleados\SubirImagenes.cshtml" />
     <Content Include="Views\Empleados\SubirImagenes\_FormCargaImagenes.cshtml" />
     <Content Include="Views\Empleados\ImprimirCedula.cshtml" />
+    <Content Include="Views\Empleados\Details\_PrestamosSimples.cshtml" />
     <None Include="Web.ProduccionRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -28,12 +28,19 @@
             vm.menu.anticipos.class = "active";
             vm.menu.anticipos.mostrar = true;
         }
-
+        vm.prestamosSimplesFn = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            ocultar();
+            vm.menu.prestamosSimples.class = "active";
+            vm.menu.prestamosSimples.mostrar = true;
+        }
         //////
         function ocultar() {
             vm.menu.introduccion = false;
             vm.menu.comisiones = {};
             vm.menu.anticipos = {};
+            vm.menu.prestamosSimples = {};
         }
 
         //Eventos
