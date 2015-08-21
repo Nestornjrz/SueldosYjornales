@@ -231,6 +231,8 @@
           <Property Name="MovEmpleadoID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FechaMovimiento" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="UsuarioID" Type="bigint" Nullable="false" />
+          <Property Name="MomentoCarga" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="MovEmpleadosDets">
           <Key>
@@ -1911,6 +1913,8 @@
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="MovEmpleadosDets" Relationship="SueldosJornalesModel.fk_MovEmpleadosDets__MovEmpleados" FromRole="MovEmpleado" ToRole="MovEmpleadosDet" />
           <NavigationProperty Name="PrestamosSimples" Relationship="SueldosJornalesModel.fk_PrestamosSimples__MovEmpleados" FromRole="MovEmpleado" ToRole="PrestamosSimple" />
+          <Property Name="UsuarioID" Type="Int64" Nullable="false" />
+          <Property Name="MomentoCarga" Type="DateTime" Nullable="false" Precision="7" />
         </EntityType>
         <EntityType Name="MovEmpleadosDet">
           <Key>
@@ -2318,6 +2322,8 @@
           <EntitySetMapping Name="MovEmpleados">
             <EntityTypeMapping TypeName="SueldosJornalesModel.MovEmpleado">
               <MappingFragment StoreEntitySet="MovEmpleados">
+                <ScalarProperty Name="MomentoCarga" ColumnName="MomentoCarga" />
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="FechaMovimiento" ColumnName="FechaMovimiento" />
                 <ScalarProperty Name="MovEmpleadoID" ColumnName="MovEmpleadoID" />

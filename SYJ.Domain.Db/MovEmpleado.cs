@@ -23,6 +23,8 @@ namespace SYJ.Domain.Db
         public long MovEmpleadoID { get; set; }
         public System.DateTime FechaMovimiento { get; set; }
         public string Descripcion { get; set; }
+        public long UsuarioID { get; set; }
+        public System.DateTime MomentoCarga { get; set; }
     
         public virtual ICollection<MovEmpleadosDet> MovEmpleadosDets { get; set; }
         public virtual ICollection<PrestamosSimple> PrestamosSimples { get; set; }
