@@ -5,7 +5,7 @@
         .module('sueldosYjornalesApp')
         .controller('prestamosSimplesCtrl', prestamosSimplesCtrl);
 
-    prestamosSimplesCtrl.$inject  = ['$rootScope', 'sYjResource']; 
+    prestamosSimplesCtrl.$inject = ['$rootScope', 'sYjResource'];
 
     function prestamosSimplesCtrl($rootScope, sYjResource) {
         /* jshint validthis:true */
@@ -40,6 +40,11 @@
         $rootScope.$on('empleadoID', function (event, objValRecibido) {
             vm.prestamosSimple.empleadoID = objValRecibido;
             vm.empleadoID = objValRecibido;
+        });
+
+        $rootScope.$on('actualizarPrestamoSimple', function (event, objValRecibido) {
+            vm.prestamosSimple = objValRecibido;
+            vm.prestamosSimple.fechaPrestamo = new Date(objValRecibido.fechaPrestamo);
         });
     }
 })();

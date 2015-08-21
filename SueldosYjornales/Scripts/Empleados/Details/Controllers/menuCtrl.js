@@ -39,7 +39,7 @@
             vm.menu.prestamosSimples.mostrar = true;
         }
 
-        vm.prestamosSimplesFn();
+        //vm.prestamosSimplesFn();
 
         //////
         function ocultar() {

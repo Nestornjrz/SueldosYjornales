@@ -281,6 +281,7 @@
     <Content Include="Scripts\Empleados\Details\Controllers\Comisiones\comisionesCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Controllers\Comisiones\listadoComisionesCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Controllers\menuCtrl.js" />
+    <Content Include="Scripts\Empleados\Details\Controllers\PrestamosSimples\listadopPrestamosSimplesCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Controllers\PrestamosSimples\prestamosSimplesCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Services\common.services.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoDireccion\historicoDireccionCtrl.js" />

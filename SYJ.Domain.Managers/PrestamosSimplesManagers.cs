@@ -14,7 +14,9 @@ namespace SYJ.Domain.Managers {
                 var listado = context.PrestamosSimples
                     .Where(p => p.EmpleadoID == empleadoID)
                     .Select(s => new PrestamoSimpleDto() {
+                        PrestamoSimpleID = s.PrestamoSimpleID,
                         EmpleadoID = s.EmpleadoID,
+                        FechaPrestamo = s.FechaPrestamo,
                         Monto = s.Monto,
                         Cuotas = s.Cuotas,
                         Observacion = s.Observacion
