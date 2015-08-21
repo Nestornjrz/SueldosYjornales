@@ -115,7 +115,19 @@
     <Compile Include="Imagene.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="LiquidacionConcepto.cs">
+      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MovEmpleado.cs">
+      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MovEmpleadosDet.cs">
+      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Nacionalidade.cs">
+      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PrestamosSimple.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Profesione.cs">

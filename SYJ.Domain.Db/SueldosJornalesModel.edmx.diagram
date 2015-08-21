@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a2f69751322747bfad492a3ce7c78166" Name="Diagram1">
+      <Diagram DiagramId="a2f69751322747bfad492a3ce7c78166" Name="Diagram1" ZoomLevel="81">
         <EntityTypeShape EntityType="SueldosJornalesModel.Cargo" Width="1.5" PointX="6" PointY="5.875" />
         <EntityTypeShape EntityType="SueldosJornalesModel.Empresa" Width="1.5" PointX="1.5" PointY="14.625" />
         <EntityTypeShape EntityType="SueldosJornalesModel.EstadoCivile" Width="1.5" PointX="3.75" PointY="17.75" />
@@ -62,6 +62,16 @@
         <AssociationConnector Association="SueldosJornalesModel.fk_Imagenes__Empleados" />
         <AssociationConnector Association="SueldosJornalesModel.fk_imagenes__TipoImagenes" />
         <AssociationConnector Association="SueldosJornalesModel.fk_Imagenes__Usuarios" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.LiquidacionConcepto" Width="1.5" PointX="9" PointY="22.5" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.MovEmpleado" Width="1.5" PointX="9" PointY="14.75" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.MovEmpleadosDet" Width="1.5" PointX="11.25" PointY="18.375" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.PrestamosSimple" Width="1.5" PointX="14.25" PointY="18.625" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_MovEmpleadosDets__Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_PrestamosSimples__Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.Fk_MovEmpleadosDets__LiquidacionConceptos" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_MovEmpleadosDets__MovEmpleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_PrestamosSimples__MovEmpleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_PrestamosSimples__Usuarios" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -49,5 +49,9 @@ namespace SYJ.Domain.Db
         public virtual DbSet<HistoricoSalario> HistoricoSalarios { get; set; }
         public virtual DbSet<Imagene> Imagenes { get; set; }
         public virtual DbSet<TipoImagene> TipoImagenes { get; set; }
+        public virtual DbSet<LiquidacionConcepto> LiquidacionConceptos { get; set; }
+        public virtual DbSet<MovEmpleado> MovEmpleados { get; set; }
+        public virtual DbSet<MovEmpleadosDet> MovEmpleadosDets { get; set; }
+        public virtual DbSet<PrestamosSimple> PrestamosSimples { get; set; }
     }
 }

@@ -1,1 +1,74 @@
-﻿
+﻿<div class="row">
+    <div class="col-md-5">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Cargar Prestamos</div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" ng-controller="prestamosSimplesCtrl as vm" name="prestamosSimplesForm" ng-cloak>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="fechaPrestamo" class="col-md-4 control-label">Fecha Prestamo</label>
+                            <div class="col-md-8">
+                                <p class="input-group">
+                                    <input type="date" id="fechaPrestamo"
+                                           name="fechaPrestamo"
+                                           class="form-control"
+                                           ng-model="vm.prestamosSimple.fechaPrestamo"
+                                           placeholder="yyyy-MM-dd"
+                                           ng-model-options="{timezone:'UTC'}"
+                                           ng-required="true" />
+                                </p>
+                                <div style="color:red" ng-show="prestamosSimplesForm.fechaComision.$dirty && prestamosSimplesForm.fechaPrestamo.$invalid">
+                                    <span ng-show="prestamosSimplesForm.fechaPrestamo.$error.date">No es un formato valido</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="monto" class="col-md-4 control-label">Monto</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" ng-model="vm.prestamosSimple.monto" name="monto" ng-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cuotas" class="col-md-4 control-label">Cuotas</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" ng-model="vm.prestamosSimple.cuotas" name="cuotas" ng-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!--<label for="observacion" class="col-md-3 control-label">Observacion</label>-->
+                            <div class="col-md-12">
+                                <textarea class="form-control" style="max-width:100%;"
+                                          ng-model="vm.prestamosSimple.observacion"
+                                          rows="5"
+                                          placeholder="Cargar la observacion..."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <button ng-click="vm.guardar()" ng-disabled="prestamosSimplesForm.$invalid" class="btn btn-default">
+                                    <span ng-show="vm.prestamosSimple.prestamoSimpleID == null">Cargar</span>
+                                    <span ng-show="vm.prestamosSimple.prestamoSimpleID != null">Editar ID: {{vm.comisione.comisionID}}</span>
+                                </button>
+                                <button ng-click="vm.nuevoParaCargar()" class="btn btn-default">
+                                    Nuevo
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Aviso</div>
+                                <div class="panel-body">
+                                    {{vm.mensajeDelServidor}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <pre>{{ vm.prestamosSimple | json}}</pre>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+
+    </div>
+</div>

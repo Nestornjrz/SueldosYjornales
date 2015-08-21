@@ -1,0 +1,45 @@
+﻿(function () {
+    'use strict';
+
+    angular
+        .module('sueldosYjornalesApp')
+        .controller('prestamosSimplesCtrl', prestamosSimplesCtrl);
+
+    prestamosSimplesCtrl.$inject  = ['$rootScope', 'sYjResource']; 
+
+    function prestamosSimplesCtrl($rootScope, sYjResource) {
+        /* jshint validthis:true */
+        var vm = this;
+        vm.prestamosSimple = {};
+
+        vm.nuevoParaCargar = function () {
+            vm.prestamosSimple = {};
+            vm.prestamosSimple.empleadoID = vm.empleadoID;
+        };
+
+        vm.guardar = function () {
+            sYjResource.prestamosSimples.save(vm.prestamosSimple)
+           .$promise.then(
+               function (mensaje) {
+                   if (!mensaje.error) {
+                       vm.prestamosSimple = mensaje.objetoDto;
+                       vm.mensajeDelServidor = mensaje.mensajeDelProceso;
+                       vm.prestamosSimple.fechaPrestamo = new Date(mensaje.objetoDto.fechaPrestamo);
+                       $rootScope.$broadcast('actualizarListadoPrestamos', {});
+                   } else {
+                       vm.mensajeDelServidor = mensaje.mensajeDelProceso;
+                   }
+               },
+             function (mensaje) {
+                 vm.mensajeDelServidor = mensaje.data.mensajeDelProceso;
+             }
+           );
+        }
+
+        //Eventos
+        $rootScope.$on('empleadoID', function (event, objValRecibido) {
+            vm.prestamosSimple.empleadoID = objValRecibido;
+            vm.empleadoID = objValRecibido;
+        });
+    }
+})();

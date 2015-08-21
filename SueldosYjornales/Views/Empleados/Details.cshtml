@@ -20,6 +20,8 @@
                 var comisionesByEmpleadoID = $resource("@Href("~/api/Comisiones/ByEmpleadoID")");
                 var anticipos = $resource("@Href("~/api/Anticipos")");
                 var anticiposByEmpleadoID = $resource("@Href("~/api/Anticipos/ByEmpleadoID")");
+                var prestamosSimples = $resource("@Href("~/api/PrestamosSimples")");
+                var prestamosSimplesByEmpleadoID = $resource("@Href("~/api/PrestamosSimples/ByEmpleadoID")");
 
                 return {
                     "ubicacionSucUsuarios": ubicacionSucUsuarios,
@@ -27,7 +29,9 @@
                     "comisiones": comisiones,
                     "comisionesByEmpleadoID": comisionesByEmpleadoID,
                     "anticipos": anticipos,
-                    "anticiposByEmpleadoID": anticiposByEmpleadoID
+                    "anticiposByEmpleadoID": anticiposByEmpleadoID,
+                    "prestamosSimples": prestamosSimples,
+                    "prestamosSimplesByEmpleadoID": prestamosSimplesByEmpleadoID
                 }
             }
         })();
@@ -39,13 +43,15 @@
     <script src="~/Scripts/Empleados/Details/Controllers/Comisiones/listadoComisionesCtrl.js"></script>
     <script src="~/Scripts/Empleados/Details/Controllers/Anticipos/anticipoCtrl.js"></script>
     <script src="~/Scripts/Empleados/Details/Controllers/Anticipos/listadoAnticiposCtrl.js"></script>
+    <script src="~/Scripts/Empleados/Details/Controllers/PrestamosSimples/prestamosSimplesCtrl.js"></script>
 }
 <style type="text/css">
     .form-group {
         margin-bottom: 3px;
     }
-    .active{
-        color:blue;
+
+    .active {
+        color: blue;
     }
 </style>
 <div class="container" ng-controller="menuCtrl as vm" ng-cloak ng-init="vm.empleadoID = @empleadoID">

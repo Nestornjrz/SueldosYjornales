@@ -217,6 +217,33 @@
           <Property Name="UsuarioID" Type="bigint" Nullable="false" />
           <Property Name="MomentoCarga" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
+        <EntityType Name="LiquidacionConceptos">
+          <Key>
+            <PropertyRef Name="LiquidacionConceptoID" />
+          </Key>
+          <Property Name="LiquidacionConceptoID" Type="int" Nullable="false" />
+          <Property Name="NombreConcepto" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MovEmpleados">
+          <Key>
+            <PropertyRef Name="MovEmpleadoID" />
+          </Key>
+          <Property Name="MovEmpleadoID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaMovimiento" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MovEmpleadosDets">
+          <Key>
+            <PropertyRef Name="MovEmpleadoDetID" />
+          </Key>
+          <Property Name="MovEmpleadoDetID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LiquidacionEmpleadoID" Type="bigint" Nullable="false" />
+          <Property Name="EmpleadoID" Type="bigint" Nullable="false" />
+          <Property Name="DevCred" Type="bit" Nullable="false" />
+          <Property Name="Monto" Type="money" Nullable="false" />
+          <Property Name="MesAplicacion" Type="date" Nullable="false" />
+          <Property Name="LiquidacionConceptoID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Nacionalidades">
           <Key>
             <PropertyRef Name="NacionalidadID" />
@@ -224,6 +251,20 @@
           <Property Name="NacionalidadID" Type="int" Nullable="false" />
           <Property Name="NombreNacionalidad" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Abreviatura" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PrestamosSimples">
+          <Key>
+            <PropertyRef Name="PrestamoSimpleID" />
+          </Key>
+          <Property Name="PrestamoSimpleID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpleadoID" Type="bigint" Nullable="false" />
+          <Property Name="FechaPrestamo" Type="date" Nullable="false" />
+          <Property Name="Monto" Type="money" Nullable="false" />
+          <Property Name="Cuotas" Type="int" Nullable="false" />
+          <Property Name="Observacion" Type="text" />
+          <Property Name="MovEmpleadoID" Type="bigint" />
+          <Property Name="UsuarioID" Type="bigint" Nullable="false" />
+          <Property Name="MomentoCarga" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Profesiones">
           <Key>
@@ -636,6 +677,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_MovEmpleadosDets-&gt;Empleados">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="MovEmpleadosDets" Type="Self.MovEmpleadosDets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="MovEmpleadosDets">
+              <PropertyRef Name="EmpleadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_MovEmpleadosDets-&gt;LiquidacionConceptos">
+          <End Role="LiquidacionConceptos" Type="Self.LiquidacionConceptos" Multiplicity="1" />
+          <End Role="MovEmpleadosDets" Type="Self.MovEmpleadosDets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LiquidacionConceptos">
+              <PropertyRef Name="LiquidacionConceptoID" />
+            </Principal>
+            <Dependent Role="MovEmpleadosDets">
+              <PropertyRef Name="LiquidacionConceptoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MovEmpleadosDets-&gt;MovEmpleados">
+          <End Role="MovEmpleados" Type="Self.MovEmpleados" Multiplicity="1" />
+          <End Role="MovEmpleadosDets" Type="Self.MovEmpleadosDets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MovEmpleados">
+              <PropertyRef Name="MovEmpleadoID" />
+            </Principal>
+            <Dependent Role="MovEmpleadosDets">
+              <PropertyRef Name="LiquidacionEmpleadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PrestamosSimples-&gt;Empleados">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="PrestamosSimples" Type="Self.PrestamosSimples" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="PrestamosSimples">
+              <PropertyRef Name="EmpleadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PrestamosSimples-&gt;MovEmpleados">
+          <End Role="MovEmpleados" Type="Self.MovEmpleados" Multiplicity="0..1" />
+          <End Role="PrestamosSimples" Type="Self.PrestamosSimples" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MovEmpleados">
+              <PropertyRef Name="MovEmpleadoID" />
+            </Principal>
+            <Dependent Role="PrestamosSimples">
+              <PropertyRef Name="MovEmpleadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PrestamosSimples-&gt;Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="PrestamosSimples" Type="Self.PrestamosSimples" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="PrestamosSimples">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_Sucursales&gt;Empresas">
           <End Role="Empresas" Type="Self.Empresas" Multiplicity="1" />
           <End Role="Sucursales" Type="Self.Sucursales" Multiplicity="*" />
@@ -704,7 +817,11 @@
           <EntitySet Name="HistoricoSucursales" EntityType="Self.HistoricoSucursales" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="HistoricoTelefonos" EntityType="Self.HistoricoTelefonos" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="Imagenes" EntityType="Self.Imagenes" Schema="Sj" store:Type="Tables" />
+          <EntitySet Name="LiquidacionConceptos" EntityType="Self.LiquidacionConceptos" Schema="Sj" store:Type="Tables" />
+          <EntitySet Name="MovEmpleados" EntityType="Self.MovEmpleados" Schema="Sj" store:Type="Tables" />
+          <EntitySet Name="MovEmpleadosDets" EntityType="Self.MovEmpleadosDets" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="Nacionalidades" EntityType="Self.Nacionalidades" Schema="Sj" store:Type="Tables" />
+          <EntitySet Name="PrestamosSimples" EntityType="Self.PrestamosSimples" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="Profesiones" EntityType="Self.Profesiones" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="Sucursales" EntityType="Self.Sucursales" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="TipoImagenes" EntityType="Self.TipoImagenes" Schema="Sj" store:Type="Tables" />
@@ -829,6 +946,30 @@
           <AssociationSet Name="fk_Imagenes-&gt;Usuarios" Association="Self.fk_Imagenes-&gt;Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Imagenes" EntitySet="Imagenes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MovEmpleadosDets-&gt;Empleados" Association="Self.fk_MovEmpleadosDets-&gt;Empleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="MovEmpleadosDets" EntitySet="MovEmpleadosDets" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_MovEmpleadosDets-&gt;LiquidacionConceptos" Association="Self.Fk_MovEmpleadosDets-&gt;LiquidacionConceptos">
+            <End Role="LiquidacionConceptos" EntitySet="LiquidacionConceptos" />
+            <End Role="MovEmpleadosDets" EntitySet="MovEmpleadosDets" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MovEmpleadosDets-&gt;MovEmpleados" Association="Self.fk_MovEmpleadosDets-&gt;MovEmpleados">
+            <End Role="MovEmpleados" EntitySet="MovEmpleados" />
+            <End Role="MovEmpleadosDets" EntitySet="MovEmpleadosDets" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PrestamosSimples-&gt;Empleados" Association="Self.fk_PrestamosSimples-&gt;Empleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="PrestamosSimples" EntitySet="PrestamosSimples" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PrestamosSimples-&gt;MovEmpleados" Association="Self.fk_PrestamosSimples-&gt;MovEmpleados">
+            <End Role="MovEmpleados" EntitySet="MovEmpleados" />
+            <End Role="PrestamosSimples" EntitySet="PrestamosSimples" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PrestamosSimples-&gt;Usuarios" Association="Self.fk_PrestamosSimples-&gt;Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="PrestamosSimples" EntitySet="PrestamosSimples" />
           </AssociationSet>
           <AssociationSet Name="fk_Sucursales&gt;Empresas" Association="Self.fk_Sucursales&gt;Empresas">
             <End Role="Empresas" EntitySet="Empresas" />
@@ -1008,6 +1149,34 @@
             <End Role="Usuario" EntitySet="Usuarios" />
             <End Role="Imagene" EntitySet="Imagenes" />
           </AssociationSet>
+          <EntitySet Name="LiquidacionConceptos" EntityType="SueldosJornalesModel.LiquidacionConcepto" />
+          <EntitySet Name="MovEmpleados" EntityType="SueldosJornalesModel.MovEmpleado" />
+          <EntitySet Name="MovEmpleadosDets" EntityType="SueldosJornalesModel.MovEmpleadosDet" />
+          <EntitySet Name="PrestamosSimples" EntityType="SueldosJornalesModel.PrestamosSimple" />
+          <AssociationSet Name="fk_MovEmpleadosDets__Empleados" Association="SueldosJornalesModel.fk_MovEmpleadosDets__Empleados">
+            <End Role="Empleado" EntitySet="Empleados" />
+            <End Role="MovEmpleadosDet" EntitySet="MovEmpleadosDets" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PrestamosSimples__Empleados" Association="SueldosJornalesModel.fk_PrestamosSimples__Empleados">
+            <End Role="Empleado" EntitySet="Empleados" />
+            <End Role="PrestamosSimple" EntitySet="PrestamosSimples" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_MovEmpleadosDets__LiquidacionConceptos" Association="SueldosJornalesModel.Fk_MovEmpleadosDets__LiquidacionConceptos">
+            <End Role="LiquidacionConcepto" EntitySet="LiquidacionConceptos" />
+            <End Role="MovEmpleadosDet" EntitySet="MovEmpleadosDets" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MovEmpleadosDets__MovEmpleados" Association="SueldosJornalesModel.fk_MovEmpleadosDets__MovEmpleados">
+            <End Role="MovEmpleado" EntitySet="MovEmpleados" />
+            <End Role="MovEmpleadosDet" EntitySet="MovEmpleadosDets" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PrestamosSimples__MovEmpleados" Association="SueldosJornalesModel.fk_PrestamosSimples__MovEmpleados">
+            <End Role="MovEmpleado" EntitySet="MovEmpleados" />
+            <End Role="PrestamosSimple" EntitySet="PrestamosSimples" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PrestamosSimples__Usuarios" Association="SueldosJornalesModel.fk_PrestamosSimples__Usuarios">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="PrestamosSimple" EntitySet="PrestamosSimples" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Cargo">
           <Key>
@@ -1079,6 +1248,7 @@
           <NavigationProperty Name="Anticipos" Relationship="SueldosJornalesModel.fk_Anticipos__Usuarios" FromRole="Usuario" ToRole="Anticipos" />
           <NavigationProperty Name="HistoricoSalarios" Relationship="SueldosJornalesModel.fk_HistoricoSalarios_Usuarios" FromRole="Usuario" ToRole="HistoricoSalario" />
           <NavigationProperty Name="Imagenes" Relationship="SueldosJornalesModel.fk_Imagenes__Usuarios" FromRole="Usuario" ToRole="Imagene" />
+          <NavigationProperty Name="PrestamosSimples" Relationship="SueldosJornalesModel.fk_PrestamosSimples__Usuarios" FromRole="Usuario" ToRole="PrestamosSimple" />
         </EntityType>
         <Association Name="fk_Sucursales_Empresas">
           <End Type="SueldosJornalesModel.Empresa" Role="Empresa" Multiplicity="1" />
@@ -1273,6 +1443,8 @@
           <NavigationProperty Name="Anticipos" Relationship="SueldosJornalesModel.fk_Anticipos__Empleados" FromRole="Empleado" ToRole="Anticipos" />
           <NavigationProperty Name="HistoricoSalarios" Relationship="SueldosJornalesModel.fk_HistoricoSalarios_Empleados" FromRole="Empleado" ToRole="HistoricoSalario" />
           <NavigationProperty Name="Imagenes" Relationship="SueldosJornalesModel.fk_Imagenes__Empleados" FromRole="Empleado" ToRole="Imagene" />
+          <NavigationProperty Name="MovEmpleadosDets" Relationship="SueldosJornalesModel.fk_MovEmpleadosDets__Empleados" FromRole="Empleado" ToRole="MovEmpleadosDet" />
+          <NavigationProperty Name="PrestamosSimples" Relationship="SueldosJornalesModel.fk_PrestamosSimples__Empleados" FromRole="Empleado" ToRole="PrestamosSimple" />
         </EntityType>
         <EntityType Name="HistoricoSucursale">
           <Key>
@@ -1722,6 +1894,128 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="LiquidacionConcepto">
+          <Key>
+            <PropertyRef Name="LiquidacionConceptoID" />
+          </Key>
+          <Property Name="LiquidacionConceptoID" Type="Int32" Nullable="false" />
+          <Property Name="NombreConcepto" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MovEmpleadosDets" Relationship="SueldosJornalesModel.Fk_MovEmpleadosDets__LiquidacionConceptos" FromRole="LiquidacionConcepto" ToRole="MovEmpleadosDet" />
+        </EntityType>
+        <EntityType Name="MovEmpleado">
+          <Key>
+            <PropertyRef Name="MovEmpleadoID" />
+          </Key>
+          <Property Name="MovEmpleadoID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaMovimiento" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MovEmpleadosDets" Relationship="SueldosJornalesModel.fk_MovEmpleadosDets__MovEmpleados" FromRole="MovEmpleado" ToRole="MovEmpleadosDet" />
+          <NavigationProperty Name="PrestamosSimples" Relationship="SueldosJornalesModel.fk_PrestamosSimples__MovEmpleados" FromRole="MovEmpleado" ToRole="PrestamosSimple" />
+        </EntityType>
+        <EntityType Name="MovEmpleadosDet">
+          <Key>
+            <PropertyRef Name="MovEmpleadoDetID" />
+          </Key>
+          <Property Name="MovEmpleadoDetID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LiquidacionEmpleadoID" Type="Int64" Nullable="false" />
+          <Property Name="EmpleadoID" Type="Int64" Nullable="false" />
+          <Property Name="DevCred" Type="Boolean" Nullable="false" />
+          <Property Name="Monto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="MesAplicacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="LiquidacionConceptoID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Empleado" Relationship="SueldosJornalesModel.fk_MovEmpleadosDets__Empleados" FromRole="MovEmpleadosDet" ToRole="Empleado" />
+          <NavigationProperty Name="LiquidacionConcepto" Relationship="SueldosJornalesModel.Fk_MovEmpleadosDets__LiquidacionConceptos" FromRole="MovEmpleadosDet" ToRole="LiquidacionConcepto" />
+          <NavigationProperty Name="MovEmpleado" Relationship="SueldosJornalesModel.fk_MovEmpleadosDets__MovEmpleados" FromRole="MovEmpleadosDet" ToRole="MovEmpleado" />
+        </EntityType>
+        <EntityType Name="PrestamosSimple">
+          <Key>
+            <PropertyRef Name="PrestamoSimpleID" />
+          </Key>
+          <Property Name="PrestamoSimpleID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpleadoID" Type="Int64" Nullable="false" />
+          <Property Name="Monto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Cuotas" Type="Int32" Nullable="false" />
+          <Property Name="Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MovEmpleadoID" Type="Int64" />
+          <NavigationProperty Name="Empleado" Relationship="SueldosJornalesModel.fk_PrestamosSimples__Empleados" FromRole="PrestamosSimple" ToRole="Empleado" />
+          <NavigationProperty Name="MovEmpleado" Relationship="SueldosJornalesModel.fk_PrestamosSimples__MovEmpleados" FromRole="PrestamosSimple" ToRole="MovEmpleado" />
+          <Property Name="UsuarioID" Type="Int64" Nullable="false" />
+          <Property Name="MomentoCarga" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Usuario" Relationship="SueldosJornalesModel.fk_PrestamosSimples__Usuarios" FromRole="PrestamosSimple" ToRole="Usuario" />
+          <Property Name="FechaPrestamo" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <Association Name="fk_MovEmpleadosDets__Empleados">
+          <End Type="SueldosJornalesModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="SueldosJornalesModel.MovEmpleadosDet" Role="MovEmpleadosDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="MovEmpleadosDet">
+              <PropertyRef Name="EmpleadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PrestamosSimples__Empleados">
+          <End Type="SueldosJornalesModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="SueldosJornalesModel.PrestamosSimple" Role="PrestamosSimple" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="PrestamosSimple">
+              <PropertyRef Name="EmpleadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_MovEmpleadosDets__LiquidacionConceptos">
+          <End Type="SueldosJornalesModel.LiquidacionConcepto" Role="LiquidacionConcepto" Multiplicity="1" />
+          <End Type="SueldosJornalesModel.MovEmpleadosDet" Role="MovEmpleadosDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LiquidacionConcepto">
+              <PropertyRef Name="LiquidacionConceptoID" />
+            </Principal>
+            <Dependent Role="MovEmpleadosDet">
+              <PropertyRef Name="LiquidacionConceptoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MovEmpleadosDets__MovEmpleados">
+          <End Type="SueldosJornalesModel.MovEmpleado" Role="MovEmpleado" Multiplicity="1" />
+          <End Type="SueldosJornalesModel.MovEmpleadosDet" Role="MovEmpleadosDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MovEmpleado">
+              <PropertyRef Name="MovEmpleadoID" />
+            </Principal>
+            <Dependent Role="MovEmpleadosDet">
+              <PropertyRef Name="LiquidacionEmpleadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PrestamosSimples__MovEmpleados">
+          <End Type="SueldosJornalesModel.MovEmpleado" Role="MovEmpleado" Multiplicity="0..1" />
+          <End Type="SueldosJornalesModel.PrestamosSimple" Role="PrestamosSimple" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MovEmpleado">
+              <PropertyRef Name="MovEmpleadoID" />
+            </Principal>
+            <Dependent Role="PrestamosSimple">
+              <PropertyRef Name="MovEmpleadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PrestamosSimples__Usuarios">
+          <End Type="SueldosJornalesModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="SueldosJornalesModel.PrestamosSimple" Role="PrestamosSimple" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="PrestamosSimple">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2010,6 +2304,51 @@
               <MappingFragment StoreEntitySet="TipoImagenes">
                 <ScalarProperty Name="NombreTipoImagen" ColumnName="NombreTipoImagen" />
                 <ScalarProperty Name="TipoImagenID" ColumnName="TipoImagenID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LiquidacionConceptos">
+            <EntityTypeMapping TypeName="SueldosJornalesModel.LiquidacionConcepto">
+              <MappingFragment StoreEntitySet="LiquidacionConceptos">
+                <ScalarProperty Name="NombreConcepto" ColumnName="NombreConcepto" />
+                <ScalarProperty Name="LiquidacionConceptoID" ColumnName="LiquidacionConceptoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MovEmpleados">
+            <EntityTypeMapping TypeName="SueldosJornalesModel.MovEmpleado">
+              <MappingFragment StoreEntitySet="MovEmpleados">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="FechaMovimiento" ColumnName="FechaMovimiento" />
+                <ScalarProperty Name="MovEmpleadoID" ColumnName="MovEmpleadoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MovEmpleadosDets">
+            <EntityTypeMapping TypeName="SueldosJornalesModel.MovEmpleadosDet">
+              <MappingFragment StoreEntitySet="MovEmpleadosDets">
+                <ScalarProperty Name="LiquidacionConceptoID" ColumnName="LiquidacionConceptoID" />
+                <ScalarProperty Name="MesAplicacion" ColumnName="MesAplicacion" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="DevCred" ColumnName="DevCred" />
+                <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
+                <ScalarProperty Name="LiquidacionEmpleadoID" ColumnName="LiquidacionEmpleadoID" />
+                <ScalarProperty Name="MovEmpleadoDetID" ColumnName="MovEmpleadoDetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrestamosSimples">
+            <EntityTypeMapping TypeName="SueldosJornalesModel.PrestamosSimple">
+              <MappingFragment StoreEntitySet="PrestamosSimples">
+                <ScalarProperty Name="FechaPrestamo" ColumnName="FechaPrestamo" />
+                <ScalarProperty Name="MomentoCarga" ColumnName="MomentoCarga" />
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="MovEmpleadoID" ColumnName="MovEmpleadoID" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="Cuotas" ColumnName="Cuotas" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
+                <ScalarProperty Name="PrestamoSimpleID" ColumnName="PrestamoSimpleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

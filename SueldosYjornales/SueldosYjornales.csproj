@@ -207,6 +207,7 @@
     <Compile Include="Controllers\Api\HistoricoTelefonosController.cs" />
     <Compile Include="Controllers\Api\ImagenesController.cs" />
     <Compile Include="Controllers\Api\NacionalidadesController.cs" />
+    <Compile Include="Controllers\Api\PrestamosSimplesController.cs" />
     <Compile Include="Controllers\Api\ProfesionesController.cs" />
     <Compile Include="Controllers\Api\SucursalesController.cs" />
     <Compile Include="Controllers\Api\TipoImagenesController.cs" />
@@ -280,6 +281,7 @@
     <Content Include="Scripts\Empleados\Details\Controllers\Comisiones\comisionesCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Controllers\Comisiones\listadoComisionesCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Controllers\menuCtrl.js" />
+    <Content Include="Scripts\Empleados\Details\Controllers\PrestamosSimples\prestamosSimplesCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Services\common.services.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoDireccion\historicoDireccionCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoDireccion\listadoHistoricoDireccionesCtrl.js" />

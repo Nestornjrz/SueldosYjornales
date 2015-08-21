@@ -14,6 +14,7 @@
         $('#detallesEmpleado').addClass('active');
         $('#detallesEmpleado a').attr('href', '#');
 
+
         vm.comisionesFn = function ($event) {
             $event.preventDefault();
             $event.stopPropagation();
@@ -29,12 +30,17 @@
             vm.menu.anticipos.mostrar = true;
         }
         vm.prestamosSimplesFn = function ($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
+            if ($event != null) {
+                $event.preventDefault();
+                $event.stopPropagation();
+            }
             ocultar();
             vm.menu.prestamosSimples.class = "active";
             vm.menu.prestamosSimples.mostrar = true;
         }
+
+        vm.prestamosSimplesFn();
+
         //////
         function ocultar() {
             vm.menu.introduccion = false;
