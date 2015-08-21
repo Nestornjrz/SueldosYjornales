@@ -1,6 +1,6 @@
 ﻿/*
 Created: 15/06/2015
-Modified: 19/08/2015
+Modified: 21/08/2015
 Model: Sueldos y Jornales
 Database: MS SQL Server 2014
 */
@@ -522,6 +522,101 @@ INSERT INTO [Sj].[TipoImagenes]
 ALTER TABLE [Sj].[TipoImagenes] ADD CONSTRAINT [pk_TipoImagenes] PRIMARY KEY ([TipoImagenID])
 go
 
+-- Table Sj.PrestamosSimples
+
+CREATE TABLE [Sj].[PrestamosSimples]
+(
+ [PrestamoSimpleID] Bigint IDENTITY(1,1) NOT NULL,
+ [EmpleadoID] Bigint NOT NULL,
+ [Monto] Money NOT NULL,
+ [Cuotas] Int NOT NULL,
+ [Observacion] Text NULL,
+ [MovEmpleadoID] Bigint NULL
+)
+go
+EXEC sp_addextendedproperty 'MS_Description', 'Esto es para controlar en que movimiento se genero el debito de este prestamo.', 'SCHEMA', 'Sj', 'TABLE', 'PrestamosSimples', 'COLUMN', 'MovEmpleadoID'
+go
+
+-- Create indexes for table Sj.PrestamosSimples
+
+CREATE INDEX [IX_PrestamosSimples_EmpleadoID] ON [Sj].[PrestamosSimples] ([EmpleadoID])
+go
+
+CREATE INDEX [IX_PrestamosSimples_MovEmpleadoID] ON [Sj].[PrestamosSimples] ([MovEmpleadoID])
+go
+
+-- Add keys for table Sj.PrestamosSimples
+
+ALTER TABLE [Sj].[PrestamosSimples] ADD CONSTRAINT [pk_PrestamosSimples] PRIMARY KEY ([PrestamoSimpleID])
+go
+
+-- Table Sj.MovEmpleados
+
+CREATE TABLE [Sj].[MovEmpleados]
+(
+ [MovEmpleadoID] Bigint IDENTITY(1,1) NOT NULL,
+ [FechaMovimiento] Datetime2 NOT NULL,
+ [Descripcion] Varchar(300) NOT NULL
+)
+go
+
+-- Add keys for table Sj.MovEmpleados
+
+ALTER TABLE [Sj].[MovEmpleados] ADD CONSTRAINT [pk_MovEmpleados] PRIMARY KEY ([MovEmpleadoID])
+go
+
+-- Table Sj.MovEmpleadosDets
+
+CREATE TABLE [Sj].[MovEmpleadosDets]
+(
+ [MovEmpleadoDetID] Bigint IDENTITY(1,1) NOT NULL,
+ [LiquidacionEmpleadoID] Bigint NOT NULL,
+ [EmpleadoID] Bigint NOT NULL,
+ [DevCred] Bit NOT NULL,
+ [Monto] Money NOT NULL,
+ [MesAplicacion] Date NOT NULL,
+ [LiquidacionConceptoID] Int NOT NULL
+)
+go
+EXEC sp_addextendedproperty 'MS_Description', 'Devito es 1 y credito es 0', 'SCHEMA', 'Sj', 'TABLE', 'MovEmpleadosDets', 'COLUMN', 'DevCred'
+go
+
+-- Create indexes for table Sj.MovEmpleadosDets
+
+CREATE INDEX [IX_MovEmpleadosDets_MovEmpleadoID] ON [Sj].[MovEmpleadosDets] ([LiquidacionEmpleadoID])
+go
+
+CREATE INDEX [IX_MovEmpleadosDets_EmpleadoID] ON [Sj].[MovEmpleadosDets] ([EmpleadoID])
+go
+
+CREATE INDEX [IX_MovEmpleadosDets_LiquidacionConceptoID] ON [Sj].[MovEmpleadosDets] ([LiquidacionConceptoID])
+go
+
+-- Add keys for table Sj.MovEmpleadosDets
+
+ALTER TABLE [Sj].[MovEmpleadosDets] ADD CONSTRAINT [pk_MovEmpleadosDets] PRIMARY KEY ([MovEmpleadoDetID])
+go
+
+-- Table Sj.LiquidacionConceptos
+
+CREATE TABLE [Sj].[LiquidacionConceptos]
+(
+ [LiquidacionConceptoID] Int NOT NULL,
+ [NombreConcepto] Varchar(50) NOT NULL
+)
+go
+
+INSERT INTO [Sj].[LiquidacionConceptos]
+           ([LiquidacionConceptoID]
+           ,[NombreConcepto])
+     VALUES
+           (1,'Sueldo Base'),(2,'Comision'),(3,'Anticipo'),(4,'Prestamo'),(5,'Total Pagado')
+
+-- Add keys for table Sj.LiquidacionConceptos
+
+ALTER TABLE [Sj].[LiquidacionConceptos] ADD CONSTRAINT [Key5] PRIMARY KEY ([LiquidacionConceptoID])
+go
+
 -- Create relationships section ------------------------------------------------- 
 
 ALTER TABLE [Sj].[Sucursales] ADD CONSTRAINT [fk_Sucursales>Empresas] FOREIGN KEY ([EmpresaID]) REFERENCES [Sj].[Empresas] ([EmpresaID]) ON UPDATE NO ACTION ON DELETE NO ACTION
@@ -612,6 +707,21 @@ ALTER TABLE [Sj].[Imagenes] ADD CONSTRAINT [fk_Imagenes->Empleados] FOREIGN KEY 
 go
 
 ALTER TABLE [Sj].[Imagenes] ADD CONSTRAINT [fk_imagenes->TipoImagenes] FOREIGN KEY ([TipoImagenID]) REFERENCES [Sj].[TipoImagenes] ([TipoImagenID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[PrestamosSimples] ADD CONSTRAINT [fk_PrestamosSimples->Empleados] FOREIGN KEY ([EmpleadoID]) REFERENCES [Sj].[Empleados] ([EmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[MovEmpleadosDets] ADD CONSTRAINT [fk_MovEmpleadosDets->MovEmpleados] FOREIGN KEY ([LiquidacionEmpleadoID]) REFERENCES [Sj].[MovEmpleados] ([MovEmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[MovEmpleadosDets] ADD CONSTRAINT [fk_MovEmpleadosDets->Empleados] FOREIGN KEY ([EmpleadoID]) REFERENCES [Sj].[Empleados] ([EmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[PrestamosSimples] ADD CONSTRAINT [fk_PrestamosSimples->MovEmpleados] FOREIGN KEY ([MovEmpleadoID]) REFERENCES [Sj].[MovEmpleados] ([MovEmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[MovEmpleadosDets] ADD CONSTRAINT [Fk_MovEmpleadosDets->LiquidacionConceptos] FOREIGN KEY ([LiquidacionConceptoID]) REFERENCES [Sj].[LiquidacionConceptos] ([LiquidacionConceptoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
 
