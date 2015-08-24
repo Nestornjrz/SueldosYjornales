@@ -193,7 +193,7 @@
     <Compile Include="Controllers\Admin\RolesAdminController.cs" />
     <Compile Include="Controllers\Admin\UsersAdminController.cs" />
     <Compile Include="Controllers\Api\AnticiposController.cs" />
-    <Compile Include="Controllers\Api\Auxiliares\LiquidacionSalariosController.cs" />
+    <Compile Include="Controllers\Api\Auxiliares\InfoLiqSalariosController.cs" />
     <Compile Include="Controllers\Api\CargosController.cs" />
     <Compile Include="Controllers\Api\ComisionesController.cs" />
     <Compile Include="Controllers\Api\EmpleadosController.cs" />

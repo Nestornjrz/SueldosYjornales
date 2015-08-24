@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SYJ.Domain.Managers.Auxiliares {
-    public class LiquidacionSalariosManagers {
+    public class InfoLiqSalariosManagers {
         public MensajeDto ConsultarLiquidacionSalario(LiquidacionSueldoFormDto lsfDto) {
             using (var context = new SueldosJornalesEntities()) {
                 var empleados = GetListadoEmpleados(context);
@@ -63,9 +63,10 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 mensajeCargo = hsm.SalarioActual(e.EmpleadoID);
                 if (mensajeCargo.Error) {
                     mensaje += mensajeCargo.MensajeDelProceso;
+                } else {
+                    var hsDto = (HistoricoSalarioDto)mensajeCargo.ObjetoDto;
+                    e.Cargo = hsDto.Cargo;
                 }
-                var hsDto = (HistoricoSalarioDto)mensajeCargo.ObjetoDto;
-                e.Cargo = hsDto.Cargo;
             });
             return mensaje;
         }

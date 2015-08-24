@@ -19,7 +19,7 @@
             if (vm.lsfDto == null) {
                 return;
             }
-            sYjResource.liquidacionSalarios.save(vm.lsfDto)
+            sYjResource.InfoLiqSalarios.save(vm.lsfDto)
            .$promise.then(
               function (mensaje) {
                   if (!mensaje.error) {

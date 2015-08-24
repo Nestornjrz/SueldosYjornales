@@ -152,9 +152,14 @@ namespace SYJ.Domain.Managers {
             }
             string extencion = "";
             using (var context = new SueldosJornalesEntities()) {
-                extencion = context.Imagenes
+                var imagenDb = context.Imagenes
                     .Where(i => i.EmpleadoID == empleadoID && i.TipoImagenID == tipoImagenID)
-                    .First().Extencion;
+                    .FirstOrDefault();
+                if (imagenDb == null) {
+                    extencion = "";
+                } else {
+                    extencion = imagenDb.Extencion;
+                }
             }
             return new MensajeDto() {
                 Error = false,

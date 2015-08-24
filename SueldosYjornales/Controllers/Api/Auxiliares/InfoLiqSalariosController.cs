@@ -10,34 +10,34 @@ using System.Web.Http;
 
 namespace SueldosYjornales.Controllers.Api.Auxiliares
 {
-    public class LiquidacionSalariosController : ApiController
+    public class InfoLiqSalariosController : ApiController
     {
-        // GET: api/LiquidacionSalarios
+        // GET: api/InfoLiqSalarios
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET: api/LiquidacionSalarios/5
+        // GET: api/InfoLiqSalarios/5
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST: api/LiquidacionSalarios
+        // POST: api/InfoLiqSalarios
         public HttpResponseMessage Post(LiquidacionSueldoFormDto lsfDto)
         {
-            LiquidacionSalariosManagers lsm = new LiquidacionSalariosManagers();
+            InfoLiqSalariosManagers lsm = new InfoLiqSalariosManagers();
             MensajeDto mensaje = lsm.ConsultarLiquidacionSalario(lsfDto);
             return Request.CreateResponse(HttpStatusCode.Created, mensaje);
         }
 
-        // PUT: api/LiquidacionSalarios/5
+        // PUT: api/InfoLiqSalarios/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE: api/LiquidacionSalarios/5
+        // DELETE: api/InfoLiqSalarios/5
         public void Delete(int id)
         {
         }

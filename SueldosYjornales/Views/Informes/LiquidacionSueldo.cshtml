@@ -28,10 +28,10 @@
 
             function sYjResource($resource) {
                 var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
-                var liquidacionSalarios = $resource("@Href("~/api/LiquidacionSalarios")");
+                var InfoLiqSalarios = $resource("@Href("~/api/InfoLiqSalarios")");
                 return {
                     "ubicacionSucUsuarios": ubicacionSucUsuarios,
-                    "liquidacionSalarios": liquidacionSalarios
+                    "InfoLiqSalarios": InfoLiqSalarios
                 }
             }
         })();
