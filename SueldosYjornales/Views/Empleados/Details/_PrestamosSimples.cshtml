@@ -6,13 +6,13 @@
                 <form class="form-horizontal" role="form" ng-controller="prestamosSimplesCtrl as vm" name="prestamosSimplesForm" ng-cloak>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="fechaPrestamo" class="col-md-4 control-label">Fecha Prestamo</label>
+                            <label for="fecha1erVencimiento" class="col-md-4 control-label">1er. Vencimiento</label>
                             <div class="col-md-8">
                                 <p class="input-group">
-                                    <input type="date" id="fechaPrestamo"
-                                           name="fechaPrestamo"
+                                    <input type="date" id="fecha1erVencimiento"
+                                           name="Fecha1erVencimiento"
                                            class="form-control"
-                                           ng-model="vm.prestamosSimple.fechaPrestamo"
+                                           ng-model="vm.prestamosSimple.fecha1erVencimiento"
                                            placeholder="yyyy-MM-dd"
                                            ng-model-options="{timezone:'UTC'}"
                                            ng-required="true" />
@@ -63,7 +63,7 @@
                             </div>
                         </div>
                     </div>
-                    @*<pre>{{ vm.prestamosSimple | json}}</pre>*@
+                    <pre>{{ vm.prestamosSimple | json}}</pre>
                 </form>
             </div>
         </div>
@@ -87,7 +87,7 @@
                         <td><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="vm.actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
                         <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
                         <td>{{o.prestamoSimpleID}}</td>
-                        <td>{{o.fechaPrestamo | date:"dd/MM/yyyy":"UTC"}}</td>
+                        <td>{{o.fecha1erVencimiento | date:"dd/MM/yyyy":"UTC"}}</td>
                         <td>{{o.monto | currency:"Gs.":0}}</td>
                         <td>{{o.cuotas}}</td>
                         <td>{{o.observacion}}</td>

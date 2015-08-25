@@ -16,7 +16,7 @@ namespace SYJ.Domain.Managers {
                     .Select(s => new PrestamoSimpleDto() {
                         PrestamoSimpleID = s.PrestamoSimpleID,
                         EmpleadoID = s.EmpleadoID,
-                        FechaPrestamo = s.FechaPrestamo,
+                        Fecha1erVencimiento = s.Fecha1erVencimiento,
                         Monto = s.Monto,
                         Cuotas = s.Cuotas,
                         Observacion = s.Observacion
@@ -33,7 +33,7 @@ namespace SYJ.Domain.Managers {
                 MensajeDto mensajeDto = null;
                 var prestamoSimpleDb = new PrestamosSimple();
                 prestamoSimpleDb.EmpleadoID = psDto.EmpleadoID;
-                prestamoSimpleDb.FechaPrestamo = psDto.FechaPrestamo;
+                prestamoSimpleDb.Fecha1erVencimiento = psDto.Fecha1erVencimiento;
                 prestamoSimpleDb.Monto = psDto.Monto;
                 prestamoSimpleDb.Cuotas = psDto.Cuotas;
                 prestamoSimpleDb.Observacion = psDto.Observacion;

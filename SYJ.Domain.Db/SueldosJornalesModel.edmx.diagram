@@ -65,11 +65,11 @@
         <EntityTypeShape EntityType="SueldosJornalesModel.LiquidacionConcepto" Width="1.5" PointX="9" PointY="22.5" />
         <EntityTypeShape EntityType="SueldosJornalesModel.MovEmpleado" Width="1.5" PointX="9" PointY="14.75" />
         <EntityTypeShape EntityType="SueldosJornalesModel.MovEmpleadosDet" Width="1.5" PointX="11.25" PointY="18.375" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.PrestamosSimple" Width="1.5" PointX="14.25" PointY="18.625" />
         <AssociationConnector Association="SueldosJornalesModel.fk_MovEmpleadosDets__Empleados" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_PrestamosSimples__Empleados" />
         <AssociationConnector Association="SueldosJornalesModel.Fk_MovEmpleadosDets__LiquidacionConceptos" />
         <AssociationConnector Association="SueldosJornalesModel.fk_MovEmpleadosDets__MovEmpleados" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.PrestamosSimple" Width="1.5" PointX="17.25" PointY="11.125" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_PrestamosSimples__Empleados" />
         <AssociationConnector Association="SueldosJornalesModel.fk_PrestamosSimples__MovEmpleados" />
         <AssociationConnector Association="SueldosJornalesModel.fk_PrestamosSimples__Usuarios" />
         </Diagram>

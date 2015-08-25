@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@section scripts{
+    <script src="~/Scripts/LiquidacionSalarios/Index/Services/common.services.js"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            angular
+                .module('sueldosYjornalesApp')
+                .factory('sYjResource', sYjResource);
+
+            sYjResource.$inject = ['$resource'];
+
+            function sYjResource($resource) {
+                var empleados = $resource("@Href("~/api/Empleados")");
+                var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
+                var empleadosSegunUbicacionSucursal = $resource("@Href("~/api/Empleados/SegunUbicacionSucursal")");
+                var liquidacionSalarios = $resource("@Href("~/api/LiquidacionSalarios")");
+
+                return {
+                    "empleados": empleados,
+                    "ubicacionSucUsuarios": ubicacionSucUsuarios,
+                    "empleadosSegunUbicacionSucursal": empleadosSegunUbicacionSucursal,
+                    "liquidacionSalarios": liquidacionSalarios
+                }
+            }
+        })();
+    </script>
+    @*controladores*@
+    <script src="~/Scripts/LiquidacionSalarios/Index/Controllers/menuCtrl.js"></script>
+    <script src="~/Scripts/LiquidacionSalarios/Index/Controllers/listadoEmpleadosCtrl.js"></script>
+}
+<div class="row" style="margin-top:25px;" ng-controller="menuCtrl" ng-cloak>
+    <div class="col-md-5">
+        @Html.Partial("Index/_ListadoEmpleados")
+    </div>
+    <div class="col-md-7">
+
+    </div>
+</div>

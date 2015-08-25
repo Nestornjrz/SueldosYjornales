@@ -16,13 +16,13 @@ namespace SYJ.Domain.Db
     {
         public long PrestamoSimpleID { get; set; }
         public long EmpleadoID { get; set; }
+        public System.DateTime Fecha1erVencimiento { get; set; }
         public decimal Monto { get; set; }
         public int Cuotas { get; set; }
         public string Observacion { get; set; }
         public Nullable<long> MovEmpleadoID { get; set; }
         public long UsuarioID { get; set; }
         public System.DateTime MomentoCarga { get; set; }
-        public System.DateTime FechaPrestamo { get; set; }
     
         public virtual Empleado Empleado { get; set; }
         public virtual MovEmpleado MovEmpleado { get; set; }

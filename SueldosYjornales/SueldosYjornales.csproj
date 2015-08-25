@@ -194,6 +194,7 @@
     <Compile Include="Controllers\Admin\UsersAdminController.cs" />
     <Compile Include="Controllers\Api\AnticiposController.cs" />
     <Compile Include="Controllers\Api\Auxiliares\InfoLiqSalariosController.cs" />
+    <Compile Include="Controllers\Api\Auxiliares\LiquidacionSalariosController.cs" />
     <Compile Include="Controllers\Api\CargosController.cs" />
     <Compile Include="Controllers\Api\ComisionesController.cs" />
     <Compile Include="Controllers\Api\EmpleadosController.cs" />
@@ -218,6 +219,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Admin\ManageController.cs" />
     <Compile Include="Controllers\InformesController.cs" />
+    <Compile Include="Controllers\LiquidacionSalariosController.cs" />
     <Compile Include="Controllers\PadronesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -241,6 +243,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\empleados.jpg" />
     <Content Include="Images\la aragonesa sa-02.jpg" />
+    <Content Include="Images\Liquidar-Salarios.gif" />
     <Content Include="Scripts\Account\Login\Services\common.services.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
@@ -1086,6 +1089,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\LiquidacionSalarios\Index\Controllers\listadoEmpleadosCtrl.js" />
+    <Content Include="Scripts\LiquidacionSalarios\Index\Controllers\menuCtrl.js" />
+    <Content Include="Scripts\LiquidacionSalarios\Index\Services\common.services.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
@@ -1196,6 +1202,8 @@
     <Content Include="Views\Empleados\SubirImagenes\_FormCargaImagenes.cshtml" />
     <Content Include="Views\Empleados\ImprimirCedula.cshtml" />
     <Content Include="Views\Empleados\Details\_PrestamosSimples.cshtml" />
+    <Content Include="Views\LiquidacionSalarios\Index.cshtml" />
+    <Content Include="Views\LiquidacionSalarios\Index\_ListadoEmpleados.cshtml" />
     <None Include="Web.ProduccionRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,44 @@
+﻿<div class="row" ng-controller="listadoEmpleadosCtrl" ng-cloak style="margin-top:25px;">
+    <h3>Listado Empleados - cantidad: {{empleados.length}}</h3>
+    <div class="col-md-12">
+        <table class="table table-bordered table-hover table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th colspan="4" class="text-center">
+                        <button ng-click="guardar()" ng-disabled="cantSeleccionados == 0" class="btn btn-primary">
+                            Generar Liquidacion de {{cantSeleccionados}} empleado<span ng-show="cantSeleccionados > 1">s</span>
+                        </button>
+                    </th>
+                </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Foto</th>
+                    <th>Nombre</th>
+                    <th class="text-center">
+                        Todo
+                        <input ng-click="seleccionarTodo($event)" ng-model="varSeleccionarTodo" type="checkbox" > {{cantSeleccionados}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="o in empleados">
+                    <td>{{o.empleadoID}}</td>
+                    <td>
+                        <img class="img-responsive img-thumbnail" ng-src="@Href("~/api/Imagenes")?empleadoID={{o.empleadoID}}&tipoImagenID=1" alt="Foto" style="max-height:50px;max-width:50px;" />
+
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Resumen","Empleados")/{{o.empleadoID}}">
+                            {{o.nombres}} {{o.apellidos}}
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <input ng-model="o.seleccionadoSn" type="checkbox" ng-click="seleccionIndividual()" class="form-control">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <pre>{{empleadosSeleccionados | json}}</pre>
+    <pre>{{empleados | json}}</pre>
+</div>

@@ -1,6 +1,6 @@
 ﻿/*
 Created: 15/06/2015
-Modified: 21/08/2015
+Modified: 25/08/2015
 Model: Sueldos y Jornales
 Database: MS SQL Server 2014
 */
@@ -528,16 +528,19 @@ CREATE TABLE [Sj].[PrestamosSimples]
 (
  [PrestamoSimpleID] Bigint IDENTITY(1,1) NOT NULL,
  [EmpleadoID] Bigint NOT NULL,
- [FechaPrestamo] Date NOT NULL,
+ [Fecha1erVencimiento] Date NOT NULL,
  [Monto] Money NOT NULL,
  [Cuotas] Int NOT NULL,
  [Observacion] Text NULL,
  [MovEmpleadoID] Bigint NULL,
  [UsuarioID] Bigint NOT NULL,
- [MomentoCarga] Datetime2 NOT NULL
+ [MomentoCarga] Datetime2 NOT NULL,
+ [GenerarDevitoSn] Bit DEFAULT 0 NULL
 )
 go
 EXEC sp_addextendedproperty 'MS_Description', 'Esto es para controlar en que movimiento se genero el debito de este prestamo.', 'SCHEMA', 'Sj', 'TABLE', 'PrestamosSimples', 'COLUMN', 'MovEmpleadoID'
+go
+EXEC sp_addextendedproperty 'MS_Description', 'Este campo sirve para disparar el trigger y generar el devito correspondiente en la tabla MovEmpleado', 'SCHEMA', 'Sj', 'TABLE', 'PrestamosSimples', 'COLUMN', 'GenerarDevitoSn'
 go
 
 -- Create indexes for table Sj.PrestamosSimples
@@ -583,7 +586,7 @@ go
 CREATE TABLE [Sj].[MovEmpleadosDets]
 (
  [MovEmpleadoDetID] Bigint IDENTITY(1,1) NOT NULL,
- [LiquidacionEmpleadoID] Bigint NOT NULL,
+ [MovEmpleadoID] Bigint NOT NULL,
  [EmpleadoID] Bigint NOT NULL,
  [DevCred] Bit NOT NULL,
  [Monto] Money NOT NULL,
@@ -596,7 +599,7 @@ go
 
 -- Create indexes for table Sj.MovEmpleadosDets
 
-CREATE INDEX [IX_MovEmpleadosDets_MovEmpleadoID] ON [Sj].[MovEmpleadosDets] ([LiquidacionEmpleadoID])
+CREATE INDEX [IX_MovEmpleadosDets_MovEmpleadoID] ON [Sj].[MovEmpleadosDets] ([MovEmpleadoID])
 go
 
 CREATE INDEX [IX_MovEmpleadosDets_EmpleadoID] ON [Sj].[MovEmpleadosDets] ([EmpleadoID])
@@ -725,7 +728,7 @@ go
 ALTER TABLE [Sj].[PrestamosSimples] ADD CONSTRAINT [fk_PrestamosSimples->Empleados] FOREIGN KEY ([EmpleadoID]) REFERENCES [Sj].[Empleados] ([EmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
-ALTER TABLE [Sj].[MovEmpleadosDets] ADD CONSTRAINT [fk_MovEmpleadosDets->MovEmpleados] FOREIGN KEY ([LiquidacionEmpleadoID]) REFERENCES [Sj].[MovEmpleados] ([MovEmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+ALTER TABLE [Sj].[MovEmpleadosDets] ADD CONSTRAINT [fk_MovEmpleadosDets->MovEmpleados] FOREIGN KEY ([MovEmpleadoID]) REFERENCES [Sj].[MovEmpleados] ([MovEmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
 ALTER TABLE [Sj].[MovEmpleadosDets] ADD CONSTRAINT [fk_MovEmpleadosDets->Empleados] FOREIGN KEY ([EmpleadoID]) REFERENCES [Sj].[Empleados] ([EmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION

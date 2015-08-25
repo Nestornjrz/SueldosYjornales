@@ -24,7 +24,7 @@
                    if (!mensaje.error) {
                        vm.prestamosSimple = mensaje.objetoDto;
                        vm.mensajeDelServidor = mensaje.mensajeDelProceso;
-                       vm.prestamosSimple.fechaPrestamo = new Date(mensaje.objetoDto.fechaPrestamo);
+                       vm.prestamosSimple.fecha1erVencimiento = new Date(mensaje.objetoDto.fecha1erVencimiento);
                        $rootScope.$broadcast('actualizarListadoPrestamos', {});
                    } else {
                        vm.mensajeDelServidor = mensaje.mensajeDelProceso;
