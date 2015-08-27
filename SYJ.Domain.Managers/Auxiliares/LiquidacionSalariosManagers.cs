@@ -40,7 +40,53 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 Valor = _CantidadErrores.ToString()
             };
         }
+        public MensajeDto RecuperarDetalles() {
+            using (var context = new SueldosJornalesEntities()) {
+                List<MovEmpleadoDto> movimientos = new List<MovEmpleadoDto>();
+                foreach (var empleadoID in _FlDto.EmpleadosSeleccionados) {
+                    var movimiento = new MovEmpleadoDto();
+                    //Se cargan los detalles
+                    var mesAplicacion = new DateTime(_FlDto.Year, _FlDto.Mes.MesID, 1);
+                    var movEmpleadosDetsDb = context.MovEmpleadosDets
+                        .Where(m => m.EmpleadoID == empleadoID &&
+                                    m.MesAplicacion == mesAplicacion);
 
+                    movimiento.MovEmpleadosDets = movEmpleadosDetsDb
+                        .Select(s => new MovEmpleadoDetDto() {
+                            Empleado = new EmpleadoDto() {
+                                EmpleadoID = empleadoID,
+                                Nombres = s.Empleado.Nombres,
+                                Apellidos = s.Empleado.Apellidos
+                            },
+                            Devito = (s.DevCred == DevCred.Devito) ? s.Monto : 0,
+                            Credito = (s.DevCred == DevCred.Credito) ? s.Monto : 0,
+                            MesAplicacion = s.MesAplicacion,
+                            LiquidacionConcepto = new LiquidacionConceptoDto() {
+                                LiquidacionConceptoID = s.LiquidacionConceptoID,
+                                NombreConcepto = s.LiquidacionConcepto.NombreConcepto
+                            }
+                        }).ToList();
+                    if (movimiento.MovEmpleadosDets.Count() > 0) {
+                        //Se carga la cabecera
+                        var movEmpleadoDb = movEmpleadosDetsDb.First().MovEmpleado;
+                        movimiento.MovEmpleadoID = movEmpleadoDb.MovEmpleadoID;
+                        movimiento.FechaMovimiento = movEmpleadoDb.FechaMovimiento;
+                        movimiento.Descripcion = movEmpleadoDb.Descripcion;
+
+                        //Se carga el listado
+                        movimientos.Add(movimiento);
+                    }
+                }
+                return new MensajeDto() {
+                    Error = false,
+                    MensajeDelProceso = "Se recuperaron " + movimientos.Count() + " liquidaciones",
+                    ObjetoDto = movimientos,
+                    Valor = movimientos.Count().ToString()
+                };
+            }
+        }
+
+        #region Metodos privados
         private bool YaSeGeneroLiquidacionParaEmpleadoSn(int empleadoID) {
             using (var context = new SueldosJornalesEntities()) {
                 var mesAplicacion = new DateTime(_FlDto.Year, _FlDto.Mes.MesID, 1);
@@ -48,27 +94,29 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     .Where(m => m.DevCred == DevCred.Devito &&
                     m.LiquidacionConceptoID == (int)LiquidacionConceptos.TotalPagado &&
                     m.MesAplicacion == mesAplicacion &&
-                    m.EmpleadoID  == empleadoID);
-                if (movi.Count() > 0) {
-                    var empleado = context.Empleados
+                    m.EmpleadoID == empleadoID);
+
+                var empleado = context.Empleados
                        .Where(e => e.EmpleadoID == empleadoID)
                        .Select(s => new EmpleadoDto() {
                            EmpleadoID = s.EmpleadoID,
                            Nombres = s.Nombres,
                            Apellidos = s.Apellidos
                        }).First();
-                    var nombre = "(" + empleado.Nombres + " " + empleado.Apellidos + ") ";
+                var nombre = "(" + empleado.Nombres + " " + empleado.Apellidos + ") ";
+                if (movi.Count() > 0) {
                     _Mensajes.Add(nombre +
                         " ya fue generado su liquidacion mes " +
                         _FlDto.Mes.MesID + "/" + _FlDto.Year +
                         " Liquidacion numero: " + movi.First().MovEmpleadoID
                         );
                     return true;
+                } else {
+                    _Mensajes.Add(nombre + "---->> Liquidacion aun no generada");
                 }
                 return false;
             }
         }
-
         private void GenerarLiquidacionEmpleado(int empleadoID) {
             DatosEmpleado de = new DatosEmpleado();
             using (var context = new SueldosJornalesEntities()) {
@@ -104,7 +152,6 @@ namespace SYJ.Domain.Managers.Auxiliares {
             }
             //throw new NotImplementedException();
         }
-
         private void RealizarLiquidacionSalario(DatosEmpleado de) {
             var nombre = "(" + de.Empleado.Nombres + " " + de.Empleado.Apellidos + ") ";
             MensajeDto mensajeDto = null;
@@ -122,8 +169,9 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 _CantidadErrores += 1;
                 _DbContexTransaction.Rollback();
                 return;
+            } else {
+                _Mensajes.Add("Se cargo correctamente la cabecera de movimiento para " + nombre);
             }
-            _Mensajes.Add("Se cargo correctamente la cabecera de movimiento para " + nombre);
 
             //SE CARGAN LOS DETALLES (Tabla MovEmpleadosDets) ---------------------------------
             ///Se carga el Sueldo Base
@@ -141,8 +189,10 @@ namespace SYJ.Domain.Managers.Auxiliares {
             movEmpleadoDet.LiquidacionConceptoID = (int)LiquidacionConceptos.Comision;
             movEmpleadoDet.DevCred = DevCred.Credito;
             movEmpleadoDet.Monto = de.Comisiones.Sum();
-            if (!SeCargoMovEmpleadosDetsSn(movEmpleadoDet, mensajeDto, de, "Comisiones")) { return; };
-            _Mensajes.Add("Se Cargo correctamente las comisiones de " + nombre);
+            if (movEmpleadoDet.Monto > 0) {
+                if (!SeCargoMovEmpleadosDetsSn(movEmpleadoDet, mensajeDto, de, "Comisiones")) { return; };
+                _Mensajes.Add("Se Cargo correctamente las comisiones de " + nombre);
+            }
 
             ///Carga de anticipos
             movEmpleadoDet = new MovEmpleadosDet();
@@ -150,8 +200,10 @@ namespace SYJ.Domain.Managers.Auxiliares {
             movEmpleadoDet.LiquidacionConceptoID = (int)LiquidacionConceptos.Anticipo;
             movEmpleadoDet.DevCred = DevCred.Devito;
             movEmpleadoDet.Monto = de.Anticipos.Sum();
-            if (!SeCargoMovEmpleadosDetsSn(movEmpleadoDet, mensajeDto, de, "Anticipos")) { return; };
-            _Mensajes.Add("Se Cargo correctamente los anticipos de " + nombre);
+            if (movEmpleadoDet.Monto > 0) {
+                if (!SeCargoMovEmpleadosDetsSn(movEmpleadoDet, mensajeDto, de, "Anticipos")) { return; };
+                _Mensajes.Add("Se Cargo correctamente los anticipos de " + nombre);
+            }
 
             ///Prestamos
             /// LOS PRESTAMOS YA ESTAN CARGADOS POR MEDIO DE TRIGGERS DISPARADOS DESDE LA TABLA PrestamosSimples           
@@ -165,7 +217,8 @@ namespace SYJ.Domain.Managers.Auxiliares {
             var prestamosDb = _Context.MovEmpleadosDets
                 .Where(md => md.MesAplicacion == mesAplicacion &&
                        md.LiquidacionConceptoID == liquidacionConcepto &&
-                       md.DevCred == devCred);
+                       md.DevCred == devCred &&
+                       md.EmpleadoID == de.Empleado.EmpleadoID);
             if (prestamosDb.Count() > 0) {
                 prestamos = prestamosDb.Sum(s => s.Monto);
             }
@@ -183,7 +236,132 @@ namespace SYJ.Domain.Managers.Auxiliares {
             if (!SeCargoMovEmpleadosDetsSn(movEmpleadoDet, mensajeDto, de, "Total Pagado")) { return; };
             _Mensajes.Add("Se Cargo correctamente el total pagado de " + nombre);
         }
+        private void MarcarPrestamos(DatosEmpleado de, SueldosJornalesEntities context) {
+            var nombre = "(" + de.Empleado.Nombres + " " + de.Empleado.Apellidos + ") ";
+            var prestamosSimples = context.PrestamosSimples
+                .Where(p => p.EmpleadoID == de.Empleado.EmpleadoID)
+                .Select(s => new PrestamoSimpleDto() {
+                    PrestamoSimpleID = s.PrestamoSimpleID,
+                    EmpleadoID = s.EmpleadoID,
+                    Cuotas = s.Cuotas,
+                    Fecha1erVencimiento = s.Fecha1erVencimiento,
+                    Monto = s.Monto,
+                    Observacion = s.Observacion
+                }).ToList();
 
+            var resul = new List<decimal>();
+            if (prestamosSimples.Count() < 1) {
+                _Mensajes.Add(nombre + " No posee prestamos");
+            }
+            foreach (var item in prestamosSimples) {
+                //Se marca el prestamo para que genere los devitos
+                //No hace falta cargarlos pues este proceso dispara triggers y estos cargan
+                //los devitos de los prestamos
+                MensajeDto mensajeDto = null;
+                var prestamoSimple = context.PrestamosSimples
+                    .Where(p => p.PrestamoSimpleID == item.PrestamoSimpleID).First();
+
+                prestamoSimple.GenerarDevitoSn = true;
+                context.Entry(prestamoSimple).State = System.Data.Entity.EntityState.Modified;
+
+                mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
+                if (mensajeDto != null) {
+                    _Mensajes.Add("#ERROR# en la marca del prestamo simple de " + nombre + " " + mensajeDto.MensajeDelProceso);
+                    return;
+                } else {
+                    _Mensajes.Add(nombre + "Devitos para el prestamo " + item.PrestamoSimpleID +
+                        " generados correctamente");
+                }
+            }
+        }
+        private List<decimal> RecuperarAnticipos(DatosEmpleado de) {
+            var nombre = "(" + de.Empleado.Nombres + " " + de.Empleado.Apellidos + ") ";          
+            var anticipos = _Context.Anticipos
+                .Where(a => a.EmpleadoID == de.Empleado.EmpleadoID &&
+                            a.FechaAnticipo.Year == _FlDto.Year &&
+                            a.FechaAnticipo.Month == _FlDto.Mes.MesID)
+                .Select(s => new AnticipoDto() {
+                    AnticipoID = s.AnticipoID,
+                    EmpleadoID = s.EmpleadoID,
+                    FechaAnticipo = s.FechaAnticipo,
+                    MontoAnticipo = s.MontoAnticipo,
+                    Observacion = s.Observacion
+                }).ToList();
+            if (anticipos.Count() < 1) {
+                _Mensajes.Add(nombre + " No posee anticipos");
+            }
+            List<decimal> resul = new List<decimal>();
+            foreach (AnticipoDto item in anticipos) {
+                MensajeDto mensajeDto = null;
+                var anticipoDb = _Context.Anticipos
+                    .Where(a => a.AnticipoID == item.AnticipoID).First();
+
+                anticipoDb.DevitoGeneradoSn = true;
+                _Context.Entry(anticipoDb).State = System.Data.Entity.EntityState.Modified;
+
+                mensajeDto = AgregarModificar.Hacer(_Context, mensajeDto);
+                if (mensajeDto != null) {
+                    _Mensajes.Add("#ERROR# en la marca del anticipo de " + nombre + " " + mensajeDto.MensajeDelProceso);
+                    _DbContexTransaction.Rollback();
+                    return resul;
+                } else {
+                    _Mensajes.Add(nombre + "Devitos de anticipos generadors correctamente");
+                }
+                resul.Add(item.MontoAnticipo);
+            }
+            return resul;
+        }
+        private List<decimal> RecuperarComisiones(DatosEmpleado de) {
+            var nombre = "(" + de.Empleado.Nombres + " " + de.Empleado.Apellidos + ") ";
+            var listado = _Context.Comisiones
+                 .Where(c => c.EmpleadoID == de.Empleado.EmpleadoID &&
+                             c.FechaComision.Month == _FlDto.Mes.MesID &&
+                             c.FechaComision.Year == _FlDto.Year)
+                 .Select(s => new ComisioneDto() {
+                     ComisionID = s.ComisionID,
+                     EmpleadoID = s.EmpleadoID,
+                     FechaComision = s.FechaComision,
+                     MontoComision = s.MontoComision,
+                     Observacion = s.Observacion
+                 }).ToList();
+            if (listado.Count() < 1) {
+                _Mensajes.Add(nombre + " No posee comisiones");
+            }
+            //Se marca las comisiones
+            List<decimal> resul = new List<decimal>();
+            foreach (ComisioneDto item in listado) {
+                MensajeDto mensajeDto = null;
+                var comisionDb = _Context.Comisiones
+                    .Where(c => c.ComisionID == item.ComisionID).First();
+                comisionDb.CreditosGeneradoSn = true;
+
+                _Context.Entry(comisionDb).State = System.Data.Entity.EntityState.Modified;
+                mensajeDto = AgregarModificar.Hacer(_Context, mensajeDto);
+                if (mensajeDto != null) {
+                    _Mensajes.Add("#ERROR# en la marca en la comision de " + nombre + " " + mensajeDto.MensajeDelProceso);
+                    _DbContexTransaction.Rollback();
+                    return resul;
+                } else {
+                    _Mensajes.Add(nombre + "Creditos de Comisiones generadors correctamente");
+                }
+                resul.Add(item.MontoComision);
+            }
+            return resul;
+        }
+        private decimal RecuperarSueldo(DatosEmpleado de) {
+            var nombre = "(" + de.Empleado.Nombres + " " + de.Empleado.Apellidos + ") ";
+
+            HistoricoSalariosManagers hsm = new HistoricoSalariosManagers();
+            MensajeDto mensaje = hsm.SalarioActual(de.Empleado.EmpleadoID);
+            if (mensaje.Error) {
+                _Mensajes.Add("#ERROR# " + nombre + mensaje.MensajeDelProceso);
+                _CantidadErrores += 1;
+                return 0;
+            }
+            _Mensajes.Add(nombre + mensaje.MensajeDelProceso);
+            return decimal.Parse(mensaje.Valor);
+        }
+        #endregion
         #region AuxiliaresEnLaCargaDeSalario
         private bool SeCargoMovEmpleadosDetsSn(MovEmpleadosDet movEmpleadoDet, MensajeDto mensajeDto, DatosEmpleado de, string descripcion) {
             var nombre = "(" + de.Empleado.Nombres + " " + de.Empleado.Apellidos + ") ";
@@ -204,128 +382,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
             movEmpleadoDet.MesAplicacion = new DateTime(_FlDto.Year, _FlDto.Mes.MesID, 1);
         }
         #endregion
-
-        private void MarcarPrestamos(DatosEmpleado de, SueldosJornalesEntities context) {
-            var nombre = "(" + de.Empleado.Nombres + " " + de.Empleado.Apellidos + ") ";
-            var prestamosSimples = context.PrestamosSimples
-                .Where(p => p.EmpleadoID == de.Empleado.EmpleadoID)
-                .Select(s => new PrestamoSimpleDto() {
-                    PrestamoSimpleID = s.PrestamoSimpleID,
-                    EmpleadoID = s.EmpleadoID,
-                    Cuotas = s.Cuotas,
-                    Fecha1erVencimiento = s.Fecha1erVencimiento,
-                    Monto = s.Monto,
-                    Observacion = s.Observacion
-                }).ToList();
-
-            var resul = new List<decimal>();
-            foreach (var item in prestamosSimples) {
-                var cantidad = context.PrestamosSimples
-                    .Where(p => p.PrestamoSimpleID == item.PrestamoSimpleID)
-                    .Count();
-                if (cantidad > 0) {
-                    continue;
-                }
-
-                //Se marca el prestamo para que genere los devitos
-                //No hace falta cargarlos pues este proceso dispara triggers y estos cargan
-                //los devitos de los prestamos
-                MensajeDto mensajeDto = null;
-                var prestamoSimple = context.PrestamosSimples
-                    .Where(p => p.PrestamoSimpleID == item.PrestamoSimpleID).First();
-
-                prestamoSimple.GenerarDevitoSn = true;
-                context.Entry(prestamoSimple).State = System.Data.Entity.EntityState.Modified;
-
-                mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
-                if (mensajeDto != null) {
-                    _Mensajes.Add("#ERROR# en la marca del prestamo simple de " + nombre + " " + mensajeDto.MensajeDelProceso);
-                    return;
-                }
-            }
-            _Mensajes.Add(nombre + "Devitos de prestamos generadors correctamente");
-        }
-
-        private List<decimal> RecuperarAnticipos(DatosEmpleado de) {
-            var nombre = "(" + de.Empleado.Nombres + " " + de.Empleado.Apellidos + ") ";
-            var anticipos = _Context.Anticipos
-                .Where(a => a.EmpleadoID == de.Empleado.EmpleadoID)
-                .Select(s => new AnticipoDto() {
-                    AnticipoID = s.AnticipoID,
-                    EmpleadoID = s.EmpleadoID,
-                    FechaAnticipo = s.FechaAnticipo,
-                    MontoAnticipo = s.MontoAnticipo,
-                    Observacion = s.Observacion
-                }).ToList();
-            List<decimal> resul = new List<decimal>();
-            foreach (AnticipoDto item in anticipos) {
-                MensajeDto mensajeDto = null;
-                var anticipoDb = _Context.Anticipos
-                    .Where(a => a.AnticipoID == item.AnticipoID).First();
-
-                anticipoDb.DevitoGeneradoSn = true;
-                _Context.Entry(anticipoDb).State = System.Data.Entity.EntityState.Modified;
-
-                mensajeDto = AgregarModificar.Hacer(_Context, mensajeDto);
-                if (mensajeDto != null) {
-                    _Mensajes.Add("#ERROR# en la marca del anticipo de " + nombre + " " + mensajeDto.MensajeDelProceso);
-                    _DbContexTransaction.Rollback();
-                    return resul;
-                }
-                resul.Add(item.MontoAnticipo);
-            }
-            _Mensajes.Add(nombre + "Devitos de anticipos generadors correctamente");
-            return resul;
-        }
-
-        private List<decimal> RecuperarComisiones(DatosEmpleado de) {
-            var nombre = "(" + de.Empleado.Nombres + " " + de.Empleado.Apellidos + ") ";
-            var listado = _Context.Comisiones
-                 .Where(c => c.EmpleadoID == de.Empleado.EmpleadoID &&
-                             c.FechaComision.Month == _FlDto.Mes.MesID &&
-                             c.FechaComision.Year == _FlDto.Year)
-                 .Select(s => new ComisioneDto() {
-                     ComisionID = s.ComisionID,
-                     EmpleadoID = s.EmpleadoID,
-                     FechaComision = s.FechaComision,
-                     MontoComision = s.MontoComision,
-                     Observacion = s.Observacion
-                 }).ToList();
-            //Se marca las comisiones
-            List<decimal> resul = new List<decimal>();
-            foreach (ComisioneDto item in listado) {
-                MensajeDto mensajeDto = null;
-                var comisionDb = _Context.Comisiones
-                    .Where(c => c.ComisionID == item.ComisionID).First();
-                comisionDb.CreditosGeneradoSn = true;
-
-                _Context.Entry(comisionDb).State = System.Data.Entity.EntityState.Modified;
-                mensajeDto = AgregarModificar.Hacer(_Context, mensajeDto);
-                if (mensajeDto != null) {
-                    _Mensajes.Add("#ERROR# en la marca en la comision de " + nombre + " " + mensajeDto.MensajeDelProceso);
-                    _DbContexTransaction.Rollback();
-                    return resul;
-                }
-                resul.Add(item.MontoComision);
-            }
-            _Mensajes.Add(nombre + "Creditos de Comisiones generadors correctamente");
-            return resul;
-        }
-
-        private decimal RecuperarSueldo(DatosEmpleado de) {
-            var nombre = "(" + de.Empleado.Nombres + " " + de.Empleado.Apellidos + ") ";
-
-            HistoricoSalariosManagers hsm = new HistoricoSalariosManagers();
-            MensajeDto mensaje = hsm.SalarioActual(de.Empleado.EmpleadoID);
-            if (mensaje.Error) {
-                _Mensajes.Add(nombre + mensaje.MensajeDelProceso);
-                _CantidadErrores += 1;
-                return 0;
-            }
-            _Mensajes.Add(nombre + mensaje.MensajeDelProceso);
-            return decimal.Parse(mensaje.Valor);
-        }
-
+        #region CLASES Y ENUM
         class DatosEmpleado {
             public EmpleadoDto Empleado { get; set; }
             public decimal SueldoBase { get; set; }
@@ -346,5 +403,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
             Prestamo = 4,
             TotalPagado = 5
         }
+        #endregion
+
     }
 }

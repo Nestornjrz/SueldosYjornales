@@ -41,15 +41,7 @@ namespace SueldosYjornales.Controllers.Api {
             MensajeDto mensaje = em.CargarEmpleado(eDto, Guid.Parse(User.Identity.GetUserId()));
             return Request.CreateResponse(HttpStatusCode.Created, mensaje);
         }
-        // POST: api/Empleados
-        [HttpPost]
-        [Route("api/Empleados/DetalleLiquidacion")]
-        public HttpResponseMessage PostDetalleLiquidacion(EmpleadoDto eDto) {
-            EmpleadosManagers em = new EmpleadosManagers();
-            MensajeDto mensaje = em.DetalleLiquidacion(eDto, Guid.Parse(User.Identity.GetUserId()));
-            return Request.CreateResponse(HttpStatusCode.Created, mensaje);
-        }
-
+        
         // PUT: api/Empleados/5
         public void Put(int id, [FromBody]string value) {
         }

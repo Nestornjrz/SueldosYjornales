@@ -34,6 +34,16 @@ namespace SueldosYjornales.Controllers.Api.Auxiliares
             return Request.CreateResponse(HttpStatusCode.Created, mensaje);
         }
 
+        // POST: api/LiquidacionSalarios/Detalles
+        [HttpPost]
+        [Route("api/LiquidacionSalarios/Detalles")]
+        public HttpResponseMessage PostDetalles(FormLiquidacionDto fldto) {
+            LiquidacionSalariosManagers lsm = new LiquidacionSalariosManagers(fldto,
+                Guid.Parse(User.Identity.GetUserId()));
+            MensajeDto mensaje = lsm.RecuperarDetalles();
+            return Request.CreateResponse(HttpStatusCode.Created, mensaje);
+        }
+
         // PUT: api/LiquidacionSalarios/5
         public void Put(int id, [FromBody]string value)
         {

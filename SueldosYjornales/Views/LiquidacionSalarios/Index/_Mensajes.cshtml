@@ -1,4 +1,4 @@
-﻿<div class="container" ng-controller="mensajesCtrl as vm">
+﻿<div ng-controller="mensajesCtrl as vm">
     <div class="row">
         <div class="col-md-12">
             <h3 class="text-center">Visor de sucesos</h3>
@@ -17,13 +17,13 @@
             {{vm.mensaje.mensajeDelProceso}}
         </h3>
         <ul>
-            <li ng-repeat="o in vm.mensaje.objetoDto track by $index">
+            <li ng-repeat="o in vm.logs.objetoDto track by $index">
                 {{o}}
             </li>
         </ul>
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.detalleEmpleado.mostrar">
-
+        @Html.Partial("Index/_Mensajes_Detalles")       
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
         <div class="alert alert-info">

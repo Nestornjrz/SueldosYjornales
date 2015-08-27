@@ -85,11 +85,29 @@
                 } else {
                     $scope.mensajeDelServidor = mensaje.mensajeDelProceso;
                 }
-                $rootScope.$broadcast('actualizarMensajes',$scope.mensaje);
+                $rootScope.$broadcast('actualizarLogs',$scope.mensaje);
+                $scope.recuperarDetalles();
             },
-          function (mensaje) {
-              $scope.mensajeDelServidor = mensaje.data.mensajeDelProceso;
-          });
+            function (mensaje) {
+                $scope.mensajeDelServidor = mensaje.data.mensajeDelProceso;
+            });
+        }
+
+        $scope.recuperarDetalles = function () {
+            sYjResource.liquidacionSalariosDetalles.save($scope.liqui)
+           .$promise.then(
+            function (mensaje) {
+                $scope.mensaje = mensaje;
+                if (!mensaje.error) {
+                    $scope.mensajeDelServidor = mensaje.mensajeDelProceso;
+                } else {
+                    $scope.mensajeDelServidor = mensaje.mensajeDelProceso;
+                }
+                $rootScope.$broadcast('actualizarDetalles', $scope.mensaje);
+            },
+            function (mensaje) {
+                $scope.mensajeDelServidor = mensaje.data.mensajeDelProceso;
+            });
         }
     }
 })();

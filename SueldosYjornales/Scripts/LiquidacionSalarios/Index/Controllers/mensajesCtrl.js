@@ -39,10 +39,21 @@
             vm.menu.detalleEmpleado = {};
         }
 
+        vm.getClassEmpleadoDet = function (detalle) {
+            if (detalle.liquidacionConcepto.liquidacionConceptoID == 5) {
+                return "resaltado";
+            }
+        }
 
-        $rootScope.$on('actualizarMensajes', function (event, objValRecibido) {
-            vm.mensaje = objValRecibido;
+
+        $rootScope.$on('actualizarLogs', function (event, objValRecibido) {
+            vm.logs = objValRecibido;
             vm.logsFn(null);
+        });
+
+        $rootScope.$on('actualizarDetalles', function (event, objValRecibido) {
+            vm.movimientos = objValRecibido;
+            vm.detalleEmpleadoFn(null);
         });
     }
 })();

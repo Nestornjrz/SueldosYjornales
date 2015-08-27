@@ -18,12 +18,14 @@
                 var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
                 var empleadosSegunUbicacionSucursal = $resource("@Href("~/api/Empleados/SegunUbicacionSucursal")");
                 var liquidacionSalarios = $resource("@Href("~/api/LiquidacionSalarios")");
+                var liquidacionSalariosDetalles = $resource("@Href("~/api/LiquidacionSalarios/Detalles")");
 
                 return {
                     "empleados": empleados,
                     "ubicacionSucUsuarios": ubicacionSucUsuarios,
                     "empleadosSegunUbicacionSucursal": empleadosSegunUbicacionSucursal,
-                    "liquidacionSalarios": liquidacionSalarios
+                    "liquidacionSalarios": liquidacionSalarios,
+                    "liquidacionSalariosDetalles": liquidacionSalariosDetalles
                 }
             }
         })();

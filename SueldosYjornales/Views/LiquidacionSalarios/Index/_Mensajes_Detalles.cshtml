@@ -1,0 +1,34 @@
+﻿<style type="text/css">
+    .resaltado{
+        background-color:#8097ef;
+        color:#000000;
+        font-weight:bold;
+    }
+    .titulo_resaltado{
+        background-color:#979090;
+    }
+</style>
+<pre>{{vm.movimientos.mensajeDelProceso}}</pre>
+<table class="table table-bordered table-condensed" ng-repeat="m in vm.movimientos.objetoDto">
+    <tr>
+        <th colspan="5">Numero de liquidacion de sueldo: {{m.movEmpleadoID}}</th>
+    </tr>
+    <tr>
+        <th colspan="5">Fecha la generacion de la liquidacion: {{m.fechaMovimiento | date:"dd/MM/yyyy"}}</th>
+    </tr>
+    <tr class="titulo_resaltado">
+        <th>Empleado</th>
+        <th>Concepto</th>
+        <th>Devito</th>
+        <th>Credito</th>
+        <th>Mes de aplicacion</th>
+    </tr>
+    <tr ng-repeat="d in m.movEmpleadosDets" ng-class="vm.getClassEmpleadoDet(d)">
+        <td>{{d.empleado.nombres}} {{d.empleado.apellidos}}</td>
+        <td>{{d.liquidacionConcepto.nombreConcepto}}</td>
+        <td class="text-right">{{d.devito | currency:"":0}}</td>
+        <td class="text-right">{{d.credito | currency:"":0}}</td>
+        <td>{{d.mesAplicacion | date:"MMMM/yyyy":'UTC'}}</td>
+    </tr>
+</table>
+<pre>{{vm.movimientos | json}}</pre>

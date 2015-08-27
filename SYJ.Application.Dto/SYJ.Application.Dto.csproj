@@ -63,7 +63,10 @@
     <Compile Include="HistoricoIngresoSalidaDto.cs" />
     <Compile Include="HistoricoSalarioDto.cs" />
     <Compile Include="HistoricoSucursaleDto.cs" />
+    <Compile Include="LiquidacionConceptoDto.cs" />
     <Compile Include="MensajeDto.cs" />
+    <Compile Include="MovEmpleadoDetDto.cs" />
+    <Compile Include="MovEmpleadoDto.cs" />
     <Compile Include="NacionalidadeDto.cs" />
     <Compile Include="PrestamoSimpleDto.cs" />
     <Compile Include="ProfesioneDto.cs" />
