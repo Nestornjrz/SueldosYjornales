@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
@@ -32,12 +31,13 @@
     @*controladores*@
     <script src="~/Scripts/LiquidacionSalarios/Index/Controllers/menuCtrl.js"></script>
     <script src="~/Scripts/LiquidacionSalarios/Index/Controllers/listadoEmpleadosCtrl.js"></script>
+    <script src="~/Scripts/LiquidacionSalarios/Index/Controllers/mensajesCtrl.js"></script>
 }
 <div class="row" style="margin-top:25px;" ng-controller="menuCtrl" ng-cloak>
     <div class="col-md-5">
         @Html.Partial("Index/_ListadoEmpleados")
     </div>
     <div class="col-md-7">
-
+        @Html.Partial("Index/_Mensajes")
     </div>
 </div>

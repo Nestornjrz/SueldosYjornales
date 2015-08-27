@@ -16,8 +16,8 @@ namespace SYJ.Domain.Db
     {
         public MovEmpleado()
         {
-            this.MovEmpleadosDets = new HashSet<MovEmpleadosDet>();
             this.PrestamosSimples = new HashSet<PrestamosSimple>();
+            this.MovEmpleadosDets = new HashSet<MovEmpleadosDet>();
         }
     
         public long MovEmpleadoID { get; set; }
@@ -26,7 +26,7 @@ namespace SYJ.Domain.Db
         public long UsuarioID { get; set; }
         public System.DateTime MomentoCarga { get; set; }
     
-        public virtual ICollection<MovEmpleadosDet> MovEmpleadosDets { get; set; }
         public virtual ICollection<PrestamosSimple> PrestamosSimples { get; set; }
+        public virtual ICollection<MovEmpleadosDet> MovEmpleadosDets { get; set; }
     }
 }

@@ -44,7 +44,7 @@
 
         $rootScope.$on('actualizarPrestamoSimple', function (event, objValRecibido) {
             vm.prestamosSimple = objValRecibido;
-            vm.prestamosSimple.fechaPrestamo = new Date(objValRecibido.fechaPrestamo);
+            vm.prestamosSimple.fecha1erVencimiento = new Date(objValRecibido.fecha1erVencimiento);
         });
     }
 })();

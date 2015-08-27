@@ -258,5 +258,9 @@ namespace SYJ.Domain.Managers {
                 return listadoFiltrado;
             }
         }
+
+        public MensajeDto DetalleLiquidacion(EmpleadoDto eDto, Guid userID) {
+            throw new NotImplementedException();
+        }
     }
 }

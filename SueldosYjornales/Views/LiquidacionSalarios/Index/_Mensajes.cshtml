@@ -1,0 +1,33 @@
+﻿<div class="container" ng-controller="mensajesCtrl as vm">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center">Visor de sucesos</h3>
+        </div>
+    </div>
+    <ul class="nav nav-tabs" style="margin-top:2px;">
+        <li role="presentation" class="{{vm.menu.logs.class}}">
+            <a href="#" ng-click="vm.logsFn($event)">Logs de sucesos</a>
+        </li>
+        <li role="presentation" class="{{vm.menu.detalleEmpleado.class}}">
+            <a href="#" ng-click="vm.detalleEmpleadoFn($event)">Detalles empleado</a>
+        </li>
+    </ul>
+    <div style="margin-top:25px;" ng-show="vm.menu.logs.mostrar">
+        <h3>
+            {{vm.mensaje.mensajeDelProceso}}
+        </h3>
+        <ul>
+            <li ng-repeat="o in vm.mensaje.objetoDto track by $index">
+                {{o}}
+            </li>
+        </ul>
+    </div>
+    <div style="margin-top:25px;" ng-show="vm.menu.detalleEmpleado.mostrar">
+
+    </div>
+    <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
+        <div class="alert alert-info">
+            Ningun suceso realizado
+        </div>
+    </div>
+</div>

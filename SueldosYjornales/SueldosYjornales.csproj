@@ -1090,6 +1090,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\LiquidacionSalarios\Index\Controllers\listadoEmpleadosCtrl.js" />
+    <Content Include="Scripts\LiquidacionSalarios\Index\Controllers\mensajesCtrl.js" />
     <Content Include="Scripts\LiquidacionSalarios\Index\Controllers\menuCtrl.js" />
     <Content Include="Scripts\LiquidacionSalarios\Index\Services\common.services.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -1204,6 +1205,7 @@
     <Content Include="Views\Empleados\Details\_PrestamosSimples.cshtml" />
     <Content Include="Views\LiquidacionSalarios\Index.cshtml" />
     <Content Include="Views\LiquidacionSalarios\Index\_ListadoEmpleados.cshtml" />
+    <Content Include="Views\LiquidacionSalarios\Index\_Mensajes.cshtml" />
     <None Include="Web.ProduccionRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

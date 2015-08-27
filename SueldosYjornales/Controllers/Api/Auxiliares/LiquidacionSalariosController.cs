@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
+using SYJ.Application.Dto.Auxiliares;
 
 namespace SueldosYjornales.Controllers.Api.Auxiliares
 {
@@ -25,11 +26,11 @@ namespace SueldosYjornales.Controllers.Api.Auxiliares
         }
 
         // POST: api/LiquidacionSalarios
-        public HttpResponseMessage Post(int[] empleadosSeleccionados)
+        public HttpResponseMessage Post(FormLiquidacionDto fldto)
         {
-            LiquidacionSalariosManagers lsm = new LiquidacionSalariosManagers();
-            MensajeDto mensaje = lsm.GenerarLiquidacionSalario(empleadosSeleccionados,
+            LiquidacionSalariosManagers lsm = new LiquidacionSalariosManagers(fldto,
                 Guid.Parse(User.Identity.GetUserId()));
+            MensajeDto mensaje = lsm.GenerarLiquidacionesSalarios();
             return Request.CreateResponse(HttpStatusCode.Created, mensaje);
         }
 

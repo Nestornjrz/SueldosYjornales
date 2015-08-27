@@ -11,7 +11,8 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 	DECLARE @Monto money, @NroCuotas int, @Fecha1erVencimiento DateTime, @UsuarioID BigInt, 
-	        @EmpleadoID BigInt, @PrestamoSimpleID BigInt, @GenerarDevitoSn Bit
+	        @EmpleadoID BigInt, @PrestamoSimpleID BigInt, @GenerarDevitoSn Bit,
+			@MovEmpleadoID BigInt = null
 	
 	SELECT @PrestamoSimpleID = PrestamoSimpleID,
 	       @EmpleadoID = EmpleadoID,
@@ -19,19 +20,19 @@ BEGIN
 	       @NroCuotas = Cuotas,
 		   @Fecha1erVencimiento = Fecha1erVencimiento,
 		   @UsuarioID = UsuarioID,
-		   @GenerarDevitoSn = GenerarDevitoSn
+		   @GenerarDevitoSn = GenerarDevitoSn,
+		   @MovEmpleadoID = MovEmpleadoID
     FROM inserted
 
-	IF UPDATE(GenerarDevitoSn) and @GenerarDevitoSn = 1
+	IF UPDATE(GenerarDevitoSn) and @GenerarDevitoSn = 1 and ISNULL(@MovEmpleadoID,1) = 1 
 	BEGIN
-		--Se carga la cabecera de los movimientos
-		DECLARE @MovEmpleadoID bigint
-											INSERT INTO [Sj].[MovEmpleados]
+		--Se carga la cabecera de los movimientos		
+		INSERT INTO [Sj].[MovEmpleados]
            ([FechaMovimiento]
            ,[Descripcion]
            ,[UsuarioID]
            ,[MomentoCarga])
-     VALUES
+        VALUES
            (GETDATE()
            ,'Generacion Automatica del devito por prestamo'
            ,@UsuarioID
@@ -44,26 +45,25 @@ BEGIN
 
 		SET @FechaVencimiento = @Fecha1erVencimiento
 		WHILE @cnt < @NroCuotas
-																				BEGIN
-	   INSERT INTO [Sj].[MovEmpleadosDets]
-           ([MovEmpleadoID]
-           ,[EmpleadoID]
-           ,[DevCred]
-           ,[Monto]
-           ,[MesAplicacion]
-           ,[LiquidacionConceptoID])
-       VALUES
-           (@MovEmpleadoID
-           ,@EmpleadoID
-           ,1--Devito
-           ,@MontoCuota
-           ,@FechaVencimiento
-           ,4)--Concepto de Prestamo
-
-	   --Se agrega un mes a en cada loop
-	   SET @FechaVencimiento = DATEADD(MONTH,1,@FechaVencimiento)
-	   SET @cnt = @cnt + 1;
-	END;
+		BEGIN
+		   INSERT INTO [Sj].[MovEmpleadosDets]
+			   ([MovEmpleadoID]
+			   ,[EmpleadoID]
+			   ,[DevCred]
+			   ,[Monto]
+			   ,[MesAplicacion]
+			   ,[LiquidacionConceptoID])
+		   VALUES
+			   (@MovEmpleadoID
+			   ,@EmpleadoID
+			   ,1--Devito
+			   ,@MontoCuota
+			   ,@FechaVencimiento
+			   ,4)--Concepto de Prestamo
+		   --Se agrega un mes a en cada loop
+		   SET @FechaVencimiento = DATEADD(MONTH,1,@FechaVencimiento)
+		   SET @cnt = @cnt + 1;
+	    END;
 		--Se marca la tabla PrestamosSimples para saber que MovEmpleadoID se genero
 		-- al realizar el devito
 		UPDATE [Sj].[PrestamosSimples]

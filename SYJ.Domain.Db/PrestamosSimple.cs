@@ -23,6 +23,7 @@ namespace SYJ.Domain.Db
         public Nullable<long> MovEmpleadoID { get; set; }
         public long UsuarioID { get; set; }
         public System.DateTime MomentoCarga { get; set; }
+        public Nullable<bool> GenerarDevitoSn { get; set; }
     
         public virtual Empleado Empleado { get; set; }
         public virtual MovEmpleado MovEmpleado { get; set; }

@@ -15,7 +15,7 @@ namespace SYJ.Domain.Db
     public partial class MovEmpleadosDet
     {
         public long MovEmpleadoDetID { get; set; }
-        public long LiquidacionEmpleadoID { get; set; }
+        public long MovEmpleadoID { get; set; }
         public long EmpleadoID { get; set; }
         public bool DevCred { get; set; }
         public decimal Monto { get; set; }

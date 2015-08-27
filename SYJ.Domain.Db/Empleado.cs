@@ -26,8 +26,8 @@ namespace SYJ.Domain.Db
             this.Anticipos = new HashSet<Anticipos>();
             this.HistoricoSalarios = new HashSet<HistoricoSalario>();
             this.Imagenes = new HashSet<Imagene>();
-            this.MovEmpleadosDets = new HashSet<MovEmpleadosDet>();
             this.PrestamosSimples = new HashSet<PrestamosSimple>();
+            this.MovEmpleadosDets = new HashSet<MovEmpleadosDet>();
         }
     
         public long EmpleadoID { get; set; }
@@ -59,7 +59,7 @@ namespace SYJ.Domain.Db
         public virtual ICollection<Anticipos> Anticipos { get; set; }
         public virtual ICollection<HistoricoSalario> HistoricoSalarios { get; set; }
         public virtual ICollection<Imagene> Imagenes { get; set; }
-        public virtual ICollection<MovEmpleadosDet> MovEmpleadosDets { get; set; }
         public virtual ICollection<PrestamosSimple> PrestamosSimples { get; set; }
+        public virtual ICollection<MovEmpleadosDet> MovEmpleadosDets { get; set; }
     }
 }
