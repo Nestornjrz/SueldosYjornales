@@ -302,14 +302,17 @@ namespace SYJ.Domain.Managers.Auxiliares {
 
             ///IPS
             ///Se calcula dentro del objeto DatosEmpleado, OJO cargar primero el sueldo base y la comision
-            movEmpleadoDet = new MovEmpleadosDet();
-            CargarDatosComunes(de, movEmpleado, movEmpleadoDet);
-            movEmpleadoDet.LiquidacionConceptoID = (int)LiquidacionConceptos.Ips;
-            movEmpleadoDet.DevCred = DevCred.Devito;
-            movEmpleadoDet.Monto = de.Ips;
-            if (movEmpleadoDet.Monto > 0) {
-                if (!SeCargoMovEmpleadosDetsSn(movEmpleadoDet, mensajeDto, de, "I.P.S.")) { return; };
-                _Mensajes.Add("Se Cargo correctamente el IPS de " + nombre);
+            //Se calcula si tiene ips o no
+            if (de.Empleado.TieneIpsSn) {
+                movEmpleadoDet = new MovEmpleadosDet();
+                CargarDatosComunes(de, movEmpleado, movEmpleadoDet);
+                movEmpleadoDet.LiquidacionConceptoID = (int)LiquidacionConceptos.Ips;
+                movEmpleadoDet.DevCred = DevCred.Devito;
+                movEmpleadoDet.Monto = de.Ips;
+                if (movEmpleadoDet.Monto > 0) {
+                    if (!SeCargoMovEmpleadosDetsSn(movEmpleadoDet, mensajeDto, de, "I.P.S.")) { return; };
+                    _Mensajes.Add("Se Cargo correctamente el IPS de " + nombre);
+                }
             }
 
             ///Se carga el TOTAL PAGADO
@@ -454,6 +457,11 @@ namespace SYJ.Domain.Managers.Auxiliares {
             }
             return resul;
         }
+        /// <summary>
+        /// Aqui se recupera el sueldo, el cargo y tambien si tiene o no IPS
+        /// </summary>
+        /// <param name="de"></param>
+        /// <returns></returns>
         private decimal RecuperarSueldo(DatosEmpleado de) {
             var nombre = "(" + de.Empleado.Nombres + " " + de.Empleado.Apellidos + ") ";
 
@@ -465,6 +473,8 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 return 0;
             }
             _Mensajes.Add(nombre + mensaje.MensajeDelProceso);
+            var historicoSalarioDto = (HistoricoSalarioDto)mensaje.ObjetoDto;
+            de.Empleado.TieneIpsSn = historicoSalarioDto.Ips_Sn;
             return decimal.Parse(mensaje.Valor);
         }
         #endregion
@@ -499,7 +509,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
             public decimal Ips {
                 get {
                     return ((this.SueldoBase + this.Comisiones.Sum()) / 100) * 9;
-                }                
+                }
             }
             public List<decimal> Comisiones { get; set; }
             public List<decimal> Anticipos { get; set; }

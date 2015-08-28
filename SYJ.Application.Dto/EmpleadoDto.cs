@@ -21,6 +21,7 @@ namespace SYJ.Application.Dto {
         #region auxiliares
         public SucursaleDto Sucursale { get; set; }
         public CargoDto Cargo { get; set; }
+        public bool TieneIpsSn { get; set; }
         #endregion
     }
 }
