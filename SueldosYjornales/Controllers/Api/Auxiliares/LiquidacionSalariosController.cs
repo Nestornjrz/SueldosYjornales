@@ -11,6 +11,7 @@ using SYJ.Application.Dto.Auxiliares;
 
 namespace SueldosYjornales.Controllers.Api.Auxiliares
 {
+    [Authorize(Roles = "LiquidadorSalario")]
     public class LiquidacionSalariosController : ApiController
     {
         // GET: api/LiquidacionSalarios

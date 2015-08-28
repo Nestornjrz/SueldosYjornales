@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace SueldosYjornales.Controllers.Api
 {
+    [Authorize]
     public class TipoImagenesController : ApiController
     {
         // GET: api/TipoImagenes

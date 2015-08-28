@@ -1,6 +1,6 @@
 ﻿/*
 Created: 15/06/2015
-Modified: 25/08/2015
+Modified: 28/08/2015
 Model: Sueldos y Jornales
 Database: MS SQL Server 2014
 */
@@ -400,8 +400,11 @@ CREATE TABLE [Sj].[Comisiones]
  [MontoComision] Money NOT NULL,
  [Observacion] Text NOT NULL,
  [UsuarioID] Bigint NOT NULL,
- [MomentoCarga] Datetime2 NOT NULL
+ [MomentoCarga] Datetime2 NOT NULL,
+ [CreditoGeneradoSn] Bit DEFAULT 0 NULL
 )
+go
+EXEC sp_addextendedproperty 'MS_Description', 'Este es el credito que se genera al hacer correr la liquidacion de salarios', 'SCHEMA', 'Sj', 'TABLE', 'Comisiones', 'COLUMN', 'CreditoGeneradoSn'
 go
 
 -- Create indexes for table Sj.Comisiones
@@ -453,8 +456,11 @@ CREATE TABLE [Sj].[Anticipos]
  [MontoAnticipo] Money NOT NULL,
  [Observacion] Text NULL,
  [UsuarioID] Bigint NOT NULL,
- [MomentoCarga] Datetime2 NOT NULL
+ [MomentoCarga] Datetime2 NOT NULL,
+ [DevitoGeneradoSn] Bit DEFAULT 0 NULL
 )
+go
+EXEC sp_addextendedproperty 'MS_Description', 'Este es el devito generado por la liquidacion de salarios, se marca con 1 cuando se genera.', 'SCHEMA', 'Sj', 'TABLE', 'Anticipos', 'COLUMN', 'DevitoGeneradoSn'
 go
 
 -- Create indexes for table Sj.Anticipos
@@ -626,7 +632,9 @@ INSERT INTO [Sj].[LiquidacionConceptos]
            ([LiquidacionConceptoID]
            ,[NombreConcepto])
      VALUES
-           (1,'Sueldo Base'),(2,'Comision'),(3,'Anticipo'),(4,'Prestamo'),(5,'Total Pagado')
+           (1,'Sueldo Base'),(2,'Comisiones'),(3,'Anticipos'),(4,'Prestamos'),(5,'Total Pagado'),
+           (6,'I.P.S.')
+           
 
 -- Add keys for table Sj.LiquidacionConceptos
 

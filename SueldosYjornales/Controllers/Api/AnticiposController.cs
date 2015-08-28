@@ -8,13 +8,11 @@ using System.Net.Http;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 
-namespace SueldosYjornales.Controllers.Api
-{
-    public class AnticiposController : ApiController
-    {
+namespace SueldosYjornales.Controllers.Api {
+    [Authorize]
+    public class AnticiposController : ApiController {
         // GET: api/Anticipos
-        public IEnumerable<string> Get()
-        {
+        public IEnumerable<string> Get() {
             return new string[] { "value1", "value2" };
         }
 
@@ -35,27 +33,23 @@ namespace SueldosYjornales.Controllers.Api
         }
 
         // GET: api/Anticipos/5
-        public string Get(int id)
-        {
+        public string Get(int id) {
             return "value";
         }
 
         // POST: api/Anticipos
-        public HttpResponseMessage Post(AnticipoDto aDto)
-        {
+        public HttpResponseMessage Post(AnticipoDto aDto) {
             AnticiposManagers am = new AnticiposManagers();
             MensajeDto mensaje = am.CargarAnticipo(aDto, Guid.Parse(User.Identity.GetUserId()));
             return Request.CreateResponse(HttpStatusCode.Created, mensaje);
         }
 
         // PUT: api/Anticipos/5
-        public void Put(int id, [FromBody]string value)
-        {
+        public void Put(int id, [FromBody]string value) {
         }
 
         // DELETE: api/Anticipos/5
-        public HttpResponseMessage Delete(int id)
-        {
+        public HttpResponseMessage Delete(int id) {
             AnticiposManagers am = new AnticiposManagers();
             MensajeDto mensaje = am.EliminarAnticipo(id);
             return Request.CreateResponse(HttpStatusCode.Created, mensaje);

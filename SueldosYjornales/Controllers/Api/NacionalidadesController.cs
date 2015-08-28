@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace SueldosYjornales.Controllers.Api
 {
+    [Authorize]
     public class NacionalidadesController : ApiController
     {
         // GET: api/Nacionalidades

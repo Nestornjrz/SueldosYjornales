@@ -14,6 +14,7 @@ using System.Drawing.Imaging;
 using System.Net.Http.Headers;
 
 namespace SueldosYjornales.Controllers.Api {
+    [Authorize]
     public class ImagenesController : ApiController {
         // GET: api/Imagenes
         [HttpGet]

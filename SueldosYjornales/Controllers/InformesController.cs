@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace SueldosYjornales.Controllers {
-    [Authorize]
+    [Authorize(Roles = "Padrones,Operador,Admin,Supervisor,LiquidadorSalario")]
     public class InformesController : Controller {
         // GET: Informes
         public ActionResult Index() {

@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity;
 
 namespace SueldosYjornales.Controllers.Api
 {
+    [Authorize]
     public class ComisionesController : ApiController
     {
         // GET: api/Comisiones

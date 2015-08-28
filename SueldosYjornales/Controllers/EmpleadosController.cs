@@ -4,14 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SueldosYjornales.Controllers
-{
-    [Authorize]
-    public class EmpleadosController : Controller
-    {
+namespace SueldosYjornales.Controllers {
+    [Authorize(Roles = "Padrones,Operador,Admin,Supervisor,LiquidadorSalario")]
+    public class EmpleadosController : Controller {
         // GET: Empleados
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             return View();
         }
 

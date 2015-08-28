@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Web.Http;
 
 namespace SueldosYjornales.Controllers.Api {
+    [Authorize(Roles = "Padrones,Admin")]
     public class UsuariosController : ApiController {
         // GET: api/Usuarios
         public HttpResponseMessage Get() {

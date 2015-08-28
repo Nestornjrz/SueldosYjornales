@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Web.Http;
 
 namespace SueldosYjornales.Controllers.Api {
+    [Authorize]
     public class ProfesionesController : ApiController {
         // GET: api/Profesiones
         public HttpResponseMessage Get() {

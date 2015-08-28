@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace SueldosYjornales.Controllers
 {
+     [Authorize(Roles = "LiquidadorSalario")]
     public class LiquidacionSalariosController : Controller
     {
         // GET: LiquidacionSalarios
