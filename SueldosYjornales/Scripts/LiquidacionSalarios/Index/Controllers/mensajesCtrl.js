@@ -55,5 +55,11 @@
             vm.movimientos = objValRecibido;
             vm.detalleEmpleadoFn(null);
         });
+
+        $rootScope.$on('formLiquidacionSalario', function (event, objValRecibido) {
+            vm.formLiquidacionSalario = objValRecibido;
+            var json = angular.toJson(vm.formLiquidacionSalario);
+            $('#jsonInput').val(json);
+        });
     }
 })();

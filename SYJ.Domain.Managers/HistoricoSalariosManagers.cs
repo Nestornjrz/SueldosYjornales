@@ -126,7 +126,7 @@ namespace SYJ.Domain.Managers {
             }
         }
 
-        public MensajeDto SalarioActual(long empleadoID) {
+        public MensajeDto SalarioYCargoActual(long empleadoID) {
             using (var context = new SueldosJornalesEntities()) {
                 var salarioActualDb = context.HistoricoSalarios
                     .Where(h=>h.EmpleadoID == empleadoID)

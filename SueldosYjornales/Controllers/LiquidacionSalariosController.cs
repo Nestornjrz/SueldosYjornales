@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using SYJ.Application.Dto.Auxiliares;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +13,11 @@ namespace SueldosYjornales.Controllers
         // GET: LiquidacionSalarios
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult ImpresionLiqSalarios(string jsonInput) {
+            ViewBag.flDto = jsonInput;
             return View();
         }
     }

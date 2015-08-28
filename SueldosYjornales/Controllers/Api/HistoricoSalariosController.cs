@@ -32,7 +32,7 @@ namespace SueldosYjornales.Controllers.Api
         [Route("api/HistoricoSalarios/SalarioActual")]
         public HttpResponseMessage GetSalarioActual(long empleadoID) {
             HistoricoSalariosManagers hsm = new HistoricoSalariosManagers();
-            MensajeDto mensaje = hsm.SalarioActual(empleadoID);
+            MensajeDto mensaje = hsm.SalarioYCargoActual(empleadoID);
             return Request.CreateResponse(HttpStatusCode.Created, mensaje);
         }
 

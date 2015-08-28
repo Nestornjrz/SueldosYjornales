@@ -60,7 +60,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
             MensajeDto mensajeCargo = null;
             string mensaje = "";
             empleadosSegunSucursal.ForEach(delegate(EmpleadoDto e) {
-                mensajeCargo = hsm.SalarioActual(e.EmpleadoID);
+                mensajeCargo = hsm.SalarioYCargoActual(e.EmpleadoID);
                 if (mensajeCargo.Error) {
                     mensaje += mensajeCargo.MensajeDelProceso;
                 } else {
@@ -76,7 +76,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
             string mensajeString = "ok";
             HistoricoSalariosManagers hsm = new HistoricoSalariosManagers();
 
-            MensajeDto mensaje = hsm.SalarioActual(e.EmpleadoID);
+            MensajeDto mensaje = hsm.SalarioYCargoActual(e.EmpleadoID);
             if (mensaje.Error) {
                 lsDto.SalarioBase = 0;
                 return mensaje.MensajeDelProceso;

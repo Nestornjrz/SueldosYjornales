@@ -104,6 +104,7 @@
                     $scope.mensajeDelServidor = mensaje.mensajeDelProceso;
                 }
                 $rootScope.$broadcast('actualizarDetalles', $scope.mensaje);
+                $rootScope.$broadcast('formLiquidacionSalario', $scope.liqui);
             },
             function (mensaje) {
                 $scope.mensajeDelServidor = mensaje.data.mensajeDelProceso;

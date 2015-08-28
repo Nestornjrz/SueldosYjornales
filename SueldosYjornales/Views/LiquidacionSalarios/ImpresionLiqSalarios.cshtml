@@ -1,0 +1,231 @@
+﻿@{
+    ViewBag.Title = "LiquidacionSueldo";
+    string flDto = ViewBag.flDto;
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Informe liquidacion de sueldos</title>
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-resource.min.js"></script>
+    <script src="~/Scripts/i18n/angular-locale_es-py.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="~/Scripts/underscore.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script src="~/Scripts/LiquidacionSalarios/ImpresionLiqSalarios/Services/common.services.js"></script>    
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            angular
+                .module('sueldosYjornalesApp')
+                .factory('sYjResource', sYjResource);
+
+            sYjResource.$inject = ['$resource'];
+
+            function sYjResource($resource) {
+                var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
+                var liquidacionSalariosParaImprimir = $resource("@Href("~/api/LiquidacionSalarios/ParaImprimir")");
+                return {
+                    "ubicacionSucUsuarios": ubicacionSucUsuarios,
+                    "liquidacionSalariosParaImprimir": liquidacionSalariosParaImprimir
+                }
+            }
+        })();
+    </script>
+    @*controladores*@
+    <script src="~/Scripts/LiquidacionSalarios/ImpresionLiqSalarios/Controllers/liquidacionSalarioInfoCtrl.js"></script>
+    <style type="text/css" media="screen">
+        .pagina {
+            border: 1px solid red;
+        }
+    </style>
+    <style type="text/css" media="all">
+        @@page {
+            size: letter portrait;
+            margin: 0 10% 10% 10%;
+        }
+
+        .pagina {
+            page-break-after: always;
+            page-break-before: avoid;
+            height: 27.9cm;
+            width: 21.6cm;
+            padding: 2px;
+        }
+
+        .linea {
+            /*border: 1px solid red;*/
+        }
+
+        .titulo {
+            text-align: center;
+            float: left;
+        }
+
+            .titulo h1 {
+                font-size: 24px;
+                margin-top: 50px;
+            }
+
+            .titulo table {
+                border: 1px solid #000000;
+                -ms-align-content: center;
+                -webkit-align-content: center;
+                align-content: center;
+                margin: auto;
+            }
+
+                .titulo table th {
+                    border: 1px solid #000000;
+                    padding: 2px;
+                    background-color: #a58989;
+                }
+
+                .titulo table td {
+                    border: 1px solid #000000;
+                    padding: 2px;
+                    min-width: 150px;
+                }
+
+        .row_encabezado {
+            /*border: 1px solid #000000;*/
+            height: 160px;
+        }
+
+        .row_datos {
+            /*border: 1px solid #000000;*/
+        }
+
+            .row_datos table th {
+                text-align: left;
+            }
+
+            .row_datos table td {
+                text-align: left;
+            }
+
+        .row_datos2 {
+            /*border: 1px solid #000000;*/
+            margin-top: 25px;
+        }
+
+            .row_datos2 table {
+                font-size: 12px;
+            }
+
+                .row_datos2 table th {
+                    border: 1px solid black;
+                }
+
+                .row_datos2 table td {
+                    border: 1px solid black;
+                }
+
+        .row_firma {
+            margin-top: 50px;
+            padding-right: 50px;
+            height: 120px;
+        }
+
+            .row_firma table th, td {
+                text-align: center;
+            }
+
+        .contenedor_imagen {
+            width: 400px;
+        }
+    </style>
+</head>
+
+<body ng-app="sueldosYjornalesApp">
+    <div ng-controller="liquidacionSalarioInfoCtrl as vm" ng-init="vm.flDto = '@flDto'">
+        <div class="pagina" ng-repeat="l in vm.listLiquidaciones">
+            <div ng-repeat="r in vm.repeticion">
+                <div class="row_encabezado">
+                    <div style="float:left;" class="linea contenedor_imagen">
+                        <img width="300" height="150" src="~/Images/la aragonesa sa-02.jpg" />
+                    </div>
+                    <div class="linea titulo">
+                        <h1>LIQUIDACION DE SALARIOS</h1>
+                        <table>
+                            <tr>
+                                <th>C.COSTO</th>
+                                <td style="width:100px;">{{l.empleado.sucursale.nombreSucursal}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row_datos">
+                    <table>
+                        <tr>
+                            <th>EMPLEADO</th>
+                            <td>{{l.empleado.nombres}} {{l.empleado.apellidos}}</td>
+                        </tr>
+                        <tr>
+                            <th>CARGO</th>
+                            <td>{{l.empleado.cargo.nombreCargo}}</td>
+                        </tr>
+                        <tr>
+                            <th>FECHA</th>
+                            <td>{{l.ultimoDiaPeriodo | date:"dd/MM/yyyy":"UTC"}}</td>
+                            <td style="width:100px;"></td>
+                            <th>PERIODO</th>
+                            <td style="font-size:24px;text-align:right;text-transform:uppercase;">{{l.periodo | date:"MMMM/yyyy"}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row_datos2">
+                    <table>
+                        <tr>
+                            <th rowspan="2">DIAS TRAB.</th>
+                            <th rowspan="2">SALARIO BASICO</th>
+                            <th rowspan="2">SUB TOTAL INGRESOS</th>
+                            <th rowspan="2">COMISIONES</th>
+                            <th rowspan="2">TOTAL INGRESOS</th>
+                            <th colspan="2">DESCUENTOS</th>
+                            <th rowspan="2">TOTAL DESC. GS.</th>
+                            <th rowspan="2">NETO A COBRAR GS.</th>
+                        </tr>
+                        <tr>
+                            <th>I.P.S.</th>
+                            <th>OTROS</th>
+                        </tr>
+                        <tr style="height:40px;">
+                            <td>{{l.diasTrabajados}}</td>
+                            <td>{{l.salarioBase | currency:"":0}}</td>
+                            <td>{{l.subTotalIngresos | currency:"":0}}</td>
+                            <td>{{l.comisiones | currency:"":0}}</td>
+                            <td>{{l.totalIngreso | currency:"":0}}</td>
+                            <td>{{l.descIPS | currency:"":0}}</td>
+                            <td>{{l.descOtros | currency:"":0}}</td>
+                            <td>{{l.totalDescuentos | currency:"":0}}</td>
+                            <td>{{l.netoAcobrar | currency:"":0}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row_firma">
+                    <div style="float:right;">
+                        <table>
+                            <tr>
+                                <td colspan="2" style="border-top: 1px dotted black;">Firma del empleado</td>
+                            </tr>
+                            <tr>
+                                <td>C.I.:</td>
+                                <td>{{l.empleado.nroCedula}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @*<pre>{{vm.listLiquidaciones | json}}</pre>*@
+            @*<pre>{{vm.lsfDto | json}}</pre>
+                <pre>{{vm.lsfDto.Mes.MesID}}</pre>*@
+        </div>
+    </div>
+</body>
+</html>
