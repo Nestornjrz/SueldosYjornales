@@ -94,7 +94,7 @@
 
         .row_encabezado {
             /*border: 1px solid #000000;*/
-            height: 160px;
+            height: 180px;
         }
 
         .row_datos {
@@ -137,6 +137,7 @@
             }
 
         .contenedor_imagen {
+            padding-top:10px;
             width: 400px;
         }
     </style>
@@ -175,7 +176,7 @@
                             <td>{{l.ultimoDiaPeriodo | date:"dd/MM/yyyy":"UTC"}}</td>
                             <td style="width:100px;"></td>
                             <th>PERIODO</th>
-                            <td style="font-size:24px;text-align:right;text-transform:uppercase;">{{l.periodo | date:"MMMM/yyyy"}}</td>
+                            <td style="font-size:24px;text-align:right;text-transform:uppercase;">{{l.periodo | date:"MMMM/yyyy":"UTC"}}</td>
                         </tr>
                     </table>
                 </div>
@@ -216,7 +217,7 @@
                             </tr>
                             <tr>
                                 <td>C.I.:</td>
-                                <td>{{l.empleado.nroCedula}}</td>
+                                <td>{{l.empleado.nroCedula | currency:"":0}}</td>
                             </tr>
                         </table>
                     </div>

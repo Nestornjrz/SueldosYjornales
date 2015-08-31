@@ -16,7 +16,9 @@ namespace SYJ.Domain.Managers {
                         CargoID = s.CargoID,
                         NombreCargo = s.NombreCargo,
                         Abreviatura = s.Abreviatura
-                    }).ToList();
+                    })
+                    .OrderBy(o=>o.NombreCargo)
+                    .ToList();
                 return listado;
             }
         }

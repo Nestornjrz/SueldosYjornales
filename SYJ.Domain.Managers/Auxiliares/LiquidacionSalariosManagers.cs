@@ -122,7 +122,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     lsDto.NetoAcobrar = lsDto.TotalIngreso - lsDto.TotalDescuentos;
                     //----periodo------------------
                     var mesAplicacion = itemMov.MovEmpleadosDets
-                        .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)LiquidacionConceptos.Anticipo)
+                        .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)LiquidacionConceptos.SueldoBase)
                         .First().MesAplicacion;
 
                     var periodo = mesAplicacion;

@@ -56,6 +56,7 @@
             <p><b>Direccion:</b> {{vm.direccion.objetoDto.direccion}}</p>
             <p><b>Salario base:</b> {{vm.salarioYcargo.objetoDto.monto | currency:"Gs":0}}</p>
             <p><b>Cargo:</b> {{vm.salarioYcargo.objetoDto.cargo.nombreCargo}}</p>
+            <p><b>Observacion:</b>{{vm.salarioYcargo.objetoDto.observacion}}</p>
             <p>
                 <b>¿Tiene IPS?</b>
                 <span ng-show="vm.salarioYcargo.objetoDto.ips_Sn == true">SI</span>
