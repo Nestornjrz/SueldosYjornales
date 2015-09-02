@@ -10,13 +10,13 @@ BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
-	DECLARE @Monto money, @NroCuotas int, @Fecha1erVencimiento DateTime, @UsuarioID BigInt, 
+	DECLARE @MontoTotalPrestamo money, @NroCuotas int, @Fecha1erVencimiento DateTime, @UsuarioID BigInt, 
 	        @EmpleadoID BigInt, @PrestamoSimpleID BigInt, @GenerarDevitoSn Bit,
 			@MovEmpleadoID BigInt = null
 	
 	SELECT @PrestamoSimpleID = PrestamoSimpleID,
 	       @EmpleadoID = EmpleadoID,
-	       @Monto = Monto,
+	       @MontoTotalPrestamo = Monto,
 	       @NroCuotas = Cuotas,
 		   @Fecha1erVencimiento = Fecha1erVencimiento,
 		   @UsuarioID = UsuarioID,
@@ -54,12 +54,39 @@ BEGIN
 			RETURN
 		END
 		--Se carga los detalles del movimiento
-		DECLARE @MontoCuota money, @cnt int = 0, @FechaVencimiento DateTime
-		SET @MontoCuota = @Monto / @NroCuotas
-
-		SET @FechaVencimiento = @Fecha1erVencimiento
-		WHILE @cnt < @NroCuotas
+		DECLARE @MontoCuota money, @FechaVencimiento DateTime, @CantidadVesesEntra100mil int = 0,
+		        @MontoCuotaRedondeada int = 0, @MontoTotalMenosUltimaCuota int = 0, @MontoUltimaCuota int = 0
+		DECLARE @MontoCuotaAinsertar int = 0, @contador int = 1
+		SET @MontoCuota = @MontoTotalPrestamo / @NroCuotas
+		
+		IF @MontoCuota > 100000
 		BEGIN
+		    --Se calcula un monto de la cuota redondeada
+			SET @CantidadVesesEntra100mil = @MontoCuota / 100000
+			SET @MontoCuotaRedondeada = 100000 * @CantidadVesesEntra100mil
+			--Se calcula la ultima cuota
+			SET @MontoTotalMenosUltimaCuota = @MontoCuotaRedondeada * (@NroCuotas - 1)
+			SET @MontoUltimaCuota = @MontoTotalPrestamo - @MontoTotalMenosUltimaCuota 
+	    END		
+		ELSE
+		BEGIN			
+			SET @MontoUltimaCuota    = @MontoCuota
+			SET @MontoCuotaRedondeada    = @MontoCuota
+		END
+
+		SET @FechaVencimiento = @Fecha1erVencimiento		
+
+		WHILE @contador <= @NroCuotas
+		BEGIN
+		   IF @contador = @NroCuotas --Es la ultima cuota
+		   BEGIN
+		      SET @MontoCuotaAinsertar = @MontoUltimaCuota
+		   END
+		   ELSE
+		   BEGIN
+			  SET @MontoCuotaAinsertar = @MontoCuotaRedondeada
+		   END
+
 		   INSERT INTO [Sj].[MovEmpleadosDets]
 			   ([MovEmpleadoID]
 			   ,[EmpleadoID]
@@ -71,7 +98,7 @@ BEGIN
 			   (@MovEmpleadoID
 			   ,@EmpleadoID
 			   ,1--Devito
-			   ,@MontoCuota
+			   ,@MontoCuotaAinsertar
 			   ,@FechaVencimiento
 			   ,4)--Concepto de Prestamo
 		   IF @@ERROR <> 0
@@ -83,7 +110,7 @@ BEGIN
 		   END
 		   --Se agrega un mes a en cada loop
 		   SET @FechaVencimiento = DATEADD(MONTH,1,@FechaVencimiento)
-		   SET @cnt = @cnt + 1;
+		   SET @contador += 1
 	    END;
 		--Se marca la tabla PrestamosSimples para saber que MovEmpleadoID se genero
 		-- al realizar el devito

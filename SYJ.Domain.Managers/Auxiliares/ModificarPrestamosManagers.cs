@@ -136,6 +136,8 @@ namespace SYJ.Domain.Managers.Auxiliares {
         private void AgregarNuevaCuota() {
             //Se modifica la cantidad de cuotas
             //_CantidadErrores += 1;
+            _Mensajes.Add("Agregar nueva cuota aun no implementada");
+            _CantidadErrores++;
         }
         /// <summary>
         /// Se modifica el Total pagado devido a que cambio el monto del prestamo
