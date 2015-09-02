@@ -24,6 +24,13 @@ BEGIN
 		   @MovEmpleadoID = MovEmpleadoID
     FROM inserted
 
+	--Se averigua el empleado
+	DECLARE @Nombres varchar(50), @Apellidos varchar(50)
+	SELECT @Nombres = Nombres,
+	       @Apellidos = Apellidos
+	FROM [Sj].[Empleados]
+	WHERE EmpleadoID = @EmpleadoID
+
 	IF UPDATE(GenerarDevitoSn) and @GenerarDevitoSn = 1 and ISNULL(@MovEmpleadoID,1) = 1 
 	BEGIN
 		--Se carga la cabecera de los movimientos		
@@ -34,11 +41,18 @@ BEGIN
            ,[MomentoCarga])
         VALUES
            (GETDATE()
-           ,'Generacion Automatica del devito por prestamo'
+           ,'Generacion Automatica del devito por prestamo (' + @Nombres + ' ' + @Apellidos + ')'
            ,@UsuarioID
            ,GETDATE())
 		SELECT @MovEmpleadoID = SCOPE_IDENTITY()
-	
+
+		IF @@ERROR <> 0
+		BEGIN
+			RAISERROR ('Ocurrio el error al intentar insertar en la tabla MovEmpleados', 16, 1);
+			PRINT 'Trigger_GenerarDevitosPrestamos';
+			ROLLBACK TRANSACTION;
+			RETURN
+		END
 		--Se carga los detalles del movimiento
 		DECLARE @MontoCuota money, @cnt int = 0, @FechaVencimiento DateTime
 		SET @MontoCuota = @Monto / @NroCuotas
@@ -60,6 +74,13 @@ BEGIN
 			   ,@MontoCuota
 			   ,@FechaVencimiento
 			   ,4)--Concepto de Prestamo
+		   IF @@ERROR <> 0
+		   BEGIN
+				RAISERROR ('Ocurrio el error al intentar insertar en la tabla MovEmpleadosDets', 16, 1);
+				PRINT 'Trigger_GenerarDevitosPrestamos';
+				ROLLBACK TRANSACTION;
+				RETURN
+		   END
 		   --Se agrega un mes a en cada loop
 		   SET @FechaVencimiento = DATEADD(MONTH,1,@FechaVencimiento)
 		   SET @cnt = @cnt + 1;

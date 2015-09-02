@@ -153,6 +153,8 @@ namespace SYJ.Domain.Managers.Auxiliares {
 
                 movimiento.MovEmpleadosDets = movEmpleadosDetsDb
                     .Select(s => new MovEmpleadoDetDto() {
+                        MovEmpleadoDetID = s.MovEmpleadoDetID,
+                        MovEmpleadoID = s.MovEmpleadoID,
                         Empleado = new EmpleadoDto() {
                             EmpleadoID = empleadoID,
                             Nombres = s.Empleado.Nombres,
@@ -169,7 +171,9 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     }).ToList();
                 if (movimiento.MovEmpleadosDets.Count() > 0) {
                     //Se carga la cabecera
-                    var movEmpleadoDb = movEmpleadosDetsDb.First().MovEmpleado;
+                    var movEmpleadoDb = movEmpleadosDetsDb
+                        .Where(m => m.LiquidacionConceptoID != (int)LiquidacionConceptos.Prestamo)
+                        .First().MovEmpleado;
                     movimiento.MovEmpleadoID = movEmpleadoDb.MovEmpleadoID;
                     movimiento.FechaMovimiento = movEmpleadoDb.FechaMovimiento;
                     movimiento.Descripcion = movEmpleadoDb.Descripcion;
@@ -218,15 +222,16 @@ namespace SYJ.Domain.Managers.Auxiliares {
                         Nombres = s.Nombres,
                         Apellidos = s.Apellidos
                     }).First();
-                ///Se marcan primero los prestamos pues esta marca genera los devitos
-                ///por prestamos en la tabla MovEmpleados/Dets que luego se va a consultar
-                ///mas adelante en este mismo metodo
-                MarcarPrestamos(de, context);
             }
             using (var context = new SueldosJornalesEntities()) {
                 _Context = context;
                 using (var dbContextTransaction = context.Database.BeginTransaction()) {
                     _DbContexTransaction = dbContextTransaction;
+                    ///Se marcan primero los prestamos pues esta marca genera los devitos
+                    ///por prestamos en la tabla MovEmpleados/Dets que luego se va a consultar
+                    ///mas adelante en este mismo metodo
+                    MarcarPrestamos(de, context);
+                    if (_CantidadErrores > 0) {return;}
                     //Creditos
                     de.SueldoBase = RecuperarSueldo(de);
                     de.Comisiones = RecuperarComisiones(de);
@@ -250,7 +255,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
             //SE CARGA LA CABECERA DEL MOVIMIENTO (Tabla MovEmpleados)-------------------------
             var movEmpleado = new MovEmpleado();
             movEmpleado.FechaMovimiento = DateTime.Now;
-            movEmpleado.Descripcion = "Liquidacion de salario de " + nombre;
+            movEmpleado.Descripcion = "Liquidacion de salario de " + nombre + " mes: " + _FlDto.Mes.MesID + "/" + _FlDto.Year;
             movEmpleado.UsuarioID = _Context.Usuarios.Where(u => u.UserID == _UserID).First().UsuarioID;
             movEmpleado.MomentoCarga = DateTime.Now;
 
@@ -376,6 +381,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
                 if (mensajeDto != null) {
                     _Mensajes.Add("#ERROR# en la marca del prestamo simple de " + nombre + " " + mensajeDto.MensajeDelProceso);
+                    _CantidadErrores++;
                     return;
                 } else {
                     _Mensajes.Add(nombre + "Devitos para el prestamo " + item.PrestamoSimpleID +
@@ -449,11 +455,10 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 if (mensajeDto != null) {
                     _Mensajes.Add("#ERROR# en la marca en la comision de " + nombre + " " + mensajeDto.MensajeDelProceso);
                     _DbContexTransaction.Rollback();
-                    return resul;
                 } else {
                     _Mensajes.Add(nombre + "Creditos de Comisiones generadors correctamente");
+                    resul.Add(item.MontoComision);
                 }
-                resul.Add(item.MontoComision);
             }
             return resul;
         }
@@ -517,11 +522,11 @@ namespace SYJ.Domain.Managers.Auxiliares {
             /// en la tabla de PrestamosSimples
             //public List<decimal> Prestamos { get; set; }
         }
-        static class DevCred {
+        public static class DevCred {
             public static bool Devito = true;
             public static bool Credito = false;
         }
-        enum LiquidacionConceptos {
+        public enum LiquidacionConceptos {
             SueldoBase = 1,
             Comision = 2,
             Anticipo = 3,

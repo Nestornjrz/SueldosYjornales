@@ -195,6 +195,7 @@
     <Compile Include="Controllers\Api\AnticiposController.cs" />
     <Compile Include="Controllers\Api\Auxiliares\InfoLiqSalariosController.cs" />
     <Compile Include="Controllers\Api\Auxiliares\LiquidacionSalariosController.cs" />
+    <Compile Include="Controllers\Api\Auxiliares\ModificarPrestamosController.cs" />
     <Compile Include="Controllers\Api\CargosController.cs" />
     <Compile Include="Controllers\Api\ComisionesController.cs" />
     <Compile Include="Controllers\Api\EmpleadosController.cs" />
@@ -1130,7 +1131,9 @@
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Scripts\UsersAdmin\Index\Service\common.services.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

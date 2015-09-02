@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('mensajesCtrl', mensajesCtrl);
 
-    mensajesCtrl.$inject = ['$scope', '$rootScope', 'sYjResource'];
+    mensajesCtrl.$inject = ['$scope', '$modal', '$rootScope', 'sYjResource'];
 
-    function mensajesCtrl($scope, $rootScope, sYjResource) {
+    function mensajesCtrl($scope, $modal, $rootScope, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
         vm.menu = {};
@@ -59,7 +59,48 @@
         $rootScope.$on('formLiquidacionSalario', function (event, objValRecibido) {
             vm.formLiquidacionSalario = objValRecibido;
             var json = angular.toJson(vm.formLiquidacionSalario);
-            $('#jsonInput').val(json);
+            $('#jsonInput').val(json);//Esto le pasa al formulario para poder imprimir          
         });
+
+        $scope.modificarPrestamo = function (movEmpleadoDet) {
+            sYjResource.modificarPrestamos.save(movEmpleadoDet)
+           .$promise.then(
+            function (mensaje) {
+                mostrarModal(mensaje);               
+                //LLama de nuevo al detalle
+                sYjResource.liquidacionSalariosDetalles.save(vm.formLiquidacionSalario)
+               .$promise.then(
+               function (mensaje) {
+                   vm.movimientos = mensaje;
+               },
+               function (mensaje) {
+                   //$scope.mensajeDelServidor = mensaje.data.mensajeDelProceso;
+               });
+            },
+            function (mensaje) {
+                $scope.mensajeDelServidor = mensaje.data.mensajeDelProceso;
+            });
+        }
+
+        //Funcion
+        //se llama al modal
+        function mostrarModal(mensaje) {
+            var modalInstance = $modal.open({
+                templateUrl: 'ModalMensajeModificacionPrestamo.html',
+                controller: function ($scope, $modalInstance) {
+                    $scope.mensaje = mensaje;
+                    $scope.objeto = {};
+                    $scope.objeto.id = mensaje.movEmpleadoDetID;
+                    $scope.objeto.mensaje = "Mensaje de la modificacion del prestamo ";
+                    $scope.ok = function () {
+                        //$rootScope.$broadcast('actualizarTodos', {});
+                    };
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                }
+                //size: 'lg'
+            });
+        }
     }
 })();

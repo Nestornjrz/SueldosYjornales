@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace SYJ.Application.Dto {
     public class MovEmpleadoDetDto {
+        public long MovEmpleadoDetID { get; set; }
+        public long MovEmpleadoID { get; set; }
         public EmpleadoDto Empleado { get; set; }
         public decimal Devito { get; set; }
         public decimal Credito { get; set; } 

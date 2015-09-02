@@ -31,3 +31,33 @@
         </div>
     </div>
 </div>
+@*////////////////////////////////////////////////////////////////////
+    //////////////////////TEMPLETE DE LOS MODALES////////////////////////*@
+
+<script type="text/ng-template" id="ModalMensajeModificacionPrestamo.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{objeto.mensaje}} {{objeto.id}}</h3>
+        <p class="text-muted"></p>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <p>{{mensaje.mensajeDelProceso}}</p>
+                <ul>
+                    <li ng-repeat="m in mensaje.objetoDto">{{m}}</li>
+                </ul>
+            </div>
+        </div>
+        <div ng-show="respuesta.mensajeDelProceso != null" class="alert alert-info">
+            {{respuesta.mensajeDelProceso}}
+        </div>
+        @*<pre>
+            {{mensaje | json}}
+            </pre>*@
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" ng-click="cancel()" id="btn_cancelar">Salir</button>
+        @*<button class="btn btn-primary" ng-click="ok()" id="btn_save">Eliminar</button>*@
+    </div>
+</script>
