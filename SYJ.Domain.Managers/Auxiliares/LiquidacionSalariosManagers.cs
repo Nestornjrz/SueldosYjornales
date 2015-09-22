@@ -398,6 +398,9 @@ namespace SYJ.Domain.Managers.Auxiliares {
                         _Mensajes.Add(nombre + "Devitos para el prestamo " + item.PrestamoSimpleID +
                             " generados correctamente");
                     }
+                } else {
+                    _Mensajes.Add(nombre + "Los devitos para el prestamo simple numero " + item.PrestamoSimpleID +
+                          " ya fueron generados");
                 }
             }
         }
