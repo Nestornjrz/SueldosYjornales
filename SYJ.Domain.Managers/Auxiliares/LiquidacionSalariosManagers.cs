@@ -142,6 +142,13 @@ namespace SYJ.Domain.Managers.Auxiliares {
         }
 
         #region Metodos privados
+        /// <summary>
+        /// Este metodo solo muestra los movimientos que tengan cualquier concepto 
+        /// sin embargo si el unico concepto que tiene es el de prestamo no muestra pues
+        /// significa que tiene devitos por prestamo pero ningun movimiento mas para ese mes
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="movimientos"></param>
         private void GetMovimientos(SueldosJornalesEntities context, List<MovEmpleadoDto> movimientos) {
             foreach (var empleadoID in _FlDto.EmpleadosSeleccionados) {
                 var movimiento = new MovEmpleadoDto();
@@ -171,15 +178,18 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     }).ToList();
                 if (movimiento.MovEmpleadosDets.Count() > 0) {
                     //Se carga la cabecera
-                    var movEmpleadoDb = movEmpleadosDetsDb
+                    var movEmpleadoDetDb = movEmpleadosDetsDb
                         .Where(m => m.LiquidacionConceptoID != (int)LiquidacionConceptos.Prestamo)
-                        .First().MovEmpleado;
-                    movimiento.MovEmpleadoID = movEmpleadoDb.MovEmpleadoID;
-                    movimiento.FechaMovimiento = movEmpleadoDb.FechaMovimiento;
-                    movimiento.Descripcion = movEmpleadoDb.Descripcion;
+                        .FirstOrDefault();
+                    if (movEmpleadoDetDb != null) {
+                        var movEmpleadoDb = movEmpleadoDetDb.MovEmpleado;
+                        movimiento.MovEmpleadoID = movEmpleadoDb.MovEmpleadoID;
+                        movimiento.FechaMovimiento = movEmpleadoDb.FechaMovimiento;
+                        movimiento.Descripcion = movEmpleadoDb.Descripcion;
+                        //Se carga el listado
+                        movimientos.Add(movimiento);
+                    }
 
-                    //Se carga el listado
-                    movimientos.Add(movimiento);
                 }
             }
         }
@@ -375,17 +385,19 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 var prestamoSimple = context.PrestamosSimples
                     .Where(p => p.PrestamoSimpleID == item.PrestamoSimpleID).First();
 
-                prestamoSimple.GenerarDevitoSn = true;
-                context.Entry(prestamoSimple).State = System.Data.Entity.EntityState.Modified;
+                if (prestamoSimple.GenerarDevitoSn == false) {//Solo si hay una verdadera actualizacion
+                    prestamoSimple.GenerarDevitoSn = true;
+                    context.Entry(prestamoSimple).State = System.Data.Entity.EntityState.Modified;
+                    mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
 
-                mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
-                if (mensajeDto != null) {
-                    _Mensajes.Add("#ERROR# en la marca del prestamo simple de " + nombre + " " + mensajeDto.MensajeDelProceso);
-                    _CantidadErrores++;
-                    return;
-                } else {
-                    _Mensajes.Add(nombre + "Devitos para el prestamo " + item.PrestamoSimpleID +
-                        " generados correctamente");
+                    if (mensajeDto != null) {
+                        _Mensajes.Add("#ERROR# en la marca del prestamo simple de " + nombre + " " + mensajeDto.MensajeDelProceso);
+                        _CantidadErrores++;
+                        return;
+                    } else {
+                        _Mensajes.Add(nombre + "Devitos para el prestamo " + item.PrestamoSimpleID +
+                            " generados correctamente");
+                    }
                 }
             }
         }
