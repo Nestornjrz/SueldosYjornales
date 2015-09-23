@@ -19,5 +19,13 @@ namespace SYJ.Application.Dto.Auxiliares {
         public DateTime Periodo { get; set; }
         public DateTime UltimoDiaPeriodo { get; set; }
         public string MensajeCalculos { get; set; }
+        #region AUXILIARES
+        /// <summary>
+        /// Se utiliza para numerar el item, cuando se creo la planilla de sueldos
+        /// era necesario numerar asi que la forma mas facil era ponerlo aqui 
+        /// para que fuera facil numerar y sacar enla planilla de salarios
+        /// </summary>
+        public int NroItem { get; set; }
+        #endregion
     }
 }

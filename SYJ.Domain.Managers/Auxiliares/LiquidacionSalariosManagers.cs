@@ -141,6 +141,64 @@ namespace SYJ.Domain.Managers.Auxiliares {
             }
         }
 
+        public MensajeDto RecuperarDetallesSubtotalesPorSuc(List<LiquidacionSalarioDto> liquidacionSalarios) {
+            using (var context = new SueldosJornalesEntities()) {
+                var liqSalariosResul = new List<LiquidacionSalarioDto>();
+                var sucursales = context.Sucursales.ToList();
+
+                int contador = 0;
+                sucursales.ForEach(delegate(Sucursale s) {
+                    //Se lista todos los empleados de usa sola sucursal
+                    var liquidacionesSuc = liquidacionSalarios
+                        .Where(l => l.Empleado.Sucursale.SucursalID == s.SucursalID)
+                        .OrderByDescending(l=>l.SalarioBase)
+                        .ToList();
+                    //Numerar las liquidaciones, es una fila por empleado
+                    liquidacionesSuc.ForEach(delegate(LiquidacionSalarioDto ls) {
+                        ls.NroItem = ++contador;
+                    });
+                    if (liquidacionesSuc.Count() > 0) {
+                        liqSalariosResul.AddRange(liquidacionesSuc);
+                        //Se le carga un subtotal
+                        var liqSalario = new LiquidacionSalarioDto();
+                        liqSalario.Empleado = new EmpleadoDto();
+                        liqSalario.Empleado.EmpleadoID = 0;
+                        liqSalario.Empleado.Nombres = "Subtotal " + s.NombreSucursal;
+                        liqSalario.SalarioBase = liquidacionesSuc.Sum(l => l.SalarioBase);
+                        liqSalario.DescIPS = liquidacionesSuc.Sum(l => l.DescIPS);
+                        liqSalario.DescOtros = liquidacionesSuc.Sum(l => l.DescOtros);
+                        liqSalario.NetoAcobrar = liquidacionesSuc.Sum(l => l.NetoAcobrar);
+                        liqSalariosResul.Add(liqSalario);
+                    }
+                });
+                //Se agrega el gran total
+                if (liqSalariosResul.Count > 0) {
+                    var liqSalario = new LiquidacionSalarioDto();
+                    liqSalario.Empleado = new EmpleadoDto();
+                    liqSalario.Empleado.EmpleadoID = 0;
+                    liqSalario.Empleado.Nombres = "Gran total ";
+
+                    liqSalario.SalarioBase = liqSalariosResul
+                        .Where(l => l.Empleado.EmpleadoID != 0)
+                        .Sum(l => l.SalarioBase);
+                    liqSalario.DescIPS = liqSalariosResul
+                            .Where(l => l.Empleado.EmpleadoID != 0)
+                        .Sum(l => l.DescIPS);
+                    liqSalario.DescOtros = liqSalariosResul
+                            .Where(l => l.Empleado.EmpleadoID != 0)
+                        .Sum(l => l.DescOtros);
+                    liqSalario.NetoAcobrar = liqSalariosResul
+                            .Where(l => l.Empleado.EmpleadoID != 0)
+                        .Sum(l => l.NetoAcobrar);
+                    liqSalariosResul.Add(liqSalario);
+                }
+                return new MensajeDto() {
+                    Error = false,
+                    MensajeDelProceso = "Se subtotalizo por sucursal el listado: ",
+                    ObjetoDto = liqSalariosResul
+                };
+            }
+        }
         #region Metodos privados
         /// <summary>
         /// Este metodo solo muestra los movimientos que tengan cualquier concepto 
@@ -193,7 +251,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 }
             }
         }
-        private bool YaSeGeneroLiquidacionParaEmpleadoSn(int empleadoID) {
+        private bool YaSeGeneroLiquidacionParaEmpleadoSn(long empleadoID) {
             using (var context = new SueldosJornalesEntities()) {
                 var mesAplicacion = new DateTime(_FlDto.Year, _FlDto.Mes.MesID, 1);
                 var movi = context.MovEmpleadosDets
@@ -223,7 +281,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 return false;
             }
         }
-        private void GenerarLiquidacionEmpleado(int empleadoID) {
+        private void GenerarLiquidacionEmpleado(long empleadoID) {
             DatosEmpleado de = new DatosEmpleado();
             using (var context = new SueldosJornalesEntities()) {
                 de.Empleado = context.Empleados.Where(e => e.EmpleadoID == empleadoID)
@@ -241,7 +299,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     ///por prestamos en la tabla MovEmpleados/Dets que luego se va a consultar
                     ///mas adelante en este mismo metodo
                     MarcarPrestamos(de, context);
-                    if (_CantidadErrores > 0) {return;}
+                    if (_CantidadErrores > 0) { return; }
                     //Creditos
                     de.SueldoBase = RecuperarSueldo(de);
                     de.Comisiones = RecuperarComisiones(de);

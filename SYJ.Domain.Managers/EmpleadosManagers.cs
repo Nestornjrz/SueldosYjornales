@@ -1,4 +1,5 @@
 ﻿using SYJ.Application.Dto;
+using SYJ.Application.Dto.Auxiliares;
 using SYJ.Domain.Db;
 using SYJ.Domain.Managers.Util;
 using System;
@@ -261,6 +262,25 @@ namespace SYJ.Domain.Managers {
 
         public MensajeDto DetalleLiquidacion(EmpleadoDto eDto, Guid userID) {
             throw new NotImplementedException();
+        }
+
+        public long[] EmpleadosSeleccionados(PlanillaSalariosFormDto psDto) {
+            using (var context = new SueldosJornalesEntities()) {
+                List<long> empleadoIDs = new List<long>();
+                var empleados = context.Empleados.ToList();
+                empleados.ForEach(delegate(Empleado e) {
+                    var sucursalActual = e.HistoricoSucursales
+                        .Where(h => h.MomentoCarga.Year <= psDto.Year && h.MomentoCarga.Month <= psDto.Mes.MesID)
+                        .OrderByDescending(h => h.MomentoCarga)
+                        .FirstOrDefault();
+                    if (sucursalActual != null) {
+                        if (psDto.Sucursales.Exists(s => s.SucursalID == sucursalActual.SucursalID)) {
+                            empleadoIDs.Add(e.EmpleadoID);
+                        }
+                    }
+                });
+                return empleadoIDs.ToArray();
+            }
         }
     }
 }

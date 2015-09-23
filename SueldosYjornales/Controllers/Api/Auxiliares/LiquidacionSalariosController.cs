@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using SYJ.Application.Dto.Auxiliares;
+using SYJ.Domain.Managers;
 
 namespace SueldosYjornales.Controllers.Api.Auxiliares
 {
@@ -52,6 +53,26 @@ namespace SueldosYjornales.Controllers.Api.Auxiliares
             LiquidacionSalariosManagers lsm = new LiquidacionSalariosManagers(fldto,
                 Guid.Parse(User.Identity.GetUserId()));
             MensajeDto mensaje = lsm.RecuperarDetallesParaImprimir();
+            return Request.CreateResponse(HttpStatusCode.Created, mensaje);
+        }
+
+        [HttpPost]
+        [Route("api/LiquidacionSalarios/ParaPlanillaSueldos")]
+        public HttpResponseMessage PostParaImprimir(PlanillaSalariosFormDto psDto) {
+
+            //Se crea el formulario que tiene la seleccion por empleado
+            FormLiquidacionDto fldto = new FormLiquidacionDto();
+            fldto.Year = psDto.Year;
+            fldto.Mes = psDto.Mes;
+            ///Se tiene que recuperar segun las sucursales los empleados activos
+            //fldto.EmpleadosSeleccionados = Aqui se requiere empleados activos
+            EmpleadosManagers em = new EmpleadosManagers();
+            fldto.EmpleadosSeleccionados = em.EmpleadosSeleccionados(psDto);
+
+            LiquidacionSalariosManagers lsm = new LiquidacionSalariosManagers(fldto,
+                Guid.Parse(User.Identity.GetUserId()));
+            MensajeDto mensaje = lsm.RecuperarDetallesParaImprimir();
+            mensaje = lsm.RecuperarDetallesSubtotalesPorSuc((List<LiquidacionSalarioDto>)mensaje.ObjetoDto);
             return Request.CreateResponse(HttpStatusCode.Created, mensaje);
         }
 

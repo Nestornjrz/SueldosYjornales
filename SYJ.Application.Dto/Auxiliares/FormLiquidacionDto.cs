@@ -8,6 +8,6 @@ namespace SYJ.Application.Dto.Auxiliares {
     public class FormLiquidacionDto {
         public MesDto Mes { get; set; }
         public int Year { get; set; }
-        public int[] EmpleadosSeleccionados { get; set; }
+        public long[] EmpleadosSeleccionados { get; set; }
     }
 }
