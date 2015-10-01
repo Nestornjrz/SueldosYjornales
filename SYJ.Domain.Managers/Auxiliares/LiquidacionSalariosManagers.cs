@@ -214,7 +214,8 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 var mesAplicacion = new DateTime(_FlDto.Year, _FlDto.Mes.MesID, 1);
                 var movEmpleadosDetsDb = context.MovEmpleadosDets
                     .Where(m => m.EmpleadoID == empleadoID &&
-                                m.MesAplicacion == mesAplicacion);
+                                m.MesAplicacion.Year == mesAplicacion.Year &&
+                                m.MesAplicacion.Month == mesAplicacion.Month);
 
                 movimiento.MovEmpleadosDets = movEmpleadosDetsDb
                     .Select(s => new MovEmpleadoDetDto() {
@@ -395,7 +396,8 @@ namespace SYJ.Domain.Managers.Auxiliares {
             int liquidacionConcepto = (int)LiquidacionConceptos.Prestamo;
             decimal prestamos = 0;
             var prestamosDb = _Context.MovEmpleadosDets
-                .Where(md => md.MesAplicacion == mesAplicacion &&
+                .Where(md => md.MesAplicacion.Year == mesAplicacion.Year &&
+                             md.MesAplicacion.Month == mesAplicacion.Month &&
                        md.LiquidacionConceptoID == liquidacionConcepto &&
                        md.DevCred == devCred &&
                        md.EmpleadoID == de.Empleado.EmpleadoID);
@@ -443,7 +445,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 var prestamoSimple = context.PrestamosSimples
                     .Where(p => p.PrestamoSimpleID == item.PrestamoSimpleID).First();
 
-                if (prestamoSimple.GenerarDevitoSn == false) {//Solo si hay una verdadera actualizacion
+                if (prestamoSimple.GenerarDevitoSn == false || prestamoSimple.GenerarDevitoSn == null) {//Solo si hay una verdadera actualizacion
                     prestamoSimple.GenerarDevitoSn = true;
                     context.Entry(prestamoSimple).State = System.Data.Entity.EntityState.Modified;
                     mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
