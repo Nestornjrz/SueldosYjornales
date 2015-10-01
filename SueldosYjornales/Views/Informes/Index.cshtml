@@ -29,68 +29,13 @@
     </script>
     @*controladores*@
     <script src="~/Scripts/Informes/Index/Controlles/liquidacionSalarioCtrl.js"></script>
+    <script src="~/Scripts/Informes/Index/Controlles/planillaSalarioCtrl.js"></script>
 }
 <div class="row" style="margin-top:25px;">
     <div class="col-md-3">
-        <div class="panel panel-info">
-            <div class="panel-heading">Liquidacion de salario</div>
-            <div class="panel-body" ng-controller="liquidacionSalarioCtrl as vm">
-                <form class="form-horizontal" role="form" name="liquidacionSalarioForm" ng-cloak>
-                    <div class="form-group">
-                        <label for="cargo" class="col-md-4 control-label">Mes</label>
-                        <div class="col-md-8">
-                            <select name="mes" required
-                                    ng-model="vm.liquidacionSalario.mes"
-                                    ng-options="r.nombreMes for r in vm.meses" class="form-control"
-                                    ng-required="true">
-                                <!--<option value="">-- Seleccione el concepto --</option>-->
-                                <option value="" ng-hide="vm.historicoSalario.cargo">Seleccione</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="year" class="col-md-4 control-label">Año</label>
-                        <div class="col-md-8">
-                            <select name="year" required
-                                    ng-model="vm.liquidacionSalario.year"
-                                    ng-options="r for r in vm.years" class="form-control"
-                                    ng-required="true">
-                                <!--<option value="">-- Seleccione el concepto --</option>-->
-                                <option value="" ng-hide="vm.historicoSalario.year">Seleccione</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="empresa" class="col-md-4 control-label">Empresa</label>
-                        <div class="col-md-8">
-                            <select name="empresa" required
-                                    ng-model="vm.liquidacionSalario.empresa"
-                                    ng-options="r.nombreEmpresa for r in vm.empresas" class="form-control"
-                                    ng-required="true">
-                                <!--<option value="">-- Seleccione el concepto --</option>-->
-                                <option value="" ng-hide="vm.liquidacionSalario.empresa">Seleccione Empresa</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="sucursale" class="col-md-4 control-label">Sucursal</label>
-                        <div class="col-md-8">
-                            <select name="sucursale" required
-                                    ng-model="vm.liquidacionSalario.sucursale"
-                                    ng-options="r.nombreSucursal for r in vm.sucursales" class="form-control"
-                                    ng-required="true">
-                                <!--<option value="">-- Seleccione el concepto --</option>-->
-                                <option value="" ng-hide="vm.liquidacionSalario.sucursale">Seleccione Sucursal</option>
-                            </select>
-                        </div>
-                    </div>                   
-                </form>
-                <form method="post" action="@Url.Action("LiquidacionSueldo","Informes")" target="_blank">
-                    <input type="hidden" value="" id="jsonInput" name="jsonInput" />
-                    <button type="submit" ng-disabled="liquidacionSalarioForm.$invalid" class="btn btn-default">Generar Informe</button>
-                </form>
-                @*<pre>{{vm.liquidacionSalario | json}}</pre>*@
-            </div>
-        </div>
+        @Html.Partial("Index/_LiquidacionSalario")
+    </div>
+    <div class="col-md-4">
+        @Html.Partial("Index/_PlanillaSalarios")
     </div>
 </div>

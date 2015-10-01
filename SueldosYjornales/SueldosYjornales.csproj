@@ -1080,8 +1080,10 @@
     <None Include="Properties\PublishProfiles\produccion.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\Informes\Index\Controlles\liquidacionSalarioCtrl.js" />
+    <Content Include="Scripts\Informes\Index\Controlles\planillaSalarioCtrl.js" />
     <Content Include="Scripts\Informes\Index\Services\common.services.js" />
     <Content Include="Scripts\Informes\LiquidacionSueldo\Controllers\liquidacionSalarioInfoCtrl.js" />
+    <Content Include="Scripts\Informes\PlanillaSalarios\Controllers\planillaSalariosCtrl.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -1213,6 +1215,9 @@
     <Content Include="Views\LiquidacionSalarios\Index\_Mensajes.cshtml" />
     <Content Include="Views\LiquidacionSalarios\Index\_Mensajes_Detalles.cshtml" />
     <Content Include="Views\LiquidacionSalarios\ImpresionLiqSalarios.cshtml" />
+    <Content Include="Views\Informes\Index\_LiquidacionSalario.cshtml" />
+    <Content Include="Views\Informes\Index\_PlanillaSalarios.cshtml" />
+    <Content Include="Views\Informes\PlanillaSalarios.cshtml" />
     <None Include="Web.ProduccionRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1221,6 +1226,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\Empleados\Common\Services\" />
     <Folder Include="Scripts\Informes\LiquidacionSueldo\Services\" />
+    <Folder Include="Scripts\Informes\PlanillaSalarios\Services\" />
     <Folder Include="Scripts\RolesAdmin\Index\Controllers\" />
     <Folder Include="Scripts\UsersAdmin\Index\Controllers\" />
     <Folder Include="Views\EmpleadosBorrar\" />

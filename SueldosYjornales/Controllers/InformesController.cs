@@ -20,5 +20,11 @@ namespace SueldosYjornales.Controllers {
             ViewBag.lsfDto = jsonInput;
             return View();
         }
+
+        [HttpPost]
+        public ActionResult PlanillaSalarios(string jsonInputPlanillaSalarios) {
+            ViewBag.psfDto = jsonInputPlanillaSalarios;
+            return View();
+        }
     }
 }
