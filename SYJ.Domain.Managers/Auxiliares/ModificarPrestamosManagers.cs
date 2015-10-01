@@ -29,7 +29,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 _Context = context;
                 using (var dbContextTransaction = context.Database.BeginTransaction()) {
                     _DbContexTransaction = dbContextTransaction;
-                    EvitarQueSeModifiqueSiYaSeGeneroLiquidacionMesSiguiente();                  
+                    EvitarQueSeModifiqueSiYaSeGeneroLiquidacionMesSiguiente();
                     RecuperarElPrestamoSimple();
                     CargarDatosBasicosAutilizar();
                     AveriguarMontoPrestamoDelDb();
@@ -67,7 +67,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                           m.MovEmpleadoID == _MovEmpleadoDet.MovEmpleadoID)
               .ToList();
             var totalDeudaApagarDelPrestamo = movEmpleadosDets.Sum(s => s.Monto);
-            if (_CompartirDatos.MontoPrestamoDelCliente > totalDeudaApagarDelPrestamo) {
+            if (_CompartirDatos.MontoCuotaPrestamoDelCliente > totalDeudaApagarDelPrestamo) {
                 _Mensajes.Add("#ERROR# El monto de la cuota no puede superar el total de lo adeudado por el prestamo. Total de deuda del prestamo (lo que falta): " + totalDeudaApagarDelPrestamo.ToString("N0"));
                 _CantidadErrores++;
             }
@@ -84,29 +84,30 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 .Sum(m => m.Monto);
             var devitos = movEmpleadosDets
                 .Where(m => m.DevCred == LiquidacionSalariosManagers.DevCred.Devito)
-                .Sum(m=>m.Monto);
+                .Sum(m => m.Monto);
             if ((devitos - creditos) != 0) {
                 _Mensajes.Add("#ERROR#  " + nombre + " Los movimientos de esta liquidacion NO ESTAN CUADRADOS: La diferencia es de: " + (devitos - creditos));
-                 _CantidadErrores += 1;
+                _CantidadErrores += 1;
             }
         }
 
         private void EvitarQueSeModifiqueSiYaSeGeneroLiquidacionMesSiguiente() {
-            var nombre = "(" + _MovEmpleadoDet.Empleado.Nombres + " " + _MovEmpleadoDet.Empleado.Apellidos + ")";         
+            var nombre = "(" + _MovEmpleadoDet.Empleado.Nombres + " " + _MovEmpleadoDet.Empleado.Apellidos + ")";
             var mesSiguiente = _MovEmpleadoDet.MesAplicacion.AddMonths(1);
             var movEmpleadoDetSiguiente = _Context.MovEmpleadosDets
-                          .Where(m => m.MesAplicacion == mesSiguiente &&
+                          .Where(m => m.MesAplicacion.Year == mesSiguiente.Year &&
+                                    m.MesAplicacion.Month == mesSiguiente.Month &&
                                     m.EmpleadoID == _MovEmpleadoDet.Empleado.EmpleadoID &&
                                     m.LiquidacionConceptoID == (int)LiquidacionSalariosManagers.LiquidacionConceptos.TotalPagado)
                           .FirstOrDefault();
             if (movEmpleadoDetSiguiente != null) {
-                 _Mensajes.Add("#ERROR# No se puede modificar pues ya existe para el mes siguiente, UNA LIQUIDACION GENERADA " + nombre );
-                 _CantidadErrores += 1;
+                _Mensajes.Add("#ERROR# No se puede modificar pues ya existe para el mes siguiente, UNA LIQUIDACION GENERADA " + nombre);
+                _CantidadErrores += 1;
             }
         }
 
         private void CargarDatosBasicosAutilizar() {
-            _CompartirDatos.MontoPrestamoDelCliente = _MovEmpleadoDet.Devito;
+            _CompartirDatos.MontoCuotaPrestamoDelCliente = _MovEmpleadoDet.Devito;
         }
 
         private void RegularizarCuotasFuturasDelPrestamo() {
@@ -127,9 +128,10 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     _DbContexTransaction.Rollback();
                     return;
                 } else {
-                    AgregarNuevaCuota();
+                    _Mensajes.Add("Se logro modificar el monto de la cuota posterior a la que se modifico, quedando en " + movEmpleadoDetSiguiente.Monto);
                 }
-
+            } else {
+                AgregarNuevaCuota();
             }
         }
 
@@ -182,7 +184,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 return;
             }
             _Mensajes.Add("Se recupero el monto del prestamo actual");
-            _CompartirDatos.MontoPrestamoDelDb = movEmpleadoDetDb.Monto;
+            _CompartirDatos.MontoCuotaPrestamoDelDb = movEmpleadoDetDb.Monto;
         }
 
         private void ModificarMontoPrestamoDelDb() {
@@ -192,7 +194,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
             var movEmpleadoDet = _Context.MovEmpleadosDets
                 .Where(m => m.MovEmpleadoDetID == _MovEmpleadoDet.MovEmpleadoDetID)
                 .First();
-            movEmpleadoDet.Monto = _CompartirDatos.MontoPrestamoDelCliente;
+            movEmpleadoDet.Monto = _CompartirDatos.MontoCuotaPrestamoDelCliente;
             _Context.Entry(movEmpleadoDet).State = System.Data.Entity.EntityState.Modified;
 
             mensajeDto = AgregarModificar.Hacer(_Context, mensajeDto);
@@ -231,11 +233,11 @@ namespace SYJ.Domain.Managers.Auxiliares {
             /// Es el monto del prestamo (1 cuota) que se esta cambiando, es decir el que 
             /// viene de la base de datos y se va a modificar
             /// </summary>
-            public decimal MontoPrestamoDelDb { get; set; }
+            public decimal MontoCuotaPrestamoDelDb { get; set; }
             /// <summary>
             /// Es el monto del prestamo que viene del cliente, es decir el que el cliente quiere que sea el nuevo monto del prestamo
             /// </summary>
-            public decimal MontoPrestamoDelCliente { get; set; }
+            public decimal MontoCuotaPrestamoDelCliente { get; set; }
             /// <summary>
             /// Es la diferencia entre el monto MontoPrestamoDelDb y el MontoPrestamoDelCliente
             /// </summary>
@@ -244,7 +246,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
             /// Es la diferencia entre el monto que esta en la base de datos y lo que el cliente modifico
             /// </summary>
             public void CalcularDifMontoPrestamo() {
-                DifMontoPrestamo = MontoPrestamoDelDb - MontoPrestamoDelCliente;
+                DifMontoPrestamo = MontoCuotaPrestamoDelDb - MontoCuotaPrestamoDelCliente;
             }
         }
     }
