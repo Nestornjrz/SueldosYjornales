@@ -13,6 +13,35 @@
         vm.menu = {};
         vm.menu.introduccion = true;
 
+        vm.eliminarLiquidacion = function (movimiento) {
+            var modalInstance = $modal.open({
+                templateUrl: 'ModalEliminarLiquidacion.html',
+                controller: function ($scope, $modalInstance) {
+                    $scope.movimiento = movimiento;
+                    $scope.objeto = {};
+                    $scope.objeto.id = movimiento.movEmpleadoID;
+                    $scope.objeto.mensaje = "Se eliminara la liquidacion de sueldo ";
+                    $scope.eliminar = function () {
+                        sYjResource.liquidacionSalarios
+                            .delete({ id: movimiento.movEmpleadoID },
+                              function (respuesta) {
+                                  $scope.respuesta = respuesta;                                 
+                              });
+                        //$rootScope.$broadcast('actualizarTodos', {});
+                    };
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                }
+                ,size: 'lg'
+            });
+            modalInstance.result.then(function (selectedItem) {
+
+            }, function () {
+                //$log.info('Modal dismissed at: ' + new Date());               
+            });
+        }
+
         vm.logsFn = function ($event) {
             if ($event != null) {
                 $event.preventDefault();
@@ -44,7 +73,6 @@
                 return "resaltado";
             }
         }
-
 
         $rootScope.$on('actualizarLogs', function (event, objValRecibido) {
             vm.logs = objValRecibido;

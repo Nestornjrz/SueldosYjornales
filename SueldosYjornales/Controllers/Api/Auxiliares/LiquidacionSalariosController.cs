@@ -82,8 +82,10 @@ namespace SueldosYjornales.Controllers.Api.Auxiliares
         }
 
         // DELETE: api/LiquidacionSalarios/5
-        public void Delete(int id)
+        public HttpResponseMessage Delete(int id)
         {
+            MensajeDto mensaje = LiquidacionSalariosManagers.EliminarMovimiento(id);
+            return Request.CreateResponse(HttpStatusCode.Created, mensaje);
         }
     }
 }

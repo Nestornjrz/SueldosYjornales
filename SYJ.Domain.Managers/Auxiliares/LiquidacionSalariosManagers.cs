@@ -21,6 +21,13 @@ namespace SYJ.Domain.Managers.Auxiliares {
         private int _CantidadErrores = 0;
         private SueldosJornalesEntities _Context;
         private DbContextTransaction _DbContexTransaction;
+        /// <summary>
+        /// Este constructor se solicita el mes el año y los codigos de los empleados seleccionados para 
+        /// generar la liquidacion de cada uno
+        /// </summary>
+        /// <param name="flDto">Es el que trae los datos de el mes y el año, ademas de los codigos
+        /// de los empleados seleccionados </param>
+        /// <param name="userID"></param>
         public LiquidacionSalariosManagers(FormLiquidacionDto flDto, Guid userID) {
             _FlDto = flDto;
             _UserID = userID;
@@ -52,7 +59,6 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 };
             }
         }
-
 
         public MensajeDto RecuperarDetallesParaImprimir() {
             using (var context = new SueldosJornalesEntities()) {
@@ -151,7 +157,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     //Se lista todos los empleados de usa sola sucursal
                     var liquidacionesSuc = liquidacionSalarios
                         .Where(l => l.Empleado.Sucursale.SucursalID == s.SucursalID)
-                        .OrderByDescending(l=>l.SalarioBase)
+                        .OrderByDescending(l => l.SalarioBase)
                         .ToList();
                     //Numerar las liquidaciones, es una fila por empleado
                     liquidacionesSuc.ForEach(delegate(LiquidacionSalarioDto ls) {
@@ -612,5 +618,35 @@ namespace SYJ.Domain.Managers.Auxiliares {
         #endregion
 
 
+        /// <summary>
+        /// Esta metodo estatico es utilizado para eliminar el movimiento y los detalles del movimiento
+        /// para que despues pueda recrearse de nuevo
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static MensajeDto EliminarMovimiento(int id) {
+            using (var context = new SueldosJornalesEntities()) {
+                using (var dbContextTransaction = context.Database.BeginTransaction()) {
+                    MensajeDto mensajeDto = null;
+                    //Se eliminar los detalles
+                    var detalles = context.MovEmpleadosDets.Where(m => m.MovEmpleadoID == id);
+                    context.MovEmpleadosDets.RemoveRange(detalles);
+                    mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
+                    if (mensajeDto != null) { return mensajeDto; }
+                    //Se elimina la cabecera del movimiento
+                    var cabecera = context.MovEmpleados.Where(m=>m.MovEmpleadoID == id).First();
+                    context.MovEmpleados.Remove(cabecera);
+                    mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
+                    if (mensajeDto != null) { return mensajeDto; }
+
+                    dbContextTransaction.Commit();
+
+                    return new MensajeDto() {
+                        Error = false,
+                        MensajeDelProceso = "Se elimino la liquidacion numero : " + id
+                    };
+                }
+            }
+        }
     }
 }

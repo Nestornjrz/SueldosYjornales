@@ -23,7 +23,7 @@
         </ul>
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.detalleEmpleado.mostrar">
-        @Html.Partial("Index/_Mensajes_Detalles")       
+        @Html.Partial("Index/_Mensajes_Detalles")
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
         <div class="alert alert-info">
@@ -59,5 +59,56 @@
     <div class="modal-footer">
         <button class="btn btn-link" ng-click="cancel()" id="btn_cancelar">Salir</button>
         @*<button class="btn btn-primary" ng-click="ok()" id="btn_save">Eliminar</button>*@
+    </div>
+</script>
+
+<script type="text/ng-template" id="ModalEliminarLiquidacion.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{objeto.mensaje}} {{objeto.id}}</h3>
+        <p class="text-muted"></p>
+    </div>
+    <div class="modal-body">
+        <table class="table table-bordered table-condensed">
+            <tr>
+                <th colspan="5">
+                    Numero de liquidacion de sueldo: {{movimiento.movEmpleadoID}}
+                </th>
+            </tr>
+            <tr>
+                <th colspan="5">Fecha la generacion de la liquidacion: {{movimiento.fechaMovimiento | date:"dd/MM/yyyy"}}</th>
+            </tr>
+            <tr class="titulo_resaltado">
+                <th>Empleado</th>
+                <th>Concepto</th>
+                <th>Debito</th>
+                <th>Credito</th>
+                <th>Mes de aplicacion</th>
+            </tr>
+            <tr ng-repeat="d in movimiento.movEmpleadosDets" ">
+                <td>{{d.empleado.nombres}} {{d.empleado.apellidos}} ({{d.empleado.empleadoID}})</td>
+                <td>
+                    {{d.liquidacionConcepto.nombreConcepto}}
+                </td>
+                <td class="text-right">
+                    <input value="{{d.devito}}" type="text" size="10" ng-model="d.devito" ng-show="d.editarMontoSn" class="text-center" />
+                    <input class="btn btn-default btn-sm" type="button" value="Ok" ng-show="d.editarMontoSn" ng-click="modificarPrestamo(d)">
+                    <span ng-hide="d.editarMontoSn">{{d.devito | currency:"":0}}</span>
+                </td>
+                <td class="text-right">{{d.credito | currency:"":0}}</td>
+                <td>{{d.mesAplicacion | date:"MMMM/yyyy":'UTC'}}</td>
+            </tr>
+        </table>
+        @*<pre>{{movimiento | json}}</pre>*@
+        <div ng-show="respuesta.mensajeDelProceso != null" class="alert alert-info">
+            {{respuesta.mensajeDelProceso}}
+        </div>
+        @*<pre>
+            {{mensaje | json}}
+            </pre>*@
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" ng-click="cancel()" id="btn_cancelar">Salir</button>
+        <button class="btn btn-primary" ng-click="eliminar()" id="btn_save">Eliminar</button>
     </div>
 </script>
