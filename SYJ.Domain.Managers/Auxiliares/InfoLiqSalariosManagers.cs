@@ -9,6 +9,12 @@ using System.Threading.Tasks;
 
 namespace SYJ.Domain.Managers.Auxiliares {
     public class InfoLiqSalariosManagers {
+        /// <summary>
+        /// Este es una clase que se utilizaba para informa la liquidacion de salario pero 
+        /// va a quedar en desusho
+        /// </summary>
+        /// <param name="lsfDto"></param>
+        /// <returns></returns>
         public MensajeDto ConsultarLiquidacionSalario(LiquidacionSueldoFormDto lsfDto) {
             using (var context = new SueldosJornalesEntities()) {
                 var empleados = GetListadoEmpleados(context);
@@ -47,11 +53,12 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     lsDto.MensajeCalculos = asingarSalarioMensaje + cargoMensaje;
                     listLsDto.Add(lsDto);
                 });
-                return new MensajeDto() {
-                    Error = false,
-                    MensajeDelProceso = "Se cargo el listado de salarios segun la sucursal, el mes y el año seleccionado : ",
-                    ObjetoDto = listLsDto
-                };
+                throw new NotImplementedException();
+                //return new MensajeDto() {
+                //    Error = false,
+                //    MensajeDelProceso = "Se cargo el listado de salarios segun la sucursal, el mes y el año seleccionado : ",
+                //    ObjetoDto = listLsDto
+                //};
             }
         }
 

@@ -30,10 +30,13 @@
     @*controladores*@
     <script src="~/Scripts/Informes/Index/Controlles/liquidacionSalarioCtrl.js"></script>
     <script src="~/Scripts/Informes/Index/Controlles/planillaSalarioCtrl.js"></script>
+    <script src="~/Scripts/Informes/Index/Controlles/listadoPrestamoCtrl.js"></script>
 }
 <div class="row" style="margin-top:25px;">
-    <div class="col-md-3">
-        @Html.Partial("Index/_LiquidacionSalario")
+    <div class="col-md-4">
+        @*@Html.Partial("Index/_LiquidacionSalario") //Se eliminara, si se elimina esta linea
+            borrar tambien el partial*@
+        @Html.Partial("Index/_ListadoPrestamos")
     </div>
     <div class="col-md-4">
         @Html.Partial("Index/_PlanillaSalarios")

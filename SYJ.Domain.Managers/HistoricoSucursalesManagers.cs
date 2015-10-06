@@ -18,7 +18,7 @@ namespace SYJ.Domain.Managers {
             using (var context = new SueldosJornalesEntities()) {
                 var listado = context.HistoricoSucursales
                     .Where(hs => hs.EmpleadoID == empleadoID)
-                    .OrderByDescending(hs=>hs.MomentoCarga)
+                    .OrderByDescending(hs => hs.MomentoCarga)
                     .Select(s => new HistoricoSucursaleDto() {
                         HistoricoSucursalID = s.HistoricoSucursalID,
                         EmpleadoID = empleadoID,
@@ -131,7 +131,7 @@ namespace SYJ.Domain.Managers {
         public MensajeDto UltimoSucursales(long empleadoID) {
             using (var context = new SueldosJornalesEntities()) {
                 var ultimoSucursal = context.HistoricoSucursales
-                    .Where(h=>h.EmpleadoID == empleadoID)
+                    .Where(h => h.EmpleadoID == empleadoID)
                     .OrderByDescending(h => h.MomentoCarga)
                     .FirstOrDefault();
                 if (ultimoSucursal == null) {
@@ -155,6 +155,29 @@ namespace SYJ.Domain.Managers {
                     ObjetoDto = hsDto,
                     Valor = ultimoSucursal.SucursalID.ToString()
                 };
+            }
+        }
+
+        public static HistoricoSucursaleDto getSucursalDelEmpleado(long empleadoID, int year, int mesID) {
+            using (var context = new SueldosJornalesEntities()) {
+                var ultimoSucursalDb = context.HistoricoSucursales
+                        .Where(h => h.EmpleadoID == empleadoID &&
+                                    h.MomentoCarga.Year <= year &&
+                                    h.MomentoCarga.Month <= mesID)
+                        .OrderByDescending(h => h.MomentoCarga)
+                        .FirstOrDefault();
+                if (ultimoSucursalDb == null) {
+                    return null;//No existe sucursal
+                }
+                var hsDto = new HistoricoSucursaleDto();
+                hsDto.HistoricoSucursalID = ultimoSucursalDb.HistoricoSucursalID;
+                hsDto.EmpleadoID = ultimoSucursalDb.EmpleadoID;
+                hsDto.Sucursal = new SucursaleDto() {
+                    SucursalID = ultimoSucursalDb.SucursalID,
+                    NombreSucursal = ultimoSucursalDb.Sucursale.NombreSucursal,
+                    Descripcion = ultimoSucursalDb.Sucursale.Descripcion
+                };
+                return hsDto;
             }
         }
     }

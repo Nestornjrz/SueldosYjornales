@@ -13,5 +13,6 @@ namespace SYJ.Application.Dto {
         public decimal Credito { get; set; } 
         public DateTime MesAplicacion { get; set; }
         public LiquidacionConceptoDto LiquidacionConcepto { get; set; }
+        public string Observacion { get; set; }
     }
 }

@@ -8,6 +8,12 @@
     .titulo_resaltado {
         background-color: #979090;
     }
+
+    .resaltarFila {
+        background-color: #8097ef;
+        color: #000000;
+        font-weight: bold;
+    }
 </style>
 <div class="row">
     <div class="col-md-6">
@@ -28,7 +34,7 @@
         </th>
     </tr>
     <tr>
-        <th colspan="5">Fecha la generacion de la liquidacion: {{m.fechaMovimiento | date:"dd/MM/yyyy"}}</th>        
+        <th colspan="5">Fecha la generacion de la liquidacion: {{m.fechaMovimiento | date:"dd/MM/yyyy"}}</th>
     </tr>
     <tr>
         <th colspan="5"> {{m.descripcion}}</th>
@@ -43,7 +49,16 @@
     <tr ng-repeat="d in m.movEmpleadosDets" ng-class="vm.getClassEmpleadoDet(d)">
         <td>{{d.empleado.nombres}} {{d.empleado.apellidos}} ({{d.empleado.empleadoID}})</td>
         <td>
-            {{d.liquidacionConcepto.nombreConcepto}}
+
+            <span ng-show="d.liquidacionConcepto.liquidacionConceptoID == 4">
+                <a href="#" ng-click="vm.traerDetallePrestamo(d)">
+                    {{d.liquidacionConcepto.nombreConcepto}}
+                </a>
+            </span>
+
+            <span ng-show="d.liquidacionConcepto.liquidacionConceptoID != 4">
+                {{d.liquidacionConcepto.nombreConcepto}}
+            </span>
             <input ng-model="d.editarMontoSn" type="checkbox" ng-show="d.liquidacionConcepto.liquidacionConceptoID == 4" />
         </td>
         <td class="text-right">

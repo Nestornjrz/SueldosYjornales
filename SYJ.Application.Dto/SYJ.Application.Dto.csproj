@@ -54,6 +54,8 @@
     <Compile Include="Auxiliares\LiquidacionSueldoFormDto.cs" />
     <Compile Include="Auxiliares\MesDto.cs" />
     <Compile Include="Auxiliares\PlanillaSalariosFormDto.cs" />
+    <Compile Include="Auxiliares\PrestamoSimMovDto.cs" />
+    <Compile Include="Auxiliares\PrestamosSimXsucDto.cs" />
     <Compile Include="CargoDto.cs" />
     <Compile Include="ComisioneDto.cs" />
     <Compile Include="EmpleadoDto.cs" />

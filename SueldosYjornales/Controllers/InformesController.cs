@@ -15,6 +15,7 @@ namespace SueldosYjornales.Controllers {
         }
 
         [HttpPost]
+        /// Este metodo sera eliminado porque ya es reemplazado por otro
         public ActionResult LiquidacionSueldo(string jsonInput) {
             LiquidacionSueldoFormDto lsfDto = JsonConvert.DeserializeObject<LiquidacionSueldoFormDto>(jsonInput);
             ViewBag.lsfDto = jsonInput;
@@ -24,6 +25,11 @@ namespace SueldosYjornales.Controllers {
         [HttpPost]
         public ActionResult PlanillaSalarios(string jsonInputPlanillaSalarios) {
             ViewBag.psfDto = jsonInputPlanillaSalarios;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ListadoPrestamos(string jsonInput) {
+            ViewBag.psfDto = jsonInput;
             return View();
         }
     }

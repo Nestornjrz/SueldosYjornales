@@ -58,16 +58,16 @@ namespace SueldosYjornales.Controllers.Api.Auxiliares
 
         [HttpPost]
         [Route("api/LiquidacionSalarios/ParaPlanillaSueldos")]
-        public HttpResponseMessage PostParaImprimir(PlanillaSalariosFormDto psDto) {
+        public HttpResponseMessage PostParaImprimir(MesYearEmpresaSucursalesDto myesDto) {
 
             //Se crea el formulario que tiene la seleccion por empleado
             FormLiquidacionDto fldto = new FormLiquidacionDto();
-            fldto.Year = psDto.Year;
-            fldto.Mes = psDto.Mes;
+            fldto.Year = myesDto.Year;
+            fldto.Mes = myesDto.Mes;
             ///Se tiene que recuperar segun las sucursales los empleados activos
             //fldto.EmpleadosSeleccionados = Aqui se requiere empleados activos
             EmpleadosManagers em = new EmpleadosManagers();
-            fldto.EmpleadosSeleccionados = em.EmpleadosSeleccionados(psDto);
+            fldto.EmpleadosSeleccionados = em.EmpleadosSeleccionados(myesDto);
 
             LiquidacionSalariosManagers lsm = new LiquidacionSalariosManagers(fldto,
                 Guid.Parse(User.Identity.GetUserId()));

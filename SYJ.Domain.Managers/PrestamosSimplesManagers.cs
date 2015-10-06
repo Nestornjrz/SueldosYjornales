@@ -3,6 +3,7 @@ using SYJ.Domain.Db;
 using SYJ.Domain.Managers.Util;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,7 +58,6 @@ namespace SYJ.Domain.Managers {
                 };
             }
         }
-
         private MensajeDto EditarPrestamo(PrestamoSimpleDto psDto) {
             using (var context = new SueldosJornalesEntities()) {
                 MensajeDto mensajeDto = null;
@@ -85,7 +85,6 @@ namespace SYJ.Domain.Managers {
                 };
             }
         }
-
         public MensajeDto EliminarPrestamo(int id) {
             using (var context = new SueldosJornalesEntities()) {
                 MensajeDto mensajeDto = null;
@@ -106,6 +105,40 @@ namespace SYJ.Domain.Managers {
                     Error = false,
                     MensajeDelProceso = "Se elimino el prestamo : " + id
                 };
+            }
+        }
+        /// <summary>
+        /// Listado de prestamos hasta el año y el mes especificados
+        /// </summary>
+        /// <param name="empleadoID"></param>
+        /// <param name="year"></param>
+        /// <param name="mesID"></param>
+        /// <returns></returns>
+        internal List<PrestamoSimpleDto> ListadoPrestamo(long empleadoID, int year, int mesID) {
+            using (var context = new SueldosJornalesEntities()) {
+                DateTime dtComienzoMes = new DateTime(year, mesID, 1);
+                DateTime dtFinMes = new DateTime(year, mesID, DateTime.DaysInMonth(year, mesID));
+
+                var listado = context.PrestamosSimples
+                   .Where(p => p.EmpleadoID == empleadoID &&
+                               dtFinMes >= p.Fecha1erVencimiento &&
+                               dtComienzoMes <= SqlFunctions.DateAdd("month", p.Cuotas, p.Fecha1erVencimiento))
+                   .Select(s => new PrestamoSimpleDto() {
+                       PrestamoSimpleID = s.PrestamoSimpleID,
+                       MovEmpleadoID = s.MovEmpleadoID,
+                       EmpleadoID = s.EmpleadoID,
+                       Empleado = new EmpleadoDto() {
+                           EmpleadoID = s.EmpleadoID,
+                           Nombres = s.Empleado.Nombres,
+                           Apellidos = s.Empleado.Apellidos
+                       },
+                       Fecha1erVencimiento = s.Fecha1erVencimiento,
+                       Monto = s.Monto,
+                       Cuotas = s.Cuotas,
+                       Observacion = s.Observacion
+                   }).ToList();
+
+                return listado;
             }
         }
     }

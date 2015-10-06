@@ -196,6 +196,7 @@
     <Compile Include="Controllers\Api\Auxiliares\InfoLiqSalariosController.cs" />
     <Compile Include="Controllers\Api\Auxiliares\LiquidacionSalariosController.cs" />
     <Compile Include="Controllers\Api\Auxiliares\ModificarPrestamosController.cs" />
+    <Compile Include="Controllers\Api\Auxiliares\PrestamoSimMovsController.cs" />
     <Compile Include="Controllers\Api\CargosController.cs" />
     <Compile Include="Controllers\Api\ComisionesController.cs" />
     <Compile Include="Controllers\Api\EmpleadosController.cs" />
@@ -1080,9 +1081,12 @@
     <None Include="Properties\PublishProfiles\produccion.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\Informes\Index\Controlles\liquidacionSalarioCtrl.js" />
+    <Content Include="Scripts\Informes\Index\Controlles\listadoPrestamoCtrl.js" />
     <Content Include="Scripts\Informes\Index\Controlles\planillaSalarioCtrl.js" />
     <Content Include="Scripts\Informes\Index\Services\common.services.js" />
     <Content Include="Scripts\Informes\LiquidacionSueldo\Controllers\liquidacionSalarioInfoCtrl.js" />
+    <Content Include="Scripts\Informes\ListadoPrestamos\Controllers\listadoPrestamosCtrl.js" />
+    <Content Include="Scripts\Informes\ListadoPrestamos\Services\common.services.js" />
     <Content Include="Scripts\Informes\PlanillaSalarios\Controllers\planillaSalariosCtrl.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
@@ -1218,6 +1222,8 @@
     <Content Include="Views\Informes\Index\_LiquidacionSalario.cshtml" />
     <Content Include="Views\Informes\Index\_PlanillaSalarios.cshtml" />
     <Content Include="Views\Informes\PlanillaSalarios.cshtml" />
+    <Content Include="Views\Informes\Index\_ListadoPrestamos.cshtml" />
+    <Content Include="Views\Informes\ListadoPrestamos.cshtml" />
     <None Include="Web.ProduccionRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -66,6 +66,7 @@
     <Compile Include="Auxiliares\InfoLiqSalariosManagers.cs" />
     <Compile Include="Auxiliares\LiquidacionSalariosManagers.cs" />
     <Compile Include="Auxiliares\ModificarPrestamosManagers.cs" />
+    <Compile Include="Auxiliares\PrestamoSimMovManagers.cs" />
     <Compile Include="CargosManagers.cs" />
     <Compile Include="ComisionesManagers.cs" />
     <Compile Include="EmpleadosManagers.cs" />

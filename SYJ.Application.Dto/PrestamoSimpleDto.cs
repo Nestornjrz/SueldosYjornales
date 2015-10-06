@@ -9,8 +9,10 @@ namespace SYJ.Application.Dto {
         public long PrestamoSimpleID { get; set; }
         public System.DateTime Fecha1erVencimiento { get; set; }
         public long EmpleadoID { get; set; }
+        public EmpleadoDto Empleado { get; set; }
         public decimal Monto { get; set; }
         public int Cuotas { get; set; }
         public string Observacion { get; set; }
+        public Nullable<long> MovEmpleadoID { get; set; }
     }
 }

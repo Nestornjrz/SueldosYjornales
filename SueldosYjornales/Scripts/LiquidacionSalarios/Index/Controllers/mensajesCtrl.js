@@ -13,6 +13,37 @@
         vm.menu = {};
         vm.menu.introduccion = true;
 
+        vm.traerDetallePrestamo = function (movimiento) {
+            var modalInstance = $modal.open({
+                templateUrl: 'ModalVerDetallePrestamo.html',
+                controller: function ($scope, $modalInstance) {
+                    $scope.movimiento = movimiento;
+                    $scope.objeto = {};
+                    $scope.objeto.id = movimiento.movEmpleadoID;
+                    $scope.objeto.mensaje = "Detalles del prestamo ";
+
+                    sYjResource.prestamoSimMovs
+                    .get(
+                    { "movEmpleadoID": movimiento.movEmpleadoID },
+                    function (respuesta) {
+                        $scope.respuesta = respuesta;
+                    });
+
+                    $scope.getClassCuotaDeLaLiquidacion =
+                        function (movEmpleadoDetID_Cuota) {
+                            if (movimiento.movEmpleadoDetID == movEmpleadoDetID_Cuota) {
+                                return "resaltarFila";
+                            }
+                        }
+
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                }
+                , size: 'lg'
+            });
+        }
+
         vm.eliminarLiquidacion = function (movimiento) {
             var modalInstance = $modal.open({
                 templateUrl: 'ModalEliminarLiquidacion.html',
@@ -25,7 +56,7 @@
                         sYjResource.liquidacionSalarios
                             .delete({ id: movimiento.movEmpleadoID },
                               function (respuesta) {
-                                  $scope.respuesta = respuesta;                                 
+                                  $scope.respuesta = respuesta;
                               });
                         //$rootScope.$broadcast('actualizarTodos', {});
                     };
@@ -33,7 +64,7 @@
                         $modalInstance.dismiss('cancel');
                     };
                 }
-                ,size: 'lg'
+                , size: 'lg'
             });
             modalInstance.result.then(function (selectedItem) {
 
@@ -94,7 +125,7 @@
             sYjResource.modificarPrestamos.save(movEmpleadoDet)
            .$promise.then(
             function (mensaje) {
-                mostrarModal(mensaje);               
+                mostrarModal(mensaje);
                 //LLama de nuevo al detalle
                 sYjResource.liquidacionSalariosDetalles.save(vm.formLiquidacionSalario)
                .$promise.then(

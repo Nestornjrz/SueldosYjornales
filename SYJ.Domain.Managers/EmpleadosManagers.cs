@@ -264,7 +264,7 @@ namespace SYJ.Domain.Managers {
             throw new NotImplementedException();
         }
 
-        public long[] EmpleadosSeleccionados(PlanillaSalariosFormDto psDto) {
+        public long[] EmpleadosSeleccionados(MesYearEmpresaSucursalesDto psDto) {
             using (var context = new SueldosJornalesEntities()) {
                 List<long> empleadoIDs = new List<long>();
                 var empleados = context.Empleados.ToList();

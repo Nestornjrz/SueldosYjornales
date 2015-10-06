@@ -1,0 +1,210 @@
+﻿@{
+    Layout = null;
+    string psfDto = ViewBag.psfDto;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Listado de prestamos</title>
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-resource.min.js"></script>
+    <script src="~/Scripts/i18n/angular-locale_es-py.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="~/Scripts/underscore.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script src="~/Scripts/Informes/ListadoPrestamos/Services/common.services.js"></script>
+
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            angular
+                .module('sueldosYjornalesApp')
+                .factory('sYjResource', sYjResource);
+
+            sYjResource.$inject = ['$resource'];
+
+            function sYjResource($resource) {
+                var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
+                var InfoLiqSalarios = $resource("@Href("~/api/InfoLiqSalarios")");
+                var paraPlanillaPrestamos = $resource("@Href("~/api/PrestamoSimMovs/ParaPlanillaPrestamos")");
+                return {
+                    "ubicacionSucUsuarios": ubicacionSucUsuarios,
+                    "InfoLiqSalarios": InfoLiqSalarios,
+                    "paraPlanillaPrestamos": paraPlanillaPrestamos
+                }
+            }
+        })();
+    </script>
+    @*controladores*@
+    <script src="~/Scripts/Informes/ListadoPrestamos/Controllers/listadoPrestamosCtrl.js"></script>
+    <style type="text/css" media="screen">
+        .pagina {
+            border: 1px solid red;
+        }
+    </style>
+    <style type="text/css" media="all">
+        @@page {
+            size: legal portrait;
+            margin: 0 10% 10% 10%;
+        }
+
+        .pagina {
+            page-break-after: always;
+            page-break-before: avoid;
+            height: 27.9cm;
+            width: 21.6cm;
+            padding: 2px;
+        }
+
+        .linea {
+            /*border: 1px solid red;*/
+        }
+
+        .titulo {
+            text-align: center;
+            float: left;
+        }
+
+            .titulo h1 {
+                font-size: 15px;
+                margin-top: 50px;
+            }
+
+
+        .row_encabezado {
+            /*border: 1px solid #000000;*/
+            height: 100px;
+        }
+
+        .listado {
+            text-align: center;
+            -ms-align-content: center;
+            -webkit-align-content: center;
+            align-content: center;
+        }
+
+            .listado table {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .listado td {
+                border: 1px solid black;
+                padding: 0;
+                /*font-size: 11px;*/
+                margin: 0;
+                border-spacing: 0;
+                font-size: small;
+            }
+
+            .listado th {
+                border: 1px solid black;
+                padding: 2px;
+                font-size: small;
+            }
+
+
+        .contenedor_imagen {
+            width: 200px;
+        }
+
+        .filaNormal {
+            font-size: 11px;
+        }
+
+        .subTotal {
+            font-weight: bolder;
+            background-color: gray;
+            font-size: 15px;
+        }
+
+        .bordeBlanco {
+            border: 1px solid white;
+        }
+    </style>
+</head>
+
+<body ng-app="sueldosYjornalesApp">
+    <div ng-controller="listadoPrestamosCtrl as vm" ng-init="vm.psfDto = '@psfDto'">
+        <div class="pagina">
+            <div class="row_encabezado">
+                <div style="float:left;" class="linea contenedor_imagen">
+                    <img width="150" height="75" src="~/Images/la aragonesa sa-02.jpg" />
+                </div>
+                <div class="linea titulo">
+                    <h1>
+                        Listado de prestamos hasta el mes de {{vm.psfDto.mes.nombreMes}} de {{vm.psfDto.year}}
+                    </h1>
+                </div>
+            </div>
+            <div class="listado">
+                <table cellpadding="0">
+                    <tr>
+                        <th>Sucursal</th>
+                        <th>Prestamos</th>
+                    </tr>
+                    <tr ng-repeat="gsuc in vm.listado">
+                        <td>{{gsuc.sucursal.nombreSucursal}}</td>
+                        <td>
+                            <table cellpadding="0" cellspacing="0" width="466">
+                                <tr>
+                                    <th width="23">Nro</th>
+                                    @*<th>1er. vencimiento</th>*@
+                                    <th width="145">Empleado</th>
+                                    <th width="47">Cuotas</th>
+                                    <th width="63">Monto</th>
+                                    <th width="182">Movimientos</th>
+                                </tr>
+                                <tr ng-repeat="p in gsuc.prestamoSimpleMovimiento">
+                                    <td>{{p.prestamoSimple.prestamoSimpleID}}</td>
+                                    @*<td>{{p.prestamoSimple.fecha1erVencimiento | date:"dd/MM/yyyy":"UTC"}}</td>*@
+                                    <td>{{p.prestamoSimple.empleado.nombres}} {{p.prestamoSimple.empleado.apellidos}}</td>
+                                    <td>{{p.prestamoSimple.cuotas}}</td>
+                                    <td>{{p.prestamoSimple.monto | currency:"":0}}</td>
+                                    <td>
+                                        <table cellspacing="0">
+                                            @*<tr>
+                                                    <th style="border:1px solid white;">MovimientoID</th>
+                                                    <th style="border:1px solid white;">Mes Aplicacion</th>
+                                                    <th style="border:1px solid white;">Monto</th>
+                                                </tr>*@
+                                            <tr ng-repeat="m in p.movimientoEmpleado.movEmpleadosDets">
+                                                <td style="border:1px solid white;">
+                                                    <span ng-show="m.movEmpleadoDetID > 0">
+                                                        {{m.movEmpleadoDetID}}
+                                                    </span>
+                                                </td>
+                                                <td style="border:1px solid white;text-align:left;">
+                                                    <span ng-hide="m.observacion == 'Saldo'">
+                                                        {{m.mesAplicacion | date:"MMMM/yyyy":"UTC"}}
+                                                    </span>
+                                                    <span ng-show="m.observacion == 'Saldo'">
+                                                        {{m.observacion}}
+                                                    </span>
+                                                </td>
+                                                <td style="border:1px solid white;text-align:right;">
+                                                    <span>
+                                                        {{m.devito | currency:"":0}}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                @*<pre style="text-align:left;">{{vm.psfDto | json}}</pre>*@
+                @*<pre style="text-align:left;">{{vm.listado | json}}</pre>*@
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

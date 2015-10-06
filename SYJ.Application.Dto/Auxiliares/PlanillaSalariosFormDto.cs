@@ -10,7 +10,7 @@ namespace SYJ.Application.Dto.Auxiliares {
     /// por mes año y por sucursales PERO TAMBIEN se utiliza para cualquier consulta
     /// que se quera hacer por los parametros que esta clase puede sostener en su estructura
     /// </summary>
-    public class PlanillaSalariosFormDto {
+    public class MesYearEmpresaSucursalesDto {
         public MesDto Mes { get; set; }
         public int Year { get; set; }
         public EmpresaDto Empresa { get; set; }
