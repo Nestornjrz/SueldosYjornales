@@ -44,9 +44,6 @@
         <EntityTypeShape EntityType="SueldosJornalesModel.Ausencia" Width="1.5" PointX="14.25" PointY="14.375" />
         <AssociationConnector Association="SueldosJornalesModel.fk_Ausencias__Empleados" />
         <AssociationConnector Association="SueldosJornalesModel.fk_Ausencias__Usuarios" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.Comisione" Width="1.5" PointX="8.25" PointY="18.25" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_Comisiones__Empleados" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_Comisiones__Usuarios" />
         <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoHorario" Width="2.125" PointX="11.25" PointY="10" />
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricosHorarios_Empleados" />
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricosHorarios_Usuarios" />
@@ -72,6 +69,9 @@
         <AssociationConnector Association="SueldosJornalesModel.fk_MovEmpleadosDets__Empleados" />
         <AssociationConnector Association="SueldosJornalesModel.Fk_MovEmpleadosDets__LiquidacionConceptos" />
         <AssociationConnector Association="SueldosJornalesModel.fk_MovEmpleadosDets__MovEmpleados" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.Comisione" Width="1.5" PointX="8.25" PointY="18.375" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_Comisiones__Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_Comisiones__Usuarios" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

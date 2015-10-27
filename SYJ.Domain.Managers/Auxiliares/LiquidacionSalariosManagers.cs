@@ -529,7 +529,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 MensajeDto mensajeDto = null;
                 var comisionDb = _Context.Comisiones
                     .Where(c => c.ComisionID == item.ComisionID).First();
-                comisionDb.CreditosGeneradoSn = true;
+                comisionDb.CreditoGeneradoSn = true;
 
                 _Context.Entry(comisionDb).State = System.Data.Entity.EntityState.Modified;
                 mensajeDto = AgregarModificar.Hacer(_Context, mensajeDto);

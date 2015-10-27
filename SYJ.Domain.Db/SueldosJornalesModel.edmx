@@ -99,7 +99,7 @@
           <Property Name="Observacion" Type="text" Nullable="false" />
           <Property Name="UsuarioID" Type="bigint" Nullable="false" />
           <Property Name="MomentoCarga" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="CreditosGeneradoSn" Type="bit" />
+          <Property Name="CreditoGeneradoSn" Type="bit" />
         </EntityType>
         <EntityType Name="Empleados">
           <Key>
@@ -1100,15 +1100,6 @@
             <End Role="Usuario" EntitySet="Usuarios" />
             <End Role="Ausencia" EntitySet="Ausencias" />
           </AssociationSet>
-          <EntitySet Name="Comisiones" EntityType="SueldosJornalesModel.Comisione" />
-          <AssociationSet Name="fk_Comisiones__Empleados" Association="SueldosJornalesModel.fk_Comisiones__Empleados">
-            <End Role="Empleado" EntitySet="Empleados" />
-            <End Role="Comisione" EntitySet="Comisiones" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Comisiones__Usuarios" Association="SueldosJornalesModel.fk_Comisiones__Usuarios">
-            <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="Comisione" EntitySet="Comisiones" />
-          </AssociationSet>
           <EntitySet Name="HistoricoHorarios" EntityType="SueldosJornalesModel.HistoricoHorario" />
           <AssociationSet Name="fk_HistoricosHorarios_Empleados" Association="SueldosJornalesModel.fk_HistoricosHorarios_Empleados">
             <End Role="Empleado" EntitySet="Empleados" />
@@ -1182,6 +1173,15 @@
             <End Role="MovEmpleado" EntitySet="MovEmpleados" />
             <End Role="MovEmpleadosDet" EntitySet="MovEmpleadosDets" />
           </AssociationSet>
+          <EntitySet Name="Comisiones" EntityType="SueldosJornalesModel.Comisione" />
+          <AssociationSet Name="fk_Comisiones__Empleados" Association="SueldosJornalesModel.fk_Comisiones__Empleados">
+            <End Role="Empleado" EntitySet="Empleados" />
+            <End Role="Comisione" EntitySet="Comisiones" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Comisiones__Usuarios" Association="SueldosJornalesModel.fk_Comisiones__Usuarios">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Comisione" EntitySet="Comisiones" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Cargo">
           <Key>
@@ -1248,12 +1248,12 @@
           <NavigationProperty Name="HistoricoTelefonos" Relationship="SueldosJornalesModel.fk_HistoricoTelefono_Usuarios" FromRole="Usuario" ToRole="HistoricoTelefono" />
           <NavigationProperty Name="HistoricoIngresoSalidas" Relationship="SueldosJornalesModel.fk_HistoricoIngresoSalidas_Usuarios" FromRole="Usuario" ToRole="HistoricoIngresoSalida" />
           <NavigationProperty Name="Ausencias" Relationship="SueldosJornalesModel.fk_Ausencias__Usuarios" FromRole="Usuario" ToRole="Ausencia" />
-          <NavigationProperty Name="Comisiones" Relationship="SueldosJornalesModel.fk_Comisiones__Usuarios" FromRole="Usuario" ToRole="Comisione" />
           <NavigationProperty Name="HistoricoHorarios" Relationship="SueldosJornalesModel.fk_HistoricosHorarios_Usuarios" FromRole="Usuario" ToRole="HistoricoHorario" />
           <NavigationProperty Name="Anticipos" Relationship="SueldosJornalesModel.fk_Anticipos__Usuarios" FromRole="Usuario" ToRole="Anticipos" />
           <NavigationProperty Name="HistoricoSalarios" Relationship="SueldosJornalesModel.fk_HistoricoSalarios_Usuarios" FromRole="Usuario" ToRole="HistoricoSalario" />
           <NavigationProperty Name="Imagenes" Relationship="SueldosJornalesModel.fk_Imagenes__Usuarios" FromRole="Usuario" ToRole="Imagene" />
           <NavigationProperty Name="PrestamosSimples" Relationship="SueldosJornalesModel.fk_PrestamosSimples__Usuarios" FromRole="Usuario" ToRole="PrestamosSimple" />
+          <NavigationProperty Name="Comisiones" Relationship="SueldosJornalesModel.fk_Comisiones__Usuarios" FromRole="Usuario" ToRole="Comisione" />
         </EntityType>
         <Association Name="fk_Sucursales_Empresas">
           <End Type="SueldosJornalesModel.Empresa" Role="Empresa" Multiplicity="1" />
@@ -1443,13 +1443,13 @@
           <NavigationProperty Name="HistoricoTelefonos" Relationship="SueldosJornalesModel.fk_HistoricoTelefonos_Empleados" FromRole="Empleado" ToRole="HistoricoTelefono" />
           <NavigationProperty Name="HistoricoIngresoSalidas" Relationship="SueldosJornalesModel.fk_HistoricoIngresoEgresos_Empleados" FromRole="Empleado" ToRole="HistoricoIngresoSalida" />
           <NavigationProperty Name="Ausencias" Relationship="SueldosJornalesModel.fk_Ausencias__Empleados" FromRole="Empleado" ToRole="Ausencia" />
-          <NavigationProperty Name="Comisiones" Relationship="SueldosJornalesModel.fk_Comisiones__Empleados" FromRole="Empleado" ToRole="Comisione" />
           <NavigationProperty Name="HistoricoHorarios" Relationship="SueldosJornalesModel.fk_HistoricosHorarios_Empleados" FromRole="Empleado" ToRole="HistoricoHorario" />
           <NavigationProperty Name="Anticipos" Relationship="SueldosJornalesModel.fk_Anticipos__Empleados" FromRole="Empleado" ToRole="Anticipos" />
           <NavigationProperty Name="HistoricoSalarios" Relationship="SueldosJornalesModel.fk_HistoricoSalarios_Empleados" FromRole="Empleado" ToRole="HistoricoSalario" />
           <NavigationProperty Name="Imagenes" Relationship="SueldosJornalesModel.fk_Imagenes__Empleados" FromRole="Empleado" ToRole="Imagene" />
           <NavigationProperty Name="PrestamosSimples" Relationship="SueldosJornalesModel.fk_PrestamosSimples__Empleados" FromRole="Empleado" ToRole="PrestamosSimple" />
           <NavigationProperty Name="MovEmpleadosDets" Relationship="SueldosJornalesModel.fk_MovEmpleadosDets__Empleados" FromRole="Empleado" ToRole="MovEmpleadosDet" />
+          <NavigationProperty Name="Comisiones" Relationship="SueldosJornalesModel.fk_Comisiones__Empleados" FromRole="Empleado" ToRole="Comisione" />
         </EntityType>
         <EntityType Name="HistoricoSucursale">
           <Key>
@@ -1666,45 +1666,6 @@
               <PropertyRef Name="UsuarioID" />
             </Principal>
             <Dependent Role="Ausencia">
-              <PropertyRef Name="UsuarioID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Comisione">
-          <Key>
-            <PropertyRef Name="ComisionID" />
-          </Key>
-          <Property Name="ComisionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmpleadoID" Type="Int64" Nullable="false" />
-          <Property Name="FechaComision" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="MontoComision" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="Observacion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="UsuarioID" Type="Int64" Nullable="false" />
-          <Property Name="MomentoCarga" Type="DateTime" Nullable="false" Precision="7" />
-          <NavigationProperty Name="Empleado" Relationship="SueldosJornalesModel.fk_Comisiones__Empleados" FromRole="Comisione" ToRole="Empleado" />
-          <NavigationProperty Name="Usuario" Relationship="SueldosJornalesModel.fk_Comisiones__Usuarios" FromRole="Comisione" ToRole="Usuario" />
-          <Property Name="CreditosGeneradoSn" Type="Boolean" />
-        </EntityType>
-        <Association Name="fk_Comisiones__Empleados">
-          <End Type="SueldosJornalesModel.Empleado" Role="Empleado" Multiplicity="1" />
-          <End Type="SueldosJornalesModel.Comisione" Role="Comisione" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleado">
-              <PropertyRef Name="EmpleadoID" />
-            </Principal>
-            <Dependent Role="Comisione">
-              <PropertyRef Name="EmpleadoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Comisiones__Usuarios">
-          <End Type="SueldosJornalesModel.Usuario" Role="Usuario" Multiplicity="1" />
-          <End Type="SueldosJornalesModel.Comisione" Role="Comisione" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="UsuarioID" />
-            </Principal>
-            <Dependent Role="Comisione">
               <PropertyRef Name="UsuarioID" />
             </Dependent>
           </ReferentialConstraint>
@@ -2026,6 +1987,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Comisione">
+          <Key>
+            <PropertyRef Name="ComisionID" />
+          </Key>
+          <Property Name="ComisionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpleadoID" Type="Int64" Nullable="false" />
+          <Property Name="FechaComision" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MontoComision" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Observacion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioID" Type="Int64" Nullable="false" />
+          <Property Name="MomentoCarga" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="CreditoGeneradoSn" Type="Boolean" />
+          <NavigationProperty Name="Empleado" Relationship="SueldosJornalesModel.fk_Comisiones__Empleados" FromRole="Comisione" ToRole="Empleado" />
+          <NavigationProperty Name="Usuario" Relationship="SueldosJornalesModel.fk_Comisiones__Usuarios" FromRole="Comisione" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="fk_Comisiones__Empleados">
+          <End Type="SueldosJornalesModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="SueldosJornalesModel.Comisione" Role="Comisione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Comisione">
+              <PropertyRef Name="EmpleadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Comisiones__Usuarios">
+          <End Type="SueldosJornalesModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="SueldosJornalesModel.Comisione" Role="Comisione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Comisione">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2239,20 +2239,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Comisiones">
-            <EntityTypeMapping TypeName="SueldosJornalesModel.Comisione">
-              <MappingFragment StoreEntitySet="Comisiones">
-                <ScalarProperty Name="CreditosGeneradoSn" ColumnName="CreditosGeneradoSn" />
-                <ScalarProperty Name="MomentoCarga" ColumnName="MomentoCarga" />
-                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
-                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
-                <ScalarProperty Name="MontoComision" ColumnName="MontoComision" />
-                <ScalarProperty Name="FechaComision" ColumnName="FechaComision" />
-                <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
-                <ScalarProperty Name="ComisionID" ColumnName="ComisionID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="HistoricoHorarios">
             <EntityTypeMapping TypeName="SueldosJornalesModel.HistoricoHorario">
               <MappingFragment StoreEntitySet="HistoricoHorarios">
@@ -2364,6 +2350,20 @@
                 <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
                 <ScalarProperty Name="MovEmpleadoID" ColumnName="MovEmpleadoID" />
                 <ScalarProperty Name="MovEmpleadoDetID" ColumnName="MovEmpleadoDetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comisiones">
+            <EntityTypeMapping TypeName="SueldosJornalesModel.Comisione">
+              <MappingFragment StoreEntitySet="Comisiones">
+                <ScalarProperty Name="CreditoGeneradoSn" ColumnName="CreditoGeneradoSn" />
+                <ScalarProperty Name="MomentoCarga" ColumnName="MomentoCarga" />
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="MontoComision" ColumnName="MontoComision" />
+                <ScalarProperty Name="FechaComision" ColumnName="FechaComision" />
+                <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
+                <ScalarProperty Name="ComisionID" ColumnName="ComisionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -70,6 +70,7 @@ namespace SYJ.Domain.Managers {
                         MensajeDelProceso = "No existe el prestamo id : " + psDto.PrestamoSimpleID
                     };
                 }
+                prestamoSimpleDb.Fecha1erVencimiento = psDto.Fecha1erVencimiento;
                 prestamoSimpleDb.Monto = psDto.Monto;
                 prestamoSimpleDb.Cuotas = psDto.Cuotas;
                 prestamoSimpleDb.Observacion = psDto.Observacion;
