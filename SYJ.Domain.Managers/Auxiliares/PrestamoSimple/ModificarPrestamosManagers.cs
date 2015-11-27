@@ -1,5 +1,6 @@
 ﻿using SYJ.Application.Dto;
 using SYJ.Domain.Db;
+using SYJ.Domain.Managers.Auxiliares.PrestamoSimple;
 using SYJ.Domain.Managers.Util;
 using System;
 using System.Collections.Generic;
@@ -67,7 +68,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
             };
         }
         private MensajeDto Error_ModificarPrestamosSinRollback() {
-            _Mensajes.Add("===== Error en el proceso =======");           
+            _Mensajes.Add("===== Error en el proceso =======");
             return new MensajeDto() {
                 Error = true,
                 MensajeDelProceso = "#ERROR# no se logro modificar la cuota del prestamo",
@@ -159,10 +160,9 @@ namespace SYJ.Domain.Managers.Auxiliares {
         }
 
         private void AgregarNuevaCuota() {
-            //Se modifica la cantidad de cuotas
-            //_CantidadErrores += 1;
-            _Mensajes.Add("Agregar nueva cuota aun no implementada");
-            _CantidadErrores++;
+            AgregarNuevaCuotaManagers addNuevaCuota = new AgregarNuevaCuotaManagers(_Context, _DbContexTransaction);
+            var mensaje = addNuevaCuota.AgregarCuota(_MovEmpleadoDet, _CompartirDatos.DifMontoPrestamo);
+            _Mensajes.AddRange((List<string>)mensaje.ObjetoDto);
         }
         /// <summary>
         /// Se modifica el Total pagado devido a que cambio el monto del prestamo
