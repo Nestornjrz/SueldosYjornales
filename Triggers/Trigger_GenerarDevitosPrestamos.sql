@@ -41,7 +41,7 @@ BEGIN
            ,[MomentoCarga])
         VALUES
            (GETDATE()
-           ,'Generacion Automatica del devito por prestamo (' + @Nombres + ' ' + @Apellidos + ')'
+           ,'Generacion Automatica del debito por prestamo (' + @Nombres + ' ' + @Apellidos + ')'
            ,@UsuarioID
            ,GETDATE())
 		SELECT @MovEmpleadoID = SCOPE_IDENTITY()
