@@ -1,4 +1,22 @@
-﻿<div class="row">
+﻿<style type="text/css">
+    .resaltado {
+        background-color: #8097ef;
+        color: #000000;
+        font-weight: bold;
+    }
+
+    .titulo_resaltado {
+        background-color: #979090;
+    }
+
+    .resaltarFila {
+        background-color: #8097ef;
+        color: #000000;
+        font-weight: bold;
+    }
+</style>
+
+<div class="row">
     <div class="col-md-5">
         <div class="panel panel-primary">
             <div class="panel-heading">Cargar Prestamos</div>
@@ -88,7 +106,11 @@
                         <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
                         <td>{{o.prestamoSimpleID}}</td>
                         <td>{{o.fecha1erVencimiento | date:"dd/MM/yyyy":"UTC"}}</td>
-                        <td>{{o.monto | currency:"Gs.":0}}</td>
+                        <td>
+                            <a href="#" ng-click="vm.traerDetallePrestamo(o)">
+                                {{o.monto | currency:"Gs.":0}}
+                            </a>
+                        </td>
                         <td>{{o.cuotas}}</td>
                         <td>{{o.observacion}}</td>
                     </tr>
@@ -135,5 +157,63 @@
     <div class="modal-footer">
         <button class="btn btn-link" ng-click="cancel()" id="btn_cancelar">Salir</button>
         <button class="btn btn-primary" ng-click="ok()" id="btn_save">Eliminar</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="ModalVerDetallePrestamo.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{objeto.mensaje}} {{objeto.id}}</h3>
+        <p class="text-muted"></p>
+    </div>
+    <div class="modal-body">
+
+        <h3 class="text-center">Movimiento: {{respuesta.prestamoSimple.prestamoSimpleID}}</h3>
+        <div class="row">
+            <div class="col-md-4">
+                <table>
+                    <tr>
+                        <th>Primer vencimiento:</th>
+                        <td>{{respuesta.prestamoSimple.fecha1erVencimiento | date:"dd/MM/yyyy":"UTC"}}</td>
+                    </tr>
+                    <tr>
+                        <th>Monto del prestamo: </th>
+                        <td>{{respuesta.prestamoSimple.monto | currency:"":0}}</td>
+                    </tr>
+                    <tr>
+                        <th>Cantidad de cuotas:</th>
+                        <td>{{respuesta.prestamoSimple.cuotas}}</td>
+                    </tr>
+                    <tr>
+                        <th>Observacion:</th>
+                        <td>{{respuesta.prestamoSimple.observacion}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-8">
+                <table class="table table-bordered table-condensed table-hover table-striped">
+                    <caption>
+                        Fecha movimiento: {{respuesta.movimientoEmpleado.fechaMovimiento  | date:"dd/MM/yyyy":"UTC"}} Descripcion: {{respuesta.movimientoEmpleado.descripcion}}
+                    </caption>
+                    <tr>
+                        <th>Mes aplicacion</th>
+                        <th>Monto</th>
+                    </tr>
+                    <tr ng-repeat="d in respuesta.movimientoEmpleado.movEmpleadosDets"
+                        ng-class="getClassCuotaDeLaLiquidacion(d.mesAplicacion)">
+                        <td>{{d.mesAplicacion | date:"MMMM/yyyy":"UTC"}}</td>
+                        <td>{{d.devito | currency:"":0}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        @*<pre>{{movimiento | json}}</pre>*@
+        @*<pre>{{respuesta | json}}</pre>*@
+        <div ng-show="respuesta.mensajeDelProceso != null" class="alert alert-info">
+            {{respuesta.mensajeDelProceso}}
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" ng-click="cancel()" id="btn_cancelar">Salir</button>
+        @*<button class="btn btn-primary" ng-click="ok()" id="btn_save">Eliminar</button>*@
     </div>
 </script>

@@ -20,6 +20,7 @@ namespace SYJ.Domain.Managers {
                         Fecha1erVencimiento = s.Fecha1erVencimiento,
                         Monto = s.Monto,
                         Cuotas = s.Cuotas,
+                        MovEmpleadoID = s.MovEmpleadoID,
                         Observacion = s.Observacion
                     }).ToList();
                 return listado;

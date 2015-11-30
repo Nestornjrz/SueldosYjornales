@@ -22,6 +22,7 @@
                 var anticiposByEmpleadoID = $resource("@Href("~/api/Anticipos/ByEmpleadoID")");
                 var prestamosSimples = $resource("@Href("~/api/PrestamosSimples")");
                 var prestamosSimplesByEmpleadoID = $resource("@Href("~/api/PrestamosSimples/ByEmpleadoID")");
+                var prestamoSimMovs = $resource("@Href("~/api/PrestamoSimMovs")");
 
                 return {
                     "ubicacionSucUsuarios": ubicacionSucUsuarios,
@@ -31,7 +32,8 @@
                     "anticipos": anticipos,
                     "anticiposByEmpleadoID": anticiposByEmpleadoID,
                     "prestamosSimples": prestamosSimples,
-                    "prestamosSimplesByEmpleadoID": prestamosSimplesByEmpleadoID
+                    "prestamosSimplesByEmpleadoID": prestamosSimplesByEmpleadoID,
+                    "prestamoSimMovs": prestamoSimMovs
                 }
             }
         })();

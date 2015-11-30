@@ -14,6 +14,41 @@
             $rootScope.$broadcast('actualizarPrestamoSimple', prestamoSimple);
         }
 
+        vm.traerDetallePrestamo = function (prestamoSimple) {
+            var modalInstance = $modal.open({
+                templateUrl: 'ModalVerDetallePrestamo.html',
+                controller: function ($scope, $modalInstance) {
+                    $scope.prestamoSimple = prestamoSimple;
+                    $scope.objeto = {};
+                    $scope.objeto.id = prestamoSimple.movEmpleadoID;
+                    $scope.objeto.mensaje = "Detalles del prestamo ";
+
+                    sYjResource.prestamoSimMovs
+                    .get(
+                    { "movEmpleadoID": prestamoSimple.movEmpleadoID },
+                    function (respuesta) {
+                        $scope.respuesta = respuesta;
+                    });
+
+                    $scope.getClassCuotaDeLaLiquidacion =
+                        function (mesAplicacion) {
+                            var now = new Date();
+                            var hoy_utc = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
+                            var mesAplicacionDate = new Date(mesAplicacion.slice(0, 10));
+                            if (mesAplicacionDate.getUTCMonth() == hoy_utc.getMonth() &&
+                                mesAplicacionDate.getUTCFullYear() == hoy_utc.getFullYear()) {
+                                return "resaltarFila";
+                            }
+                        }
+
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                }
+                , size: 'lg'
+            });
+        }
+
         vm.eliminar = function (prestamoSimple) {
             var modalInstance = $modal.open({
                 templateUrl: 'ModalEliminacionPrestamoSimple.html',
