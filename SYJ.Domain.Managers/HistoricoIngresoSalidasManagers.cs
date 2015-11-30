@@ -134,5 +134,28 @@ namespace SYJ.Domain.Managers {
                 };
             }
         }
+        public static bool EmpleadoTrabajaTodaviaEnLaEmpresa(long empleadoID) {
+            using (var context = new SueldosJornalesEntities()) {
+                //Se busca el ultimo movimiento del empleado
+                var historico = context.HistoricoIngresoSalidas
+                    .Where(h => h.EmpleadoID == empleadoID)
+                    .OrderByDescending(h => h.MomentoCarga)
+                    .FirstOrDefault();
+                if (historico == null) {
+                    return true;
+                }
+                //Se ve si el ultimo historico tiene fecha de salida.
+                if (historico.FechaSalida == null) {
+                    return true;
+                } else {
+                    //Se ve si la fecha de salida esta todavia en el futuro o ya paso
+                    if (historico.FechaSalida > DateTime.Now) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
     }
 }

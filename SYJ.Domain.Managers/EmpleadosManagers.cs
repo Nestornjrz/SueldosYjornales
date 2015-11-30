@@ -256,7 +256,14 @@ namespace SYJ.Domain.Managers {
                         listadoFiltrado.Add(l);
                     }
                 }
-                return listadoFiltrado;
+                //Se quita del listado los empleados que tengan salida en su ultimo historico de entrada salida
+                var listadoFiltrado2 =  new List<EmpleadoDto>();
+                foreach (var l in listadoFiltrado) {
+                    if (HistoricoIngresoSalidasManagers.EmpleadoTrabajaTodaviaEnLaEmpresa(l.EmpleadoID)) {
+                        listadoFiltrado2.Add(l);
+                    }
+                }
+                return listadoFiltrado2;
             }
         }
 
