@@ -138,14 +138,19 @@ namespace SYJ.Domain.Managers.Auxiliares {
                             contador++;
                             //Se ve si el detalle del movimiento tiene una liquidacion generada
                             int generoLaLiquidacionCant = 0;
-                            if (mDet.MesAplicacion.Year <= myesDto.Year && mDet.MesAplicacion.Month <= myesDto.Mes.MesID) {
-                                generoLaLiquidacionCant = context.MovEmpleadosDets
-                                   .Where(m => m.EmpleadoID == mDet.Empleado.EmpleadoID &&
-                                             m.MesAplicacion.Year == myesDto.Year &&
-                                             m.MesAplicacion.Month == myesDto.Mes.MesID &&
-                                             m.LiquidacionConceptoID == (int)LiquidacionSalariosManagers
-                                                                        .LiquidacionConceptos.TotalPagado)
-                                   .Count();
+                            if (mDet.MesAplicacion.Year <= myesDto.Year && 
+                                mDet.MesAplicacion.Month <= myesDto.Mes.MesID) {
+                                //Como a algunos detalles del prestamo no se genero la liquidacion al comenzar el programa a desarrollarse
+                                //entonces tomamos solo el mes hasta donde se solicita el listado
+                                    generoLaLiquidacionCant = 1;
+
+                                //generoLaLiquidacionCant = context.MovEmpleadosDets
+                                //   .Where(m => m.EmpleadoID == mDet.Empleado.EmpleadoID &&
+                                //             m.MesAplicacion.Year == myesDto.Year &&
+                                //             m.MesAplicacion.Month == myesDto.Mes.MesID &&
+                                //             m.LiquidacionConceptoID == (int)LiquidacionSalariosManagers
+                                //                                        .LiquidacionConceptos.TotalPagado)
+                                //   .Count();
 
                             }
                             if (generoLaLiquidacionCant > 0) {

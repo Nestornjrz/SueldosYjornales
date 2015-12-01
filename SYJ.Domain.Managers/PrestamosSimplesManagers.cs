@@ -121,7 +121,7 @@ namespace SYJ.Domain.Managers {
                 DateTime dtComienzoMes = new DateTime(year, mesID, 1);
                 DateTime dtFinMes = new DateTime(year, mesID, DateTime.DaysInMonth(year, mesID));
 
-                var listado = context.PrestamosSimples
+                List<PrestamoSimpleDto> listado = context.PrestamosSimples
                    .Where(p => p.EmpleadoID == empleadoID &&
                                dtFinMes >= p.Fecha1erVencimiento &&
                                dtComienzoMes <= SqlFunctions.DateAdd("month", p.Cuotas, p.Fecha1erVencimiento))
@@ -140,7 +140,19 @@ namespace SYJ.Domain.Managers {
                        Observacion = s.Observacion
                    }).ToList();
 
-                return listado;
+                //Se recuperan las cuotas para saber si entran dentro del mes solicitado
+                var listadoFiltrado = new List<PrestamoSimpleDto>();
+
+                listado.ForEach(delegate(PrestamoSimpleDto ps) {
+                    var movEmpleadosDets = context.MovEmpleadosDets
+                        .Where(m => m.MovEmpleadoID == ps.MovEmpleadoID &&
+                                    m.MesAplicacion.Month == mesID).ToList();
+                    if (movEmpleadosDets.Count > 0) {
+                        listadoFiltrado.Add(ps);
+                    }
+                });
+
+                return listadoFiltrado;
             }
         }
     }

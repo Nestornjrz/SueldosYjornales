@@ -67,11 +67,16 @@
         .titulo {
             text-align: center;
             float: left;
+            width:570px;
         }
 
             .titulo h1 {
                 font-size: 15px;
                 margin-top: 50px;
+            }
+
+            .titulo h2 {
+                font-size: 12px;
             }
 
 
@@ -109,7 +114,7 @@
 
 
         .contenedor_imagen {
-            width: 200px;
+            width: 151px;
         }
 
         .filaNormal {
@@ -139,6 +144,7 @@
                     <h1>
                         Listado de prestamos hasta el mes de {{vm.psfDto.mes.nombreMes}} de {{vm.psfDto.year}}
                     </h1>
+                    <h2>No tiene en cuenta si la cuotas fueron canceladas o no, solo muestra como deveria estar hasta el mes especificado</h2>
                 </div>
             </div>
             <div class="listado">
