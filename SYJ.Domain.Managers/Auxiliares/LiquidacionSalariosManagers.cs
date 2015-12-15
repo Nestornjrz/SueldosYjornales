@@ -71,6 +71,17 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     //--Datos del empleado
                     lsDto.Empleado = itemMov.MovEmpleadosDets.First().Empleado;
                     lsDto.DiasTrabajados = 30;
+
+                    //Se calcula su sueldo segun la fecha de salida si es que cae en el mes que se esta calculando
+                    var finMesFechaSeleccionada = new DateTime(_FlDto.Year, _FlDto.Mes.MesID, DateTime.DaysInMonth(_FlDto.Year, _FlDto.Mes.MesID));
+                    var fechaSalida = HistoricoIngresoSalidasManagers.fechaSalida(lsDto.Empleado.EmpleadoID, finMesFechaSeleccionada);
+                    if (fechaSalida != null) {
+                        if (fechaSalida.Value.Year == _FlDto.Year && fechaSalida.Value.Month == _FlDto.Mes.MesID) {
+                            int diaSalida = fechaSalida.Value.Day;
+                            lsDto.DiasTrabajados = diaSalida;
+                        }
+                    }
+
                     lsDto.SalarioBase = itemMov.MovEmpleadosDets
                         .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.SueldoBase)
                         .First().Credito;

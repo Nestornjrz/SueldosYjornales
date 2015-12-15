@@ -152,7 +152,7 @@
                         <img width="300" height="150" src="~/Images/la aragonesa sa-02.jpg" />
                     </div>
                     <div class="linea titulo">
-                        <h1>RECIBO AGUINALDOS</h1>
+                        <h1>RECIBO DE AGUINALDOS</h1>
                         <table>
                             <tr>
                                 <th>C.COSTO</th>
@@ -173,9 +173,14 @@
                         </tr>
                         <tr>
                             <th>FECHA</th>
-                            <td>{{l.ultimoDiaPeriodo | date:"dd/MM/yyyy":"UTC"}}</td>
+                            <td>
+                                @*Por el momento se deja un dia fijo por medido del jefe.*@
+                                21/{{l.ultimoDiaPeriodo | date:"MM/yyyy":"UTC"}}
+                                @*{{l.ultimoDiaPeriodo | date:"dd/MM/yyyy":"UTC"}}*@
+
+                            </td>
                             <td style="width:100px;"></td>
-                            <th>AÑO</th>
+                            <th>PERIODO AÑO</th>
                             <td style="font-size:24px;text-align:right;text-transform:uppercase;">{{l.periodo | date:"yyyy":"UTC"}}</td>
                         </tr>
                     </table>
