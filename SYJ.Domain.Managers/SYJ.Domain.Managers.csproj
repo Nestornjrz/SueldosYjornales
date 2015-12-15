@@ -64,6 +64,8 @@
   <ItemGroup>
     <Compile Include="AnticiposManagers.cs" />
     <Compile Include="Auxiliares\InfoLiqSalariosManagers.cs" />
+    <Compile Include="Auxiliares\Liquidacion.cs" />
+    <Compile Include="Auxiliares\LiquidacionAguinaldosManagers.cs" />
     <Compile Include="Auxiliares\LiquidacionSalariosManagers.cs" />
     <Compile Include="Auxiliares\PrestamoSimple\AgregarNuevaCuotaManagers.cs" />
     <Compile Include="Auxiliares\PrestamoSimple\ModificarPrestamosManagers.cs" />

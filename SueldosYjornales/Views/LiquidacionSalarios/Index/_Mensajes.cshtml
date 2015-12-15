@@ -1,39 +1,118 @@
-﻿<div ng-controller="mensajesCtrl as vm">
-    <div class="row">
-        <div class="col-md-12">
-            <h3 class="text-center">Visor de sucesos</h3>
-        </div>
-    </div>
+﻿<div ng-controller="ControlVisoresCtrl as vm">
     <ul class="nav nav-tabs" style="margin-top:2px;">
-        <li role="presentation" class="{{vm.menu.logs.class}}">
-            <a href="#" ng-click="vm.logsFn($event)">Logs de sucesos</a>
+        <li role="presentation" class="{{vm.menu.liquidacion.class}}">
+            <a href="#" ng-click="vm.liquidacionFn($event)">LIQUIDACION</a>
         </li>
-        <li role="presentation" class="{{vm.menu.detalleEmpleado.class}}">
-            <a href="#" ng-click="vm.detalleEmpleadoFn($event)">Detalles empleado</a>
+        <li role="presentation" class="{{vm.menu.aguinaldo.class}}">
+            <a href="#" ng-click="vm.aguinaldoFn($event)">AGUINALDO</a>
         </li>
     </ul>
-    <div style="margin-top:25px;" ng-show="vm.menu.logs.mostrar">
-        <h3>
-            {{vm.mensaje.mensajeDelProceso}}
-        </h3>
-        <ul>
-            <li ng-repeat="o in vm.logs.objetoDto track by $index">
-                {{o}}
-            </li>
-        </ul>
-    </div>
-    <div style="margin-top:25px;" ng-show="vm.menu.detalleEmpleado.mostrar">
-        @Html.Partial("Index/_Mensajes_Detalles")
-    </div>
-    <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
-        <div class="alert alert-info">
-            Ningun suceso realizado
+    <div style="margin-top:25px;" ng-show="vm.menu.liquidacion.mostrar">
+        <!--#region VISOR DE LA PARTE LIQUIDACION SALARIO-->
+        <div ng-controller="mensajesCtrl as vm">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="text-center">Visor de sucesos Liquidacion salario</h3>
+                </div>
+            </div>
+            <ul class="nav nav-tabs" style="margin-top:2px;">
+                <li role="presentation" class="{{vm.menu.logs.class}}">
+                    <a href="#" ng-click="vm.logsFn($event)">Logs de sucesos</a>
+                </li>
+                <li role="presentation" class="{{vm.menu.detalleEmpleado.class}}">
+                    <a href="#" ng-click="vm.detalleEmpleadoFn($event)">Detalles empleado</a>
+                </li>
+            </ul>
+            <div style="margin-top:25px;" ng-show="vm.menu.logs.mostrar">
+                <h3>
+                    {{vm.mensaje.mensajeDelProceso}}
+                </h3>
+                <ul>
+                    <li ng-repeat="o in vm.logs.objetoDto track by $index">
+                        {{o}}
+                    </li>
+                </ul>
+            </div>
+            <div style="margin-top:25px;" ng-show="vm.menu.detalleEmpleado.mostrar">
+                @Html.Partial("Index/_Mensajes_Detalles")
+            </div>
+            <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
+                <div class="alert alert-info">
+                    Ningun suceso realizado
+                </div>
+            </div>
         </div>
+        <!--#endregion-->
+    </div>
+    <div style="margin-top:25px;" ng-show="vm.menu.aguinaldo.mostrar">
+        <!--#region VISOR DE LA PARTE LIQUIDACION AGUINALDO-->
+        <div ng-controller="mensajesAguinaldoCtrl as vm">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="text-center">Visor de sucesos Liquidacion Aguinaldo</h3>
+                </div>
+            </div>
+            <ul class="nav nav-tabs" style="margin-top:2px;">
+                <li role="presentation" class="{{vm.menu.logs.class}}">
+                    <a href="#" ng-click="vm.logsFn($event)">Logs de sucesos</a>
+                </li>
+                <li role="presentation" class="{{vm.menu.detalleEmpleado.class}}">
+                    <a href="#" ng-click="vm.detalleEmpleadoFn($event)">Detalles empleado</a>
+                </li>
+            </ul>
+            <div style="margin-top:25px;" ng-show="vm.menu.logs.mostrar">
+                <ul>
+                    <li ng-repeat="a in vm.logsAguinaldo.objetoDto">
+                        {{a.mensajeString}}
+                    </li>
+                </ul>
+                <pre>{{vm.logsAguinaldo | json}}</pre>
+            </div>
+            <div style="margin-top:25px;" ng-show="vm.menu.detalleEmpleado.mostrar">
+                <div class="row">
+                    <div class="col-md-6">
+                        <pre>{{vm.aguinaldosPorMes.mensajeDelProceso}}</pre>
+                    </div>
+                    <div class="col-md-6">
+                        <form method="post" action="@Url.Action("ImpresionLiqAguinaldo", "LiquidacionSalarios")" target="_blank">
+                            <input type="hidden" value="" id="jsonInputAguinaldo" name="jsonInput" />
+                            <button type="submit" class="btn btn-default">Imprimir liquidacion Aguinaldo</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-bordered">
+                            <tr style="font-size:12px;">
+                                <th>Mov</th>
+                                <th>Empleado/Mes</th>
+                                <th ng-repeat="m in vm.aguinaldosPorMes.objetoDto[0].meses">
+                                    {{m.numero}}
+                                </th>
+                                <th>Total Cobrado</th>
+                                <th>Aguinaldo</th>
+                            </tr>
+                            <tr ng-repeat="a in vm.aguinaldosPorMes.objetoDto" style="font-size:10px;">
+                                <th>{{a.movEmpleadoID}}</th>
+                                <th>{{a.empleado.nombres}}</th>
+                                <th ng-repeat="m in a.meses">
+                                    {{m.monto | currency:"":0}}
+                                </th>
+                                <th>{{a.totalCobrado  | currency:"":0}}</th>
+                                <th>{{a.aguinaldo | currency:"":0}}</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                @*<pre>{{ vm.aguinaldosPorMes | json}}</pre>*@
+            </div>
+        </div>
+        <!--#endregion-->
     </div>
 </div>
 @*////////////////////////////////////////////////////////////////////
     //////////////////////TEMPLETE DE LOS MODALES////////////////////////*@
-
+<!--#region MODALES DE LIQUIDACION DE SALARIOS-->
 <script type="text/ng-template" id="ModalMensajeModificacionPrestamo.html">
     <div class="modal-header">
         <h3 class="modal-title">{{objeto.mensaje}} {{objeto.id}}</h3>
@@ -170,3 +249,4 @@
         @*<button class="btn btn-primary" ng-click="ok()" id="btn_save">Eliminar</button>*@
     </div>
 </script>
+<!--#endregion-->

@@ -194,6 +194,7 @@
     <Compile Include="Controllers\Admin\UsersAdminController.cs" />
     <Compile Include="Controllers\Api\AnticiposController.cs" />
     <Compile Include="Controllers\Api\Auxiliares\InfoLiqSalariosController.cs" />
+    <Compile Include="Controllers\Api\Auxiliares\LiquidacionAguinaldosController.cs" />
     <Compile Include="Controllers\Api\Auxiliares\LiquidacionSalariosController.cs" />
     <Compile Include="Controllers\Api\Auxiliares\ModificarPrestamosController.cs" />
     <Compile Include="Controllers\Api\Auxiliares\PrestamoSimMovsController.cs" />
@@ -1096,9 +1097,12 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\LiquidacionSalarios\ImpresionLiqSalarios\Controllers\liquidacionAguinaldoInfoCtrl.js" />
     <Content Include="Scripts\LiquidacionSalarios\ImpresionLiqSalarios\Controllers\liquidacionSalarioInfoCtrl.js" />
     <Content Include="Scripts\LiquidacionSalarios\ImpresionLiqSalarios\Services\common.services.js" />
+    <Content Include="Scripts\LiquidacionSalarios\Index\Controllers\ControlVisoresCtrl.js" />
     <Content Include="Scripts\LiquidacionSalarios\Index\Controllers\listadoEmpleadosCtrl.js" />
+    <Content Include="Scripts\LiquidacionSalarios\Index\Controllers\mensajesAguinaldoCtrl.js" />
     <Content Include="Scripts\LiquidacionSalarios\Index\Controllers\mensajesCtrl.js" />
     <Content Include="Scripts\LiquidacionSalarios\Index\Controllers\menuCtrl.js" />
     <Content Include="Scripts\LiquidacionSalarios\Index\Services\common.services.js" />
@@ -1224,6 +1228,7 @@
     <Content Include="Views\Informes\PlanillaSalarios.cshtml" />
     <Content Include="Views\Informes\Index\_ListadoPrestamos.cshtml" />
     <Content Include="Views\Informes\ListadoPrestamos.cshtml" />
+    <Content Include="Views\LiquidacionSalarios\ImpresionLiqAguinaldo.cshtml" />
     <None Include="Web.ProduccionRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

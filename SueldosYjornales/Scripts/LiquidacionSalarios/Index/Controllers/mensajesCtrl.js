@@ -10,9 +10,33 @@
     function mensajesCtrl($scope, $modal, $rootScope, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
+        //#region MANEJO DEL MENU
         vm.menu = {};
         vm.menu.introduccion = true;
-
+        vm.logsFn = function ($event) {
+            if ($event != null) {
+                $event.preventDefault();
+                $event.stopPropagation();
+            }
+            ocultar();
+            vm.menu.logs.class = "active";
+            vm.menu.logs.mostrar = true;
+        }
+        vm.detalleEmpleadoFn = function ($event) {
+            if ($event != null) {
+                $event.preventDefault();
+                $event.stopPropagation();
+            }
+            ocultar();
+            vm.menu.detalleEmpleado.class = "active";
+            vm.menu.detalleEmpleado.mostrar = true;
+        }
+        function ocultar() {
+            vm.menu.introduccion = false;
+            vm.menu.logs = {};
+            vm.menu.detalleEmpleado = {};
+        }
+        //#endregion
         vm.traerDetallePrestamo = function (movimiento) {
             var modalInstance = $modal.open({
                 templateUrl: 'ModalVerDetallePrestamo.html',
@@ -73,31 +97,6 @@
             });
         }
 
-        vm.logsFn = function ($event) {
-            if ($event != null) {
-                $event.preventDefault();
-                $event.stopPropagation();
-            }
-            ocultar();
-            vm.menu.logs.class = "active";
-            vm.menu.logs.mostrar = true;
-        }
-
-        vm.detalleEmpleadoFn = function ($event) {
-            if ($event != null) {
-                $event.preventDefault();
-                $event.stopPropagation();
-            }
-            ocultar();
-            vm.menu.detalleEmpleado.class = "active";
-            vm.menu.detalleEmpleado.mostrar = true;
-        }
-
-        function ocultar() {
-            vm.menu.introduccion = false;
-            vm.menu.logs = {};
-            vm.menu.detalleEmpleado = {};
-        }
 
         vm.getClassEmpleadoDet = function (detalle) {
             if (detalle.liquidacionConcepto.liquidacionConceptoID == 5) {
@@ -108,6 +107,7 @@
         $rootScope.$on('actualizarLogs', function (event, objValRecibido) {
             vm.logs = objValRecibido;
             vm.logsFn(null);
+            $rootScope.$broadcast('elegirTabSueldo', {});
         });
 
         $rootScope.$on('actualizarDetalles', function (event, objValRecibido) {

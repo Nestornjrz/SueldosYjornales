@@ -72,7 +72,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     lsDto.Empleado = itemMov.MovEmpleadosDets.First().Empleado;
                     lsDto.DiasTrabajados = 30;
                     lsDto.SalarioBase = itemMov.MovEmpleadosDets
-                        .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)LiquidacionConceptos.SueldoBase)
+                        .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.SueldoBase)
                         .First().Credito;
                     lsDto.SubTotalIngresos = lsDto.SalarioBase;
                     ///Sucursal
@@ -91,7 +91,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     }
                     //----Comisiones-----
                     MovEmpleadoDetDto comisionesObj = itemMov.MovEmpleadosDets
-                        .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)LiquidacionConceptos.Comision)
+                        .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Comision)
                         .FirstOrDefault();
                     if (comisionesObj != null) {
                         lsDto.Comisiones = comisionesObj.Credito;
@@ -100,21 +100,21 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     lsDto.TotalIngreso = lsDto.SubTotalIngresos + lsDto.Comisiones;
                     //----descuento IPS------------
                     var ipsObj = itemMov.MovEmpleadosDets
-                        .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)LiquidacionConceptos.Ips)
+                        .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Ips)
                         .FirstOrDefault();
                     if (ipsObj != null) {
                         lsDto.DescIPS = ipsObj.Devito;
                     }
                     //----anticipos y prestamos OTROS DESCUENTOS------
                     var anticiposObj = itemMov.MovEmpleadosDets
-                        .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)LiquidacionConceptos.Anticipo)
+                        .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Anticipo)
                         .FirstOrDefault();
                     decimal anticipos = 0;
                     if (anticiposObj != null) {
                         anticipos = anticiposObj.Devito;
                     }
                     var prestamosObj = itemMov.MovEmpleadosDets
-                        .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)LiquidacionConceptos.Prestamo)
+                        .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Prestamo)
                         .FirstOrDefault();
                     decimal prestamos = 0;
                     if (prestamosObj != null) {
@@ -128,7 +128,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     lsDto.NetoAcobrar = lsDto.TotalIngreso - lsDto.TotalDescuentos;
                     //----periodo------------------
                     var mesAplicacion = itemMov.MovEmpleadosDets
-                        .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)LiquidacionConceptos.SueldoBase)
+                        .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.SueldoBase)
                         .First().MesAplicacion;
 
                     var periodo = mesAplicacion;
@@ -233,8 +233,8 @@ namespace SYJ.Domain.Managers.Auxiliares {
                             Apellidos = s.Empleado.Apellidos,
                             NroCedula = s.Empleado.NroCedula
                         },
-                        Devito = (s.DevCred == DevCred.Devito) ? s.Monto : 0,
-                        Credito = (s.DevCred == DevCred.Credito) ? s.Monto : 0,
+                        Devito = (s.DevCred == Liquidacion.DevCred.Devito) ? s.Monto : 0,
+                        Credito = (s.DevCred == Liquidacion.DevCred.Credito) ? s.Monto : 0,
                         MesAplicacion = s.MesAplicacion,
                         LiquidacionConcepto = new LiquidacionConceptoDto() {
                             LiquidacionConceptoID = s.LiquidacionConceptoID,
@@ -244,7 +244,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 if (movimiento.MovEmpleadosDets.Count() > 0) {
                     //Se carga la cabecera
                     var movEmpleadoDetDb = movEmpleadosDetsDb
-                        .Where(m => m.LiquidacionConceptoID != (int)LiquidacionConceptos.Prestamo)
+                        .Where(m => m.LiquidacionConceptoID != (int)Liquidacion.Conceptos.Prestamo)
                         .FirstOrDefault();
                     if (movEmpleadoDetDb != null) {
                         var movEmpleadoDb = movEmpleadoDetDb.MovEmpleado;
@@ -262,8 +262,8 @@ namespace SYJ.Domain.Managers.Auxiliares {
             using (var context = new SueldosJornalesEntities()) {
                 var mesAplicacion = new DateTime(_FlDto.Year, _FlDto.Mes.MesID, 1);
                 var movi = context.MovEmpleadosDets
-                    .Where(m => m.DevCred == DevCred.Devito &&
-                    m.LiquidacionConceptoID == (int)LiquidacionConceptos.TotalPagado &&
+                    .Where(m => m.DevCred == Liquidacion.DevCred.Devito &&
+                    m.LiquidacionConceptoID == (int)Liquidacion.Conceptos.TotalPagado &&
                     m.MesAplicacion == mesAplicacion &&
                     m.EmpleadoID == empleadoID);
 
@@ -349,8 +349,8 @@ namespace SYJ.Domain.Managers.Auxiliares {
             ///Se carga el Sueldo Base
             var movEmpleadoDet = new MovEmpleadosDet();
             CargarDatosComunes(de, movEmpleado, movEmpleadoDet);
-            movEmpleadoDet.LiquidacionConceptoID = (int)LiquidacionConceptos.SueldoBase;
-            movEmpleadoDet.DevCred = DevCred.Credito;
+            movEmpleadoDet.LiquidacionConceptoID = (int)Liquidacion.Conceptos.SueldoBase;
+            movEmpleadoDet.DevCred = Liquidacion.DevCred.Credito;
             movEmpleadoDet.Monto = de.SueldoBase;
             if (!SeCargoMovEmpleadosDetsSn(movEmpleadoDet, mensajeDto, de, "Sueldo Base")) { return; };
             _Mensajes.Add("Se Cargo correctamente el Sueldo Base de " + nombre);
@@ -358,8 +358,8 @@ namespace SYJ.Domain.Managers.Auxiliares {
             ///Carga de comisiones
             movEmpleadoDet = new MovEmpleadosDet();
             CargarDatosComunes(de, movEmpleado, movEmpleadoDet);
-            movEmpleadoDet.LiquidacionConceptoID = (int)LiquidacionConceptos.Comision;
-            movEmpleadoDet.DevCred = DevCred.Credito;
+            movEmpleadoDet.LiquidacionConceptoID = (int)Liquidacion.Conceptos.Comision;
+            movEmpleadoDet.DevCred = Liquidacion.DevCred.Credito;
             movEmpleadoDet.Monto = de.Comisiones.Sum();
             if (movEmpleadoDet.Monto > 0) {
                 if (!SeCargoMovEmpleadosDetsSn(movEmpleadoDet, mensajeDto, de, "Comisiones")) { return; };
@@ -369,8 +369,8 @@ namespace SYJ.Domain.Managers.Auxiliares {
             ///Carga de anticipos
             movEmpleadoDet = new MovEmpleadosDet();
             CargarDatosComunes(de, movEmpleado, movEmpleadoDet);
-            movEmpleadoDet.LiquidacionConceptoID = (int)LiquidacionConceptos.Anticipo;
-            movEmpleadoDet.DevCred = DevCred.Devito;
+            movEmpleadoDet.LiquidacionConceptoID = (int)Liquidacion.Conceptos.Anticipo;
+            movEmpleadoDet.DevCred = Liquidacion.DevCred.Devito;
             movEmpleadoDet.Monto = de.Anticipos.Sum();
             if (movEmpleadoDet.Monto > 0) {
                 if (!SeCargoMovEmpleadosDetsSn(movEmpleadoDet, mensajeDto, de, "Anticipos")) { return; };
@@ -386,8 +386,8 @@ namespace SYJ.Domain.Managers.Auxiliares {
             if (de.Empleado.TieneIpsSn) {
                 movEmpleadoDet = new MovEmpleadosDet();
                 CargarDatosComunes(de, movEmpleado, movEmpleadoDet);
-                movEmpleadoDet.LiquidacionConceptoID = (int)LiquidacionConceptos.Ips;
-                movEmpleadoDet.DevCred = DevCred.Devito;
+                movEmpleadoDet.LiquidacionConceptoID = (int)Liquidacion.Conceptos.Ips;
+                movEmpleadoDet.DevCred = Liquidacion.DevCred.Devito;
                 movEmpleadoDet.Monto = de.Ips;
                 if (movEmpleadoDet.Monto > 0) {
                     if (!SeCargoMovEmpleadosDetsSn(movEmpleadoDet, mensajeDto, de, "I.P.S.")) { return; };
@@ -398,8 +398,8 @@ namespace SYJ.Domain.Managers.Auxiliares {
             ///Se carga el TOTAL PAGADO
             /// Se recupera el prestamo del mesAplicacion
             var mesAplicacion = new DateTime(_FlDto.Year, _FlDto.Mes.MesID, 1);
-            var devCred = DevCred.Devito;
-            int liquidacionConcepto = (int)LiquidacionConceptos.Prestamo;
+            var devCred = Liquidacion.DevCred.Devito;
+            int liquidacionConcepto = (int)Liquidacion.Conceptos.Prestamo;
             decimal prestamos = 0;
             var prestamosDb = _Context.MovEmpleadosDets
                 .Where(md => md.MesAplicacion.Year == mesAplicacion.Year &&
@@ -418,8 +418,8 @@ namespace SYJ.Domain.Managers.Auxiliares {
 
             movEmpleadoDet = new MovEmpleadosDet();
             CargarDatosComunes(de, movEmpleado, movEmpleadoDet);
-            movEmpleadoDet.LiquidacionConceptoID = (int)LiquidacionConceptos.TotalPagado;
-            movEmpleadoDet.DevCred = DevCred.Devito;
+            movEmpleadoDet.LiquidacionConceptoID = (int)Liquidacion.Conceptos.TotalPagado;
+            movEmpleadoDet.DevCred = Liquidacion.DevCred.Devito;
             movEmpleadoDet.Monto = totalPagado;
             if (!SeCargoMovEmpleadosDetsSn(movEmpleadoDet, mensajeDto, de, "Total Pagado")) { return; };
             _Mensajes.Add("Se Cargo correctamente el total pagado de " + nombre);
@@ -603,18 +603,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
             /// en la tabla de PrestamosSimples
             //public List<decimal> Prestamos { get; set; }
         }
-        public static class DevCred {
-            public static bool Devito = true;
-            public static bool Credito = false;
-        }
-        public enum LiquidacionConceptos {
-            SueldoBase = 1,
-            Comision = 2,
-            Anticipo = 3,
-            Prestamo = 4,
-            TotalPagado = 5,
-            Ips = 6
-        }
+ 
         #endregion
 
 

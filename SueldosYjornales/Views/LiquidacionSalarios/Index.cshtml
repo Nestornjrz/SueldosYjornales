@@ -21,6 +21,8 @@
                 var liquidacionSalariosDetalles = $resource("@Href("~/api/LiquidacionSalarios/Detalles")");
                 var modificarPrestamos = $resource("@Href("~/api/ModificarPrestamos")");
                 var prestamoSimMovs = $resource("@Href("~/api/PrestamoSimMovs")");
+                var liquidacionAguinaldos = $resource("@Href("~/api/LiquidacionAguinaldos")");
+                var liquidacionAguinaldosDetalles = $resource("@Href("~/api/LiquidacionAguinaldos/Detalles")");
 
                 return {
                     "empleados": empleados,
@@ -29,7 +31,9 @@
                     "liquidacionSalarios": liquidacionSalarios,
                     "liquidacionSalariosDetalles": liquidacionSalariosDetalles,
                     "modificarPrestamos": modificarPrestamos,
-                    "prestamoSimMovs": prestamoSimMovs
+                    "prestamoSimMovs": prestamoSimMovs,
+                    "liquidacionAguinaldos": liquidacionAguinaldos,
+                    "liquidacionAguinaldosDetalles": liquidacionAguinaldosDetalles
                 }
             }
         })();
@@ -37,7 +41,9 @@
     @*controladores*@
     <script src="~/Scripts/LiquidacionSalarios/Index/Controllers/menuCtrl.js"></script>
     <script src="~/Scripts/LiquidacionSalarios/Index/Controllers/listadoEmpleadosCtrl.js"></script>
+    <script src="~/Scripts/LiquidacionSalarios/Index/Controllers/ControlVisoresCtrl.js"></script>
     <script src="~/Scripts/LiquidacionSalarios/Index/Controllers/mensajesCtrl.js"></script>
+    <script src="~/Scripts/LiquidacionSalarios/Index/Controllers/mensajesAguinaldoCtrl.js"></script>
 }
 <div class="row" style="margin-top:25px;" ng-controller="menuCtrl" ng-cloak>
     <div class="col-md-5">

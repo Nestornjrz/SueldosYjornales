@@ -98,10 +98,10 @@ namespace SYJ.Domain.Managers.Auxiliares {
                             m.EmpleadoID == _MovEmpleadoDet.Empleado.EmpleadoID)
                 .ToList();
             var creditos = movEmpleadosDets
-                .Where(m => m.DevCred == LiquidacionSalariosManagers.DevCred.Credito)
+                .Where(m => m.DevCred == Liquidacion.DevCred.Credito)
                 .Sum(m => m.Monto);
             var devitos = movEmpleadosDets
-                .Where(m => m.DevCred == LiquidacionSalariosManagers.DevCred.Devito)
+                .Where(m => m.DevCred == Liquidacion.DevCred.Devito)
                 .Sum(m => m.Monto);
             if ((devitos - creditos) != 0) {
                 _Mensajes.Add("#ERROR#  " + nombre + " Los movimientos de esta liquidacion NO ESTAN CUADRADOS: La diferencia es de: " + (devitos - creditos));
@@ -119,7 +119,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                           .Where(m => m.MesAplicacion.Year == mesSiguiente.Year &&
                                     m.MesAplicacion.Month == mesSiguiente.Month &&
                                     m.EmpleadoID == _MovEmpleadoDet.Empleado.EmpleadoID &&
-                                    m.LiquidacionConceptoID == (int)LiquidacionSalariosManagers.LiquidacionConceptos.TotalPagado)
+                                    m.LiquidacionConceptoID == (int)Liquidacion.Conceptos.TotalPagado)
                           .FirstOrDefault();
             if (movEmpleadoDetSiguiente != null) {
                 _Mensajes.Add("#ERROR# No se puede modificar pues ya existe para el mes siguiente, UNA LIQUIDACION GENERADA " + nombre);
@@ -139,7 +139,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 .Where(m => m.MesAplicacion.Month == mesSiguiente.Month &&
                           m.MesAplicacion.Year == mesSiguiente.Year &&
                           m.EmpleadoID == _MovEmpleadoDet.Empleado.EmpleadoID &&
-                          m.LiquidacionConceptoID == (int)LiquidacionSalariosManagers.LiquidacionConceptos.Prestamo)
+                          m.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Prestamo)
                 .FirstOrDefault();
             if (movEmpleadoDetSiguiente != null) {
                 movEmpleadoDetSiguiente.Monto += _CompartirDatos.DifMontoPrestamo;
@@ -175,7 +175,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 .Where(m => m.MesAplicacion.Month == _MovEmpleadoDet.MesAplicacion.Month &&
                             m.MesAplicacion.Year == _MovEmpleadoDet.MesAplicacion.Year &&
                             m.EmpleadoID == _MovEmpleadoDet.Empleado.EmpleadoID &&
-                            m.LiquidacionConceptoID == (int)LiquidacionSalariosManagers.LiquidacionConceptos.TotalPagado)
+                            m.LiquidacionConceptoID == (int)Liquidacion.Conceptos.TotalPagado)
              .FirstOrDefault();
             if (movEmpleadoDetDb == null) {
                 _Mensajes.Add("#ERROR# no se encontro el detalle del prestamo actual");

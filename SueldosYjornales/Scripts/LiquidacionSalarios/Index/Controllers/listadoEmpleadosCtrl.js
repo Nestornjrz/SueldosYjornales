@@ -8,12 +8,37 @@
     listadoEmpleadosCtrl.$inject = ['$scope', '$rootScope', '$modal', 'sYjResource'];
 
     function listadoEmpleadosCtrl($scope, $rootScope, $modal, sYjResource) {
+        var vm = this;
         $scope.empleados = sYjResource.empleadosSegunUbicacionSucursal.query();
-
+        //#region SE MANEJA EL TAB ENTRE LA LIQUIDACION DE SALARIO Y AGUINALDO
+        vm.menu = {};
+        vm.menu.liqSalario = {};
+        vm.menu.liqAguinaldo = {};
+        vm.liqSalarioFn = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            ocultar();
+            vm.menu.liqSalario.class = "active";
+            vm.menu.liqSalario.mostrar = true;
+        }
+        vm.liqAguinaldoFn = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            ocultar();
+            vm.menu.liqAguinaldo.class = "active";
+            vm.menu.liqAguinaldo.mostrar = true;
+        }
+        function ocultar() {
+            vm.menu.liqSalario = {};
+            vm.menu.liqAguinaldo = {};
+        }
+        vm.menu.liqSalario.class = "active";
+        vm.menu.liqSalario.mostrar = true;
+        //#endregion
         $scope.liqui = {};
         $scope.liqui.empleadosSeleccionados = [];
         $scope.cantSeleccionados = 0;
-
+        //#region SELECCION DE FUNCIONARIOS
         $scope.seleccionarTodo = function (event) {
             var cantidad = 0;
             $scope.liqui.empleadosSeleccionados = [];
@@ -43,7 +68,8 @@
                 $scope.varSeleccionarTodo = false;
             }
         };
-        //Datos del formulario para mes y año
+        //#endregion
+        //#region Datos del formulario para mes y año
         $scope.meses = [
           { "mesID": 1, "nombreMes": "Enero" },
           { "mesID": 2, "nombreMes": "Febrero" },
@@ -73,8 +99,8 @@
         $scope.liqui.year = _.find($scope.years, function (num) {
             return num == yearActual;
         });
-
-        //Se genera la liquidacion de salarios
+        //#endregion
+        //#region Se genera la liquidacion de salarios
         $scope.guardar = function () {
             sYjResource.liquidacionSalarios.save($scope.liqui)
            .$promise.then(
@@ -92,7 +118,7 @@
                 $scope.mensajeDelServidor = mensaje.data.mensajeDelProceso;
             });
         }
-
+        //Se recuperan los detalles de las liquidaciones para mostrarlo
         $scope.recuperarDetalles = function () {
             sYjResource.liquidacionSalariosDetalles.save($scope.liqui)
            .$promise.then(
@@ -110,5 +136,42 @@
                 $scope.mensajeDelServidor = mensaje.data.mensajeDelProceso;
             });
         }
+        //#endregion
+        //#region Liquidacion de aguinaldo
+        $scope.generarLiqAguinaldo = function () {
+            sYjResource.liquidacionAguinaldos.save($scope.liqui)
+             .$promise.then(
+            function (mensaje) {
+                $scope.mensaje = mensaje;
+                if (!mensaje.error) {
+                    $scope.mensajeDelServidor = mensaje.mensajeDelProceso;
+                } else {
+                    $scope.mensajeDelServidor = mensaje.mensajeDelProceso;
+                }
+                $rootScope.$broadcast('actualizarLogsAguinaldo', $scope.mensaje);
+                $scope.recuperarDetallesAguinaldo();
+            },
+            function (mensaje) {
+                $scope.mensajeDelServidor = mensaje.data.mensajeDelProceso;
+            });
+        }
+        $scope.recuperarDetallesAguinaldo = function () {
+            sYjResource.liquidacionAguinaldosDetalles.save($scope.liqui)
+           .$promise.then(
+            function (mensaje) {
+                $scope.mensaje = mensaje;
+                if (!mensaje.error) {
+                    $scope.mensajeDelServidor = mensaje.mensajeDelProceso;
+                } else {
+                    $scope.mensajeDelServidor = mensaje.mensajeDelProceso;
+                }
+                $rootScope.$broadcast('actualizarDetallesAguinaldos', $scope.mensaje);
+                $rootScope.$broadcast('formLiquidacionAguinaldo', $scope.liqui);
+            },
+            function (mensaje) {
+                $scope.mensajeDelServidor = mensaje.data.mensajeDelProceso;
+            });
+        }
+        //#endregion
     }
 })();

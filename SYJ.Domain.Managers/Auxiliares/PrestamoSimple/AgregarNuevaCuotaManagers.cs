@@ -179,7 +179,7 @@ namespace SYJ.Domain.Managers.Auxiliares.PrestamoSimple {
             cuotaAagregar.Monto = _MontoDeLaCuotaNueva;
             var mesSiguiente = _UltimaCuotaAmodificarDb.MesAplicacion.AddMonths(1);
             cuotaAagregar.MesAplicacion = new DateTime(mesSiguiente.Year, mesSiguiente.Month, 1);
-            cuotaAagregar.LiquidacionConceptoID = (int)LiquidacionSalariosManagers.LiquidacionConceptos.Prestamo;
+            cuotaAagregar.LiquidacionConceptoID = (int)Liquidacion.Conceptos.Prestamo;
             _Context.MovEmpleadosDets.Add(cuotaAagregar);
             mensajeDto = AgregarModificar.Hacer(_Context, mensajeDto);
             if (mensajeDto != null) {
