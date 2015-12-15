@@ -148,6 +148,11 @@ namespace SYJ.Domain.Managers {
                 if (historico.FechaSalida == null) {
                     return true;
                 } else {
+                    //Se ve si salio dentro del mes actual, si es asi se considera que todavia trabaja
+                    if (historico.FechaSalida.Value.Year == DateTime.Now.Year &&
+                        historico.FechaSalida.Value.Month == DateTime.Now.Month) {
+                            return true;
+                    }
                     //Se ve si la fecha de salida esta todavia en el futuro o ya paso
                     if (historico.FechaSalida > DateTime.Now) {
                         return true;
@@ -155,6 +160,20 @@ namespace SYJ.Domain.Managers {
                         return false;
                     }
                 }
+            }
+        }
+        public static DateTime? fechaSalida(long empleadoID, DateTime fechaDondeSeEsta) {
+            using (var context = new SueldosJornalesEntities()) {
+                //Se busca el ultimo movimiento del empleado
+                var historico = context.HistoricoIngresoSalidas
+                    .Where(h => h.EmpleadoID == empleadoID &&
+                           h.FechaSalida < fechaDondeSeEsta)
+                    .OrderByDescending(h => h.MomentoCarga)
+                    .FirstOrDefault();
+                if (historico == null) {
+                    return null;
+                }
+                return historico.FechaSalida.Value;
             }
         }
     }

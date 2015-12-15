@@ -56,8 +56,8 @@ namespace SYJ.Domain.Managers {
                 if (historicoSalarioDb == null) {
                     return new MensajeDto() {
                         Error = true,
-                        MensajeDelProceso = "No existe el historico de salario : " 
-                        + hsDto.HistoricoSalarioID 
+                        MensajeDelProceso = "No existe el historico de salario : "
+                        + hsDto.HistoricoSalarioID
                     };
                 }
                 historicoSalarioDb.Monto = hsDto.Monto;
@@ -108,7 +108,7 @@ namespace SYJ.Domain.Managers {
             using (var context = new SueldosJornalesEntities()) {
                 var listado = context.HistoricoSalarios
                     .Where(h => h.EmpleadoID == empleadoID)
-                    .OrderByDescending(h=>h.FechaSalario)
+                    .OrderByDescending(h => h.FechaSalario)
                     .Select(s => new HistoricoSalarioDto() {
                         HistoricoSalarioID = s.HistoricoSalarioID,
                         EmpleadoID = s.EmpleadoID,
@@ -126,10 +126,11 @@ namespace SYJ.Domain.Managers {
             }
         }
 
-        public MensajeDto SalarioYCargoActual(long empleadoID) {
+        public MensajeDto SalarioYCargo(long empleadoID, DateTime fechaDondeSeEsta) {
             using (var context = new SueldosJornalesEntities()) {
                 var salarioActualDb = context.HistoricoSalarios
-                    .Where(h=>h.EmpleadoID == empleadoID)
+                    .Where(h => h.EmpleadoID == empleadoID &&
+                           h.FechaSalario < fechaDondeSeEsta)
                     .OrderByDescending(h => h.FechaSalario)
                     .FirstOrDefault();
                 if (salarioActualDb == null) {
@@ -143,8 +144,40 @@ namespace SYJ.Domain.Managers {
                 hsDto.EmpleadoID = salarioActualDb.EmpleadoID;
                 hsDto.Monto = salarioActualDb.Monto;
                 hsDto.Cargo = new CargoDto() {
-                     CargoID = salarioActualDb.CargoID,
-                     NombreCargo = salarioActualDb.Cargo.NombreCargo
+                    CargoID = salarioActualDb.CargoID,
+                    NombreCargo = salarioActualDb.Cargo.NombreCargo
+                };
+                hsDto.Observacion = salarioActualDb.Observacion;
+                hsDto.FechaSalario = salarioActualDb.FechaSalario;
+                hsDto.Ips_Sn = salarioActualDb.Ips_Sn;
+
+                return new MensajeDto() {
+                    Error = false,
+                    MensajeDelProceso = "Ultimo salario y cargo encontrado, segun fecha especificada",
+                    ObjetoDto = hsDto,
+                    Valor = hsDto.Monto.ToString()
+                };
+            }
+        }
+        public MensajeDto SalarioYCargoActual(long empleadoID) {
+            using (var context = new SueldosJornalesEntities()) {
+                var salarioActualDb = context.HistoricoSalarios
+                    .Where(h => h.EmpleadoID == empleadoID)
+                    .OrderByDescending(h => h.FechaSalario)
+                    .FirstOrDefault();
+                if (salarioActualDb == null) {
+                    return new MensajeDto() {
+                        Error = true,
+                        MensajeDelProceso = "No existen datos de Salarios"
+                    };
+                }
+                var hsDto = new HistoricoSalarioDto();
+                hsDto.HistoricoSalarioID = salarioActualDb.HistoricoSalarioID;
+                hsDto.EmpleadoID = salarioActualDb.EmpleadoID;
+                hsDto.Monto = salarioActualDb.Monto;
+                hsDto.Cargo = new CargoDto() {
+                    CargoID = salarioActualDb.CargoID,
+                    NombreCargo = salarioActualDb.Cargo.NombreCargo
                 };
                 hsDto.Observacion = salarioActualDb.Observacion;
                 hsDto.FechaSalario = salarioActualDb.FechaSalario;

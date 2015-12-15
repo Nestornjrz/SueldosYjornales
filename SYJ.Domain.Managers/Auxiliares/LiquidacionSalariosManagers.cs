@@ -346,15 +346,27 @@ namespace SYJ.Domain.Managers.Auxiliares {
             }
 
             //SE CARGAN LOS DETALLES (Tabla MovEmpleadosDets) ---------------------------------
-            ///Se carga el Sueldo Base
+            #region Se carga el Sueldo Base
             var movEmpleadoDet = new MovEmpleadosDet();
             CargarDatosComunes(de, movEmpleado, movEmpleadoDet);
             movEmpleadoDet.LiquidacionConceptoID = (int)Liquidacion.Conceptos.SueldoBase;
             movEmpleadoDet.DevCred = Liquidacion.DevCred.Credito;
             movEmpleadoDet.Monto = de.SueldoBase;
+            //Se calcula su sueldo segun la fecha de salida si es que cae en el mes que se esta calculando
+            var finMesFechaSeleccionada = new DateTime(_FlDto.Year, _FlDto.Mes.MesID, DateTime.DaysInMonth(_FlDto.Year, _FlDto.Mes.MesID));           
+            var fechaSalida = HistoricoIngresoSalidasManagers.fechaSalida(de.Empleado.EmpleadoID,finMesFechaSeleccionada);
+            if (fechaSalida != null) {
+                if (fechaSalida.Value.Year == _FlDto.Year && fechaSalida.Value.Month == _FlDto.Mes.MesID) {
+                    int diaSalida = fechaSalida.Value.Day;
+                    var sueldoPorDia = movEmpleadoDet.Monto / 30;
+                    movEmpleadoDet.Monto = sueldoPorDia * diaSalida;
+                    //Se carga de nuevo, el sueldo base modificado para que se calcule bien el ips
+                    de.SueldoBase = movEmpleadoDet.Monto;
+                }
+            }
             if (!SeCargoMovEmpleadosDetsSn(movEmpleadoDet, mensajeDto, de, "Sueldo Base")) { return; };
             _Mensajes.Add("Se Cargo correctamente el Sueldo Base de " + nombre);
-
+            #endregion
             ///Carga de comisiones
             movEmpleadoDet = new MovEmpleadosDet();
             CargarDatosComunes(de, movEmpleado, movEmpleadoDet);
@@ -551,8 +563,9 @@ namespace SYJ.Domain.Managers.Auxiliares {
         private decimal RecuperarSueldo(DatosEmpleado de) {
             var nombre = "(" + de.Empleado.Nombres + " " + de.Empleado.Apellidos + ") ";
 
-            HistoricoSalariosManagers hsm = new HistoricoSalariosManagers();
-            MensajeDto mensaje = hsm.SalarioYCargoActual(de.Empleado.EmpleadoID);
+            HistoricoSalariosManagers hsm = new HistoricoSalariosManagers();            
+            var finMesFechaSeleccionada = new DateTime(_FlDto.Year,_FlDto.Mes.MesID,DateTime.DaysInMonth(_FlDto.Year,_FlDto.Mes.MesID));           
+            MensajeDto mensaje = hsm.SalarioYCargo(de.Empleado.EmpleadoID, finMesFechaSeleccionada);
             if (mensaje.Error) {
                 _Mensajes.Add("#ERROR# " + nombre + mensaje.MensajeDelProceso);
                 _CantidadErrores += 1;
@@ -603,7 +616,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
             /// en la tabla de PrestamosSimples
             //public List<decimal> Prestamos { get; set; }
         }
- 
+
         #endregion
 
 
@@ -623,7 +636,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
                     if (mensajeDto != null) { return mensajeDto; }
                     //Se elimina la cabecera del movimiento
-                    var cabecera = context.MovEmpleados.Where(m=>m.MovEmpleadoID == id).First();
+                    var cabecera = context.MovEmpleados.Where(m => m.MovEmpleadoID == id).First();
                     context.MovEmpleados.Remove(cabecera);
                     mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
                     if (mensajeDto != null) { return mensajeDto; }

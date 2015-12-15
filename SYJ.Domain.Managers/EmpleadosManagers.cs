@@ -257,6 +257,7 @@ namespace SYJ.Domain.Managers {
                     }
                 }
                 //Se quita del listado los empleados que tengan salida en su ultimo historico de entrada salida
+                //Si salio en el mes actual todavia se le considera como que trabaja dentro del mes
                 var listadoFiltrado2 =  new List<EmpleadoDto>();
                 foreach (var l in listadoFiltrado) {
                     if (HistoricoIngresoSalidasManagers.EmpleadoTrabajaTodaviaEnLaEmpresa(l.EmpleadoID)) {
