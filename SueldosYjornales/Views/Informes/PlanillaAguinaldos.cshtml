@@ -1,0 +1,197 @@
+﻿@{
+    ViewBag.Title = "LiquidacionSueldo";
+    string psfDto = ViewBag.psfDto;
+    Layout = null;
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Informe liquidacion de sueldos</title>
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-resource.min.js"></script>
+    <script src="~/Scripts/i18n/angular-locale_es-py.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="~/Scripts/underscore.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script src="~/Scripts/Informes/PlanillaAguinaldos/Services/common.services.js"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            angular
+                .module('sueldosYjornalesApp')
+                .factory('sYjResource', sYjResource);
+
+            sYjResource.$inject = ['$resource'];
+
+            function sYjResource($resource) {
+                @*var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
+                var InfoLiqSalarios = $resource("@Href("~/api/InfoLiqSalarios")");*@
+                var paraPlanillaAguinaldos = $resource("@Href("~/api/LiquidacionAguinaldos/ParaPlanillaAguinaldos")");
+                return {
+                    //"ubicacionSucUsuarios": ubicacionSucUsuarios,
+                    //"InfoLiqSalarios": InfoLiqSalarios,
+                    "paraPlanillaAguinaldos": paraPlanillaAguinaldos
+                }
+            }
+        })();
+    </script>
+    @*controladores*@
+    <script src="~/Scripts/Informes/PlanillaAguinaldos/Controllers/PlanillaAguinaldosCtrl.js"></script>
+
+    <style type="text/css" media="screen">
+        .pagina {
+            border: 1px solid red;
+        }
+    </style>
+    <style type="text/css" media="all">
+        @@page {
+            size: legal portrait;
+            margin: 0 10% 10% 10%;
+        }
+
+        .pagina {
+            page-break-after: always;
+            page-break-before: avoid;
+            height: 27.9cm;
+            width: 21.6cm;
+            padding: 2px;
+        }
+
+        .linea {
+            /*border: 1px solid red;*/
+        }
+
+        .titulo {
+            text-align: center;
+            float: left;
+        }
+
+            .titulo h1 {
+                font-size: 20px;
+                margin-top: 50px;
+            }
+
+
+        .row_encabezado {
+            /*border: 1px solid #000000;*/
+            height: 100px;
+        }
+
+        .listado {
+            text-align: center;
+            -ms-align-content: center;
+            -webkit-align-content: center;
+            align-content: center;
+        }
+
+            .listado table {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .listado td {
+                border: 1px solid black;
+                padding: 2px;
+                /*font-size: 11px;*/
+                margin: 0;
+                border-spacing: 0;
+            }
+
+            .listado th {
+                border: 1px solid black;
+                padding: 2px;
+            }
+
+
+        .contenedor_imagen {
+            width: 200px;
+        }
+
+        .filaNormal {
+            font-size: 11px;
+        }
+
+        .subTotal {
+            font-weight: bolder;
+            background-color: gray;
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body ng-app="sueldosYjornalesApp">
+    <div ng-controller="planillaAguinaldosCtrl as vm" ng-init="vm.psfDto = '@psfDto'">
+        <div class="pagina">
+            <div class="row_encabezado">
+                <div style="float:left;" class="linea contenedor_imagen">
+                    <img width="150" height="75" src="~/Images/la aragonesa sa-02.jpg" />
+                </div>
+                <div class="linea titulo">
+                    <h1>
+                        Planilla de aguinaldos correspondiente al año {{vm.psfDto.year}}
+                    </h1>
+                </div>
+            </div>
+            <div class="listado">
+                <table cellspacing="0">
+                    <tr>
+                        <th>Item</th>
+                        <th>Personales</th>
+                        <th>Centro de costo</th>
+                        <th>Cargo</th>
+                        <th>Aguinaldo</th>
+                        <th>Desc. I.P.S.</th>                    
+                        <th>Neto a Cobrar</th>
+                    </tr>
+                    <tr ng-repeat="l in vm.listLiquidaciones">
+                        <td ng-show="l.empleado.empleadoID > 0" class="filaNormal">{{l.nroItem}}</td>
+                        <td ng-show="l.empleado.empleadoID == 0" colspan="4" class="subTotal">
+                            {{l.empleado.nombres}} {{l.empleado.apellidos}}
+                        </td>
+                        <td ng-show="l.empleado.empleadoID > 0" class="filaNormal">
+                            {{l.empleado.nombres}} {{l.empleado.apellidos}}
+                        </td>
+
+                        <td ng-hide="l.empleado.empleadoID == 0" class="filaNormal">
+                            {{l.empleado.sucursale.nombreSucursal}}
+                        </td>
+                        <td ng-hide="l.empleado.empleadoID == 0" class="filaNormal">
+                            {{l.empleado.cargo.nombreCargo}}
+                        </td>
+
+                        @*PARTE NUMERICA*@
+                        @*Subtotal*@
+                        <td ng-show="l.empleado.empleadoID == 0" class="subTotal">
+                            {{l.salarioBase | currency:"":0}}
+                        </td>
+                        <td ng-show="l.empleado.empleadoID == 0" class="subTotal">
+                            {{l.descIPS | currency:"":0}}
+                        </td>                     
+                        <td ng-show="l.empleado.empleadoID == 0" class="subTotal">
+                            {{l.netoAcobrar | currency:"":0}}
+                        </td>
+
+                        @*Fila normal*@
+                        <td ng-show="l.empleado.empleadoID > 0" class="filaNormal">
+                            {{l.salarioBase | currency:"":0}}
+                        </td>
+                        <td ng-show="l.empleado.empleadoID > 0" class="filaNormal">
+                            {{l.descIPS | currency:"":0}}
+                        </td>                      
+                        <td ng-show="l.empleado.empleadoID > 0" class="filaNormal">
+                            {{l.netoAcobrar | currency:"":0}}
+                        </td>
+
+                    </tr>
+                </table>
+                @*<pre>{{vm.listado | json}}</pre>
+                <pre>{{vm.psfDto | json}}</pre>*@
+            </div>
+        </div>
+        @*<pre>{{vm.listLiquidaciones | json}}</pre>*@
+        @*<pre>{{vm.psfDto | json}}</pre>*@
+    </div>
+</body>

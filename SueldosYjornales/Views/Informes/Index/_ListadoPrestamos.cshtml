@@ -1,5 +1,5 @@
 ﻿<div class="panel panel-info">
-    <div class="panel-heading">Listado de prestamos</div>
+    <div class="panel-heading">Prestamos/Aguinaldos</div>
     <div class="panel-body" ng-controller="listadoPrestamoCtrl as vm">
         <form class="form-horizontal" role="form" name="listadoPrestamoForm" ng-cloak>
             <div class="form-group">
@@ -54,7 +54,11 @@
         </form>
         <form method="post" action="@Url.Action("ListadoPrestamos","Informes")" target="_blank">
             <input type="hidden" id="jsonInput" name="jsonInput" />
-            <button type="submit" ng-disabled="listadoPrestamoForm.$invalid" class="btn btn-default">Generar Informe</button>
+            <button type="submit" ng-disabled="listadoPrestamoForm.$invalid" class="btn btn-default">Generar Informe de prestamos</button>
+        </form>
+        <form method="post" action="@Url.Action("PlanillaAguinaldos", "Informes")" target="_blank">
+            <input type="hidden" id="jsonInputAguinaldo" name="jsonInput" />
+            <button type="submit" ng-disabled="listadoPrestamoForm.$invalid" class="btn btn-default">Generar Planilla de aguinaldo</button>
         </form>
         @*<pre>{{vm.listadoPrestamo | json}}</pre>*@
     </div>

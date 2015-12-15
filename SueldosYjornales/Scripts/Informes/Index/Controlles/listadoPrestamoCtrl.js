@@ -6,7 +6,8 @@
         .controller('listadoPrestamoCtrl', listadoPrestamoCtrl);
 
     listadoPrestamoCtrl.$inject = ['$scope', '$rootScope', 'sYjResource'];
-
+    ///Al principio era solo para generar el listado, despues añadi otros informes
+    ///ya que utiliza los mismos parametros de consulta
     function listadoPrestamoCtrl($scope, $rootScope, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
@@ -66,6 +67,7 @@
         function actualizarElInput() {
             var json = angular.toJson(vm.listadoPrestamo);
             $('#jsonInput').val(json);
+            $('#jsonInputAguinaldo').val(json);
         }
     }
 })();

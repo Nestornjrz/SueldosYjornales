@@ -32,5 +32,10 @@ namespace SueldosYjornales.Controllers {
             ViewBag.psfDto = jsonInput;
             return View();
         }
+        [HttpPost]
+        public ActionResult PlanillaAguinaldos(string jsonInput) {
+            ViewBag.psfDto = jsonInput;
+            return View();
+        }
     }
 }

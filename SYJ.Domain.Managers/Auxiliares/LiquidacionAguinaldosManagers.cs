@@ -286,7 +286,10 @@ namespace SYJ.Domain.Managers.Auxiliares {
             public string MensajeString { get; set; }
         }
         #endregion
-
+        /// <summary>
+        /// Se recuperan solo los aguinaldos
+        /// </summary>
+        /// <returns></returns>
         public MensajeDto RecuperarDetallesParaImprimir() {
             using (var context = new SueldosJornalesEntities()) {
                 List<MovEmpleadoDto> movimientos = new List<MovEmpleadoDto>();
@@ -351,6 +354,64 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     Error = false,
                     MensajeDelProceso = "Se cargo el listado de aguinaldos segun la sucursal, el mes y el año seleccionado : ",
                     ObjetoDto = listLsDto
+                };
+            }
+        }
+        public MensajeDto RecuperarDetallesSubtotalesPorSuc(List<LiquidacionSalarioDto> liquidacionSalarios) {
+            using (var context = new SueldosJornalesEntities()) {
+                var liqSalariosResul = new List<LiquidacionSalarioDto>();
+                var sucursales = context.Sucursales.ToList();
+
+                int contador = 0;
+                sucursales.ForEach(delegate(Sucursale s) {
+                    //Se lista todos los empleados de usa sola sucursal
+                    var liquidacionesSuc = liquidacionSalarios
+                        .Where(l => l.Empleado.Sucursale.SucursalID == s.SucursalID)
+                        .OrderByDescending(l => l.SalarioBase)
+                        .ToList();
+                    //Numerar las liquidaciones, es una fila por empleado
+                    liquidacionesSuc.ForEach(delegate(LiquidacionSalarioDto ls) {
+                        ls.NroItem = ++contador;
+                    });
+                    if (liquidacionesSuc.Count() > 0) {
+                        liqSalariosResul.AddRange(liquidacionesSuc);
+                        //Se le carga un subtotal
+                        var liqSalario = new LiquidacionSalarioDto();
+                        liqSalario.Empleado = new EmpleadoDto();
+                        liqSalario.Empleado.EmpleadoID = 0;
+                        liqSalario.Empleado.Nombres = "Subtotal " + s.NombreSucursal;
+                        liqSalario.SalarioBase = liquidacionesSuc.Sum(l => l.SalarioBase);
+                        liqSalario.DescIPS = liquidacionesSuc.Sum(l => l.DescIPS);
+                        liqSalario.DescOtros = liquidacionesSuc.Sum(l => l.DescOtros);
+                        liqSalario.NetoAcobrar = liquidacionesSuc.Sum(l => l.NetoAcobrar);
+                        liqSalariosResul.Add(liqSalario);
+                    }
+                });
+                //Se agrega el gran total
+                if (liqSalariosResul.Count > 0) {
+                    var liqSalario = new LiquidacionSalarioDto();
+                    liqSalario.Empleado = new EmpleadoDto();
+                    liqSalario.Empleado.EmpleadoID = 0;
+                    liqSalario.Empleado.Nombres = "Gran total ";
+
+                    liqSalario.SalarioBase = liqSalariosResul
+                        .Where(l => l.Empleado.EmpleadoID != 0)
+                        .Sum(l => l.SalarioBase);
+                    liqSalario.DescIPS = liqSalariosResul
+                            .Where(l => l.Empleado.EmpleadoID != 0)
+                        .Sum(l => l.DescIPS);
+                    liqSalario.DescOtros = liqSalariosResul
+                            .Where(l => l.Empleado.EmpleadoID != 0)
+                        .Sum(l => l.DescOtros);
+                    liqSalario.NetoAcobrar = liqSalariosResul
+                            .Where(l => l.Empleado.EmpleadoID != 0)
+                        .Sum(l => l.NetoAcobrar);
+                    liqSalariosResul.Add(liqSalario);
+                }
+                return new MensajeDto() {
+                    Error = false,
+                    MensajeDelProceso = "Se subtotalizo por sucursal el listado: ",
+                    ObjetoDto = liqSalariosResul
                 };
             }
         }

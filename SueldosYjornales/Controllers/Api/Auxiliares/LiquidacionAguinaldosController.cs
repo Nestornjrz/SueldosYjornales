@@ -49,7 +49,25 @@ namespace SueldosYjornales.Controllers.Api.Auxiliares
             MensajeDto mensaje = lsm.RecuperarDetallesParaImprimir();
             return Request.CreateResponse(HttpStatusCode.Created, mensaje);
         }
+        [HttpPost]
+        [Route("api/LiquidacionAguinaldos/ParaPlanillaAguinaldos")]
+        public HttpResponseMessage PostParaImprimir(MesYearEmpresaSucursalesDto myesDto) {
 
+            //Se crea el formulario que tiene la seleccion por empleado
+            FormLiquidacionDto fldto = new FormLiquidacionDto();
+            fldto.Year = myesDto.Year;
+            fldto.Mes = myesDto.Mes;
+            ///Se tiene que recuperar segun las sucursales los empleados activos
+            //fldto.EmpleadosSeleccionados = Aqui se requiere empleados activos
+            EmpleadosManagers em = new EmpleadosManagers();
+            fldto.EmpleadosSeleccionados = em.EmpleadosSeleccionados(myesDto);
+
+            LiquidacionAguinaldosManagers lam = new LiquidacionAguinaldosManagers(fldto,
+                Guid.Parse(User.Identity.GetUserId()));
+            MensajeDto mensaje = lam.RecuperarDetallesParaImprimir();
+            mensaje = lam.RecuperarDetallesSubtotalesPorSuc((List<LiquidacionSalarioDto>)mensaje.ObjetoDto);
+            return Request.CreateResponse(HttpStatusCode.Created, mensaje);
+        }
 
         // PUT: api/LiquidacionAguinaldos/5
         public void Put(int id, [FromBody]string value)

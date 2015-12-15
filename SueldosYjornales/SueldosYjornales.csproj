@@ -1088,6 +1088,8 @@
     <Content Include="Scripts\Informes\LiquidacionSueldo\Controllers\liquidacionSalarioInfoCtrl.js" />
     <Content Include="Scripts\Informes\ListadoPrestamos\Controllers\listadoPrestamosCtrl.js" />
     <Content Include="Scripts\Informes\ListadoPrestamos\Services\common.services.js" />
+    <Content Include="Scripts\Informes\PlanillaAguinaldos\Controllers\PlanillaAguinaldosCtrl.js" />
+    <Content Include="Scripts\Informes\PlanillaAguinaldos\Services\common.services.js" />
     <Content Include="Scripts\Informes\PlanillaSalarios\Controllers\planillaSalariosCtrl.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
@@ -1229,6 +1231,7 @@
     <Content Include="Views\Informes\Index\_ListadoPrestamos.cshtml" />
     <Content Include="Views\Informes\ListadoPrestamos.cshtml" />
     <Content Include="Views\LiquidacionSalarios\ImpresionLiqAguinaldo.cshtml" />
+    <Content Include="Views\Informes\PlanillaAguinaldos.cshtml" />
     <None Include="Web.ProduccionRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
