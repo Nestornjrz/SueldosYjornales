@@ -143,6 +143,7 @@
                         <th>Centro de costo</th>
                         <th>Cargo</th>
                         <th>Sueldo</th>
+                        <th>Comision</th>
                         <th>Desc. I.P.S.</th>
                         <th>Desc. Prest</th>
                         <th>Neto a Cobrar</th>
@@ -169,6 +170,9 @@
                             {{l.salarioBase | currency:"":0}}
                         </td>
                         <td ng-show="l.empleado.empleadoID == 0" class="subTotal">
+                            {{l.comisiones | currency:"":0}}
+                        </td>
+                        <td ng-show="l.empleado.empleadoID == 0" class="subTotal">
                             {{l.descIPS | currency:"":0}}
                         </td>
                         <td ng-show="l.empleado.empleadoID == 0" class="subTotal">
@@ -181,6 +185,9 @@
                         @*Fila normal*@
                         <td ng-show="l.empleado.empleadoID > 0" class="filaNormal">
                             {{l.salarioBase | currency:"":0}}
+                        </td>
+                        <td ng-show="l.empleado.empleadoID > 0" class="filaNormal">
+                            {{l.comisiones | currency:"":0}}
                         </td>
                         <td ng-show="l.empleado.empleadoID > 0" class="filaNormal">
                             {{l.descIPS | currency:"":0}}
