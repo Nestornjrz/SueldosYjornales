@@ -39,6 +39,16 @@ namespace SueldosYjornales.Controllers.Api {
             }
             return Request.CreateResponse<List<EmpleadoDto>>(HttpStatusCode.OK, listado);
         }
+        [HttpGet]
+        [Route("api/Empleados/InactivosSegunUbicacionSucursal")]
+        public HttpResponseMessage GetInactivosSegunUbicacionSucursalMesYear() {
+            EmpleadosManagers em = new EmpleadosManagers();
+            List<EmpleadoDto> listado = new List<EmpleadoDto>();
+            if (User.Identity.IsAuthenticated) {
+                listado = em.ListadoEmpleadosInactivosSegunUbicacionSucursal(Guid.Parse(User.Identity.GetUserId()));
+            }
+            return Request.CreateResponse<List<EmpleadoDto>>(HttpStatusCode.OK, listado);
+        }
 
         // GET: api/Empleados/5
         public HttpResponseMessage Get(int id) {

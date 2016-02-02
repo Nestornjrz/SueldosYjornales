@@ -24,6 +24,7 @@
                 var estadosCiviles = $resource("@Href("~/api/EstadosCiviles")");
                 var empleados = $resource("@Href("~/api/Empleados")");
                 var empleadosSegunUbicacionSucursal = $resource("@Href("~/api/Empleados/SegunUbicacionSucursal")");
+                var empleadosInactivosSegunUbicacionSucursal = $resource("@Href("~/api/Empleados/InactivosSegunUbicacionSucursal")");
 
                 return {
                     "empresas": empresas,
@@ -35,7 +36,8 @@
                     "ubicacionSucUsuarios": ubicacionSucUsuarios,
                     "estadosCiviles": estadosCiviles,
                     "empleados": empleados,
-                    "empleadosSegunUbicacionSucursal": empleadosSegunUbicacionSucursal
+                    "empleadosSegunUbicacionSucursal": empleadosSegunUbicacionSucursal,
+                    "empleadosInactivosSegunUbicacionSucursal": empleadosInactivosSegunUbicacionSucursal
                 }
             }
         })();

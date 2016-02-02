@@ -1,49 +1,105 @@
 ﻿<div class="row" ng-controller="listadoEmpleadosCtrl" ng-cloak style="margin-top:25px;">
-    <h2>Listado Empleados {{empleados.length}}</h2>
-    <div class="col-md-12">
-        <table class="table table-bordered table-hover table-striped table-condensed">
-            <thead>
-                <tr>
-                    <th colspan="2">Acciones</th>
-                    <th>ID</th>
-                    <th>Foto/Ci</th>
-                    <th>Nombre</th>
-                    <th>Fecha Nac.</th>
-                    <th ng-hide="mostrarFormCargaEmpleado">Nro Cedula</th>
-                    <th ng-hide="mostrarFormCargaEmpleado">Estado Civil</th>
-                    <th ng-hide="mostrarFormCargaEmpleado">Nacionalidad</th>
-                    <th ng-hide="mostrarFormCargaEmpleado">Profesion</th>
-                    <th ng-hide="mostrarFormCargaEmpleado">Cant. Hijos</th>
-                    <th>Historicos</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="o in empleados">
-                    <td class="text-center"><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
-                    <td class="text-center"><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
-                    <td>{{o.empleadoID}}</td>
-                    <td>
-                        <a href="@Url.Action("ImprimirCedula","Empleados")/{{o.empleadoID}}" target="_blank">
-                            <img class="img-responsive img-thumbnail" ng-src="@Href("~/api/Imagenes")?empleadoID={{o.empleadoID}}&tipoImagenID=1" alt="Foto" style="max-height:40px;" />
-                        </a>
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Resumen","Empleados")/{{o.empleadoID}}">
-                            {{o.nombres}} {{o.apellidos}}
-                        </a>
-                    </td>
-                    <td>{{o.fechaNacimiento | date:"dd/MM/yyyy"}}</td>
-                    <td ng-hide="mostrarFormCargaEmpleado">{{o.nroCedula}}</td>
-                    <td ng-hide="mostrarFormCargaEmpleado">{{o.estadoCivile.nombreEstadoCivil}}</td>
-                    <td ng-hide="mostrarFormCargaEmpleado">{{o.nacionalidade.nombreNacionalidad}}</td>
-                    <td ng-hide="mostrarFormCargaEmpleado">{{o.profesione.nombreProfesion}}</td>
-                    <td ng-hide="mostrarFormCargaEmpleado">{{o.cantidadHijos}}</td>
-                    <td class="text-center"><a title="Actualizar" target="_blank" href="@Url.Action("Historicos","Empleados")/{{o.empleadoID}}" class="btn btn-warning btn-sm"> <i class="glyphicon glyphicon-new-window" /></a></td>
-                </tr>
-            </tbody>
-        </table>
+    <ul class="nav nav-tabs" style="margin-top:2px;">
+        <li role="presentation" class="{{menu.activos.class}}">
+            <a href="#" ng-click="activosFn($event)">Activos</a>
+        </li>
+        <li role="presentation" class="{{menu.inactivo.class}}">
+            <a href="#" ng-click="inactivosFn($event)">Inactivos</a>
+        </li>
+    </ul>
+    <div style="margin-top:25px;" ng-show="menu.activos.mostrar">
+        <h2>Listado Empleados {{empleados.length}}</h2>
+        <div class="col-md-12">
+            <table class="table table-bordered table-hover table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th colspan="2">Acciones</th>
+                        <th>ID</th>
+                        <th>Foto/Ci</th>
+                        <th>Nombre</th>
+                        <th>Fecha Nac.</th>
+                        <th ng-hide="mostrarFormCargaEmpleado">Nro Cedula</th>
+                        <th ng-hide="mostrarFormCargaEmpleado">Estado Civil</th>
+                        <th ng-hide="mostrarFormCargaEmpleado">Nacionalidad</th>
+                        <th ng-hide="mostrarFormCargaEmpleado">Profesion</th>
+                        <th ng-hide="mostrarFormCargaEmpleado">Cant. Hijos</th>
+                        <th>Historicos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="o in empleados">
+                        <td class="text-center"><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
+                        <td class="text-center"><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
+                        <td>{{o.empleadoID}}</td>
+                        <td>
+                            <a href="@Url.Action("ImprimirCedula","Empleados")/{{o.empleadoID}}" target="_blank">
+                                <img class="img-responsive img-thumbnail" ng-src="@Href("~/api/Imagenes")?empleadoID={{o.empleadoID}}&tipoImagenID=1" alt="Foto" style="max-height:40px;" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Resumen","Empleados")/{{o.empleadoID}}">
+                                {{o.nombres}} {{o.apellidos}}
+                            </a>
+                        </td>
+                        <td>{{o.fechaNacimiento | date:"dd/MM/yyyy"}}</td>
+                        <td ng-hide="mostrarFormCargaEmpleado">{{o.nroCedula}}</td>
+                        <td ng-hide="mostrarFormCargaEmpleado">{{o.estadoCivile.nombreEstadoCivil}}</td>
+                        <td ng-hide="mostrarFormCargaEmpleado">{{o.nacionalidade.nombreNacionalidad}}</td>
+                        <td ng-hide="mostrarFormCargaEmpleado">{{o.profesione.nombreProfesion}}</td>
+                        <td ng-hide="mostrarFormCargaEmpleado">{{o.cantidadHijos}}</td>
+                        <td class="text-center"><a title="Actualizar" target="_blank" href="@Url.Action("Historicos","Empleados")/{{o.empleadoID}}" class="btn btn-warning btn-sm"> <i class="glyphicon glyphicon-new-window" /></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        @*<pre>{{empleados | json}}</pre>*@
     </div>
-    @*<pre>{{empleados | json}}</pre>*@
+    <div style="margin-top:25px;" ng-show="menu.inactivos.mostrar">
+        <h2>Listado Empleados {{empleadosInactivos.length}}</h2>
+        <div class="col-md-12">
+            <table class="table table-bordered table-hover table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th colspan="2">Acciones</th>
+                        <th>ID</th>
+                        <th>Foto/Ci</th>
+                        <th>Nombre</th>
+                        <th>Fecha Nac.</th>
+                        <th ng-hide="mostrarFormCargaEmpleado">Nro Cedula</th>
+                        <th ng-hide="mostrarFormCargaEmpleado">Estado Civil</th>
+                        <th ng-hide="mostrarFormCargaEmpleado">Nacionalidad</th>
+                        <th ng-hide="mostrarFormCargaEmpleado">Profesion</th>
+                        <th ng-hide="mostrarFormCargaEmpleado">Cant. Hijos</th>
+                        <th>Historicos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="o in empleadosInactivos">
+                        <td class="text-center"><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
+                        <td class="text-center"><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
+                        <td>{{o.empleadoID}}</td>
+                        <td>
+                            <a href="@Url.Action("ImprimirCedula","Empleados")/{{o.empleadoID}}" target="_blank">
+                                <img class="img-responsive img-thumbnail" ng-src="@Href("~/api/Imagenes")?empleadoID={{o.empleadoID}}&tipoImagenID=1" alt="Foto" style="max-height:40px;" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Resumen","Empleados")/{{o.empleadoID}}">
+                                {{o.nombres}} {{o.apellidos}}
+                            </a>
+                        </td>
+                        <td>{{o.fechaNacimiento | date:"dd/MM/yyyy"}}</td>
+                        <td ng-hide="mostrarFormCargaEmpleado">{{o.nroCedula}}</td>
+                        <td ng-hide="mostrarFormCargaEmpleado">{{o.estadoCivile.nombreEstadoCivil}}</td>
+                        <td ng-hide="mostrarFormCargaEmpleado">{{o.nacionalidade.nombreNacionalidad}}</td>
+                        <td ng-hide="mostrarFormCargaEmpleado">{{o.profesione.nombreProfesion}}</td>
+                        <td ng-hide="mostrarFormCargaEmpleado">{{o.cantidadHijos}}</td>
+                        <td class="text-center"><a title="Actualizar" target="_blank" href="@Url.Action("Historicos","Empleados")/{{o.empleadoID}}" class="btn btn-warning btn-sm"> <i class="glyphicon glyphicon-new-window" /></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 @*////////////////////////////////////////////////////////////////////

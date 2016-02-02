@@ -212,41 +212,38 @@ namespace SYJ.Domain.Managers {
                 };
             }
         }
+        public List<EmpleadoDto> ListadoEmpleadosInactivosSegunUbicacionSucursal(Guid userID) {
+            using (var context = new SueldosJornalesEntities()) {
+                var listado = GetListadoEmpleados(context);
+                UbicacionSucUsuariosManagers usum = new UbicacionSucUsuariosManagers();
+                HistoricoSucursalesManagers hsm = new HistoricoSucursalesManagers();
+                //Se filtra los empleados que trabajan en la sucursal donde esta posicionado en el sistema
+                //el usuario
+                var sucursaleIDposicionUsuario = usum.RecuperarSucursalSegunUsuario(userID);
+                var listadoFiltrado = new List<EmpleadoDto>();
+                foreach (var l in listado) {
+                    int ultimaSucursalDeTrabajoEmpleado = int.Parse(hsm.UltimoSucursales(l.EmpleadoID).Valor);
+                    if (sucursaleIDposicionUsuario == ultimaSucursalDeTrabajoEmpleado) {
+                        listadoFiltrado.Add(l);
+                    }
+                }
+                //Se recupera solo los empleados que no trabajan mas en la empresa
+                var listadoFiltrado2 = new List<EmpleadoDto>();
+                foreach (var l in listadoFiltrado) {
+                    if (!HistoricoIngresoSalidasManagers.EmpleadoTrabajaTodaviaEnLaEmpresa(l.EmpleadoID)) {
+                        listadoFiltrado2.Add(l);
+                    }
+                }
+                return listadoFiltrado2;
+            }
+        }
         public List<EmpleadoDto> ListadoEmpleadosSegunUbicacionSucursal(Guid userID) {
-            var diaHoy = new DateTime();
+            var diaHoy = DateTime.Today;
             return ListadoEmpleadosSegunUbicacionSucursal(userID, diaHoy.Month, diaHoy.Year);
         }
         public List<EmpleadoDto> ListadoEmpleadosSegunUbicacionSucursal(Guid userID, int mes, int year) {
             using (var context = new SueldosJornalesEntities()) {
-                var listado = context.Empleados
-                    .Select(s => new EmpleadoDto() {
-                        EmpleadoID = s.EmpleadoID,
-                        Nombres = s.Nombres,
-                        Apellidos = s.Apellidos,
-                        FechaNacimiento = s.FechaNacimiento,
-                        Sexo = new SexoDto() {
-                            SexoID = s.Sexo,
-                            NombreSexo = (s.Sexo == 1) ? "Masculino" : "Femenino"
-                        },
-                        NroCedula = s.NroCedula,
-                        EstadoCivile = new EstadoCivileDto() {
-                            EstadoCivilID = s.EstadoCivilID,
-                            NombreEstadoCivil = s.EstadoCivile.NombreEstadoCivil
-                        },
-                        Nacionalidade = new NacionalidadeDto() {
-                            NacionalidadID = s.NacionalidadID,
-                            NombreNacionalidad = s.Nacionalidade.NombreNacionalidad
-                        },
-                        NumeroIps = s.NumeroIps,
-                        NumeroMjt = s.NumeroMjt,
-                        Profesione = new ProfesioneDto() {
-                            ProfesionID = s.ProfesionID,
-                            NombreProfesion = s.Profesione.NombreProfesion,
-                            Abreviatura = s.Profesione.Abreviatura,
-                            Descripcion = s.Profesione.Descripcion
-                        },
-                        CantidadHijos = s.CantidadHijos
-                    }).ToList();
+                var listado = GetListadoEmpleados(context);
                 UbicacionSucUsuariosManagers usum = new UbicacionSucUsuariosManagers();
                 HistoricoSucursalesManagers hsm = new HistoricoSucursalesManagers();
 
@@ -268,6 +265,39 @@ namespace SYJ.Domain.Managers {
                 }
                 return listadoFiltrado2;
             }
+        }
+
+        private static List<EmpleadoDto> GetListadoEmpleados(SueldosJornalesEntities context) {
+            var listado = context.Empleados
+                .Select(s => new EmpleadoDto() {
+                    EmpleadoID = s.EmpleadoID,
+                    Nombres = s.Nombres,
+                    Apellidos = s.Apellidos,
+                    FechaNacimiento = s.FechaNacimiento,
+                    Sexo = new SexoDto() {
+                        SexoID = s.Sexo,
+                        NombreSexo = (s.Sexo == 1) ? "Masculino" : "Femenino"
+                    },
+                    NroCedula = s.NroCedula,
+                    EstadoCivile = new EstadoCivileDto() {
+                        EstadoCivilID = s.EstadoCivilID,
+                        NombreEstadoCivil = s.EstadoCivile.NombreEstadoCivil
+                    },
+                    Nacionalidade = new NacionalidadeDto() {
+                        NacionalidadID = s.NacionalidadID,
+                        NombreNacionalidad = s.Nacionalidade.NombreNacionalidad
+                    },
+                    NumeroIps = s.NumeroIps,
+                    NumeroMjt = s.NumeroMjt,
+                    Profesione = new ProfesioneDto() {
+                        ProfesionID = s.ProfesionID,
+                        NombreProfesion = s.Profesione.NombreProfesion,
+                        Abreviatura = s.Profesione.Abreviatura,
+                        Descripcion = s.Profesione.Descripcion
+                    },
+                    CantidadHijos = s.CantidadHijos
+                }).ToList();
+            return listado;
         }
 
         public MensajeDto DetalleLiquidacion(EmpleadoDto eDto, Guid userID) {

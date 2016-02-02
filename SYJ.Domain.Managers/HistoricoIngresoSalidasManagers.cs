@@ -134,6 +134,15 @@ namespace SYJ.Domain.Managers {
                 };
             }
         }
+        /// <summary>
+        /// Calcula si el emplado trabaja todavia en la empresa en la fecha actual
+        /// </summary>
+        /// <param name="empleadoID"></param>
+        /// <returns></returns>
+        public static bool EmpleadoTrabajaTodaviaEnLaEmpresa(long empleadoID) {
+            var fechaHoy = DateTime.Today;
+            return EmpleadoTrabajaTodaviaEnLaEmpresa(empleadoID,fechaHoy.Month, fechaHoy.Year);
+        }
         public static bool EmpleadoTrabajaTodaviaEnLaEmpresa(long empleadoID, int mes, int year) {
             using (var context = new SueldosJornalesEntities()) {
                 var mesSeleccionado = new DateTime(year,mes,DateTime.DaysInMonth(year,mes));
