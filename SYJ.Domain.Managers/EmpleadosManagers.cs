@@ -258,7 +258,7 @@ namespace SYJ.Domain.Managers {
                 }
                 //Se quita del listado los empleados que tengan salida en su ultimo historico de entrada salida
                 //Si salio en el mes actual todavia se le considera como que trabaja dentro del mes
-                var listadoFiltrado2 =  new List<EmpleadoDto>();
+                var listadoFiltrado2 = new List<EmpleadoDto>();
                 foreach (var l in listadoFiltrado) {
                     if (HistoricoIngresoSalidasManagers.EmpleadoTrabajaTodaviaEnLaEmpresa(l.EmpleadoID)) {
                         listadoFiltrado2.Add(l);
@@ -276,9 +276,10 @@ namespace SYJ.Domain.Managers {
             using (var context = new SueldosJornalesEntities()) {
                 List<long> empleadoIDs = new List<long>();
                 var empleados = context.Empleados.ToList();
+                var mesSolicitado = new DateTime(psDto.Year, psDto.Mes.MesID, DateTime.DaysInMonth(psDto.Year, psDto.Mes.MesID));
                 empleados.ForEach(delegate(Empleado e) {
                     var sucursalActual = e.HistoricoSucursales
-                        .Where(h => h.MomentoCarga.Year <= psDto.Year && h.MomentoCarga.Month <= psDto.Mes.MesID)
+                        .Where(h => h.MomentoCarga <= mesSolicitado)
                         .OrderByDescending(h => h.MomentoCarga)
                         .FirstOrDefault();
                     if (sucursalActual != null) {
