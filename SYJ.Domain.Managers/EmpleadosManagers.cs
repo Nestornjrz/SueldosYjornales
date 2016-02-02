@@ -212,7 +212,10 @@ namespace SYJ.Domain.Managers {
                 };
             }
         }
-
+        public List<EmpleadoDto> ListadoEmpleadosSegunUbicacionSucursal(Guid userID) {
+            var diaHoy = new DateTime();
+            return ListadoEmpleadosSegunUbicacionSucursal(userID, diaHoy.Month, diaHoy.Year);
+        }
         public List<EmpleadoDto> ListadoEmpleadosSegunUbicacionSucursal(Guid userID, int mes, int year) {
             using (var context = new SueldosJornalesEntities()) {
                 var listado = context.Empleados

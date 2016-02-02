@@ -20,7 +20,18 @@ namespace SueldosYjornales.Controllers.Api {
 
         [HttpGet]
         [Route("api/Empleados/SegunUbicacionSucursal")]
-        public HttpResponseMessage GetSegunUbicacionSucursal(int mes, int year) {
+        public HttpResponseMessage GetSegunUbicacionSucursal() {
+            EmpleadosManagers em = new EmpleadosManagers();
+            List<EmpleadoDto> listado = new List<EmpleadoDto>();
+            if (User.Identity.IsAuthenticated) {
+                listado = em.ListadoEmpleadosSegunUbicacionSucursal(Guid.Parse(User.Identity.GetUserId()));
+            }
+            return Request.CreateResponse<List<EmpleadoDto>>(HttpStatusCode.OK, listado);
+        }
+
+        [HttpGet]
+        [Route("api/Empleados/SegunUbicacionSucursal")]
+        public HttpResponseMessage GetSegunUbicacionSucursalMesYear(int mes, int year) {
             EmpleadosManagers em = new EmpleadosManagers();
             List<EmpleadoDto> listado = new List<EmpleadoDto>();
             if (User.Identity.IsAuthenticated) {
