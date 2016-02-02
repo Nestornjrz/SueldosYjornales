@@ -9,7 +9,41 @@
 
     function listadoEmpleadosCtrl($scope, $rootScope, $modal, sYjResource) {
         var vm = this;
-        $scope.empleados = sYjResource.empleadosSegunUbicacionSucursal.query();
+       
+        //#region OBSERVANDO VARIABLES
+        $scope.$watch('liqui.mes', function (newVal, oldVal) {
+            if ($scope.liqui == null) {
+                return;
+            }
+            if (newVal === oldVal) {
+                return;
+            }
+            recuperarListadoDeEmpleados()
+            //alert('Se modifico liqui mes');
+        });
+        $scope.$watch('liqui.year', function (newVal, oldVal) {
+            if ($scope.liqui == null) {
+                return;
+            }
+            if (newVal === oldVal) {
+                return;
+            }
+            recuperarListadoDeEmpleados();
+            //alert('Se modifico liqui year');
+        });
+        //#endregion
+        function recuperarListadoDeEmpleados() {
+            if ($scope.liqui.mes == null || $scope.liqui.year == null) {
+                return;
+            }
+            $scope.empleados = sYjResource.empleadosSegunUbicacionSucursal
+                .query({
+                    mes: $scope.liqui.mes.mesID,
+                    year:$scope.liqui.year
+                });
+            $('#input_SeleccionarTodo').prop("checked", false);
+            $scope.cantSeleccionados = 0;
+        }
         //#region SE MANEJA EL TAB ENTRE LA LIQUIDACION DE SALARIO Y AGUINALDO
         vm.menu = {};
         vm.menu.liqSalario = {};
@@ -93,12 +127,11 @@
         for (var i = -1; i < 5; i++) {
             $scope.years.push(yearActual - i);
         }
-
-    
-        $scope.liqui.mes = _.findWhere($scope.meses, { "mesID": mesActual + 1 });
-        $scope.liqui.year = _.find($scope.years, function (num) {
-            return num == yearActual;
-        });
+        //Se cargan el año y mes por defecto
+        //$scope.liqui.mes = _.findWhere($scope.meses, { "mesID": mesActual + 1 });
+        //$scope.liqui.year = _.find($scope.years, function (num) {
+        //    return num == yearActual;
+        //});
         //#endregion
         //#region Se genera la liquidacion de salarios
         $scope.guardar = function () {

@@ -20,11 +20,11 @@ namespace SueldosYjornales.Controllers.Api {
 
         [HttpGet]
         [Route("api/Empleados/SegunUbicacionSucursal")]
-        public HttpResponseMessage GetSegunUbicacionSucursal() {
+        public HttpResponseMessage GetSegunUbicacionSucursal(int mes, int year) {
             EmpleadosManagers em = new EmpleadosManagers();
             List<EmpleadoDto> listado = new List<EmpleadoDto>();
             if (User.Identity.IsAuthenticated) {
-                listado = em.ListadoEmpleadosSegunUbicacionSucursal(Guid.Parse(User.Identity.GetUserId()));
+                listado = em.ListadoEmpleadosSegunUbicacionSucursal( Guid.Parse(User.Identity.GetUserId()), mes, year);
             }
             return Request.CreateResponse<List<EmpleadoDto>>(HttpStatusCode.OK, listado);
         }
@@ -42,7 +42,7 @@ namespace SueldosYjornales.Controllers.Api {
             MensajeDto mensaje = em.CargarEmpleado(eDto, Guid.Parse(User.Identity.GetUserId()));
             return Request.CreateResponse(HttpStatusCode.Created, mensaje);
         }
-        
+
         // PUT: api/Empleados/5
         public void Put(int id, [FromBody]string value) {
         }

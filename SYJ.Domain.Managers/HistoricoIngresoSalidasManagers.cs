@@ -134,11 +134,12 @@ namespace SYJ.Domain.Managers {
                 };
             }
         }
-        public static bool EmpleadoTrabajaTodaviaEnLaEmpresa(long empleadoID) {
+        public static bool EmpleadoTrabajaTodaviaEnLaEmpresa(long empleadoID, int mes, int year) {
             using (var context = new SueldosJornalesEntities()) {
+                var mesSeleccionado = new DateTime(year,mes,DateTime.DaysInMonth(year,mes));
                 //Se busca el ultimo movimiento del empleado
                 var historico = context.HistoricoIngresoSalidas
-                    .Where(h => h.EmpleadoID == empleadoID)
+                    .Where(h => h.EmpleadoID == empleadoID && h.FechaIngreso <= mesSeleccionado)
                     .OrderByDescending(h => h.MomentoCarga)
                     .FirstOrDefault();
                 if (historico == null) {
@@ -149,8 +150,8 @@ namespace SYJ.Domain.Managers {
                     return true;
                 } else {
                     //Se ve si salio dentro del mes actual, si es asi se considera que todavia trabaja
-                    if (historico.FechaSalida.Value.Year == DateTime.Now.Year &&
-                        historico.FechaSalida.Value.Month == DateTime.Now.Month) {
+                    if (historico.FechaSalida.Value.Year == year &&
+                        historico.FechaSalida.Value.Month == mes) {
                             return true;
                     }
                     //Se ve si la fecha de salida esta todavia en el futuro o ya paso

@@ -213,9 +213,8 @@ namespace SYJ.Domain.Managers {
             }
         }
 
-        public List<EmpleadoDto> ListadoEmpleadosSegunUbicacionSucursal(Guid userID) {
+        public List<EmpleadoDto> ListadoEmpleadosSegunUbicacionSucursal(Guid userID, int mes, int year) {
             using (var context = new SueldosJornalesEntities()) {
-
                 var listado = context.Empleados
                     .Select(s => new EmpleadoDto() {
                         EmpleadoID = s.EmpleadoID,
@@ -260,7 +259,7 @@ namespace SYJ.Domain.Managers {
                 //Si salio en el mes actual todavia se le considera como que trabaja dentro del mes
                 var listadoFiltrado2 = new List<EmpleadoDto>();
                 foreach (var l in listadoFiltrado) {
-                    if (HistoricoIngresoSalidasManagers.EmpleadoTrabajaTodaviaEnLaEmpresa(l.EmpleadoID)) {
+                    if (HistoricoIngresoSalidasManagers.EmpleadoTrabajaTodaviaEnLaEmpresa(l.EmpleadoID, mes,year)) {
                         listadoFiltrado2.Add(l);
                     }
                 }

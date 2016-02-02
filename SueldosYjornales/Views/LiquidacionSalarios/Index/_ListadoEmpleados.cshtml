@@ -1,4 +1,5 @@
 ﻿<div class="row" ng-controller="listadoEmpleadosCtrl as vm" ng-cloak style="margin-top:25px;">
+    @*<pre>{{vm.liqui | json}}</pre>*@
     <h3>Listado Empleados - cantidad: {{empleados.length}}</h3>
     <div class="col-md-12">
         <ul class="nav nav-tabs" style="margin-top:2px;">
@@ -28,7 +29,7 @@
                                         ng-model="liqui.mes"
                                         ng-options="r.nombreMes for r in meses" class="form-control"
                                         ng-required="true">
-                                    @*<option value="" ng-hide="vm.historicoSalario.cargo">Seleccione</option>*@
+                                    <option value="" ng-hide="liqui.mes">Seleccione</option>
                                 </select>
                             </div>
                         </div>
@@ -39,7 +40,7 @@
                                         ng-model="liqui.year"
                                         ng-options="r for r in years" class="form-control"
                                         ng-required="true">
-                                    @*<option value="" ng-hide="vm.historicoSalario.year">Seleccione</option>*@
+                                    <option value="" ng-hide="liqui.year">Seleccione</option>
                                 </select>
                             </div>
                         </div>
@@ -84,7 +85,7 @@
                     <th>Nombre</th>
                     <th class="text-center">
                         Todo
-                        <input ng-click="seleccionarTodo($event)" ng-model="varSeleccionarTodo" type="checkbox"> {{cantSeleccionados}}
+                        <input id="input_SeleccionarTodo" ng-click="seleccionarTodo($event)" ng-model="varSeleccionarTodo" type="checkbox"> {{cantSeleccionados}}
                     </th>
                 </tr>
             </thead>
