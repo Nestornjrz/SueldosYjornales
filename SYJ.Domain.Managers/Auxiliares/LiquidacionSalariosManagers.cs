@@ -125,11 +125,10 @@ namespace SYJ.Domain.Managers.Auxiliares {
                         anticipos = anticiposObj.Devito;
                     }
                     var prestamosObj = itemMov.MovEmpleadosDets
-                        .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Prestamo)
-                        .FirstOrDefault();
+                        .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Prestamo);
                     decimal prestamos = 0;
                     if (prestamosObj != null) {
-                        prestamos = prestamosObj.Devito;
+                        prestamos = prestamosObj.Sum(p=>p.Devito);
                     }
 
                     lsDto.DescOtros = prestamos; //el anticipo no se coloca con los descuentos por pedido del jefe
