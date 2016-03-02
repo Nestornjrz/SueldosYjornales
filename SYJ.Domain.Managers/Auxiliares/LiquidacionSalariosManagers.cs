@@ -118,11 +118,10 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     }
                     //----anticipos y prestamos OTROS DESCUENTOS------
                     var anticiposObj = itemMov.MovEmpleadosDets
-                        .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Anticipo)
-                        .FirstOrDefault();
+                        .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Anticipo);
                     decimal anticipos = 0;
                     if (anticiposObj != null) {
-                        anticipos = anticiposObj.Devito;
+                        anticipos = anticiposObj.Sum(a=>a.Devito);
                     }
                     var prestamosObj = itemMov.MovEmpleadosDets
                         .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Prestamo);
