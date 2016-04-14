@@ -29,6 +29,12 @@
                         <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
                         <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
                     }
+                    <li>
+                        <a class="btn btn-info" href="@Url.Action("Index", "InicioMtess", new { area = "Mtess" }, null)" 
+                           style="color:yellow" title="Ministerio de trabajo, empleo y seguridad social">
+                            MTESS
+                        </a>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
