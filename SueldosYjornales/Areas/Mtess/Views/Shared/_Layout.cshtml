@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html  lang="es-py" ng-app="syjApp">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,8 +34,17 @@
         </footer>
     </div>
 
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <!-- Common Library Scripts -->
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-resource.min.js"></script>
+    <script src="~/Scripts/i18n/angular-locale_es-py.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

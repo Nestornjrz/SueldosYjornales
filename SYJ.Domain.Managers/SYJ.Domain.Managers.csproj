@@ -82,6 +82,7 @@
     <Compile Include="HistoricoSucursalesManagers.cs" />
     <Compile Include="HistoricoTelefonosManagers.cs" />
     <Compile Include="ImagenesManagers.cs" />
+    <Compile Include="Mtess\EmpleadosYobrerosManagers.cs" />
     <Compile Include="NacionalidadesManagers.cs" />
     <Compile Include="PrestamosSimplesManagers.cs" />
     <Compile Include="ProfesionesManagers.cs" />
@@ -106,6 +107,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

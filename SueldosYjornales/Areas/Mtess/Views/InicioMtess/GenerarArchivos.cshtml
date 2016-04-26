@@ -2,6 +2,50 @@
 @{
     ViewBag.Title = "GenerarArchivos";
 }
+@section scripts{
+    <!-- Library Scripts -->
+    <script src="~/Scripts/checklist-model.js"></script> @*https://github.com/vitalets/checklist-model*@
+    @*<script src="~/Scripts/underscore.min.js"></script>*@
+    <!-- Application Script -->
+    <script src="~/Areas/Mtess/app/app.js"></script>
+    <!-- Domain Classes -->
+    <!-- DTO -->
+    <script src="~/Areas/Mtess/app/dto/empleadoYobreroDto.js"></script>
+    <!-- Services -->
+    <script src="~/Areas/Mtess/app/common/common.services.js"></script>
+    <script src="~/Areas/Mtess/app/common/dataAccessService.js"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            angular
+                .module('common.services')
+                .service('syjPath', syjPath);
 
+            syjPath.$inject = [];
+
+            function syjPath() {
+                var empleadosYobreros = "@Href("~/api/EmpleadosYobreros")";
+                return {
+                    "empleadosYobreros": empleadosYobreros
+                }
+            }
+        })();
+    </script>
+    @*Controllers*@
+    <script src="~/Areas/Mtess/app/InicioMtess/generarArchivos/empleadosYobrerosCtrl.js"></script>
+
+}
 <h2>GenerarArchivos</h2>
+<div class="container" ng-controller="EmpleadosYobrerosCtrl as vm">
+    <div class="row">
+        <div class="col-md-4">
+            <p>Archivo de Empleados y obreros</p>
+            <button class="btn btn-primary" ng-click="vm.traerEmpleadosYobreros()">
+                Generar
+            </button>
+        </div>
+        <div class="col-md-6">
 
+        </div>
+    </div>
+</div>

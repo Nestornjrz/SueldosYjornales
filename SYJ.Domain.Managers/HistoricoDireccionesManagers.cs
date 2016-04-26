@@ -122,7 +122,7 @@ namespace SYJ.Domain.Managers {
                 }
                 var hdDto = new HistoricoDireccioneDto();
                 hdDto.HistoricoDireccionID = direccionActualDb.HistoricoDireccionID;
-                hdDto.HistoricoDireccionID = direccionActualDb.HistoricoDireccionID;
+                //hdDto.HistoricoDireccionID = direccionActualDb.HistoricoDireccionID;
                 hdDto.EmpleadoID = direccionActualDb.EmpleadoID;
                 hdDto.Direccion = direccionActualDb.Direccion;
 
