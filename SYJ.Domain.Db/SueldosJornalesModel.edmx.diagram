@@ -74,6 +74,8 @@
         <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoIngresoSalida" Width="1.5" PointX="14.25" PointY="6.625" />
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoIngresoEgresos_Empleados" />
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoIngresoSalidas_Usuarios" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.Vacacione" Width="1.5" PointX="8.25" PointY="0.75" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_Vacaciones__Empleados" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

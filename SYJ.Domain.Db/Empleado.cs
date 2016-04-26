@@ -29,6 +29,7 @@ namespace SYJ.Domain.Db
             this.Comisiones = new HashSet<Comisione>();
             this.EmpleadosHijos = new HashSet<EmpleadosHijo>();
             this.HistoricoIngresoSalidas = new HashSet<HistoricoIngresoSalida>();
+            this.Vacaciones = new HashSet<Vacacione>();
         }
     
         public long EmpleadoID { get; set; }
@@ -63,5 +64,6 @@ namespace SYJ.Domain.Db
         public virtual ICollection<Comisione> Comisiones { get; set; }
         public virtual ICollection<EmpleadosHijo> EmpleadosHijos { get; set; }
         public virtual ICollection<HistoricoIngresoSalida> HistoricoIngresoSalidas { get; set; }
+        public virtual ICollection<Vacacione> Vacaciones { get; set; }
     }
 }

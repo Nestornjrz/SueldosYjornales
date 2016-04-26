@@ -324,6 +324,16 @@
           <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CorreoElectronico" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Vacaciones">
+          <Key>
+            <PropertyRef Name="VacacionID" />
+          </Key>
+          <Property Name="VacacionID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpleadoID" Type="bigint" />
+          <Property Name="FechaSalida" Type="date" Nullable="false" />
+          <Property Name="DiasUsufructuados" Type="int" Nullable="false" />
+          <Property Name="Observacion" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
         <Association Name="fk_Anticipos-&gt;Empleados">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
           <End Role="Anticipos" Type="Self.Anticipos" Multiplicity="*" />
@@ -800,6 +810,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_Vacaciones-&gt;Empleados">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+          <End Role="Vacaciones" Type="Self.Vacaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Vacaciones">
+              <PropertyRef Name="EmpleadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="pfk_UbicacionSucUsuarios&gt;Usuarios">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
           <End Role="UbicacionSucUsuarios" Type="Self.UbicacionSucUsuarios" Multiplicity="0..1" />
@@ -855,6 +877,7 @@
           <EntitySet Name="TipoImagenes" EntityType="Self.TipoImagenes" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="UbicacionSucUsuarios" EntityType="Self.UbicacionSucUsuarios" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="Sj" store:Type="Tables" />
+          <EntitySet Name="Vacaciones" EntityType="Self.Vacaciones" Schema="Sj" store:Type="Tables" />
           <AssociationSet Name="fk_Anticipos-&gt;Empleados" Association="Self.fk_Anticipos-&gt;Empleados">
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Anticipos" EntitySet="Anticipos" />
@@ -1010,6 +1033,10 @@
           <AssociationSet Name="fk_UbicacionSucUsuarios&gt;Sucursales" Association="Self.fk_UbicacionSucUsuarios&gt;Sucursales">
             <End Role="Sucursales" EntitySet="Sucursales" />
             <End Role="UbicacionSucUsuarios" EntitySet="UbicacionSucUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Vacaciones-&gt;Empleados" Association="Self.fk_Vacaciones-&gt;Empleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Vacaciones" EntitySet="Vacaciones" />
           </AssociationSet>
           <AssociationSet Name="pfk_UbicacionSucUsuarios&gt;Usuarios" Association="Self.pfk_UbicacionSucUsuarios&gt;Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
@@ -1213,6 +1240,11 @@
           <AssociationSet Name="fk_HistoricoIngresoSalidas_Usuarios" Association="SueldosJornalesModel.fk_HistoricoIngresoSalidas_Usuarios">
             <End Role="Usuario" EntitySet="Usuarios" />
             <End Role="HistoricoIngresoSalida" EntitySet="HistoricoIngresoSalidas" />
+          </AssociationSet>
+          <EntitySet Name="Vacaciones" EntityType="SueldosJornalesModel.Vacacione" />
+          <AssociationSet Name="fk_Vacaciones__Empleados" Association="SueldosJornalesModel.fk_Vacaciones__Empleados">
+            <End Role="Empleado" EntitySet="Empleados" />
+            <End Role="Vacacione" EntitySet="Vacaciones" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Cargo">
@@ -1483,6 +1515,7 @@
           <NavigationProperty Name="Comisiones" Relationship="SueldosJornalesModel.fk_Comisiones__Empleados" FromRole="Empleado" ToRole="Comisione" />
           <NavigationProperty Name="EmpleadosHijos" Relationship="SueldosJornalesModel.fk_EmpleadosHijos__empleados" FromRole="Empleado" ToRole="EmpleadosHijo" />
           <NavigationProperty Name="HistoricoIngresoSalidas" Relationship="SueldosJornalesModel.fk_HistoricoIngresoEgresos_Empleados" FromRole="Empleado" ToRole="HistoricoIngresoSalida" />
+          <NavigationProperty Name="Vacaciones" Relationship="SueldosJornalesModel.fk_Vacaciones__Empleados" FromRole="Empleado" ToRole="Vacacione" />
         </EntityType>
         <EntityType Name="HistoricoSucursale">
           <Key>
@@ -2082,6 +2115,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Vacacione">
+          <Key>
+            <PropertyRef Name="VacacionID" />
+          </Key>
+          <Property Name="VacacionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpleadoID" Type="Int64" />
+          <Property Name="FechaSalida" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DiasUsufructuados" Type="Int32" Nullable="false" />
+          <Property Name="Observacion" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Empleado" Relationship="SueldosJornalesModel.fk_Vacaciones__Empleados" FromRole="Vacacione" ToRole="Empleado" />
+        </EntityType>
+        <Association Name="fk_Vacaciones__Empleados">
+          <End Type="SueldosJornalesModel.Empleado" Role="Empleado" Multiplicity="0..1" />
+          <End Type="SueldosJornalesModel.Vacacione" Role="Vacacione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="Vacacione">
+              <PropertyRef Name="EmpleadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2431,6 +2487,17 @@
                 <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
                 <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
                 <ScalarProperty Name="HistoricoIngresoSalidaID" ColumnName="HistoricoIngresoSalidaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vacaciones">
+            <EntityTypeMapping TypeName="SueldosJornalesModel.Vacacione">
+              <MappingFragment StoreEntitySet="Vacaciones">
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="DiasUsufructuados" ColumnName="DiasUsufructuados" />
+                <ScalarProperty Name="FechaSalida" ColumnName="FechaSalida" />
+                <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
+                <ScalarProperty Name="VacacionID" ColumnName="VacacionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

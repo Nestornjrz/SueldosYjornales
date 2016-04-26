@@ -46,3 +46,4 @@ var appinicioMtess;
         angular.module("syjApp").controller("MenuCtrl", MenuCtrl);
     })(generarArchivos = appinicioMtess.generarArchivos || (appinicioMtess.generarArchivos = {}));
 })(appinicioMtess || (appinicioMtess = {}));
+//# sourceMappingURL=menuCtrl.js.map

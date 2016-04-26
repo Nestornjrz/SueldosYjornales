@@ -54,5 +54,6 @@ namespace SYJ.Domain.Db
         public virtual DbSet<Comisione> Comisiones { get; set; }
         public virtual DbSet<EmpleadosHijo> EmpleadosHijos { get; set; }
         public virtual DbSet<HistoricoIngresoSalida> HistoricoIngresoSalidas { get; set; }
+        public virtual DbSet<Vacacione> Vacaciones { get; set; }
     }
 }
