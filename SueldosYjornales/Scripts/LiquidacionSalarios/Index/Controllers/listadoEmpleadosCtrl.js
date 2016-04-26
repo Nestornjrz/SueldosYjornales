@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('listadoEmpleadosCtrl', listadoEmpleadosCtrl);
 
-    listadoEmpleadosCtrl.$inject = ['$scope', '$rootScope', '$modal', 'sYjResource'];
+    listadoEmpleadosCtrl.$inject = ['$scope', '$rootScope', '$uibModal', 'sYjResource'];
 
-    function listadoEmpleadosCtrl($scope, $rootScope, $modal, sYjResource) {
+    function listadoEmpleadosCtrl($scope, $rootScope, $uibModal, sYjResource) {
         var vm = this;
        
         //#region OBSERVANDO VARIABLES

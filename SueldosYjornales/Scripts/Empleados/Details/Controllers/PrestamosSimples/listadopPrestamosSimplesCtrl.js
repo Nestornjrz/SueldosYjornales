@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('listadopPrestamosSimplesCtrl', listadopPrestamosSimplesCtrl);
 
-    listadopPrestamosSimplesCtrl.$inject = ['$rootScope', '$modal', 'sYjResource'];
+    listadopPrestamosSimplesCtrl.$inject = ['$rootScope', '$uibModal', 'sYjResource'];
 
-    function listadopPrestamosSimplesCtrl($rootScope, $modal, sYjResource) {
+    function listadopPrestamosSimplesCtrl($rootScope, $uibModal, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
         vm.actualizar = function (prestamoSimple) {
@@ -15,9 +15,9 @@
         }
 
         vm.traerDetallePrestamo = function (prestamoSimple) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'ModalVerDetallePrestamo.html',
-                controller: function ($scope, $modalInstance) {
+                controller: function ($scope, $uibModalInstance) {
                     $scope.prestamoSimple = prestamoSimple;
                     $scope.objeto = {};
                     $scope.objeto.id = prestamoSimple.movEmpleadoID;
@@ -42,7 +42,7 @@
                         }
 
                     $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
+                        $uibModalInstance.dismiss('cancel');
                     };
                 }
                 , size: 'lg'
@@ -50,9 +50,9 @@
         }
 
         vm.eliminar = function (prestamoSimple) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminacionPrestamoSimple.html',
-                controller: function ($scope, $modalInstance) {
+                controller: function ($scope, $uibModalInstance) {
                     $scope.prestamoSimple = prestamoSimple;
                     $scope.objeto = {};
                     $scope.objeto.id = prestamoSimple.prestamoSimpleID;
@@ -69,7 +69,7 @@
                         //$rootScope.$broadcast('actualizarTodos', {});
                     };
                     $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
+                        $uibModalInstance.dismiss('cancel');
                     };
                 },
                 size: ''//sm,lg

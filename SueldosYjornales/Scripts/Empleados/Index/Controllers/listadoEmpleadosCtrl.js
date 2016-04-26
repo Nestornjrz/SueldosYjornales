@@ -44,7 +44,7 @@
         $scope.eliminar = function (empleado) {
             var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminacionEmpleado.html',
-                controller: function ($scope, $modalInstance) {
+                controller: function ($scope, $uibModalInstance) {
                     $scope.empleado = empleado;
                     $scope.objeto = {};
                     $scope.objeto.id = empleado.empleadoID;
@@ -58,7 +58,7 @@
                         //$rootScope.$broadcast('actualizarTodos', {});
                     };
                     $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
+                        $uibModalInstance.dismiss('cancel');
                     };
                 },
                 size: 'sm'

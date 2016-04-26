@@ -32,4 +32,3 @@ var app;
         })(generarArchivos = inicioMtess.generarArchivos || (inicioMtess.generarArchivos = {}));
     })(inicioMtess = app.inicioMtess || (app.inicioMtess = {}));
 })(app || (app = {}));
-//# sourceMappingURL=empleadosYobrerosCtrl.js.map

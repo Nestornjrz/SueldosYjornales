@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('listadoAnticiposCtrl', listadoAnticiposCtrl);
 
-    listadoAnticiposCtrl.$inject = ['$rootScope', '$modal', 'sYjResource'];
+    listadoAnticiposCtrl.$inject = ['$rootScope', '$uibModal', 'sYjResource'];
 
-    function listadoAnticiposCtrl($rootScope, $modal, sYjResource) {
+    function listadoAnticiposCtrl($rootScope, $uibModal, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
         vm.actualizar = function (anticipo) {
@@ -15,9 +15,9 @@
         }
 
         vm.eliminar = function (anticipo) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminacionAnticipo.html',
-                controller: function ($scope, $modalInstance) {
+                controller: function ($scope, $uibModalInstance) {
                     $scope.anticipo = anticipo;
                     $scope.objeto = {};
                     $scope.objeto.id = anticipo.anticipoID;
@@ -34,7 +34,7 @@
                         //$rootScope.$broadcast('actualizarTodos', {});
                     };
                     $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
+                        $uibModalInstance.dismiss('cancel');
                     };
                 }
                 //size: 'sm'

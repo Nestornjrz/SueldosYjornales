@@ -15,7 +15,7 @@
         vm.eliminar = function (cargo) {
             var modalInstance = $modal.open({
                 templateUrl: 'ModalEliminacionCargo.html',
-                controller: function ($scope, $modalInstance) {
+                controller: function ($scope, $uibModalInstance) {
                     $scope.cargo = cargo;
                     $scope.objeto = {};
                     $scope.objeto.id = cargo.cargoID;
@@ -29,7 +29,7 @@
                         //$rootScope.$broadcast('actualizarTodos', {});
                     };
                     $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
+                        $uibModalInstance.dismiss('cancel');
                     };
                 },
                 size: 'sm'

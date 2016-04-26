@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('ControlVisoresCtrl', ControlVisoresCtrl);
 
-    ControlVisoresCtrl.$inject = ['$scope', '$modal', '$rootScope', 'sYjResource'];
+    ControlVisoresCtrl.$inject = ['$scope', '$uibModal', '$rootScope', 'sYjResource'];
 
-    function ControlVisoresCtrl($scope, $modal, $rootScope, sYjResource) {
+    function ControlVisoresCtrl($scope, $uibModal, $rootScope, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
         vm.menu = {};

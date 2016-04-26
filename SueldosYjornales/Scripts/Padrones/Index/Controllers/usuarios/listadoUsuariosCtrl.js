@@ -17,7 +17,7 @@
         vm.eliminar = function (usuario) {
             var modalInstance = $modal.open({
                 templateUrl: 'ModalEliminacionUsuario.html',
-                controller: function ($scope, $modalInstance) {
+                controller: function ($scope, $uibModalInstance) {
                     $scope.usuario = usuario;
                     $scope.objeto = {};
                     $scope.objeto.id = usuario.usuarioID;
@@ -32,7 +32,7 @@
                         //$rootScope.$broadcast('actualizarTodos', {});
                     };
                     $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
+                        $uibModalInstance.dismiss('cancel');
                     };
                 },
                 size: 'sm'

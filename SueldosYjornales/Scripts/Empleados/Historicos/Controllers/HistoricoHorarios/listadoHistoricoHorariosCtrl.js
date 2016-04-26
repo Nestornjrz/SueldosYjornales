@@ -18,7 +18,7 @@
         vm.eliminar = function (historicoHorario) {
             var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminacionHorarios.html',
-                controller: function ($scope, $modalInstance) {
+                controller: function ($scope, $uibModalInstance) {
                     $scope.historicoHorario = historicoHorario;
                     $scope.objeto = {};
                     $scope.objeto.id = historicoHorario.historicoHorarioID;
@@ -35,7 +35,7 @@
                         //$rootScope.$broadcast('actualizarTodos', {});
                     };
                     $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
+                        $uibModalInstance.dismiss('cancel');
                     };
                 },
                 size: 'sm'

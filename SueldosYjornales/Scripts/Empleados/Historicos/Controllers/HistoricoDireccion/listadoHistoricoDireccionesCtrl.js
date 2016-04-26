@@ -17,7 +17,7 @@
         vm.eliminar = function (historicoDireccion) {
             var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminacionHistoricoDireccion.html',
-                controller: function ($scope, $modalInstance) {
+                controller: function ($scope, $uibModalInstance) {
                     $scope.historicoDireccion = historicoDireccion;
                     $scope.objeto = {};
                     $scope.objeto.id = historicoDireccion.historicoDireccionID;
@@ -32,7 +32,7 @@
                         //$rootScope.$broadcast('actualizarTodos', {});
                     };
                     $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
+                        $uibModalInstance.dismiss('cancel');
                     };
                 },
                 size: 'sm'

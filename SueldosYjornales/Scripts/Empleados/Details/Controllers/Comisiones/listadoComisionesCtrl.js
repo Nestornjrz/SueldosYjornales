@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('listadoComisionesCtrl', listadoComisionesCtrl);
 
-    listadoComisionesCtrl.$inject = ['$rootScope', '$modal', 'sYjResource'];
+    listadoComisionesCtrl.$inject = ['$rootScope', '$uibModal', 'sYjResource'];
 
-    function listadoComisionesCtrl($rootScope, $modal, sYjResource) {
+    function listadoComisionesCtrl($rootScope, $uibModal, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
         vm.actualizar = function (comisione) {
@@ -15,9 +15,9 @@
         }
 
         vm.eliminar = function (comisione) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminacionComisione.html',
-                controller: function ($scope, $modalInstance) {
+                controller: function ($scope, $uibModalInstance) {
                     $scope.comisione = comisione;
                     $scope.objeto = {};
                     $scope.objeto.id = comisione.comisionID;
@@ -34,7 +34,7 @@
                         //$rootScope.$broadcast('actualizarTodos', {});
                     };
                     $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
+                        $uibModalInstance.dismiss('cancel');
                     };
                 },
                 size: 'sm'

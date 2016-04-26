@@ -18,7 +18,7 @@
         vm.eliminar = function (profesione) {
             var modalInstance = $modal.open({
                 templateUrl: 'ModalEliminacionProfesion.html',
-                controller: function ($scope, $modalInstance) {
+                controller: function ($scope, $uibModalInstance) {
                     $scope.profesione = profesione;
                     $scope.objeto = {};
                     $scope.objeto.id = profesione.profesionID;
@@ -33,7 +33,7 @@
                         //$rootScope.$broadcast('actualizarTodos', {});
                     };
                     $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
+                        $uibModalInstance.dismiss('cancel');
                     };
                 },
                 size: 'sm'

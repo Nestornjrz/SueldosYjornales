@@ -14,7 +14,7 @@
         vm.eliminar = function (sucursale) {
             var modalInstance = $modal.open({
                 templateUrl: 'ModalEliminacion.html',
-                controller: function ($scope, $modalInstance) {
+                controller: function ($scope, $uibModalInstance) {
                     $scope.sucursale = sucursale;
                     $scope.objeto = {};
                     $scope.objeto.id = sucursale.sucursalID;
@@ -29,7 +29,7 @@
                         //$rootScope.$broadcast('actualizarTodos', {});
                     };
                     $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
+                        $uibModalInstance.dismiss('cancel');
                     };
                 },
                 size: 'sm'

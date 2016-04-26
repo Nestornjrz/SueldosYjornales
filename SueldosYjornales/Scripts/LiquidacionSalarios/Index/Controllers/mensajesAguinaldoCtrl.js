@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('mensajesAguinaldoCtrl', mensajesAguinaldoCtrl);
 
-    mensajesAguinaldoCtrl.$inject = ['$scope', '$modal', '$rootScope', 'sYjResource'];
+    mensajesAguinaldoCtrl.$inject = ['$scope', '$uibModal', '$rootScope', 'sYjResource'];
 
-    function mensajesAguinaldoCtrl($scope, $modal, $rootScope, sYjResource) {
+    function mensajesAguinaldoCtrl($scope, $uibModal, $rootScope, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
         //#region MANEJO DEL MENU

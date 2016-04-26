@@ -17,7 +17,7 @@
         vm.eliminar = function (nacionalidade) {
             var modalInstance = $modal.open({
                 templateUrl: 'ModalEliminacionNacionalidad.html',
-                controller: function ($scope, $modalInstance) {
+                controller: function ($scope, $uibModalInstance) {
                     $scope.nacionalidade = nacionalidade;
                     $scope.objeto = {};
                     $scope.objeto.id = nacionalidade.nacionalidadID;
@@ -32,7 +32,7 @@
                         //$rootScope.$broadcast('actualizarTodos', {});
                     };
                     $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
+                        $uibModalInstance.dismiss('cancel');
                     };
                 },
                 size: 'sm'

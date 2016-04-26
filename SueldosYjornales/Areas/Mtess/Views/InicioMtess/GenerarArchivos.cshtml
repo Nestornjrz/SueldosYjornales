@@ -33,67 +33,86 @@
     </script>
     @*Controllers*@
     <script src="~/Areas/Mtess/app/InicioMtess/generarArchivos/empleadosYobrerosCtrl.js"></script>
-
+    <script src="~/Areas/Mtess/app/InicioMtess/generarArchivos/menuCtrl.js"></script>
 }
 <h2>GenerarArchivos</h2>
-<div class="container" ng-controller="EmpleadosYobrerosCtrl as vm">
-    <div class="row">
-        <div class="col-md-12">
-            <p>Archivo de Empleados y obreros</p>
-            <button class="btn btn-primary" ng-click="vm.traerEmpleadosYobreros()">
-                Generar
-            </button>
+<div ng-controller="MenuCtrl as mv">
+    <ul class="nav nav-tabs" style="margin-top:2px;">
+        <li role="presentation" class="{{mv.menu.empleadosYobreros.class}}">
+            <a href="#" ng-click="mv.empleadosYobrerosFn($event)">Empleados y Obreros</a>
+        </li>
+        <li role="presentation" class="{{mv.menu.sueldosYjornales.class}}">
+            <a href="#" ng-click="mv.sueldosYjornalesFn($event)">Sueldos Y Jornales</a>
+        </li>
+        <li role="presentation" class="{{mv.menu.resumenGeneral.class}}">
+            <a href="#" ng-click="mv.resumenGeneralFn($event)">Resumen General</a>
+        </li>
+    </ul>
+    <div ng-controller="EmpleadosYobrerosCtrl as vm" ng-show="mv.menu.empleadosYobreros.mostrar">
+        <div class="row">
+            <div class="col-md-12">
+                @*<p>Archivo de Empleados y obreros</p>*@
+                <button class="btn btn-primary" ng-click="vm.traerEmpleadosYobreros()">
+                    Generar Empleados y Obreros
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-bordered table-condensed table-striped">
+                    <tr>
+                        <th>NroPatronal</th>
+                        <th>Documento</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Sexo</th>
+                        <th>EstadoCivil</th>
+                        <th>FechaNac</th>
+                        <th>Nacionalidad</th>
+                        <th>Domicilio</th>
+                        <th>FechaNacMenor</th>
+                        <th>HijosMenores</th>
+                        <th>Cargo</th>
+                        <th>Profesion</th>
+                        <th>FechaEntrada</th>
+                        <th>HorarioTrabajo</th>
+                        <th>Menorescapa</th>
+                        <th>Menorescolar</th>
+                        <th>FechaSalida</th>
+                        <th>MotivosSalida</th>
+                        <th>Estado</th>
+                    </tr>
+                    <tr ng-repeat="e in vm.listadoEmpleadoYobrero">
+                        <td>{{e.nroPatronal}}</td>
+                        <td>{{e.documento}}</td>
+                        <td>{{e.nombre}}</td>
+                        <td>{{e.apellido}}</td>
+                        <td>{{e.sexo}}</td>
+                        <td>{{e.estadoCivil}}</td>
+                        <td>{{e.fechaNac | date:"dd/MM/yyyy":"UTC"}}</td>
+                        <td>{{e.nacionalidad}}</td>
+                        <td>{{e.domicilio}}</td>
+                        <td>{{e.fechaNacMenor}}</td>
+                        <td>{{e.hijosMenores}}</td>
+                        <td>{{e.cargo}}</td>
+                        <td>{{e.profesion}}</td>
+                        <td>{{e.fechaEntrada  | date:"dd/MM/yyyy":"UTC"}}</td>
+                        <td>{{e.horarioTrabajo}}</td>
+                        <td>{{e.menorEscapa}}</td>
+                        <td>{{e.menorEsEscolar}}</td>
+                        <td>{{e.fechaSalida   | date:"dd/MM/yyyy":"UTC"}}</td>
+                        <td>{{e.motivoSalida}}</td>
+                        <td>{{e.estado}}</td>
+                    </tr>
+                </table>
+                @*<pre>{{vm.listadoEmpleadoYobrero | json}}</pre>*@
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <table class="table table-bordered table-condensed table-striped">
-                <tr>
-                    <th>NroPatronal</th>
-                    <th>Documento</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Sexo</th>
-                    <th>EstadoCivil</th>
-                    <th>FechaNac</th>
-                    <th>Nacionalidad</th>
-                    <th>Domicilio</th>
-                    <th>FechaNacMenor</th>
-                    <th>HijosMenores</th>
-                    <th>Cargo</th>
-                    <th>Profesion</th>
-                    <th>FechaEntrada</th>
-                    <th>HorarioTrabajo</th>
-                    <th>Menorescapa</th>
-                    <th>Menorescolar</th>
-                    <th>FechaSalida</th>
-                    <th>MotivosSalida</th>
-                    <th>Estado</th>
-                </tr>
-                <tr ng-repeat="e in vm.listadoEmpleadoYobrero">
-                    <td>{{e.nroPatronal}}</td>
-                    <td>{{e.documento}}</td>
-                    <td>{{e.nombre}}</td>
-                    <td>{{e.apellido}}</td>
-                    <td>{{e.sexo}}</td>
-                    <td>{{e.estadoCivil}}</td>
-                    <td>{{e.fechaNac | date:"dd/MM/yyyy":"UTC"}}</td>
-                    <td>{{e.nacionalidad}}</td>
-                    <td>{{e.domicilio}}</td>
-                    <td>{{e.fechaNacMenor}}</td>
-                    <td>{{e.hijosMenores}}</td>
-                    <td>{{e.cargo}}</td>
-                    <td>{{e.profesion}}</td>
-                    <td>{{e.fechaEntrada}}</td>
-                    <td>{{e.horarioTrabajo}}</td>
-                    <td>{{e.menorEscapa}}</td>
-                    <td>{{e.menorEsEscolar}}</td>
-                    <td>{{e.fechaSalida}}</td>
-                    <td>{{e.motivoSalida}}</td>
-                    <td>{{e.estado}}</td>
-                </tr>
-            </table>
-            <pre>{{vm.listadoEmpleadoYobrero | json}}</pre>
-        </div>
+    <div ng-show="mv.menu.sueldosYjornales.mostrar">
+        Sueldos y jornales
+    </div>
+    <div  ng-show="mv.menu.resumenGeneral.mostrar">
+        Resumen
     </div>
 </div>

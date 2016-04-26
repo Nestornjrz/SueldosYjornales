@@ -48,7 +48,11 @@ namespace SYJ.Domain.Managers.Mtess {
                 var direccionActual = hdm.DireccionaActual(empleado.EmpleadoID);
                 if (!direccionActual.Error) {
                     var historicoDi = (HistoricoDireccioneDto)direccionActual.ObjetoDto;
-                    eyoDto.Domicilio = historicoDi.Direccion;
+                    if (historicoDi.Direccion.Length > 100) {
+                        eyoDto.Domicilio = historicoDi.Direccion.Substring(0, 100);
+                    }else {
+                        eyoDto.Domicilio = historicoDi.Direccion;
+                    }
                 } else {
                     eyoDto.Domicilio = "--";
                 }

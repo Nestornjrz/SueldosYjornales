@@ -40,6 +40,15 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <!--<label for="observacion" class="col-md-3 control-label">Observacion</label>-->
+                            <div class="col-md-12">
+                                <textarea class="form-control" style="max-width:100%;"
+                                          ng-model="vm.historicoIngresoSalida.motivoSalida"
+                                          rows="5"
+                                          placeholder="Cargar el motivo de la salida..."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-md-12">
                                 <button ng-click="vm.guardar()" ng-disabled="historicoIngresoSalidasForm.$invalid" class="btn btn-default">
                                     <span ng-show="vm.historicoIngresoSalida.historicoIngresoSalidaID == null">Cargar</span>
@@ -75,6 +84,7 @@
                             <th>Id</th>
                             <th>Fecha Ingreso</th>
                             <th>Fecha Salida</th>
+                            <th>Motivo</th>
                             <th>Momento Carga</th>
                         </tr>
                     </thead>
@@ -83,7 +93,8 @@
                         <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
                         <td>{{o.historicoIngresoSalidaID}}</td>
                         <td>{{o.fechaIngreso | date:"dd/MM/yyyy":'UTC'}}</td>
-                        <td>{{o.fechaSalida | date:"dd/MM/yyyy":'UTC'}}</td>                    
+                        <td>{{o.fechaSalida | date:"dd/MM/yyyy":'UTC'}}</td>
+                        <td>{{o.motivoSalida}}</td>
                         <td>{{o.momentoCarga | date:"dd/MM/yyyy":'UTC'}}</td>
                     </tr>
                 </table>

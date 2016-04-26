@@ -1296,6 +1296,7 @@
     <TypeScriptCompile Include="Areas\Mtess\app\common\dataAccessService.ts" />
     <TypeScriptCompile Include="Areas\Mtess\app\dto\empleadoYobreroDto.ts" />
     <TypeScriptCompile Include="Areas\Mtess\app\InicioMtess\generarArchivos\empleadosYobrerosCtrl.ts" />
+    <TypeScriptCompile Include="Areas\Mtess\app\InicioMtess\generarArchivos\menuCtrl.ts" />
     <TypeScriptCompile Include="Scripts\typings\angular-ui-bootstrap\angular-ui-bootstrap.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-component-router.d.ts" />

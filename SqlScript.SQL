@@ -663,6 +663,28 @@ go
 ALTER TABLE [Sj].[EmpleadosHijos] ADD CONSTRAINT [pk_EmpleadosHijos] PRIMARY KEY ([EmpleadoHijoID])
 go
 
+-- Table Sj.Vacaciones
+
+CREATE TABLE [Sj].[Vacaciones]
+(
+ [VacacionID] Bigint IDENTITY(1,1) NOT NULL,
+ [EmpleadoID] Bigint NULL,
+ [FechaSalida] Date NOT NULL,
+ [DiasUsufructuados] Int NOT NULL,
+ [Observacion] Varchar(150) NOT NULL
+)
+go
+
+-- Create indexes for table Sj.Vacaciones
+
+CREATE INDEX [IX_Vacaciones] ON [Sj].[Vacaciones] ([EmpleadoID])
+go
+
+-- Add keys for table Sj.Vacaciones
+
+ALTER TABLE [Sj].[Vacaciones] ADD CONSTRAINT [pk_Vacaciones] PRIMARY KEY ([VacacionID])
+go
+
 -- Create relationships section ------------------------------------------------- 
 
 ALTER TABLE [Sj].[Sucursales] ADD CONSTRAINT [fk_Sucursales>Empresas] FOREIGN KEY ([EmpresaID]) REFERENCES [Sj].[Empresas] ([EmpresaID]) ON UPDATE NO ACTION ON DELETE NO ACTION
@@ -774,6 +796,9 @@ ALTER TABLE [Sj].[PrestamosSimples] ADD CONSTRAINT [fk_PrestamosSimples->Usuario
 go
 
 ALTER TABLE [Sj].[EmpleadosHijos] ADD CONSTRAINT [fk_EmpleadosHijos->empleados] FOREIGN KEY ([EmpleadoID]) REFERENCES [Sj].[Empleados] ([EmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[Vacaciones] ADD CONSTRAINT [fk_Vacaciones->Empleados] FOREIGN KEY ([EmpleadoID]) REFERENCES [Sj].[Empleados] ([EmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
 

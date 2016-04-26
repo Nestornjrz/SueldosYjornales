@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('mensajesCtrl', mensajesCtrl);
 
-    mensajesCtrl.$inject = ['$scope', '$modal', '$rootScope', 'sYjResource'];
+    mensajesCtrl.$inject = ['$scope', '$uibModal', '$rootScope', 'sYjResource'];
 
-    function mensajesCtrl($scope, $modal, $rootScope, sYjResource) {
+    function mensajesCtrl($scope, $uibModal, $rootScope, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
         //#region MANEJO DEL MENU
@@ -38,9 +38,9 @@
         }
         //#endregion
         vm.traerDetallePrestamo = function (movimiento) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'ModalVerDetallePrestamo.html',
-                controller: function ($scope, $modalInstance) {
+                controller: function ($scope, $uibModalInstance) {
                     $scope.movimiento = movimiento;
                     $scope.objeto = {};
                     $scope.objeto.id = movimiento.movEmpleadoID;
@@ -61,7 +61,7 @@
                         }
 
                     $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
+                        $uibModalInstance.dismiss('cancel');
                     };
                 }
                 , size: 'lg'
@@ -69,9 +69,9 @@
         }
 
         vm.eliminarLiquidacion = function (movimiento) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminarLiquidacion.html',
-                controller: function ($scope, $modalInstance) {
+                controller: function ($scope, $uibModalInstance) {
                     $scope.movimiento = movimiento;
                     $scope.objeto = {};
                     $scope.objeto.id = movimiento.movEmpleadoID;
@@ -85,7 +85,7 @@
                         //$rootScope.$broadcast('actualizarTodos', {});
                     };
                     $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
+                        $uibModalInstance.dismiss('cancel');
                     };
                 }
                 , size: 'lg'
@@ -144,9 +144,9 @@
         //Funcion
         //se llama al modal
         function mostrarModal(mensaje) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'ModalMensajeModificacionPrestamo.html',
-                controller: function ($scope, $modalInstance) {
+                controller: function ($scope, $uibModalInstance) {
                     $scope.mensaje = mensaje;
                     $scope.objeto = {};
                     $scope.objeto.id = mensaje.movEmpleadoDetID;
@@ -155,7 +155,7 @@
                         //$rootScope.$broadcast('actualizarTodos', {});
                     };
                     $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
+                        $uibModalInstance.dismiss('cancel');
                     };
                 }
                 //size: 'lg'

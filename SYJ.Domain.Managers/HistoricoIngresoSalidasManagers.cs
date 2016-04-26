@@ -19,7 +19,8 @@ namespace SYJ.Domain.Managers {
                         EmpleadoID = s.EmpleadoID,
                         FechaIngreso = s.FechaIngreso,
                         FechaSalida = s.FechaSalida,
-                        MomentoCarga = s.MomentoCarga
+                        MomentoCarga = s.MomentoCarga,
+                        MotivoSalida = s.MotivoSalida
                     }).ToList();
                 return listado;
             }
@@ -36,6 +37,7 @@ namespace SYJ.Domain.Managers {
                 historicoIngresoSalidaDb.FechaIngreso = hisDto.FechaIngreso;
                 historicoIngresoSalidaDb.FechaSalida = hisDto.FechaSalida;
                 historicoIngresoSalidaDb.MomentoCarga = DateTime.Now;
+                historicoIngresoSalidaDb.MotivoSalida = hisDto.MotivoSalida;
                 //Se recupera el usuarioID
                 var usuarioID = context.Usuarios.Where(u => u.UserID == userID)
                     .First().UsuarioID;
@@ -96,6 +98,7 @@ namespace SYJ.Domain.Managers {
                 }
                 historicoIngresoSalidaDb.FechaIngreso = hisDto.FechaIngreso;
                 historicoIngresoSalidaDb.FechaSalida = hisDto.FechaSalida;
+                historicoIngresoSalidaDb.MotivoSalida = hisDto.MotivoSalida;
 
                 context.Entry(historicoIngresoSalidaDb).State = System.Data.Entity.EntityState.Modified;
 
@@ -113,7 +116,7 @@ namespace SYJ.Domain.Managers {
         public MensajeDto UltimoIngreso(long empleadoID) {
             using (var context = new SueldosJornalesEntities()) {
                 var ingresoSalidaDb = context.HistoricoIngresoSalidas
-                    .Where(h => h.FechaSalida == null && h.EmpleadoID == empleadoID)
+                    .Where(h => h.EmpleadoID == empleadoID)
                     .OrderByDescending(h => h.FechaIngreso)
                     .FirstOrDefault();
                 if (ingresoSalidaDb == null) {

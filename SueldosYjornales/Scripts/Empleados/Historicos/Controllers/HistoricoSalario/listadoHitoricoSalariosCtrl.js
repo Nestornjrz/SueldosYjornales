@@ -19,7 +19,7 @@
         vm.eliminar = function (historicoSalario) {
             var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminacionHistoricoSalario.html',
-                controller: function ($scope, $modalInstance) {
+                controller: function ($scope, $uibModalInstance) {
                     $scope.historicoSalario = historicoSalario;
                     $scope.objeto = {};
                     $scope.objeto.id = historicoSalario.historicoSalarioID;
@@ -35,7 +35,7 @@
                         //$rootScope.$broadcast('actualizarTodos', {});
                     };
                     $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
+                        $uibModalInstance.dismiss('cancel');
                     };
                 },
                 size: 'sm'

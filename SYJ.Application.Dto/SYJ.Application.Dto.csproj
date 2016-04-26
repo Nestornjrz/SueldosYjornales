@@ -71,6 +71,7 @@
     <Compile Include="MovEmpleadoDetDto.cs" />
     <Compile Include="MovEmpleadoDto.cs" />
     <Compile Include="Mtess\EmpleadoYobreroDto.cs" />
+    <Compile Include="Mtess\SueldoYjornaleDto.cs" />
     <Compile Include="NacionalidadeDto.cs" />
     <Compile Include="PrestamoSimpleDto.cs" />
     <Compile Include="ProfesioneDto.cs" />

@@ -5,4 +5,3 @@ var app;
         angular.module("common.services", ["ngResource", "ui.bootstrap", "checklist-model"]);
     })(common = app.common || (app.common = {}));
 })(app || (app = {}));
-//# sourceMappingURL=common.services.js.map

@@ -61,7 +61,7 @@ namespace SYJ.Application.Dto.Mtess {
         /// <summary>
         /// N FECHAENTRADA FECHA FECHA EN FORMATO YYYY-MM-DD PREFERIBLEMENTE
         /// </summary>
-        public DateTime FechaEntrada { get; set; }
+        public DateTime? FechaEntrada { get; set; }
         /// <summary>
         /// O HORARIOTRABAJO 20 CARACTER COMPLETAR HORARIO DE TRABAJO - COMPLETAR SÓLO SI EL TRABAJADOR
         /// ES MENOR
@@ -79,7 +79,7 @@ namespace SYJ.Application.Dto.Mtess {
         /// <summary>
         /// R FECHASALIDA FECHA FECHA EN FORMATO YYYY-MM-DD PREFERIBLEMENTE
         /// </summary>
-        public DateTime FechaSalida { get; set; }
+        public DateTime? FechaSalida { get; set; }
         /// <summary>
         /// S MOTIVOSALIDA 100 CARACTER COMPLETAR OBLIGATORIAMENTE SI EXISTE FECHA DE SALIDA
         /// </summary>

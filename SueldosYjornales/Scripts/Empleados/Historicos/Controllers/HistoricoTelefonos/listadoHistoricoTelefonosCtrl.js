@@ -18,7 +18,7 @@
         vm.eliminar = function (historicoTelefono) {
             var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminacionHistoricoTelefono.html',
-                controller: function ($scope, $modalInstance) {
+                controller: function ($scope, $uibModalInstance) {
                     $scope.historicoTelefono = historicoTelefono;
                     $scope.objeto = {};
                     $scope.objeto.id = historicoTelefono.historicoTelefonoID;
@@ -35,7 +35,7 @@
                         //$rootScope.$broadcast('actualizarTodos', {});
                     };
                     $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
+                        $uibModalInstance.dismiss('cancel');
                     };
                 },
                 size: 'sm'

@@ -20,4 +20,3 @@ var app;
             .service("dataAccessService", DataAccessService);
     })(common = app.common || (app.common = {}));
 })(app || (app = {}));
-//# sourceMappingURL=dataAccessService.js.map
