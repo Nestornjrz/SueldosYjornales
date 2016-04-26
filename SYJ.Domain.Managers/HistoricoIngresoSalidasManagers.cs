@@ -126,6 +126,7 @@ namespace SYJ.Domain.Managers {
                 hismDto.EmpleadoID = ingresoSalidaDb.EmpleadoID;
                 hismDto.FechaIngreso = ingresoSalidaDb.FechaIngreso;
                 hismDto.FechaSalida = ingresoSalidaDb.FechaSalida;
+                hismDto.MotivoSalida = ingresoSalidaDb.MotivoSalida;
 
                 return new MensajeDto() {
                     Error = false,

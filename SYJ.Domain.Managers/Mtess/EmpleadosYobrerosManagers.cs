@@ -11,7 +11,12 @@ namespace SYJ.Domain.Managers.Mtess {
         public List<EmpleadoYobreroDto> ListadoEmpleados() {
             EmpleadosManagers em = new EmpleadosManagers();
             HistoricoDireccionesManagers hdm = new HistoricoDireccionesManagers();
+            HistoricoSalariosManagers hsm = new HistoricoSalariosManagers();
+            HistoricoIngresoSalidasManagers hism = new HistoricoIngresoSalidasManagers();
+
             var empleados = em.ListadoEmpleados();
+            List<EmpleadoYobreroDto> listado = new List<EmpleadoYobreroDto>();
+
             foreach (EmpleadoDto empleado in empleados) {
                 //Se empieza a cargar el empleado
                 EmpleadoYobreroDto eyoDto = new EmpleadoYobreroDto();
@@ -49,9 +54,29 @@ namespace SYJ.Domain.Managers.Mtess {
                 }
                 //eyoDto.FechaNacMenor
                 eyoDto.HijosMenores = empleado.CantidadHijos;
-
-                throw new NotImplementedException();
+                //Se carga el cargo
+                var salarioYcargo = hsm.SalarioYCargoActual(empleado.EmpleadoID);
+                if (!salarioYcargo.Error) {
+                    var historicoSalarioCargo = (HistoricoSalarioDto)salarioYcargo.ObjetoDto;
+                    eyoDto.Cargo = historicoSalarioCargo.Cargo.NombreCargo;
+                }
+                eyoDto.Profesion = empleado.Profesione.NombreProfesion;
+                //Se ve que ultima fecha de entrada tiene
+                var ingresoEgreso = hism.UltimoIngreso(empleado.EmpleadoID);
+                if (!ingresoEgreso.Error) {
+                    var historicoIngresoEgreso = (HistoricoIngresoSalidaDto)ingresoEgreso.ObjetoDto;
+                    eyoDto.FechaEntrada = historicoIngresoEgreso.FechaIngreso;
+                    if (historicoIngresoEgreso.FechaSalida != null) {
+                        eyoDto.FechaSalida = historicoIngresoEgreso.FechaSalida.Value;
+                        eyoDto.MotivoSalida = historicoIngresoEgreso.MotivoSalida;
+                    }
+                }
+                //eyoDto.HorarioTrabajo
+                //eyoDto.MenorEscapa
+                //eyoDto.MenorEsEscolar
+                listado.Add(eyoDto);
             }
+            return listado;
         }
     }
 }

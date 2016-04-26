@@ -1,6 +1,6 @@
 ﻿/*
 Created: 15/06/2015
-Modified: 28/08/2015
+Modified: 26/04/2016
 Model: Sueldos y Jornales
 Database: MS SQL Server 2014
 */
@@ -263,7 +263,8 @@ CREATE TABLE [Sj].[HistoricoIngresoSalidas]
  [FechaIngreso] Date NOT NULL,
  [FechaSalida] Date NULL,
  [UsuarioID] Bigint NOT NULL,
- [MomentoCarga] Datetime2 NOT NULL
+ [MomentoCarga] Datetime2 NOT NULL,
+ [MotivoSalida] Varchar(300) NULL
 )
 go
 
@@ -641,6 +642,27 @@ INSERT INTO [Sj].[LiquidacionConceptos]
 ALTER TABLE [Sj].[LiquidacionConceptos] ADD CONSTRAINT [pk_LiquidacionConceptos] PRIMARY KEY ([LiquidacionConceptoID])
 go
 
+-- Table Sj.EmpleadosHijos
+
+CREATE TABLE [Sj].[EmpleadosHijos]
+(
+ [EmpleadoHijoID] Bigint IDENTITY(1,1) NOT NULL,
+ [EmpleadoID] Bigint NULL,
+ [Nombres] Varchar(50) NOT NULL,
+ [FechaNac] Date NOT NULL
+)
+go
+
+-- Create indexes for table Sj.EmpleadosHijos
+
+CREATE INDEX [IX_EmpleadosHijos] ON [Sj].[EmpleadosHijos] ([EmpleadoID])
+go
+
+-- Add keys for table Sj.EmpleadosHijos
+
+ALTER TABLE [Sj].[EmpleadosHijos] ADD CONSTRAINT [pk_EmpleadosHijos] PRIMARY KEY ([EmpleadoHijoID])
+go
+
 -- Create relationships section ------------------------------------------------- 
 
 ALTER TABLE [Sj].[Sucursales] ADD CONSTRAINT [fk_Sucursales>Empresas] FOREIGN KEY ([EmpresaID]) REFERENCES [Sj].[Empresas] ([EmpresaID]) ON UPDATE NO ACTION ON DELETE NO ACTION
@@ -749,6 +771,9 @@ ALTER TABLE [Sj].[MovEmpleadosDets] ADD CONSTRAINT [Fk_MovEmpleadosDets->Liquida
 go
 
 ALTER TABLE [Sj].[PrestamosSimples] ADD CONSTRAINT [fk_PrestamosSimples->Usuarios] FOREIGN KEY ([UsuarioID]) REFERENCES [Sj].[Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[EmpleadosHijos] ADD CONSTRAINT [fk_EmpleadosHijos->empleados] FOREIGN KEY ([EmpleadoID]) REFERENCES [Sj].[Empleados] ([EmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
 

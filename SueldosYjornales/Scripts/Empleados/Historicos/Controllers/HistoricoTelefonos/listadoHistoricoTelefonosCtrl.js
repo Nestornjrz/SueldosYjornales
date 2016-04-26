@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('listadoHistoricoTelefonosCtrl', listadoHistoricoTelefonosCtrl);
 
-    listadoHistoricoTelefonosCtrl.$inject = ['$rootScope', '$modal', 'sYjResource'];
+    listadoHistoricoTelefonosCtrl.$inject = ['$rootScope', '$uibModal', 'sYjResource'];
 
-    function listadoHistoricoTelefonosCtrl($rootScope, $modal, sYjResource) {
+    function listadoHistoricoTelefonosCtrl($rootScope, $uibModal, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
         
@@ -16,7 +16,7 @@
         }
 
         vm.eliminar = function (historicoTelefono) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminacionHistoricoTelefono.html',
                 controller: function ($scope, $modalInstance) {
                     $scope.historicoTelefono = historicoTelefono;

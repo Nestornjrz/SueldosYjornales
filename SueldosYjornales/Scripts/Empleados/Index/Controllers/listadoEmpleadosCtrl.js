@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('listadoEmpleadosCtrl', listadoEmpleadosCtrl);
 
-    listadoEmpleadosCtrl.$inject = ['$scope', '$rootScope', '$modal', 'sYjResource'];
+    listadoEmpleadosCtrl.$inject = ['$scope', '$rootScope', '$uibModal', 'sYjResource'];
 
-    function listadoEmpleadosCtrl($scope, $rootScope, $modal, sYjResource) {
+    function listadoEmpleadosCtrl($scope, $rootScope, $uibModal, sYjResource) {
         //#region SE MANEJA EL TAB 
         $scope.menu = {};
         ocultar();
@@ -42,7 +42,7 @@
         }
 
         $scope.eliminar = function (empleado) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminacionEmpleado.html',
                 controller: function ($scope, $modalInstance) {
                     $scope.empleado = empleado;

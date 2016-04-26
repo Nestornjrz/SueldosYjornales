@@ -88,6 +88,9 @@
     <Compile Include="Empleado.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EmpleadosHijo.cs">
+      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Empresa.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>

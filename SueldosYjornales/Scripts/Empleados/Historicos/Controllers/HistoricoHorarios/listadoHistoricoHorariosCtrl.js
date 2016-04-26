@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('listadoHistoricoHorariosCtrl', listadoHistoricoHorariosCtrl);
 
-    listadoHistoricoHorariosCtrl.$inject = ['$rootScope', '$modal', 'sYjResource'];
+    listadoHistoricoHorariosCtrl.$inject = ['$rootScope', '$uibModal', 'sYjResource'];
 
-    function listadoHistoricoHorariosCtrl($rootScope, $modal, sYjResource) {
+    function listadoHistoricoHorariosCtrl($rootScope, $uibModal, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -16,7 +16,7 @@
         }
 
         vm.eliminar = function (historicoHorario) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminacionHorarios.html',
                 controller: function ($scope, $modalInstance) {
                     $scope.historicoHorario = historicoHorario;

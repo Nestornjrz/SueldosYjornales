@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('listadoHistoricoDireccionesCtrl', listadoHistoricoDireccionesCtrl);
 
-    listadoHistoricoDireccionesCtrl.$inject = ['$rootScope', '$modal', 'sYjResource'];
+    listadoHistoricoDireccionesCtrl.$inject = ['$rootScope', '$uibModal', 'sYjResource'];
 
-    function listadoHistoricoDireccionesCtrl($rootScope, $modal, sYjResource) {
+    function listadoHistoricoDireccionesCtrl($rootScope, $uibModal, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
         vm.actualizar = function (historicoDireccion) {
@@ -15,7 +15,7 @@
         }
 
         vm.eliminar = function (historicoDireccion) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminacionHistoricoDireccion.html',
                 controller: function ($scope, $modalInstance) {
                     $scope.historicoDireccion = historicoDireccion;

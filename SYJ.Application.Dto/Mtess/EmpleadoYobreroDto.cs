@@ -45,7 +45,7 @@ namespace SYJ.Application.Dto.Mtess {
         /// <summary>
         /// J FECHANACMENOR FECHA FECHA EN FORMATO YYYY-MM-DD PREFERIBLEMENTE
         /// </summary>
-        public DateTime FechaNacMenor { get; set; }
+        public DateTime? FechaNacMenor { get; set; }
         /// <summary>
         /// K HIJOSMENORES 32 ENTERO CANTIDAD DE HIJOS MENORES DEL EMPLEADO
         /// </summary>

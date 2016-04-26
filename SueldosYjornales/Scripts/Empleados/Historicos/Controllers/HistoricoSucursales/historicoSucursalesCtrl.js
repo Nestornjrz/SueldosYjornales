@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('historicoSucursalesCtrl', historicoSucursalesCtrl);
 
-    historicoSucursalesCtrl.$inject = ['$rootScope', '$modal', 'sYjResource'];
+    historicoSucursalesCtrl.$inject = ['$rootScope', '$uibModal', 'sYjResource'];
 
-    function historicoSucursalesCtrl($rootScope, $modal, sYjResource) {
+    function historicoSucursalesCtrl($rootScope, $uibModal, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
         vm.historicoSucursale = {};

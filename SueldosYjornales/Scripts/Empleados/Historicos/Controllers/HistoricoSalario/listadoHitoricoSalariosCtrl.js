@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('listadoHitoricoSalariosCtrl', listadoHitoricoSalariosCtrl);
 
-    listadoHitoricoSalariosCtrl.$inject = ['$rootScope', '$modal', 'sYjResource'];
+    listadoHitoricoSalariosCtrl.$inject = ['$rootScope', '$uibModal', 'sYjResource'];
 
-    function listadoHitoricoSalariosCtrl($rootScope, $modal, sYjResource) {
+    function listadoHitoricoSalariosCtrl($rootScope, $uibModal, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -17,7 +17,7 @@
         }
 
         vm.eliminar = function (historicoSalario) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminacionHistoricoSalario.html',
                 controller: function ($scope, $modalInstance) {
                     $scope.historicoSalario = historicoSalario;

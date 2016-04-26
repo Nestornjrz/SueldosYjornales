@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('listadoHistoricoIngresoSalidasCtrl', listadoHistoricoIngresoSalidasCtrl);
 
-    listadoHistoricoIngresoSalidasCtrl.$inject = ['$rootScope', '$modal', 'sYjResource'];
+    listadoHistoricoIngresoSalidasCtrl.$inject = ['$rootScope', '$uibModal', 'sYjResource'];
 
-    function listadoHistoricoIngresoSalidasCtrl($rootScope, $modal, sYjResource) {
+    function listadoHistoricoIngresoSalidasCtrl($rootScope, $uibModal, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
         
@@ -16,7 +16,7 @@
         }
 
         vm.eliminar = function (historicoIngresoSalida) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminacionHistoricoIngresoSalida.html',
                 controller: function ($scope, $modalInstance) {
                     $scope.historicoIngresoSalida = historicoIngresoSalida;

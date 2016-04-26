@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('menuCtrl', menuCtrl);
 
-    menuCtrl.$inject = ['$scope', '$rootScope', '$modal', 'sYjResource'];
+    menuCtrl.$inject = ['$scope', '$rootScope', '$uibModal', 'sYjResource'];
 
-    function menuCtrl($scope, $rootScope, $modal, sYjResource) {
+    function menuCtrl($scope, $rootScope, $uibModal, sYjResource) {
         $scope.mostrarFormCargaEmpleado = false;
 
         $scope.mostrarFormCargarEmpleado = function () {

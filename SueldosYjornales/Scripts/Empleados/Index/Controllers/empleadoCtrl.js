@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('empleadoCtrl', empleadoCtrl);
 
-    empleadoCtrl.$inject = ['$scope', '$rootScope', '$modal', 'sYjResource'];
+    empleadoCtrl.$inject = ['$scope', '$rootScope', '$uibModal', 'sYjResource'];
 
-    function empleadoCtrl($scope, $rootScope, $modal, sYjResource) {
+    function empleadoCtrl($scope, $rootScope, $uibModal, sYjResource) {
         $scope.sexos = [
             { sexoID: 1, nombreSexo: "Masculino" },
             { sexoID: 2, nombreSexo: "Femenino" }

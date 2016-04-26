@@ -12,16 +12,13 @@ namespace SYJ.Domain.Db
     using System;
     using System.Collections.Generic;
     
-    public partial class EstadoCivile
+    public partial class EmpleadosHijo
     {
-        public EstadoCivile()
-        {
-            this.Empleados = new HashSet<Empleado>();
-        }
+        public long EmpleadoHijoID { get; set; }
+        public Nullable<long> EmpleadoID { get; set; }
+        public string Nombres { get; set; }
+        public System.DateTime FechaNac { get; set; }
     
-        public int EstadoCivilID { get; set; }
-        public string NombreEstadoCivil { get; set; }
-    
-        public virtual ICollection<Empleado> Empleados { get; set; }
+        public virtual Empleado Empleado { get; set; }
     }
 }
