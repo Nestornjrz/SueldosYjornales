@@ -12,15 +12,17 @@ namespace SYJ.Domain.Managers.Mtess {
             EmpleadosManagers em = new EmpleadosManagers();
             MovEmpleadosDetsManagers medm = new MovEmpleadosDetsManagers();
             HistoricoSalariosManagers hsm = new HistoricoSalariosManagers();
+            VacacionesManagers vm = new VacacionesManagers();
 
             var empleados = em.ListadoEmpleados();
             var years = new List<int> { 2015 };
-            List<int> meses = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
-
+            List<SueldoYjornaleDto> listado = new List<SueldoYjornaleDto>();
 
             foreach (EmpleadoDto empleado in empleados) {
                 //Se empieza a cargar el empleado
                 SueldoYjornaleDto syjDto = new SueldoYjornaleDto();
+                syjDto.EmpleadoID = empleado.EmpleadoID;
+                syjDto.NombreReferencia = empleado.Nombres + " " + empleado.Apellidos;
                 syjDto.NroPatronal = 77399;
                 syjDto.Documento = empleado.NroCedula.ToString();
                 syjDto.FormaDePago = 'M';//Mensualero
@@ -28,17 +30,17 @@ namespace SYJ.Domain.Managers.Mtess {
                 var salarioYcargo = hsm.SalarioYCargoActual(empleado.EmpleadoID);
                 if (!salarioYcargo.Error) {
                     var historicoSalarioCargo = (HistoricoSalarioDto)salarioYcargo.ObjetoDto;
-                    syjDto.ImporteUnitario = historicoSalarioCargo.Monto / 30;//Para mensualeros
+                    syjDto.ImporteUnitario = (int)historicoSalarioCargo.Monto / 30;//Para mensualeros
                 }
                 foreach (var ano in years) {
                     //Enero
                     syjDto.S_Ene = medm.TotalSalarioPercibidoMes(1, ano, empleado.EmpleadoID);
                     if (syjDto.S_Ene > 0) {
-                        syjDto.H_Ene = medm.TotalHorasTrabajadas(1,ano,empleado.EmpleadoID);
+                        syjDto.H_Ene = medm.TotalHorasTrabajadas(1, ano, empleado.EmpleadoID);
                     }
                     //Febrero
                     syjDto.S_Feb = medm.TotalSalarioPercibidoMes(2, ano, empleado.EmpleadoID);
-                    if (syjDto.S_Feb >0) {
+                    if (syjDto.S_Feb > 0) {
                         syjDto.H_Ene = medm.TotalHorasTrabajadas(2, ano, empleado.EmpleadoID);
                     }
                     //Marzo
@@ -92,11 +94,22 @@ namespace SYJ.Domain.Managers.Mtess {
                         syjDto.H_Dic = medm.TotalHorasTrabajadas(12, ano, empleado.EmpleadoID);
                     }
                     //Agunaldo
-                    syjDto.Aguinaldo = medm.Aguinaldo(ano, empleado.EmpleadoID);
+                    syjDto.Aguinaldo = (int)medm.Aguinaldo(ano, empleado.EmpleadoID);
+                    //Se calcula las vacaciones
+                    syjDto.Vacaciones = vm.TotalVacacionesPagadasYear(ano, empleado.EmpleadoID);
+                    //Total de horas trabajadas incluyendo horas extras (cosa que no tenemos)
+                    syjDto.Total_H = syjDto.H_Ene + syjDto.H_Feb + syjDto.H_Mar + syjDto.H_Abr + syjDto.H_May +
+                                     syjDto.H_Jun + syjDto.H_Jul + syjDto.H_Ago + syjDto.H_Set + syjDto.H_Oct +
+                                     syjDto.H_Nov + syjDto.H_Dic;
+                    syjDto.Total_S = syjDto.S_Ene + syjDto.S_Feb + syjDto.S_Mar + syjDto.S_Abr + syjDto.S_May +
+                                     syjDto.S_Jun + syjDto.S_Jul + syjDto.S_Ago + syjDto.S_Set + syjDto.S_Oct +
+                                     syjDto.S_Nov + syjDto.S_Dic;
+                    syjDto.TotalGeneral = syjDto.Total_S;
 
+                    listado.Add(syjDto);
                 }
             }
-            throw new NotImplementedException();
+            return listado;
         }
     }
 }

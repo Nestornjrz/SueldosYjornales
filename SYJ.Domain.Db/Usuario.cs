@@ -28,6 +28,7 @@ namespace SYJ.Domain.Db
             this.PrestamosSimples = new HashSet<PrestamosSimple>();
             this.Comisiones = new HashSet<Comisione>();
             this.HistoricoIngresoSalidas = new HashSet<HistoricoIngresoSalida>();
+            this.Vacaciones = new HashSet<Vacacione>();
         }
     
         public long UsuarioID { get; set; }
@@ -48,5 +49,6 @@ namespace SYJ.Domain.Db
         public virtual ICollection<PrestamosSimple> PrestamosSimples { get; set; }
         public virtual ICollection<Comisione> Comisiones { get; set; }
         public virtual ICollection<HistoricoIngresoSalida> HistoricoIngresoSalidas { get; set; }
+        public virtual ICollection<Vacacione> Vacaciones { get; set; }
     }
 }

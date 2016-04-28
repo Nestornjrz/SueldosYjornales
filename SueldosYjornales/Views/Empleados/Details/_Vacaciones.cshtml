@@ -1,0 +1,130 @@
+﻿<div class="row">
+    <div class="col-md-5">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Cargar Vacaciones</div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" ng-controller="vacacionesCtrl as vm" name="vacacionesForm" ng-cloak>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="fechaComision" class="col-md-4 control-label">Fecha Salida</label>
+                            <div class="col-md-8">
+                                <p class="input-group">
+                                    <input type="date" id="fechaSalida"
+                                           name="fechaSalida"
+                                           class="form-control"
+                                           ng-model="vm.vacacione.fechaSalida"
+                                           placeholder="yyyy-MM-dd"
+                                           ng-model-options="{timezone:'UTC'}"
+                                           ng-required="true" />
+                                </p>
+                                <div style="color:red" ng-show="vacacionesForm.fechaSalida.$dirty && vacacionesForm.fechaSalida.$invalid">
+                                    <span ng-show="vacacionesForm.fechaComision.$error.date">No es un formato valido</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="montoComision" class="col-md-4 control-label">Dias Usufructuados</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" ng-model="vm.vacacione.diasUsufructuados" name="diasUsufructuados" ng-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!--<label for="observacion" class="col-md-3 control-label">Observacion</label>-->
+                            <div class="col-md-12">
+                                <textarea class="form-control" style="max-width:100%;"
+                                          ng-model="vm.vacacione.observacion"
+                                          rows="5"
+                                          placeholder="Cargar la observacion..."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <button ng-click="vm.guardar()" ng-disabled="vacacionesForm.$invalid" class="btn btn-default">
+                                    <span ng-show="vm.vacacione.vacacionID == null">Cargar</span>
+                                    <span ng-show="vm.vacacione.vacacionID != null">Editar Comision ID: {{vm.vacacione.vacacionID}}</span>
+                                </button>
+                                <button ng-click="vm.nuevoParaCargar()" class="btn btn-default">
+                                    Nuevo
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Aviso</div>
+                                <div class="panel-body">
+                                    {{vm.mensajeDelServidor}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<pre>{{vm.vacacione | json}}</pre>*@
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <h2>Listado de Vacaciones</h2>
+        <div class="row" ng-controller="listadoVacacionesCtrl as vm" ng-cloak style="margin-top:25px;">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Acciones</th>
+                            <th>Id</th>
+                            <th>Fecha Salida</th>
+                            <th>Dias usufructuados</th>
+                            <th>Observacion</th>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="o in vm.vacaciones">
+                        <td><button title="Actualizar" class="btn btn-warning btn-sm" ng-click="vm.actualizar(o)"> <i class="glyphicon glyphicon-edit" /></button></td>
+                        <td><button title="Eliminar" class="btn btn-danger btn-sm" ng-click="vm.eliminar(o)"><i class=" glyphicon glyphicon-remove" /></button></td>
+                        <td>{{o.vacacionID}}</td>
+                        <td>{{o.fechaSalida | date:"dd/MM/yyyy":"UTC"}}</td>
+                        <td>{{o.diasUsufructuados }}</td>
+                        <td>{{o.observacion}}</td>
+                    </tr>
+                </table>
+            </div>
+            @*<pre>{{vm.vacaciones | json}}</pre>*@
+        </div>
+    </div>
+</div>
+
+@*////////////////////////////////////////////////////////////////////
+    //////////////////////TEMPLETE DE LOS MODALES////////////////////////*@
+
+<script type="text/ng-template" id="ModalEliminacionVacacione.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{objeto.mensaje}} {{objeto.id}}</h3>
+        <p class="text-muted">Esta seguro?</p>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha Salida</th>
+                        <th>Dias usufructuados</th>
+                        <th>Observacion</th>
+                    </tr>
+                    <tr>
+                        <td>{{vacacione.vacacionID}}</td>
+                        <td>{{vacacione.fechaSalida | date:"dd/MM/yyyy":"UTC"}}</td>
+                        <td>{{vacacione.diasUsufructuados}}</td>
+                        <td>{{vacacione.observacion}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div ng-show="respuesta.mensajeDelProceso != null" class="alert alert-info">
+            {{respuesta.mensajeDelProceso}}
+        </div>
+        @*<pre>{{vacacione | json}}</pre>*@
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" ng-click="cancel()" id="btn_cancelar">Salir</button>
+        <button class="btn btn-primary" ng-click="ok()" id="btn_save">Eliminar</button>
+    </div>
+</script>

@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace SYJ.Application.Dto.Mtess {
     public class SueldoYjornaleDto {
+        #region SOLO PORA REFERENCIA
+        public long EmpleadoID { get; set; }
+        public string NombreReferencia { get; set; }
+        #endregion
         /// <summary>
         /// A NROPATRONAL 32 ENTERO CORRESPONDE AL NÚMERO PATRONAL DEL MINISTERIO DE TRABAJO
         /// </summary>
@@ -24,7 +28,7 @@ namespace SYJ.Application.Dto.Mtess {
         /// D IMPORTEUNITARIO 32 ENTERO EL IMPORTE UNITARIO EQUIVALE AL SUELDO PERCIBIDO POR UN DÍA DE TRABAJO Y
         /// SE SERÁ EL COCIENTE ENTRE EL SALARIO Y LA FORMA DE PAGO.
         /// </summary>
-        public decimal ImporteUnitario { get; set; }
+        public int ImporteUnitario { get; set; }
         /// <summary>
         /// E H_ENE 32 ENTERO TOTAL DE HORAS TRABAJADAS EN ENERO, SIN CONTAR LAS HORAS EXTRAS
         /// </summary>
@@ -107,7 +111,8 @@ namespace SYJ.Application.Dto.Mtess {
         /// </summary>
         public decimal S_Set { get; set; }
         /// <summary>
-        /// W H_OCT 32 ENTERO TOTAL DE HORAS TRABAJADAS EN OCTUBRE, SIN CONTAR LAS HORAS EXTRAS        /// </summary>
+        /// W H_OCT 32 ENTERO TOTAL DE HORAS TRABAJADAS EN OCTUBRE, SIN CONTAR LAS HORAS EXTRAS
+        /// </summary>
         public int H_Oct { get; set; }
         /// <summary>
         /// X S_OCT 32 ENTERO TOTAL DE SALARIO PERCIBIDO EN OCTUBRE, SIN CONTAR 
@@ -124,7 +129,8 @@ namespace SYJ.Application.Dto.Mtess {
         /// </summary>
         public decimal S_Nov { get; set; }
         /// <summary>
-        /// AA H_DIC 32 ENTERO TOTAL DE HORAS TRABAJADAS EN DICIEMBRE, SIN CONTAR LAS HORAS EXTRAS        /// </summary>
+        /// AA H_DIC 32 ENTERO TOTAL DE HORAS TRABAJADAS EN DICIEMBRE, SIN CONTAR LAS HORAS EXTRAS
+        /// </summary>
         public int H_Dic { get; set; }
         /// <summary>
         /// AB S_DIC 32 ENTERO TOTAL DE SALARIO PERCIBIDO EN DICIEMBRE, SIN CONTAR 
@@ -132,7 +138,8 @@ namespace SYJ.Application.Dto.Mtess {
         /// </summary>
         public decimal S_Dic { get; set; }
         /// <summary>
-        /// AC H_50 32 ENTERO HORAS EXTRAS AL 50% TRABAJADAS DURANTE EL AÑO        /// </summary>
+        /// AC H_50 32 ENTERO HORAS EXTRAS AL 50% TRABAJADAS DURANTE EL AÑO
+        /// </summary>
         public int H_50 { get; set; }
         /// <summary>
         /// AD S_50 32 ENTERO IMPORTE RECIBIDO EN CONCEPTO DE HORAS EXTRAS AL 50% 
@@ -152,7 +159,7 @@ namespace SYJ.Application.Dto.Mtess {
         /// AG AGUINALDO 32 ENTERO AGUINALDO O AGUINALDO PROPORCIONAL 
         /// (SEGÚN ART. 243 Y 244 DEL CÓDIGO LABORAL)
         /// </summary>
-        public decimal Aguinaldo { get; set; }
+        public int Aguinaldo { get; set; }
         /// <summary>
         /// AH BENEFICIOS 32 ENTERO CORRESPONDE A BENEFICIOS RECIBIDOS DURANTE EL 
         /// AÑO Y EN CONCEPTO DE LIQUIDACIONES POR DESPIDO MÁS PRE-AVISO.

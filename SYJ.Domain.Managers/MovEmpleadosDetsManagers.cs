@@ -10,14 +10,18 @@ namespace SYJ.Domain.Managers {
     public class MovEmpleadosDetsManagers {
         public decimal TotalSalarioPercibidoMes(int mesID, int year, long empleadoID) {
             using (var context = new SueldosJornalesEntities()) {
-                var montoTotalCobrado = context.MovEmpleadosDets
+                var movimientos = context.MovEmpleadosDets
                     .Where(m => m.EmpleadoID == empleadoID &&
                               m.MesAplicacion.Year == year &&
                               m.MesAplicacion.Month == mesID &&
-                              m.DevCred == Liquidacion.DevCred.Devito &&
+                              m.DevCred == Liquidacion.DevCred.Credito &&
                               (m.LiquidacionConceptoID == (int)Liquidacion.Conceptos.SueldoBase ||
                                m.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Comision))
-                               .Sum(s => s.Monto);
+                               .ToList();
+                decimal montoTotalCobrado = 0;
+                if (movimientos != null) {
+                    montoTotalCobrado = movimientos.Sum(s => s.Monto);
+                }
                 return montoTotalCobrado;
             }
         }
@@ -31,10 +35,16 @@ namespace SYJ.Domain.Managers {
         /// en el futuro el calculo es mas fino</param>
         /// <returns></returns>
         public int TotalHorasTrabajadas(int mesID, int year, long empleadoID) {
+            //feriados
+            List<DateTime> feriados = new List<DateTime>();
+            feriados.Add(new DateTime(2015, 08, 15));//Fundacion de asuncion
+            feriados.Add(new DateTime(2015, 09, 29));//Batalla de boqueron
+            feriados.Add(new DateTime(2015, 12, 8));//Dia de la virgen de caacupe
+
             int cantidadHoras = 0;
             for (int i = 1; i < DateTime.DaysInMonth(year, mesID); i++) {
                 var fecha = new DateTime(year, mesID, i);
-                if (fecha.DayOfWeek != DayOfWeek.Sunday) {
+                if (fecha.DayOfWeek != DayOfWeek.Sunday && !feriados.Contains(fecha)) {
                     cantidadHoras += 8;
                 }
             }
@@ -42,11 +52,15 @@ namespace SYJ.Domain.Managers {
         }
         public decimal Aguinaldo(int year, long empleadoID) {
             using (var context = new SueldosJornalesEntities()) {
-                var montoAguinaldo = context.MovEmpleadosDets
+                var aguinaldos = context.MovEmpleadosDets
                     .Where(m => m.EmpleadoID == empleadoID &&
                               m.MesAplicacion.Year == year &&
                               m.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Aguinaldo)
-                              .Sum(s => s.Monto);
+                              .ToList();
+                decimal montoAguinaldo = 0;
+                if (aguinaldos != null) {
+                    montoAguinaldo = aguinaldos.Sum(s => s.Monto);
+                }
                 return montoAguinaldo;
             }
         }

@@ -18,6 +18,9 @@
                 var empleados = $resource("@Href("~/api/Empleados")");
                 var comisiones = $resource("@Href("~/api/Comisiones")");
                 var comisionesByEmpleadoID = $resource("@Href("~/api/Comisiones/ByEmpleadoID")");
+                var vacaciones = $resource("@Href("~/api/Vacaciones")");
+                var vacacionesByEmpleadoID = $resource("@Href("~/api/Vacaciones/ByEmpleadoID")");
+
                 var anticipos = $resource("@Href("~/api/Anticipos")");
                 var anticiposByEmpleadoID = $resource("@Href("~/api/Anticipos/ByEmpleadoID")");
                 var prestamosSimples = $resource("@Href("~/api/PrestamosSimples")");
@@ -29,6 +32,9 @@
                     "empleados": empleados,
                     "comisiones": comisiones,
                     "comisionesByEmpleadoID": comisionesByEmpleadoID,
+                    "vacaciones": vacaciones,
+                    "vacacionesByEmpleadoID": vacacionesByEmpleadoID,
+
                     "anticipos": anticipos,
                     "anticiposByEmpleadoID": anticiposByEmpleadoID,
                     "prestamosSimples": prestamosSimples,
@@ -46,7 +52,9 @@
     <script src="~/Scripts/Empleados/Details/Controllers/Anticipos/anticipoCtrl.js"></script>
     <script src="~/Scripts/Empleados/Details/Controllers/Anticipos/listadoAnticiposCtrl.js"></script>
     <script src="~/Scripts/Empleados/Details/Controllers/PrestamosSimples/prestamosSimplesCtrl.js"></script>
-<script src="~/Scripts/Empleados/Details/Controllers/PrestamosSimples/listadopPrestamosSimplesCtrl.js"></script>
+    <script src="~/Scripts/Empleados/Details/Controllers/PrestamosSimples/listadopPrestamosSimplesCtrl.js"></script>
+    <script src="~/Scripts/Empleados/Details/Controllers/Vacaciones/vacacionesCtrl.js"></script>
+    <script src="~/Scripts/Empleados/Details/Controllers/Vacaciones/listadoVacacionesCtrl.js"></script>
 }
 <style type="text/css">
     .form-group {
@@ -74,6 +82,9 @@
         <li role="presentation" class="{{vm.menu.prestamosSimples.class}}">
             <a href="#" ng-click="vm.prestamosSimplesFn($event)">Prestamos simples</a>
         </li>
+        <li role="presentation" class="{{vm.menu.vacaciones.class}}">
+            <a href="#" ng-click="vm.VacacionesFn($event)">Vacaciones</a>
+        </li>
     </ul>
     <div style="margin-top:25px;" ng-show="vm.menu.comisiones.mostrar">
         @Html.Partial("Details/_Comisiones")
@@ -83,6 +94,9 @@
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.prestamosSimples.mostrar">
         @Html.Partial("Details/_PrestamosSimples")
+    </div>
+    <div style="margin-top:25px;" ng-show="vm.menu.vacaciones.mostrar">
+        @Html.Partial("Details/_Vacaciones")
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
         <div class="alert alert-info">

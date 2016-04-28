@@ -329,10 +329,11 @@
             <PropertyRef Name="VacacionID" />
           </Key>
           <Property Name="VacacionID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="EmpleadoID" Type="bigint" />
+          <Property Name="EmpleadoID" Type="bigint" Nullable="false" />
           <Property Name="FechaSalida" Type="date" Nullable="false" />
           <Property Name="DiasUsufructuados" Type="int" Nullable="false" />
           <Property Name="Observacion" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="UsuarioID" Type="bigint" Nullable="false" />
         </EntityType>
         <Association Name="fk_Anticipos-&gt;Empleados">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
@@ -811,7 +812,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_Vacaciones-&gt;Empleados">
-          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
           <End Role="Vacaciones" Type="Self.Vacaciones" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Empleados">
@@ -819,6 +820,18 @@
             </Principal>
             <Dependent Role="Vacaciones">
               <PropertyRef Name="EmpleadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Vacaciones-&gt;Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Vacaciones" Type="Self.Vacaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Vacaciones">
+              <PropertyRef Name="UsuarioID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1038,6 +1051,10 @@
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Vacaciones" EntitySet="Vacaciones" />
           </AssociationSet>
+          <AssociationSet Name="fk_Vacaciones-&gt;Usuarios" Association="Self.fk_Vacaciones-&gt;Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Vacaciones" EntitySet="Vacaciones" />
+          </AssociationSet>
           <AssociationSet Name="pfk_UbicacionSucUsuarios&gt;Usuarios" Association="Self.pfk_UbicacionSucUsuarios&gt;Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="UbicacionSucUsuarios" EntitySet="UbicacionSucUsuarios" />
@@ -1246,6 +1263,10 @@
             <End Role="Empleado" EntitySet="Empleados" />
             <End Role="Vacacione" EntitySet="Vacaciones" />
           </AssociationSet>
+          <AssociationSet Name="fk_Vacaciones__Usuarios" Association="SueldosJornalesModel.fk_Vacaciones__Usuarios">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Vacacione" EntitySet="Vacaciones" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Cargo">
           <Key>
@@ -1318,6 +1339,7 @@
           <NavigationProperty Name="PrestamosSimples" Relationship="SueldosJornalesModel.fk_PrestamosSimples__Usuarios" FromRole="Usuario" ToRole="PrestamosSimple" />
           <NavigationProperty Name="Comisiones" Relationship="SueldosJornalesModel.fk_Comisiones__Usuarios" FromRole="Usuario" ToRole="Comisione" />
           <NavigationProperty Name="HistoricoIngresoSalidas" Relationship="SueldosJornalesModel.fk_HistoricoIngresoSalidas_Usuarios" FromRole="Usuario" ToRole="HistoricoIngresoSalida" />
+          <NavigationProperty Name="Vacaciones" Relationship="SueldosJornalesModel.fk_Vacaciones__Usuarios" FromRole="Usuario" ToRole="Vacacione" />
         </EntityType>
         <Association Name="fk_Sucursales_Empresas">
           <End Type="SueldosJornalesModel.Empresa" Role="Empresa" Multiplicity="1" />
@@ -2120,14 +2142,16 @@
             <PropertyRef Name="VacacionID" />
           </Key>
           <Property Name="VacacionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmpleadoID" Type="Int64" />
+          <Property Name="EmpleadoID" Type="Int64" Nullable="false" />
           <Property Name="FechaSalida" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="DiasUsufructuados" Type="Int32" Nullable="false" />
           <Property Name="Observacion" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioID" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Empleado" Relationship="SueldosJornalesModel.fk_Vacaciones__Empleados" FromRole="Vacacione" ToRole="Empleado" />
+          <NavigationProperty Name="Usuario" Relationship="SueldosJornalesModel.fk_Vacaciones__Usuarios" FromRole="Vacacione" ToRole="Usuario" />
         </EntityType>
         <Association Name="fk_Vacaciones__Empleados">
-          <End Type="SueldosJornalesModel.Empleado" Role="Empleado" Multiplicity="0..1" />
+          <End Type="SueldosJornalesModel.Empleado" Role="Empleado" Multiplicity="1" />
           <End Type="SueldosJornalesModel.Vacacione" Role="Vacacione" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Empleado">
@@ -2135,6 +2159,18 @@
             </Principal>
             <Dependent Role="Vacacione">
               <PropertyRef Name="EmpleadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Vacaciones__Usuarios">
+          <End Type="SueldosJornalesModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="SueldosJornalesModel.Vacacione" Role="Vacacione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Vacacione">
+              <PropertyRef Name="UsuarioID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2493,6 +2529,7 @@
           <EntitySetMapping Name="Vacaciones">
             <EntityTypeMapping TypeName="SueldosJornalesModel.Vacacione">
               <MappingFragment StoreEntitySet="Vacaciones">
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
                 <ScalarProperty Name="Observacion" ColumnName="Observacion" />
                 <ScalarProperty Name="DiasUsufructuados" ColumnName="DiasUsufructuados" />
                 <ScalarProperty Name="FechaSalida" ColumnName="FechaSalida" />

@@ -25,8 +25,13 @@
 
             function syjPath() {
                 var empleadosYobreros = "@Href("~/api/EmpleadosYobreros")";
+                var sueldosYjornales = "@Href("~/api/SueldosYjornales")";
+                var resumenesGenerales = "@Href("~/api/ResumenesGenerales")";
+
                 return {
-                    "empleadosYobreros": empleadosYobreros
+                    "empleadosYobreros": empleadosYobreros,
+                    "sueldosYjornales": sueldosYjornales,
+                    "resumenesGenerales": resumenesGenerales
                 }
             }
         })();
@@ -34,6 +39,8 @@
     @*Controllers*@
     <script src="~/Areas/Mtess/app/InicioMtess/generarArchivos/empleadosYobrerosCtrl.js"></script>
     <script src="~/Areas/Mtess/app/InicioMtess/generarArchivos/menuCtrl.js"></script>
+    <script src="~/Areas/Mtess/app/InicioMtess/generarArchivos/sueldosYjornalesCtrl.js"></script>
+    <script src="~/Areas/Mtess/app/InicioMtess/generarArchivos/ResumenGeneralCtrl.js"></script>
 }
 <h2>GenerarArchivos</h2>
 <div ng-controller="MenuCtrl as mv">
@@ -51,16 +58,22 @@
     <div ng-controller="EmpleadosYobrerosCtrl as vm" ng-show="mv.menu.empleadosYobreros.mostrar">
         <div class="row">
             <div class="col-md-12">
-                @*<p>Archivo de Empleados y obreros</p>*@
                 <button class="btn btn-primary" ng-click="vm.traerEmpleadosYobreros()">
                     Generar Empleados y Obreros
                 </button>
+                <a href="@Url.Action("GetFile","api/EmpleadosYobreros", new { Area = "" })">
+                    Bajar Archivo
+                </a>
+                <div ng-show="vm.mostrarLoading">
+                    <p>Consultando la base de datos favor espere</p>
+                    <img src="~/Images/loading_spinner.gif" />
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
                 <table class="table table-bordered table-condensed table-striped">
-                    <tr>
+                    <tr style="font-size:xx-small;">
                         <th>NroPatronal</th>
                         <th>Documento</th>
                         <th>Nombre</th>
@@ -82,7 +95,7 @@
                         <th>MotivosSalida</th>
                         <th>Estado</th>
                     </tr>
-                    <tr ng-repeat="e in vm.listadoEmpleadoYobrero">
+                    <tr ng-repeat="e in vm.listadoEmpleadoYobrero" style="font-size:xx-small;">
                         <td>{{e.nroPatronal}}</td>
                         <td>{{e.documento}}</td>
                         <td>{{e.nombre}}</td>
@@ -109,10 +122,170 @@
             </div>
         </div>
     </div>
-    <div ng-show="mv.menu.sueldosYjornales.mostrar">
-        Sueldos y jornales
+    <div ng-controller="SueldosYjornalesCtrl as vm" ng-show="mv.menu.sueldosYjornales.mostrar">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary" ng-click="vm.traerSueldosYjornales()">
+                    Generar sueldos y jornales
+                </button>
+                <a href="@Url.Action("GetFile","api/SueldosYjornales", new { Area = "" })">
+                    Bajar Archivo
+                </a>
+                <div ng-show="vm.mostrarLoading">
+                    <p>Consultando la base de datos favor espere</p>
+                    <img src="~/Images/loading_spinner.gif" />
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="vm.mostrarNombre"> Mostrar nombre
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-condensed table-striped table-hover">
+                    <caption>Cantidad: {{vm.listadoSueldoYjornales.length}}</caption>
+                    <tr style="font-size:xx-small">
+                        <th ng-show="vm.mostrarNombre">Nombre</th>
+                        <th>NroPatronal</th>
+                        <th>Documento</th>
+                        <th>FormaDePago</th>
+                        <th>ImporteUnitario</th>
+                        <th>H_Ene</th>
+                        <th>S_Ene</th>
+                        <th>H_Feb</th>
+                        <th>S_Feb</th>
+                        <th>H_Mar</th>
+                        <th>S_Mar</th>
+                        <th>H_Abr</th>
+                        <th>S_Abr</th>
+                        <th>H_May</th>
+                        <th>S_May</th>
+                        <th>H_Jun</th>
+                        <th>S_Jun</th>
+                        <th>H_Jul</th>
+                        <th>S_Jul</th>
+                        <th>H_Ago</th>
+                        <th>S_Ago</th>
+                        <th>H_Set</th>
+                        <th>S_Set</th>
+                        <th>H_Oct</th>
+                        <th>S_Oct</th>
+                        <th>H_Nov</th>
+                        <th>S_Nov</th>
+                        <th>H_Dic</th>
+                        <th>S_Dic</th>
+                        <th>H_50</th>
+                        <th>S_50</th>
+                        <th>H_100</th>
+                        <th>S_100</th>
+                        <th>Aguinaldo</th>
+                        <th>Beneficios</th>
+                        <th>Bonificaciones</th>
+                        <th>Vacaciones</th>
+                        <th>Total_H</th>
+                        <th>Total_S</th>
+                        <th>TotalGeneral</th>
+                    </tr>
+                    <tr ng-repeat="s in vm.listadoSueldoYjornales" style="font-size:xx-small;">
+                        <td ng-show="vm.mostrarNombre">
+                            <a href="@Url.Action("Resumen","Empleados", new { Area = "" })/{{s.empleadoID}}" target="_blank">
+                                {{s.nombreReferencia}}
+                            </a>
+                        </td>
+                        <td>{{s.nroPatronal}}</td>
+                        <td>{{s.documento}}</td>
+                        <td>{{s.formaDePago}}</td>
+                        <td>{{s.importeUnitario}}</td>
+                        <td>{{s.h_Ene}}</td>
+                        <td>{{s.s_Ene}}</td>
+                        <td>{{s.h_Feb}}</td>
+                        <td>{{s.s_Feb}}</td>
+                        <td>{{s.h_Mar}}</td>
+                        <td>{{s.s_Mar}}</td>
+                        <td>{{s.h_Abr}}</td>
+                        <td>{{s.s_Abr}}</td>
+                        <td>{{s.h_May}}</td>
+                        <td>{{s.s_May}}</td>
+                        <td>{{s.h_Jun}}</td>
+                        <td>{{s.s_Jun}}</td>
+                        <td>{{s.h_Jul}}</td>
+                        <td>{{s.s_Jul}}</td>
+                        <td>{{s.h_Ago}}</td>
+                        <td>{{s.s_Ago}}</td>
+                        <td>{{s.h_Set}}</td>
+                        <td>{{s.s_Set}}</td>
+                        <td>{{s.h_Oct}}</td>
+                        <td>{{s.s_Oct}}</td>
+                        <td>{{s.h_Nov}}</td>
+                        <td>{{s.s_Nov}}</td>
+                        <td>{{s.h_Dic}}</td>
+                        <td>{{s.s_Dic}}</td>
+                        <td>{{s.h_50}}</td>
+                        <td>{{s.s_50}}</td>
+                        <td>{{s.h_100}}</td>
+                        <td>{{s.s_100}}</td>
+                        <td>{{s.aguinaldo}}</td>
+                        <td>{{s.beneficios}}</td>
+                        <td>{{s.bonificaciones}}</td>
+                        <td>{{s.vacaciones}}</td>
+                        <td>{{s.total_H}}</td>
+                        <td>{{s.total_S}}</td>
+                        <td>{{s.totalGeneral}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        @*<pre>{{vm.listadoSueldoYjornales | json}}</pre>*@
     </div>
-    <div  ng-show="mv.menu.resumenGeneral.mostrar">
-        Resumen
+    <div ng-controller="ResumenGeneralCtrl as vm" ng-show="mv.menu.resumenGeneral.mostrar">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary" ng-click="vm.traerResumenGeneral()">
+                    Generar resumen general
+                </button>
+                <a href="@Url.Action("GetFile","api/ResumenesGenerales", new { Area = "" })">
+                    Bajar Archivo
+                </a>
+                <div ng-show="vm.mostrarLoading">
+                    <p>Consultando la base de datos favor espere</p>
+                    <img src="~/Images/loading_spinner.gif" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-condensed table-striped table-hover">
+                    <tr>
+                        <th>NroPatronal</th>
+                        <th>Año</th>
+                        <th>SupJefesVarones</th>
+                        <th>SupJefesMujeres</th>
+                        <th>EmpleadosVarones</th>
+                        <th>EmpleadosMujeres</th>
+                        <th>ObrerosVarones</th>
+                        <th>ObrerosMujeres</th>
+                        <th>MenoresVarones</th>
+                        <th>MenoresMujeres</th>
+                        <th>Orden</th>
+                    </tr>
+                    <tr ng-repeat="r in vm.listadoResumenGeneral">
+                        <td>{{r.nroPatronal}}</td>
+                        <td>{{r.anho}}</td>
+                        <td>{{r.supJefesVarones}}</td>
+                        <td>{{r.supJefesMujeres}}</td>
+                        <td>{{r.empleadosVarones}}</td>
+                        <td>{{r.empleadosMujeres}}</td>
+                        <td>{{r.obrerosVarones}}</td>
+                        <td>{{r.obrerosMujeres}}</td>
+                        <td>{{r.menoresVarones}}</td>
+                        <td>{{r.menoresMujeres}}</td>
+                        <td>{{r.orden}}</td>
+                    </tr>
+                </table>
+                @*<pre>{{vm.listadoResumenGeneral | json}}</pre>*@
+            </div>
+        </div>
     </div>
 </div>

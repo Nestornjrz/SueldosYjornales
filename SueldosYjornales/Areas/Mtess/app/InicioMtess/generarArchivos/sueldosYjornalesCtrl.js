@@ -1,37 +1,41 @@
+// Install the angularjs.TypeScript.DefinitelyTyped NuGet package
 var app;
 (function (app) {
     var inicioMtess;
     (function (inicioMtess) {
         var generarArchivos;
         (function (generarArchivos) {
-            var EmpleadosYobrerosCtrl = (function () {
-                function EmpleadosYobrerosCtrl(dataAccessService, $scope, $rootScope, $timeout) {
+            "use strict";
+            var SueldosYjornalesCtrl = (function () {
+                function SueldosYjornalesCtrl(dataAccessService, $scope, $rootScope, $timeout) {
                     this.dataAccessService = dataAccessService;
                     this.$scope = $scope;
                     this.$rootScope = $rootScope;
                     this.$timeout = $timeout;
+                    this.activate();
                 }
-                //#region Eventos de usuario
-                EmpleadosYobrerosCtrl.prototype.traerEmpleadosYobreros = function () {
+                SueldosYjornalesCtrl.prototype.activate = function () {
+                };
+                SueldosYjornalesCtrl.prototype.traerSueldosYjornales = function () {
                     var vm = this;
                     vm.mostrarLoading = true;
-                    vm.dataAccessService.getEmpleadoYobreroDtoResource()
-                        .query(function (listadoEmpleadoYobrero) {
-                        vm.listadoEmpleadoYobrero = listadoEmpleadoYobrero;
+                    vm.dataAccessService.getSueldoYjornaleDtoResource()
+                        .query(function (listadoSueldoYjornales) {
+                        vm.listadoSueldoYjornales = listadoSueldoYjornales;
                         vm.mostrarLoading = false;
                     });
                 };
                 //#endregion
-                EmpleadosYobrerosCtrl.$inject = [
+                SueldosYjornalesCtrl.$inject = [
                     "dataAccessService",
                     "$scope",
                     "$rootScope",
                     "$timeout"
                 ];
-                return EmpleadosYobrerosCtrl;
+                return SueldosYjornalesCtrl;
             }());
-            angular.module("syjApp").controller("EmpleadosYobrerosCtrl", EmpleadosYobrerosCtrl);
+            angular.module("syjApp").controller("SueldosYjornalesCtrl", SueldosYjornalesCtrl);
         })(generarArchivos = inicioMtess.generarArchivos || (inicioMtess.generarArchivos = {}));
     })(inicioMtess = app.inicioMtess || (app.inicioMtess = {}));
 })(app || (app = {}));
-//# sourceMappingURL=empleadosYobrerosCtrl.js.map
+//# sourceMappingURL=sueldosYjornalesCtrl.js.map

@@ -84,6 +84,7 @@
     <Compile Include="ImagenesManagers.cs" />
     <Compile Include="MovEmpleadosDetsManagers.cs" />
     <Compile Include="Mtess\EmpleadosYobrerosManagers.cs" />
+    <Compile Include="Mtess\ResumenesGeneralesManagers.cs" />
     <Compile Include="Mtess\SueldosYjornalesManagers.cs" />
     <Compile Include="NacionalidadesManagers.cs" />
     <Compile Include="PrestamosSimplesManagers.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="UbicacionSucUsuariosManagers.cs" />
     <Compile Include="UsuariosManagers.cs" />
     <Compile Include="Util\AgregarModificar.cs" />
+    <Compile Include="VacacionesManagers.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SYJ.Application.Dto\SYJ.Application.Dto.csproj">

@@ -1,6 +1,6 @@
 ﻿/*
 Created: 15/06/2015
-Modified: 26/04/2016
+Modified: 28/04/2016
 Model: Sueldos y Jornales
 Database: MS SQL Server 2014
 */
@@ -264,7 +264,7 @@ CREATE TABLE [Sj].[HistoricoIngresoSalidas]
  [FechaSalida] Date NULL,
  [UsuarioID] Bigint NOT NULL,
  [MomentoCarga] Datetime2 NOT NULL,
- [MotivoSalida] Varchar(300) NULL
+ [MotivoSalida] Varchar(100) NULL
 )
 go
 
@@ -668,16 +668,20 @@ go
 CREATE TABLE [Sj].[Vacaciones]
 (
  [VacacionID] Bigint IDENTITY(1,1) NOT NULL,
- [EmpleadoID] Bigint NULL,
+ [EmpleadoID] Bigint NOT NULL,
  [FechaSalida] Date NOT NULL,
  [DiasUsufructuados] Int NOT NULL,
- [Observacion] Varchar(150) NOT NULL
+ [Observacion] Varchar(150) NOT NULL,
+ [UsuarioID] Bigint NOT NULL
 )
 go
 
 -- Create indexes for table Sj.Vacaciones
 
 CREATE INDEX [IX_Vacaciones] ON [Sj].[Vacaciones] ([EmpleadoID])
+go
+
+CREATE INDEX [IX_Vacaciones_UsuarioID] ON [Sj].[Vacaciones] ([UsuarioID])
 go
 
 -- Add keys for table Sj.Vacaciones
@@ -799,6 +803,9 @@ ALTER TABLE [Sj].[EmpleadosHijos] ADD CONSTRAINT [fk_EmpleadosHijos->empleados] 
 go
 
 ALTER TABLE [Sj].[Vacaciones] ADD CONSTRAINT [fk_Vacaciones->Empleados] FOREIGN KEY ([EmpleadoID]) REFERENCES [Sj].[Empleados] ([EmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[Vacaciones] ADD CONSTRAINT [fk_Vacaciones->Usuarios] FOREIGN KEY ([UsuarioID]) REFERENCES [Sj].[Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
 

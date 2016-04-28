@@ -192,9 +192,12 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Mtess\Controllers\Api\EmpleadosYobrerosController.cs" />
+    <Compile Include="Areas\Mtess\Controllers\Api\ResumenesGeneralesController.cs" />
+    <Compile Include="Areas\Mtess\Controllers\Api\SueldosYjornalesController.cs" />
     <Compile Include="Areas\Mtess\Controllers\InicioMtessController.cs" />
     <Compile Include="Areas\Mtess\MtessAreaRegistration.cs" />
     <Compile Include="Controllers\Admin\AccountController.cs" />
+    <Compile Include="Controllers\Admin\Api\VacacionesController.cs" />
     <Compile Include="Controllers\Admin\RolesAdminController.cs" />
     <Compile Include="Controllers\Admin\UsersAdminController.cs" />
     <Compile Include="Controllers\Admin\Api\AnticiposController.cs" />
@@ -249,9 +252,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\ajax_loading.gif" />
     <Content Include="Images\empleados.jpg" />
     <Content Include="Images\la aragonesa sa-02.jpg" />
     <Content Include="Images\Liquidar-Salarios.gif" />
+    <Content Include="Images\loading_spinner.gif" />
     <Content Include="Scripts\Account\Login\Services\common.services.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
@@ -297,6 +302,8 @@
     <Content Include="Scripts\Empleados\Details\Controllers\menuCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Controllers\PrestamosSimples\listadopPrestamosSimplesCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Controllers\PrestamosSimples\prestamosSimplesCtrl.js" />
+    <Content Include="Scripts\Empleados\Details\Controllers\Vacaciones\listadoVacacionesCtrl.js" />
+    <Content Include="Scripts\Empleados\Details\Controllers\Vacaciones\vacacionesCtrl.js" />
     <Content Include="Scripts\Empleados\Details\Services\common.services.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoDireccion\historicoDireccionCtrl.js" />
     <Content Include="Scripts\Empleados\Historicos\Controllers\HistoricoDireccion\listadoHistoricoDireccionesCtrl.js" />
@@ -1253,6 +1260,7 @@
     <Content Include="Views\Informes\PlanillaAguinaldos.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Scripts\jquery-2.2.3.min.map" />
+    <Content Include="Views\Empleados\Details\_Vacaciones.cshtml" />
     <None Include="Web.ProduccionRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1295,8 +1303,12 @@
     <TypeScriptCompile Include="Areas\Mtess\app\common\common.services.ts" />
     <TypeScriptCompile Include="Areas\Mtess\app\common\dataAccessService.ts" />
     <TypeScriptCompile Include="Areas\Mtess\app\dto\empleadoYobreroDto.ts" />
+    <TypeScriptCompile Include="Areas\Mtess\app\dto\resumenGeneralDto.ts" />
+    <TypeScriptCompile Include="Areas\Mtess\app\dto\sueldoYjornaleDto.ts" />
     <TypeScriptCompile Include="Areas\Mtess\app\InicioMtess\generarArchivos\empleadosYobrerosCtrl.ts" />
     <TypeScriptCompile Include="Areas\Mtess\app\InicioMtess\generarArchivos\menuCtrl.ts" />
+    <TypeScriptCompile Include="Areas\Mtess\app\InicioMtess\generarArchivos\ResumenGeneralCtrl.ts" />
+    <TypeScriptCompile Include="Areas\Mtess\app\InicioMtess\generarArchivos\sueldosYjornalesCtrl.ts" />
     <TypeScriptCompile Include="Scripts\typings\angular-ui-bootstrap\angular-ui-bootstrap.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-component-router.d.ts" />

@@ -41,7 +41,18 @@ namespace SYJ.Domain.Managers {
                         },
                         CantidadHijos = s.CantidadHijos
                     }).ToList();
+                CargarCargoActualesAEmpleados(listado);
                 return listado;
+            }
+        }
+        private static void CargarCargoActualesAEmpleados(List<EmpleadoDto> empleados) {
+            HistoricoSalariosManagers hsm = new HistoricoSalariosManagers();
+            foreach (var empleado in empleados) {
+                var mensajeSalCargo = hsm.SalarioYCargoActual(empleado.EmpleadoID);
+                if (!mensajeSalCargo.Error) {
+                    var historicoSalDto = (HistoricoSalarioDto)mensajeSalCargo.ObjetoDto;
+                    empleado.Cargo = historicoSalDto.Cargo;
+                }
             }
         }
 
@@ -237,6 +248,18 @@ namespace SYJ.Domain.Managers {
                 return listadoFiltrado2;
             }
         }
+        public List<EmpleadoDto> ListadoEmpleadosActivos(int year, int mes) {
+            using (var context = new SueldosJornalesEntities()) {
+                var listado = GetListadoEmpleados(context);
+                var listadoFiltrado = new List<EmpleadoDto>();
+                foreach (var empleado in listado) {
+                    if (HistoricoIngresoSalidasManagers.EmpleadoTrabajaTodaviaEnLaEmpresa(empleado.EmpleadoID,year, mes)) {
+                        listadoFiltrado.Add(empleado);
+                    }
+                }
+                return listadoFiltrado;
+            }
+        }
         public List<EmpleadoDto> ListadoEmpleadosSegunUbicacionSucursal(Guid userID) {
             var diaHoy = DateTime.Today;
             return ListadoEmpleadosSegunUbicacionSucursal(userID, diaHoy.Month, diaHoy.Year);
@@ -259,7 +282,7 @@ namespace SYJ.Domain.Managers {
                 //Si salio en el mes actual todavia se le considera como que trabaja dentro del mes
                 var listadoFiltrado2 = new List<EmpleadoDto>();
                 foreach (var l in listadoFiltrado) {
-                    if (HistoricoIngresoSalidasManagers.EmpleadoTrabajaTodaviaEnLaEmpresa(l.EmpleadoID, mes,year)) {
+                    if (HistoricoIngresoSalidasManagers.EmpleadoTrabajaTodaviaEnLaEmpresa(l.EmpleadoID, mes, year)) {
                         listadoFiltrado2.Add(l);
                     }
                 }
@@ -297,6 +320,7 @@ namespace SYJ.Domain.Managers {
                     },
                     CantidadHijos = s.CantidadHijos
                 }).ToList();
+            CargarCargoActualesAEmpleados(listado);
             return listado;
         }
 
@@ -309,7 +333,7 @@ namespace SYJ.Domain.Managers {
                 List<long> empleadoIDs = new List<long>();
                 var empleados = context.Empleados.ToList();
                 var mesSolicitado = new DateTime(psDto.Year, psDto.Mes.MesID, DateTime.DaysInMonth(psDto.Year, psDto.Mes.MesID));
-                empleados.ForEach(delegate(Empleado e) {
+                empleados.ForEach(delegate (Empleado e) {
                     var sucursalActual = e.HistoricoSucursales
                         .Where(h => h.MomentoCarga <= mesSolicitado)
                         .OrderByDescending(h => h.MomentoCarga)

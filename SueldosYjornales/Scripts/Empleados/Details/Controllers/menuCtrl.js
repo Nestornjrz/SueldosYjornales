@@ -38,6 +38,13 @@
             vm.menu.prestamosSimples.class = "active";
             vm.menu.prestamosSimples.mostrar = true;
         }
+        vm.VacacionesFn = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            ocultar();
+            vm.menu.vacaciones.class = "active";
+            vm.menu.vacaciones.mostrar = true;
+        }
 
         //vm.prestamosSimplesFn();
 
@@ -47,6 +54,7 @@
             vm.menu.comisiones = {};
             vm.menu.anticipos = {};
             vm.menu.prestamosSimples = {};
+            vm.menu.vacaciones = {};
         }
 
         //Eventos

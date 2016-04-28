@@ -71,6 +71,7 @@
     <Compile Include="MovEmpleadoDetDto.cs" />
     <Compile Include="MovEmpleadoDto.cs" />
     <Compile Include="Mtess\EmpleadoYobreroDto.cs" />
+    <Compile Include="Mtess\ResumenGeneralDto.cs" />
     <Compile Include="Mtess\SueldoYjornaleDto.cs" />
     <Compile Include="NacionalidadeDto.cs" />
     <Compile Include="PrestamoSimpleDto.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="TipoImageneDto.cs" />
     <Compile Include="UbicacionSucUsuarioDto.cs" />
     <Compile Include="UsuarioDto.cs" />
+    <Compile Include="VacacioneDto.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

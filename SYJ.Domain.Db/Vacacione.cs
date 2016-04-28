@@ -15,11 +15,13 @@ namespace SYJ.Domain.Db
     public partial class Vacacione
     {
         public long VacacionID { get; set; }
-        public Nullable<long> EmpleadoID { get; set; }
+        public long EmpleadoID { get; set; }
         public System.DateTime FechaSalida { get; set; }
         public int DiasUsufructuados { get; set; }
         public string Observacion { get; set; }
+        public long UsuarioID { get; set; }
     
         public virtual Empleado Empleado { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

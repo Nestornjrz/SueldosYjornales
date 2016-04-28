@@ -8,8 +8,13 @@ var app;
                 this.syjPath = syjPath;
             }
             DataAccessService.prototype.getEmpleadoYobreroDtoResource = function () {
-                //return this.$resource("/GerenciaAlbor/api/Contabilidad/ContabilidadTreeMap/:Id");
                 return this.$resource(this.syjPath.empleadosYobreros);
+            };
+            DataAccessService.prototype.getSueldoYjornaleDtoResource = function () {
+                return this.$resource(this.syjPath.sueldosYjornales);
+            };
+            DataAccessService.prototype.getResumenGeneralDtoResource = function () {
+                return this.$resource(this.syjPath.resumenesGenerales);
             };
             DataAccessService.$inject = ["$resource", "syjPath"];
             return DataAccessService;
