@@ -73,6 +73,7 @@
         <div class="row">
             <div class="col-md-6">
                 <table class="table table-bordered table-condensed table-striped">
+                    <caption>Cantidad: {{vm.listadoEmpleadoYobrero.length}}</caption>
                     <tr style="font-size:xx-small;">
                         <th>NroPatronal</th>
                         <th>Documento</th>
@@ -98,7 +99,11 @@
                     <tr ng-repeat="e in vm.listadoEmpleadoYobrero" style="font-size:xx-small;">
                         <td>{{e.nroPatronal}}</td>
                         <td>{{e.documento}}</td>
-                        <td>{{e.nombre}}</td>
+                        <td>
+                            <a href="@Url.Action("Resumen","Empleados", new { Area = "" })/{{e.empleadoID}}" target="_blank">
+                                {{e.nombre}}
+                            </a>
+                        </td>
                         <td>{{e.apellido}}</td>
                         <td>{{e.sexo}}</td>
                         <td>{{e.estadoCivil}}</td>

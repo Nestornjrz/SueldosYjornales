@@ -14,11 +14,25 @@ namespace SYJ.Domain.Managers.Mtess {
             HistoricoSalariosManagers hsm = new HistoricoSalariosManagers();
             VacacionesManagers vm = new VacacionesManagers();
 
+
             var empleados = em.ListadoEmpleados();
+            //Se filtra para que solo los empleados que fueron encontrados en EMPLEADOS Y OBREROS aparescan
+            //en este que es SUELDOS Y JORNALES
+            EmpleadosYobrerosManagers eyom = new EmpleadosYobrerosManagers();
+            var empleadoYobreros = eyom.ListadoEmpleados();
+            List<EmpleadoDto> empleadosArecorrer = new List<EmpleadoDto>();
+            foreach (var eyoDto in empleadoYobreros) {
+                var empleado = empleados.Where(e => e.EmpleadoID == eyoDto.EmpleadoID).FirstOrDefault();
+                if (empleado != null) {
+                    empleadosArecorrer.Add(empleado);
+                }
+            }
+
+
             var years = new List<int> { 2015 };
             List<SueldoYjornaleDto> listado = new List<SueldoYjornaleDto>();
 
-            foreach (EmpleadoDto empleado in empleados) {
+            foreach (EmpleadoDto empleado in empleadosArecorrer) {
                 //Se empieza a cargar el empleado
                 SueldoYjornaleDto syjDto = new SueldoYjornaleDto();
                 syjDto.EmpleadoID = empleado.EmpleadoID;

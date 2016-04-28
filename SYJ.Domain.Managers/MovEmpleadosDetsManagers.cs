@@ -40,6 +40,7 @@ namespace SYJ.Domain.Managers {
             feriados.Add(new DateTime(2015, 08, 15));//Fundacion de asuncion
             feriados.Add(new DateTime(2015, 09, 29));//Batalla de boqueron
             feriados.Add(new DateTime(2015, 12, 8));//Dia de la virgen de caacupe
+            feriados.Add(new DateTime(2015, 12, 25));//Navidad
 
             int cantidadHoras = 0;
             for (int i = 1; i < DateTime.DaysInMonth(year, mesID); i++) {

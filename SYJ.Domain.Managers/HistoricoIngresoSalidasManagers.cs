@@ -153,10 +153,10 @@ namespace SYJ.Domain.Managers {
                 //Se busca el ultimo movimiento del empleado
                 var historico = context.HistoricoIngresoSalidas
                     .Where(h => h.EmpleadoID == empleadoID && h.FechaIngreso <= mesSeleccionado)
-                    .OrderByDescending(h => h.MomentoCarga)
+                    .OrderByDescending(h => h.FechaIngreso)
                     .FirstOrDefault();
                 if (historico == null) {
-                    return true;
+                    return false;
                 }
                 //Se ve si el ultimo historico tiene fecha de salida.
                 if (historico.FechaSalida == null) {
@@ -167,8 +167,13 @@ namespace SYJ.Domain.Managers {
                         historico.FechaSalida.Value.Month == mes) {
                             return true;
                     }
+                    //Se ve si su fecha de ingreso todavia esta en el futuro con respecto
+                    //a la fecha seleccionada
+                    if (historico.FechaIngreso > mesSeleccionado) {
+                        return false;
+                    }
                     //Se ve si la fecha de salida esta todavia en el futuro o ya paso
-                    if (historico.FechaSalida > DateTime.Now) {
+                    if (historico.FechaSalida > mesSeleccionado) {
                         return true;
                     } else {
                         return false;

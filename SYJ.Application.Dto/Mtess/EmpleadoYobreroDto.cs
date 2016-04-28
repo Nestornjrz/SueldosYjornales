@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SYJ.Application.Dto.Mtess {
     public class EmpleadoYobreroDto {
+        #region SOLO PARA REFERENCIA
+        public long EmpleadoID { get; set; }      
+        #endregion
         /// <summary>
         /// A NROPATRONAL 32 ENTERO NÚMERO PATRONAL ASIGNADO POR EL MTESS
         /// </summary>

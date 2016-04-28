@@ -14,12 +14,15 @@ namespace SYJ.Domain.Managers.Mtess {
             HistoricoSalariosManagers hsm = new HistoricoSalariosManagers();
             HistoricoIngresoSalidasManagers hism = new HistoricoIngresoSalidasManagers();
 
+            int year = 2015;
+
             var empleados = em.ListadoEmpleados();
             List<EmpleadoYobreroDto> listado = new List<EmpleadoYobreroDto>();
 
             foreach (EmpleadoDto empleado in empleados) {
                 //Se empieza a cargar el empleado
                 EmpleadoYobreroDto eyoDto = new EmpleadoYobreroDto();
+                eyoDto.EmpleadoID = empleado.EmpleadoID;
                 eyoDto.NroPatronal = 77399;
                 eyoDto.Documento = empleado.NroCedula.ToString();
                 eyoDto.Nombre = empleado.Nombres.Split(' ')[0];
@@ -50,7 +53,7 @@ namespace SYJ.Domain.Managers.Mtess {
                     var historicoDi = (HistoricoDireccioneDto)direccionActual.ObjetoDto;
                     if (historicoDi.Direccion.Length > 100) {
                         eyoDto.Domicilio = historicoDi.Direccion.Substring(0, 100);
-                    }else {
+                    } else {
                         eyoDto.Domicilio = historicoDi.Direccion;
                     }
                 } else {
@@ -70,9 +73,18 @@ namespace SYJ.Domain.Managers.Mtess {
                 if (!ingresoEgreso.Error) {
                     var historicoIngresoEgreso = (HistoricoIngresoSalidaDto)ingresoEgreso.ObjetoDto;
                     eyoDto.FechaEntrada = historicoIngresoEgreso.FechaIngreso;
+                    //Evitar que los que tienen fecha de ingreso superior al periodo que se esta calculando
+                    //ingresen en la lista.
+                    if (!(eyoDto.FechaEntrada.Value.Year <= year)) {
+                        continue;
+                    }
                     if (historicoIngresoEgreso.FechaSalida != null) {
-                        eyoDto.FechaSalida = historicoIngresoEgreso.FechaSalida.Value;
-                        eyoDto.MotivoSalida = historicoIngresoEgreso.MotivoSalida;
+                        //Evitar que se muestre la fecha de salida y el motivo si supera el periodo
+                        //que se esta calculando.
+                        if (historicoIngresoEgreso.FechaSalida.Value.Year <= year) {
+                            eyoDto.FechaSalida = historicoIngresoEgreso.FechaSalida.Value;
+                            eyoDto.MotivoSalida = historicoIngresoEgreso.MotivoSalida;
+                        }
                     }
                 }
                 //eyoDto.HorarioTrabajo
