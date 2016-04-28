@@ -108,9 +108,9 @@ namespace SYJ.Domain.Managers.Mtess {
                         syjDto.H_Dic = medm.TotalHorasTrabajadas(12, ano, empleado.EmpleadoID);
                     }
                     //Agunaldo
-                    syjDto.Aguinaldo = (int)medm.Aguinaldo(ano, empleado.EmpleadoID);
+                    syjDto.Aguinaldo = (int)Math.Round(medm.Aguinaldo(ano, empleado.EmpleadoID));
                     //Se calcula las vacaciones
-                    syjDto.Vacaciones = vm.TotalVacacionesPagadasYear(ano, empleado.EmpleadoID);
+                    syjDto.Vacaciones = Math.Round(vm.TotalVacacionesPagadasYear(ano, empleado.EmpleadoID));
                     //Total de horas trabajadas incluyendo horas extras (cosa que no tenemos)
                     syjDto.Total_H = syjDto.H_Ene + syjDto.H_Feb + syjDto.H_Mar + syjDto.H_Abr + syjDto.H_May +
                                      syjDto.H_Jun + syjDto.H_Jul + syjDto.H_Ago + syjDto.H_Set + syjDto.H_Oct +

@@ -22,7 +22,7 @@ namespace SYJ.Domain.Managers {
                 if (movimientos != null) {
                     montoTotalCobrado = movimientos.Sum(s => s.Monto);
                 }
-                return montoTotalCobrado;
+                return Math.Round(montoTotalCobrado);
             }
         }
         /// <summary>
@@ -42,9 +42,18 @@ namespace SYJ.Domain.Managers {
             feriados.Add(new DateTime(2015, 12, 8));//Dia de la virgen de caacupe
             feriados.Add(new DateTime(2015, 12, 25));//Navidad
 
+            //Se calcula la fecha de salida
+            var fechaSalida = HistoricoIngresoSalidasManagers.fechaSalida(empleadoID,
+                new DateTime(year, mesID, DateTime.DaysInMonth(year, mesID)));
+
             int cantidadHoras = 0;
             for (int i = 1; i < DateTime.DaysInMonth(year, mesID); i++) {
                 var fecha = new DateTime(year, mesID, i);
+                if (fechaSalida != null) {
+                    if (fecha > fechaSalida) {
+                        break;
+                    }
+                }
                 if (fecha.DayOfWeek != DayOfWeek.Sunday && !feriados.Contains(fecha)) {
                     cantidadHoras += 8;
                 }
