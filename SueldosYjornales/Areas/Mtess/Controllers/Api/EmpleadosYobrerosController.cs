@@ -25,14 +25,20 @@ namespace SueldosYjornales.Areas.Mtess.Controllers.Api {
             var listado = eyom.ListadoEmpleados();
 
             StringBuilder sb = new StringBuilder();
+            //Imprimir los titulos
+            var linea_titulo = "NROPATRONAL,DOCUMENTO,NOMBRE,APELLIDO,SEXO,ESTADOCIVIL,FECHANAC,NACIONALIDAD,"+
+                               "DOMICILIO,FECHANACMENOR,HIJOSMENORES,CARGO,PROFESION,FECHAENTRADA,HORARIOTRABAJO,"+
+                               "MENORESCAPA,MENORESESCOLAR,FECHASALIDA,MOTIVOSALIDA,ESTADO";
+            sb.AppendLine(linea_titulo);
+            //Se insertan los detalles
             foreach (var item in listado) {
                 var fechaEntrada = "";
                 if (item.FechaEntrada != null) {
-                    fechaEntrada = item.FechaEntrada.Value.ToString("yyyy/MM/dd");
+                    fechaEntrada = item.FechaEntrada.Value.ToString("yyyy-MM-dd");
                 }
                 var fechaSalida = "";
                 if (item.FechaSalida != null) {
-                    fechaSalida = item.FechaSalida.Value.ToString("yyyy/MM/dd");
+                    fechaSalida = item.FechaSalida.Value.ToString("yyyy-MM-dd");
                 }
                 var linea = item.NroPatronal + "," +
                             item.Documento + "," +
@@ -40,7 +46,7 @@ namespace SueldosYjornales.Areas.Mtess.Controllers.Api {
                             item.Apellido + "," +
                             item.Sexo + "," +
                             item.EstadoCivil + "," +
-                            item.FechaNac.ToString("yyyy/MM/dd") + "," +
+                            item.FechaNac.ToString("yyyy-MM-dd") + "," +
                             item.Nacionalidad + "," +
                             item.Domicilio + "," +
                             item.FechaNacMenor + "," +

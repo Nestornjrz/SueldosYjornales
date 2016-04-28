@@ -22,9 +22,30 @@ namespace SueldosYjornales.Areas.Mtess.Controllers.Api {
         [Route("api/SueldosYjornales/GetFile")]
         public HttpResponseMessage GetFile() {
             SueldosYjornalesManagers sym = new SueldosYjornalesManagers();
-            var listado = sym.ListadoSueldosYjoranales();
-
             StringBuilder sb = new StringBuilder();
+            var listado = sym.ListadoSueldosYjoranales();
+            //Se inserta el titulo
+            var linea_titulo = "NROPATRONAL,DOCUMENTO,FORMADPAGO,IMPORTEUNITARIO,H_ENE,S_ENE," +
+                                "H_FEB,S_FEB," +
+                                "H_MAR,S_MAR,"+
+                                "H_ABR,S_ABR,"+
+                                "H_MAY,S_MAY"+
+                                "H_JUN,S_JUN"+
+                                "H_JUL,S_JUL"+
+                                "H_AGO,S_AGO"+
+                                "H_SET,S_SET"+
+                                "H_OCT,S_OCT"+
+                                "H_NOV,S_NOV"+
+                                "H_DIC,S_DIC"+
+                                "H_50,S_50"+
+                                "H_100,S_100"+
+                                "AGUINALDO"+
+                                "BENEFICIOS"+
+                                "BONIFICACIONES"+
+                                "VACACIONES"+
+                                "TOTAL_H,TOTAL_S"+
+                                "TOTAGENERAL";
+            sb.AppendLine(linea_titulo);
             foreach (var item in listado) {
                 var linea = item.NroPatronal + "," +
                             item.Documento + "," +

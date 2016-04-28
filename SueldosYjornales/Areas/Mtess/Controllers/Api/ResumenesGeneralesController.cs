@@ -24,6 +24,12 @@ namespace SueldosYjornales.Areas.Mtess.Controllers.Api {
             ResumenesGeneralesManagers rgm = new ResumenesGeneralesManagers();
             var listado = rgm.ListadoResumenGeneral();
             StringBuilder sb = new StringBuilder();
+            //Se inserta los titulos
+            var linea_titulo = "NROPATRONAL,ANHO,SUPJEFESVARONES,SUPJEFESMUJERES,EMPLEADOSVARONES"+
+                                "EMPLEADOSMUJERES,OBREROSVARONES,OBREROSMUJERES,MENORESVARONES,"+
+                                "MENORESMUJERES,ORDEN";
+            sb.AppendLine(linea_titulo);
+            //Se insertan los detalles
             foreach (var item in listado) {
                 var linea = item.NroPatronal + "," +
                             item.Anho + "," +
