@@ -6,6 +6,7 @@
     <!-- Library Scripts -->
     <script src="~/Scripts/checklist-model.js"></script> @*https://github.com/vitalets/checklist-model*@
     @*<script src="~/Scripts/underscore.min.js"></script>*@
+    <script src="~/Scripts/lodash.min.js"></script>
     <!-- Application Script -->
     <script src="~/Areas/Mtess/app/app.js"></script>
     <!-- Domain Classes -->
@@ -42,6 +43,12 @@
     <script src="~/Areas/Mtess/app/InicioMtess/generarArchivos/sueldosYjornalesCtrl.js"></script>
     <script src="~/Areas/Mtess/app/InicioMtess/generarArchivos/ResumenGeneralCtrl.js"></script>
 }
+<style type="text/css">
+    .Negrita {
+        font-weight:bold;
+        background-color:yellow;
+    }
+</style>
 <h2>GenerarArchivos</h2>
 <div ng-controller="MenuCtrl as mv">
     <ul class="nav nav-tabs" style="margin-top:2px;">
@@ -72,7 +79,7 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <table class="table table-bordered table-condensed table-striped">
+                <table class="table table-bordered table-condensed table-striped table-hover">
                     <caption>Cantidad: {{vm.listadoEmpleadoYobrero.length}}</caption>
                     <tr style="font-size:xx-small;">
                         <th>NroPatronal</th>
@@ -157,18 +164,18 @@
                         <th>Documento</th>
                         <th>FormaDePago</th>
                         <th>ImporteUnitario</th>
-                        <th>H_Ene</th>
-                        <th>S_Ene</th>
-                        <th>H_Feb</th>
-                        <th>S_Feb</th>
-                        <th>H_Mar</th>
-                        <th>S_Mar</th>
-                        <th>H_Abr</th>
-                        <th>S_Abr</th>
-                        <th>H_May</th>
-                        <th>S_May</th>
-                        <th>H_Jun</th>
-                        <th>S_Jun</th>
+                        <th ng-hide="vm.mostrarNombre">H_Ene</th>
+                        <th ng-hide="vm.mostrarNombre">S_Ene</th>
+                        <th ng-hide="vm.mostrarNombre">H_Feb</th>
+                        <th ng-hide="vm.mostrarNombre">S_Feb</th>
+                        <th ng-hide="vm.mostrarNombre">H_Mar</th>
+                        <th ng-hide="vm.mostrarNombre">S_Mar</th>
+                        <th ng-hide="vm.mostrarNombre">H_Abr</th>
+                        <th ng-hide="vm.mostrarNombre">S_Abr</th>
+                        <th ng-hide="vm.mostrarNombre">H_May</th>
+                        <th ng-hide="vm.mostrarNombre">S_May</th>
+                        <th ng-hide="vm.mostrarNombre">H_Jun</th>
+                        <th ng-hide="vm.mostrarNombre">S_Jun</th>
                         <th>H_Jul</th>
                         <th>S_Jul</th>
                         <th>H_Ago</th>
@@ -193,7 +200,7 @@
                         <th>Total_S</th>
                         <th>TotalGeneral</th>
                     </tr>
-                    <tr ng-repeat="s in vm.listadoSueldoYjornales" style="font-size:xx-small;">
+                    <tr ng-repeat="s in vm.listadoSueldoYjornales" style="font-size:xx-small;" ng-class="vm.addClass(s)">
                         <td ng-show="vm.mostrarNombre">
                             <a href="@Url.Action("Resumen","Empleados", new { Area = "" })/{{s.empleadoID}}" target="_blank">
                                 {{s.nombreReferencia}}
@@ -203,41 +210,41 @@
                         <td>{{s.documento}}</td>
                         <td>{{s.formaDePago}}</td>
                         <td>{{s.importeUnitario}}</td>
-                        <td>{{s.h_Ene}}</td>
-                        <td>{{s.s_Ene}}</td>
-                        <td>{{s.h_Feb}}</td>
-                        <td>{{s.s_Feb}}</td>
-                        <td>{{s.h_Mar}}</td>
-                        <td>{{s.s_Mar}}</td>
-                        <td>{{s.h_Abr}}</td>
-                        <td>{{s.s_Abr}}</td>
-                        <td>{{s.h_May}}</td>
-                        <td>{{s.s_May}}</td>
-                        <td>{{s.h_Jun}}</td>
-                        <td>{{s.s_Jun}}</td>
-                        <td>{{s.h_Jul}}</td>
-                        <td>{{s.s_Jul}}</td>
-                        <td>{{s.h_Ago}}</td>
-                        <td>{{s.s_Ago}}</td>
-                        <td>{{s.h_Set}}</td>
-                        <td>{{s.s_Set}}</td>
-                        <td>{{s.h_Oct}}</td>
-                        <td>{{s.s_Oct}}</td>
-                        <td>{{s.h_Nov}}</td>
-                        <td>{{s.s_Nov}}</td>
-                        <td>{{s.h_Dic}}</td>
-                        <td>{{s.s_Dic}}</td>
-                        <td>{{s.h_50}}</td>
-                        <td>{{s.s_50}}</td>
-                        <td>{{s.h_100}}</td>
-                        <td>{{s.s_100}}</td>
-                        <td>{{s.aguinaldo}}</td>
-                        <td>{{s.beneficios}}</td>
-                        <td>{{s.bonificaciones}}</td>
-                        <td>{{s.vacaciones}}</td>
-                        <td>{{s.total_H}}</td>
-                        <td>{{s.total_S}}</td>
-                        <td>{{s.totalGeneral}}</td>
+                        <td ng-hide="vm.mostrarNombre">{{s.h_Ene}}</td>
+                        <td ng-hide="vm.mostrarNombre">{{s.s_Ene}}</td>
+                        <td ng-hide="vm.mostrarNombre">{{s.h_Feb}}</td>
+                        <td ng-hide="vm.mostrarNombre">{{s.s_Feb}}</td>
+                        <td ng-hide="vm.mostrarNombre">{{s.h_Mar}}</td>
+                        <td ng-hide="vm.mostrarNombre">{{s.s_Mar}}</td>
+                        <td ng-hide="vm.mostrarNombre">{{s.h_Abr}}</td>
+                        <td ng-hide="vm.mostrarNombre">{{s.s_Abr}}</td>
+                        <td ng-hide="vm.mostrarNombre">{{s.h_May}}</td>
+                        <td ng-hide="vm.mostrarNombre">{{s.s_May}}</td>
+                        <td ng-hide="vm.mostrarNombre">{{s.h_Jun}}</td>
+                        <td ng-hide="vm.mostrarNombre">{{s.s_Jun}}</td>
+                        <td>{{s.h_Jul | currency:"":0}}</td>
+                        <td>{{s.s_Jul | currency:"":0}}</td>
+                        <td>{{s.h_Ago | currency:"":0}}</td>
+                        <td>{{s.s_Ago | currency:"":0}}</td>
+                        <td>{{s.h_Set | currency:"":0}}</td>
+                        <td>{{s.s_Set | currency:"":0}}</td>
+                        <td>{{s.h_Oct | currency:"":0}}</td>
+                        <td>{{s.s_Oct | currency:"":0}}</td>
+                        <td>{{s.h_Nov | currency:"":0}}</td>
+                        <td>{{s.s_Nov | currency:"":0}}</td>
+                        <td>{{s.h_Dic | currency:"":0}}</td>
+                        <td>{{s.s_Dic | currency:"":0}}</td>
+                        <td>{{s.h_50 | currency:"":0}}</td>
+                        <td>{{s.s_50 | currency:"":0}}</td>
+                        <td>{{s.h_100 | currency:"":0}}</td>
+                        <td>{{s.s_100 | currency:"":0}}</td>
+                        <td>{{s.aguinaldo | currency:"":0}}</td>
+                        <td>{{s.beneficios | currency:"":0}}</td>
+                        <td>{{s.bonificaciones | currency:"":0}}</td>
+                        <td>{{s.vacaciones | currency:"":0}}</td>
+                        <td>{{s.total_H | currency:"":0}}</td>
+                        <td>{{s.total_S | currency:"":0}}</td>
+                        <td>{{s.totalGeneral | currency:"":0}}</td>
                     </tr>
                 </table>
             </div>

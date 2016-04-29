@@ -163,10 +163,10 @@ namespace SYJ.Domain.Managers {
                     return true;
                 } else {
                     //Se ve si salio dentro del mes actual, si es asi se considera que todavia trabaja
-                    if (historico.FechaSalida.Value.Year == year &&
-                        historico.FechaSalida.Value.Month == mes) {
-                            return true;
-                    }
+                    //if (historico.FechaSalida.Value.Year == year &&
+                    //    historico.FechaSalida.Value.Month == mes) {
+                    //        return true;
+                    //}
                     //Se ve si su fecha de ingreso todavia esta en el futuro con respecto
                     //a la fecha seleccionada
                     if (historico.FechaIngreso > mesSeleccionado) {

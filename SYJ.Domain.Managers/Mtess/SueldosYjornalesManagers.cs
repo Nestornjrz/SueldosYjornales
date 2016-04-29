@@ -36,7 +36,7 @@ namespace SYJ.Domain.Managers.Mtess {
                 //Se empieza a cargar el empleado
                 SueldoYjornaleDto syjDto = new SueldoYjornaleDto();
                 syjDto.EmpleadoID = empleado.EmpleadoID;
-                syjDto.NombreReferencia = empleado.Nombres + " " + empleado.Apellidos;
+                syjDto.NombreReferencia = empleado.Apellidos + " " + empleado.Nombres;
                 syjDto.NroPatronal = 77399;
                 syjDto.Documento = empleado.NroCedula.ToString();
                 syjDto.FormaDePago = 'M';//Mensualero
@@ -118,7 +118,7 @@ namespace SYJ.Domain.Managers.Mtess {
                     syjDto.Total_S = syjDto.S_Ene + syjDto.S_Feb + syjDto.S_Mar + syjDto.S_Abr + syjDto.S_May +
                                      syjDto.S_Jun + syjDto.S_Jul + syjDto.S_Ago + syjDto.S_Set + syjDto.S_Oct +
                                      syjDto.S_Nov + syjDto.S_Dic;
-                    syjDto.TotalGeneral = syjDto.Total_S;
+                    syjDto.TotalGeneral = syjDto.Total_S + syjDto.Aguinaldo + syjDto.Vacaciones;
 
                     listado.Add(syjDto);
                 }

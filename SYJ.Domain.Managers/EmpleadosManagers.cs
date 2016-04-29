@@ -12,7 +12,7 @@ namespace SYJ.Domain.Managers {
     public class EmpleadosManagers {
         public List<EmpleadoDto> ListadoEmpleados() {
             using (var context = new SueldosJornalesEntities()) {
-                var listado = context.Empleados
+                List<EmpleadoDto> listado = context.Empleados
                     .Select(s => new EmpleadoDto() {
                         EmpleadoID = s.EmpleadoID,
                         Nombres = s.Nombres,

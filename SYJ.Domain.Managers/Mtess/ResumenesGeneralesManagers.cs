@@ -14,16 +14,22 @@ namespace SYJ.Domain.Managers.Mtess {
             List<SueldoYjornaleDto> listadoSueldoYjornales = syjm.ListadoSueldosYjoranales();
 
             var year = 2015;
-            var empleados = em.ListadoEmpleados();
+            List<EmpleadoDto> empleados = em.ListadoEmpleados();
+
             var empleadosActivos = new List<EmpleadoDto>();
             var empleadosSalidos = new List<EmpleadoDto>();
-            foreach (var empleado in empleados) {
-                if (HistoricoIngresoSalidasManagers.EmpleadoTrabajaTodaviaEnLaEmpresa(empleado.EmpleadoID, 12, year)) {
+            foreach (var syjDto in listadoSueldoYjornales) {
+                var empleado = empleados.Where(e => e.EmpleadoID == syjDto.EmpleadoID).First();
+                if (HistoricoIngresoSalidasManagers.EmpleadoTrabajaTodaviaEnLaEmpresa(syjDto.EmpleadoID, 12, year)) {
                     empleadosActivos.Add(empleado);
                 } else {
                     empleadosSalidos.Add(empleado);
                 }
             }
+            List<EmpleadoDto> empleadosActivosYsalidos = new List<EmpleadoDto>();
+            empleadosActivosYsalidos.AddRange(empleadosActivos);
+            empleadosActivosYsalidos.AddRange(empleadosSalidos);
+           
 
             var listado = new List<ResumenGeneralDto>();
             //Orden 1 - 1 CANTIDAD  O NUMERO DE TRABAJADORES
@@ -42,10 +48,10 @@ namespace SYJ.Domain.Managers.Mtess {
             ResumenGeneralDto rgDto_2 = new ResumenGeneralDto();
             rgDto_2.NroPatronal = 77399;
             rgDto_2.Anho = year;
-            rgDto_2.SupJefesVarones = CantHorasTrabajadasSupJefes(empleadosActivos, listadoSueldoYjornales, 1);//Masculino
-            rgDto_2.SupJefesMujeres = CantHorasTrabajadasSupJefes(empleadosActivos, listadoSueldoYjornales, 2);//Femenino
-            rgDto_2.EmpleadosVarones = CantHorasTrabajadasEmpleados(empleadosActivos, listadoSueldoYjornales, 1);//Masculino
-            rgDto_2.EmpleadosMujeres = CantHorasTrabajadasEmpleados(empleadosActivos, listadoSueldoYjornales, 2);//Femenino
+            rgDto_2.SupJefesVarones = CantHorasTrabajadasSupJefes(empleadosActivosYsalidos, listadoSueldoYjornales, 1);//Masculino
+            rgDto_2.SupJefesMujeres = CantHorasTrabajadasSupJefes(empleadosActivosYsalidos, listadoSueldoYjornales, 2);//Femenino
+            rgDto_2.EmpleadosVarones = CantHorasTrabajadasEmpleados(empleadosActivosYsalidos, listadoSueldoYjornales, 1);//Masculino
+            rgDto_2.EmpleadosMujeres = CantHorasTrabajadasEmpleados(empleadosActivosYsalidos, listadoSueldoYjornales, 2);//Femenino
 
             rgDto_2.Orden = 2;
             listado.Add(rgDto_2);
@@ -53,10 +59,10 @@ namespace SYJ.Domain.Managers.Mtess {
             ResumenGeneralDto rgDto_3 = new ResumenGeneralDto();
             rgDto_3.NroPatronal = 77399;
             rgDto_3.Anho = year;
-            rgDto_3.SupJefesVarones = CantSueldosYjornalesSupJefes(empleadosActivos, listadoSueldoYjornales, 1);//Masculino
-            rgDto_3.SupJefesMujeres = CantSueldosYjornalesSupJefes(empleadosActivos, listadoSueldoYjornales, 2);//Femenino
-            rgDto_3.EmpleadosVarones = CantSueldosYJornalesEmpleados(empleadosActivos, listadoSueldoYjornales, 1);//Masculino
-            rgDto_3.EmpleadosMujeres = CantSueldosYJornalesEmpleados(empleadosActivos, listadoSueldoYjornales, 2);//Femenino
+            rgDto_3.SupJefesVarones = CantSueldosYjornalesSupJefes(empleadosActivosYsalidos, listadoSueldoYjornales, 1);//Masculino
+            rgDto_3.SupJefesMujeres = CantSueldosYjornalesSupJefes(empleadosActivosYsalidos, listadoSueldoYjornales, 2);//Femenino
+            rgDto_3.EmpleadosVarones = CantSueldosYJornalesEmpleados(empleadosActivosYsalidos, listadoSueldoYjornales, 1);//Masculino
+            rgDto_3.EmpleadosMujeres = CantSueldosYJornalesEmpleados(empleadosActivosYsalidos, listadoSueldoYjornales, 2);//Femenino
 
             rgDto_3.Orden = 3;
             listado.Add(rgDto_3);
@@ -66,8 +72,8 @@ namespace SYJ.Domain.Managers.Mtess {
             rgDto_4.Anho = year;
             rgDto_4.SupJefesVarones = CantidadIngreEgreSupJefesYear(empleadosActivos, year, 1);//Masculino
             rgDto_4.SupJefesMujeres = CantidadIngreEgreSupJefesYear(empleadosActivos, year, 2);//Femenino
-            rgDto_4.EmpleadosVarones = CantIngreEgreEmpleados(empleadosActivos, year, 1);//Masculino
-            rgDto_4.EmpleadosMujeres = CantIngreEgreEmpleados(empleadosActivos, year, 2);//Femenino
+            rgDto_4.EmpleadosVarones = CantIngresoEmpleados(empleadosActivos, year, 1);//Masculino
+            rgDto_4.EmpleadosMujeres = CantIngresoEmpleados(empleadosActivos, year, 2);//Femenino
 
             rgDto_4.Orden = 4;
             listado.Add(rgDto_4);
@@ -77,8 +83,8 @@ namespace SYJ.Domain.Managers.Mtess {
             rgDto_5.Anho = year;
             rgDto_5.SupJefesVarones = CantidadIngreEgreSupJefesYear(empleadosSalidos, year, 1);//Masculino
             rgDto_5.SupJefesMujeres = CantidadIngreEgreSupJefesYear(empleadosSalidos, year, 2);//Femenino
-            rgDto_5.EmpleadosVarones = CantIngreEgreEmpleados(empleadosSalidos, year, 1);//Masculino
-            rgDto_5.EmpleadosMujeres = CantIngreEgreEmpleados(empleadosSalidos, year, 2);//Femenino
+            rgDto_5.EmpleadosVarones = CantEgresoEmpleados(empleadosSalidos, year, 1);//Masculino
+            rgDto_5.EmpleadosMujeres = CantEgresoEmpleados(empleadosSalidos, year, 2);//Femenino
 
             rgDto_5.Orden = 5;
             listado.Add(rgDto_5);
@@ -86,9 +92,29 @@ namespace SYJ.Domain.Managers.Mtess {
             return listado;
         }
 
-      
+        private int CantEgresoEmpleados(List<EmpleadoDto> empleadosSalidos, int year, int sexoID) {
+            HistoricoIngresoSalidasManagers hism = new HistoricoIngresoSalidasManagers();
+            int cantidad = 0;
+            foreach (var empleado in empleadosSalidos) {
+                if (empleado.Sexo.SexoID == sexoID && empleado.Cargo.CargoID != 2) {//No sea Gerente Administrativo
+                    var mensajeUltimoIngreso = hism.UltimoIngreso(empleado.EmpleadoID);
+                    if (!mensajeUltimoIngreso.Error) {
+                        var hisIngresoSalidaDto = (HistoricoIngresoSalidaDto)mensajeUltimoIngreso.ObjetoDto;
+                        var fechaSalida = hisIngresoSalidaDto.FechaSalida;
+                        if (fechaSalida != null) {
+                            if (fechaSalida.Value.Year == year) {
+                                cantidad++;
+                            }
+                        }
+                    }
+                }
+            }
+            return cantidad;
+        }
 
-        private int CantIngreEgreEmpleados(List<EmpleadoDto> empleados, int year, int sexoID) {
+
+
+        private int CantIngresoEmpleados(List<EmpleadoDto> empleados, int year, int sexoID) {
             HistoricoIngresoSalidasManagers hism = new HistoricoIngresoSalidasManagers();
             int cantidad = 0;
             foreach (var empleado in empleados) {
