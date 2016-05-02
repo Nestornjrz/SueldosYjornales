@@ -24,14 +24,14 @@
                                 </div>
                                 <div style="margin-top:20px;">
                                     <button ng-click="recuperarDetalles()" ng-disabled="cantSeleccionados == 0" class="btn btn-primary">
-                                        Ver linquidaciones SIN GENERAR de {{cantSeleccionados}} empleado<span ng-show="cantSeleccionados > 1">s</span>
+                                        Ver linquidaciones DEL MES SIN GENERAR de {{cantSeleccionados}} empleado<span ng-show="cantSeleccionados > 1">s</span>
                                     </button>
                                 </div>
                                 <div style="margin-top:20px;">
                                     <button ng-click="recuperarDetallesUnSoloEmpleado()" 
                                             ng-disabled="cantSeleccionados > 1 || cantSeleccionados == 0" 
                                             class="btn btn-primary">
-                                        Ver linquidaciones SIN GENERAR de 1 SOLO EMPLEADO
+                                        Ver linquidaciones correspondiente al año {{liqui.year}} <br/>  SIN GENERAR, de 1 solo empleado. 
                                     </button>
                                 </div>
                             </div>

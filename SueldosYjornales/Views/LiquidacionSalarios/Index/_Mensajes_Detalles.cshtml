@@ -22,7 +22,10 @@
     <div class="col-md-4">
         <form method="post" action="@Url.Action("ImpresionLiqSalarios", "LiquidacionSalarios")" target="_blank">
             <input type="hidden" value="" id="jsonInput" name="jsonInput" />
-            <button type="submit" class="btn btn-default">Imprimir liquidacion</button>
+            <button type="submit" class="btn btn-default" ng-show="vm.mostrarImprimirLiquidacion">
+                Imprimir liquidacion
+            </button>
+            @*<pre>{{vm.mostrarImprimirLiquidacion | json}}</pre>*@
         </form>
     </div>
 </div>

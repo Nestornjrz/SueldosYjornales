@@ -42,6 +42,6 @@
         });
         $rootScope.$on('elegirTabSueldo', function (event, objValRecibido) {
             vm.liquidacionFn(null);
-        });
+        });    
     }
 })();

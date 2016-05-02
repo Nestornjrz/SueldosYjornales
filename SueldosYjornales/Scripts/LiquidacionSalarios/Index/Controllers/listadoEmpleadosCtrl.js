@@ -151,6 +151,7 @@
                 }
                 $rootScope.$broadcast('actualizarLogs',$scope.mensaje);
                 $scope.recuperarDetalles();
+                $rootScope.$broadcast('mostrarImprimirLiquidacion', true);
             },
             function (mensaje) {
                 $scope.mensajeDelServidor = mensaje.data.mensajeDelProceso;
@@ -169,6 +170,7 @@
                 }
                 $rootScope.$broadcast('actualizarDetalles', $scope.mensaje);
                 $rootScope.$broadcast('formLiquidacionSalario', $scope.liqui);
+                $rootScope.$broadcast('mostrarImprimirLiquidacion', true);                
             },
             function (mensaje) {
                 $scope.mensajeDelServidor = mensaje.data.mensajeDelProceso;
@@ -187,6 +189,7 @@
                 }
                 $rootScope.$broadcast('actualizarDetalles', $scope.mensaje);
                 $rootScope.$broadcast('formLiquidacionSalario', $scope.liqui);
+                $rootScope.$broadcast('mostrarImprimirLiquidacion', false);
             },
             function (mensaje) {
                 $scope.mensajeDelServidor = mensaje.data.mensajeDelProceso;

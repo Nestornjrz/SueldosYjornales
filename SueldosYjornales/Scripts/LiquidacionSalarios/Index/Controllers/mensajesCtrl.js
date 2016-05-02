@@ -120,6 +120,9 @@
             var json = angular.toJson(vm.formLiquidacionSalario);
             $('#jsonInput').val(json);//Esto le pasa al formulario para poder imprimir          
         });
+        $rootScope.$on('mostrarImprimirLiquidacion', function (event, objValRecibido) {
+            vm.mostrarImprimirLiquidacion = objValRecibido;
+        });
 
         $scope.modificarPrestamo = function (movEmpleadoDet) {
             sYjResource.modificarPrestamos.save(movEmpleadoDet)
