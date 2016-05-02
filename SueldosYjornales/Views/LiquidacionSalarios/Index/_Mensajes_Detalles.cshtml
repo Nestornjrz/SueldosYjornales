@@ -16,10 +16,10 @@
     }
 </style>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8">
 <pre>{{vm.movimientos.mensajeDelProceso}}</pre>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <form method="post" action="@Url.Action("ImpresionLiqSalarios", "LiquidacionSalarios")" target="_blank">
             <input type="hidden" value="" id="jsonInput" name="jsonInput" />
             <button type="submit" class="btn btn-default">Imprimir liquidacion</button>

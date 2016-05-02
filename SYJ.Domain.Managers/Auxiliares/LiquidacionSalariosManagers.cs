@@ -59,6 +59,79 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 };
             }
         }
+        /// <summary>
+        /// Se recupera las liquidaciones del años seleccionado de un solo 
+        /// empleado
+        /// </summary>
+        /// <returns></returns>
+        public MensajeDto RecuperarDetallesDeUnYearYunSoloEmpleado() {
+            if (_FlDto.EmpleadosSeleccionados.Count() != 1) {
+                return new MensajeDto() {
+                    Error = true,
+                    MensajeDelProceso = "Solo se deve seleccionar UN EMPLEADO para esta opcion"
+                };
+            }
+            using (var context = new SueldosJornalesEntities()) {
+                List<MovEmpleadoDto> movimientos = new List<MovEmpleadoDto>();
+                GetMovimientosPorYear(context, movimientos);
+                return new MensajeDto() {
+                    Error = false,
+                    MensajeDelProceso = "Se recuperaron las liquidaciones correspondientes \n al año " +
+                    movimientos.First().FechaMovimiento.Year + " del funcionario \n " +
+                    movimientos.First().MovEmpleadosDets.First().Empleado.Nombres +
+                    " " + movimientos.First().MovEmpleadosDets.First().Empleado.Apellidos,
+                    ObjetoDto = movimientos,
+                    Valor = movimientos.Count().ToString()
+                };
+            }
+        }
+
+        private void GetMovimientosPorYear(SueldosJornalesEntities context, List<MovEmpleadoDto> movimientos) {
+            var empleadoID = _FlDto.EmpleadosSeleccionados.First();
+            for (int mes = 1; mes <= 12; mes++) {
+                var movimiento = new MovEmpleadoDto();
+                //Se cargan los detalles
+                var mesAplicacion = new DateTime(_FlDto.Year, mes, 1);
+                var movEmpleadosDetsDb = context.MovEmpleadosDets
+                  .Where(m => m.EmpleadoID == empleadoID &&
+                              m.MesAplicacion.Year == mesAplicacion.Year &&
+                              m.MesAplicacion.Month == mesAplicacion.Month);
+                ////Se coloca en un Dto
+                movimiento.MovEmpleadosDets = movEmpleadosDetsDb
+                  .Select(s => new MovEmpleadoDetDto() {
+                      MovEmpleadoDetID = s.MovEmpleadoDetID,
+                      MovEmpleadoID = s.MovEmpleadoID,
+                      Empleado = new EmpleadoDto() {
+                          EmpleadoID = empleadoID,
+                          Nombres = s.Empleado.Nombres,
+                          Apellidos = s.Empleado.Apellidos,
+                          NroCedula = s.Empleado.NroCedula
+                      },
+                      Devito = (s.DevCred == Liquidacion.DevCred.Devito) ? s.Monto : 0,
+                      Credito = (s.DevCred == Liquidacion.DevCred.Credito) ? s.Monto : 0,
+                      MesAplicacion = s.MesAplicacion,
+                      LiquidacionConcepto = new LiquidacionConceptoDto() {
+                          LiquidacionConceptoID = s.LiquidacionConceptoID,
+                          NombreConcepto = s.LiquidacionConcepto.NombreConcepto
+                      }
+                  }).ToList();
+                if (movimiento.MovEmpleadosDets.Count() > 0) {
+                    //Se carga la cabecera
+                    var movEmpleadoDetDb = movEmpleadosDetsDb
+                        .Where(m => m.LiquidacionConceptoID != (int)Liquidacion.Conceptos.Prestamo)
+                        .FirstOrDefault();
+                    if (movEmpleadoDetDb != null) {
+                        var movEmpleadoDb = movEmpleadoDetDb.MovEmpleado;
+                        movimiento.MovEmpleadoID = movEmpleadoDb.MovEmpleadoID;
+                        movimiento.FechaMovimiento = movEmpleadoDb.FechaMovimiento;
+                        movimiento.Descripcion = movEmpleadoDb.Descripcion;
+                        //Se carga el listado
+                        movimientos.Add(movimiento);
+                    }
+
+                }
+            }
+        }
 
         public MensajeDto RecuperarDetallesParaImprimir() {
             using (var context = new SueldosJornalesEntities()) {
@@ -121,13 +194,13 @@ namespace SYJ.Domain.Managers.Auxiliares {
                         .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Anticipo);
                     decimal anticipos = 0;
                     if (anticiposObj != null) {
-                        anticipos = anticiposObj.Sum(a=>a.Devito);
+                        anticipos = anticiposObj.Sum(a => a.Devito);
                     }
                     var prestamosObj = itemMov.MovEmpleadosDets
                         .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Prestamo);
                     decimal prestamos = 0;
                     if (prestamosObj != null) {
-                        prestamos = prestamosObj.Sum(p=>p.Devito);
+                        prestamos = prestamosObj.Sum(p => p.Devito);
                     }
 
                     lsDto.DescOtros = prestamos; //el anticipo no se coloca con los descuentos por pedido del jefe
@@ -162,14 +235,14 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 var sucursales = context.Sucursales.ToList();
 
                 int contador = 0;
-                sucursales.ForEach(delegate(Sucursale s) {
+                sucursales.ForEach(delegate (Sucursale s) {
                     //Se lista todos los empleados de usa sola sucursal
                     var liquidacionesSuc = liquidacionSalarios
                         .Where(l => l.Empleado.Sucursale.SucursalID == s.SucursalID)
                         .OrderByDescending(l => l.SalarioBase)
                         .ToList();
                     //Numerar las liquidaciones, es una fila por empleado
-                    liquidacionesSuc.ForEach(delegate(LiquidacionSalarioDto ls) {
+                    liquidacionesSuc.ForEach(delegate (LiquidacionSalarioDto ls) {
                         ls.NroItem = ++contador;
                     });
                     if (liquidacionesSuc.Count() > 0) {
@@ -362,8 +435,8 @@ namespace SYJ.Domain.Managers.Auxiliares {
             movEmpleadoDet.DevCred = Liquidacion.DevCred.Credito;
             movEmpleadoDet.Monto = de.SueldoBase;
             //Se calcula su sueldo segun la fecha de salida si es que cae en el mes que se esta calculando
-            var finMesFechaSeleccionada = new DateTime(_FlDto.Year, _FlDto.Mes.MesID, DateTime.DaysInMonth(_FlDto.Year, _FlDto.Mes.MesID));           
-            var fechaSalida = HistoricoIngresoSalidasManagers.fechaSalida(de.Empleado.EmpleadoID,finMesFechaSeleccionada);
+            var finMesFechaSeleccionada = new DateTime(_FlDto.Year, _FlDto.Mes.MesID, DateTime.DaysInMonth(_FlDto.Year, _FlDto.Mes.MesID));
+            var fechaSalida = HistoricoIngresoSalidasManagers.fechaSalida(de.Empleado.EmpleadoID, finMesFechaSeleccionada);
             if (fechaSalida != null) {
                 if (fechaSalida.Value.Year == _FlDto.Year && fechaSalida.Value.Month == _FlDto.Mes.MesID) {
                     int diaSalida = fechaSalida.Value.Day;
@@ -572,8 +645,8 @@ namespace SYJ.Domain.Managers.Auxiliares {
         private decimal RecuperarSueldo(DatosEmpleado de) {
             var nombre = "(" + de.Empleado.Nombres + " " + de.Empleado.Apellidos + ") ";
 
-            HistoricoSalariosManagers hsm = new HistoricoSalariosManagers();            
-            var finMesFechaSeleccionada = new DateTime(_FlDto.Year,_FlDto.Mes.MesID,DateTime.DaysInMonth(_FlDto.Year,_FlDto.Mes.MesID));           
+            HistoricoSalariosManagers hsm = new HistoricoSalariosManagers();
+            var finMesFechaSeleccionada = new DateTime(_FlDto.Year, _FlDto.Mes.MesID, DateTime.DaysInMonth(_FlDto.Year, _FlDto.Mes.MesID));
             MensajeDto mensaje = hsm.SalarioYCargo(de.Empleado.EmpleadoID, finMesFechaSeleccionada);
             if (mensaje.Error) {
                 _Mensajes.Add("#ERROR# " + nombre + mensaje.MensajeDelProceso);
@@ -614,8 +687,10 @@ namespace SYJ.Domain.Managers.Auxiliares {
             /// La solisitud hecha a esta propiedad deveria realizarse una vez cargados
             /// el sueldo base y las comisiones
             /// </summary>
-            public decimal Ips {
-                get {
+            public decimal Ips
+            {
+                get
+                {
                     return ((this.SueldoBase + this.Comisiones.Sum()) / 100) * 9;
                 }
             }

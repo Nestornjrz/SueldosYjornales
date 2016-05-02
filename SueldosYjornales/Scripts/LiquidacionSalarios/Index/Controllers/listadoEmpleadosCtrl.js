@@ -174,6 +174,24 @@
                 $scope.mensajeDelServidor = mensaje.data.mensajeDelProceso;
             });
         }
+        //Se recupera los detalles de un solo empleado
+        $scope.recuperarDetallesUnSoloEmpleado = function () {
+            sYjResource.liquiSalariosDetallesUnSoloEmpleado.save($scope.liqui)
+           .$promise.then(
+            function (mensaje) {
+                $scope.mensaje = mensaje;
+                if (!mensaje.error) {
+                    $scope.mensajeDelServidor = mensaje.mensajeDelProceso;
+                } else {
+                    $scope.mensajeDelServidor = mensaje.mensajeDelProceso;
+                }
+                $rootScope.$broadcast('actualizarDetalles', $scope.mensaje);
+                $rootScope.$broadcast('formLiquidacionSalario', $scope.liqui);
+            },
+            function (mensaje) {
+                $scope.mensajeDelServidor = mensaje.data.mensajeDelProceso;
+            });
+        }
         //#endregion
         //#region Liquidacion de aguinaldo
         $scope.generarLiqAguinaldo = function () {

@@ -45,6 +45,14 @@ namespace SueldosYjornales.Controllers.Api.Auxiliares
             MensajeDto mensaje = lsm.RecuperarDetalles();
             return Request.CreateResponse(HttpStatusCode.Created, mensaje);
         }
+        [HttpPost]
+        [Route("api/LiquidacionSalarios/DetallesUnSoloEmpleado")]
+        public HttpResponseMessage PostDetallesUnSoloEmpleado(FormLiquidacionDto fldto) {
+            LiquidacionSalariosManagers lsm = new LiquidacionSalariosManagers(fldto,
+                Guid.Parse(User.Identity.GetUserId()));
+            MensajeDto mensaje = lsm.RecuperarDetallesDeUnYearYunSoloEmpleado();
+            return Request.CreateResponse(HttpStatusCode.Created, mensaje);
+        }
 
         // POST: api/LiquidacionSalarios/ParaImprimir
         [HttpPost]

@@ -19,10 +19,12 @@
                 var empleadosSegunUbicacionSucursal = $resource("@Href("~/api/Empleados/SegunUbicacionSucursal")");
                 var liquidacionSalarios = $resource("@Href("~/api/LiquidacionSalarios")");
                 var liquidacionSalariosDetalles = $resource("@Href("~/api/LiquidacionSalarios/Detalles")");
+                var liquiSalariosDetallesUnSoloEmpleado = $resource("@Href("~/api/LiquidacionSalarios/DetallesUnSoloEmpleado")");
                 var modificarPrestamos = $resource("@Href("~/api/ModificarPrestamos")");
                 var prestamoSimMovs = $resource("@Href("~/api/PrestamoSimMovs")");
                 var liquidacionAguinaldos = $resource("@Href("~/api/LiquidacionAguinaldos")");
                 var liquidacionAguinaldosDetalles = $resource("@Href("~/api/LiquidacionAguinaldos/Detalles")");
+
 
                 return {
                     "empleados": empleados,
@@ -30,6 +32,7 @@
                     "empleadosSegunUbicacionSucursal": empleadosSegunUbicacionSucursal,
                     "liquidacionSalarios": liquidacionSalarios,
                     "liquidacionSalariosDetalles": liquidacionSalariosDetalles,
+                    "liquiSalariosDetallesUnSoloEmpleado":liquiSalariosDetallesUnSoloEmpleado,
                     "modificarPrestamos": modificarPrestamos,
                     "prestamoSimMovs": prestamoSimMovs,
                     "liquidacionAguinaldos": liquidacionAguinaldos,
