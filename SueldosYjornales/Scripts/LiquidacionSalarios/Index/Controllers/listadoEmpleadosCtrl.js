@@ -135,6 +135,11 @@
         //#endregion
         //#region Se genera la liquidacion de salarios
         $scope.guardar = function () {
+            var estaSeguro = confirm("Esta seguro de generar estas liquidaciones?");
+            if (!estaSeguro) {
+                alert("A cancelado la generacion de Liquidacion para los empleados seleccionados");
+                return;
+            }
             sYjResource.liquidacionSalarios.save($scope.liqui)
            .$promise.then(
             function (mensaje) {
