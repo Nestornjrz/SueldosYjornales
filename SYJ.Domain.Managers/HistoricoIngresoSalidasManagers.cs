@@ -13,7 +13,7 @@ namespace SYJ.Domain.Managers {
             using (var context = new SueldosJornalesEntities()) {
                 var listado = context.HistoricoIngresoSalidas
                     .Where(h => h.EmpleadoID == empleadoID)
-                    .OrderByDescending(h=>h.MomentoCarga)
+                    .OrderByDescending(h => h.MomentoCarga)
                     .Select(s => new HistoricoIngresoSalidaDto() {
                         HistoricoIngresoSalidaID = s.HistoricoIngresoSalidaID,
                         EmpleadoID = s.EmpleadoID,
@@ -145,11 +145,11 @@ namespace SYJ.Domain.Managers {
         /// <returns></returns>
         public static bool EmpleadoTrabajaTodaviaEnLaEmpresa(long empleadoID) {
             var fechaHoy = DateTime.Today;
-            return EmpleadoTrabajaTodaviaEnLaEmpresa(empleadoID,fechaHoy.Month, fechaHoy.Year);
+            return EmpleadoTrabajaTodaviaEnLaEmpresa(empleadoID, fechaHoy.Month, fechaHoy.Year);
         }
-        public static bool EmpleadoTrabajaTodaviaEnLaEmpresa(long empleadoID, int mes, int year) {
+        public static bool EmpleadoTrabajaTodaviaEnLaEmpresa(long empleadoID, int mes, int year, bool salidoEnElMesActivo = true) {
             using (var context = new SueldosJornalesEntities()) {
-                var mesSeleccionado = new DateTime(year,mes,DateTime.DaysInMonth(year,mes));
+                var mesSeleccionado = new DateTime(year, mes, DateTime.DaysInMonth(year, mes));
                 //Se busca el ultimo movimiento del empleado
                 var historico = context.HistoricoIngresoSalidas
                     .Where(h => h.EmpleadoID == empleadoID && h.FechaIngreso <= mesSeleccionado)
@@ -163,10 +163,12 @@ namespace SYJ.Domain.Managers {
                     return true;
                 } else {
                     //Se ve si salio dentro del mes actual, si es asi se considera que todavia trabaja
-                    //if (historico.FechaSalida.Value.Year == year &&
-                    //    historico.FechaSalida.Value.Month == mes) {
-                    //        return true;
-                    //}
+                    if (salidoEnElMesActivo) {
+                        if (historico.FechaSalida.Value.Year == year &&
+                            historico.FechaSalida.Value.Month == mes) {
+                            return true;
+                        }
+                    }
                     //Se ve si su fecha de ingreso todavia esta en el futuro con respecto
                     //a la fecha seleccionada
                     if (historico.FechaIngreso > mesSeleccionado) {
