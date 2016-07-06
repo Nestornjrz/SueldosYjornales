@@ -89,6 +89,28 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     //Se carga en la coleccion
                     listado.Add(sueldoEmpPorMes);
                 }
+                #region TOTALES
+                var totales = new SueldoEmpleadoPorMes();
+                totales.Meses = new List<Mes>();
+                totales.Empleado = new EmpleadoDto() {
+                    EmpleadoID = 0,
+                    Nombres = "TOTALES"
+                };
+                for (int i = 1; i <= 12; i++) {
+                    Mes mes = new Mes();
+                    decimal monto = 0;
+                    foreach (SueldoEmpleadoPorMes s in listado) {
+                        monto += s.Meses.Where(w => w.Numero == i).Sum(t => t.Monto);
+                    }
+                    mes.Monto = monto;
+                    totales.Meses.Add(mes);
+                }
+                totales.Aguinaldo = listado.Sum(l => l.Aguinaldo);
+                totales.TotalCobrado = listado.Sum(l=>l.TotalCobrado);
+
+                listado.Add(totales);
+                #endregion
+
                 return new MensajeDto() {
                     Error = false,
                     MensajeDelProceso = "Datos de liquidacion por mes recuperado",
