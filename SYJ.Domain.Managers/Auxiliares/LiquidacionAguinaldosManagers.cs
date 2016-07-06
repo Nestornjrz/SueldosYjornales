@@ -50,14 +50,19 @@ namespace SYJ.Domain.Managers.Auxiliares {
         public MensajeDto RecuperarDetallesPorMes() {
             using (_Context = new SueldosJornalesEntities()) {
                 List<SueldoEmpleadoPorMes> listado = new List<SueldoEmpleadoPorMes>();
+                HistoricoSucursalesManagers hsm = new HistoricoSucursalesManagers();
+
                 foreach (var empleadoID in _FlDto.EmpleadosSeleccionados) {
+                    var hs = hsm.UltimoSucursales(empleadoID);
+                    HistoricoSucursaleDto h = (HistoricoSucursaleDto)hs.ObjetoDto;
                     var sueldoEmpPorMes = new SueldoEmpleadoPorMes();
                     //Se recupera el empleado y se carga
                     var empleadoDb = RecuperarEmpleado(empleadoID);
                     sueldoEmpPorMes.Empleado = new EmpleadoDto() {
                         EmpleadoID = empleadoDb.EmpleadoID,
                         Nombres = empleadoDb.Nombres,
-                        Apellidos = empleadoDb.Apellidos
+                        Apellidos = empleadoDb.Apellidos,
+                        Sucursale = h.Sucursal
                     };
                     //Se recupera los sueldos por mes
                     var sueldosPagados = RecuperarSueldosCobrados(empleadoID);

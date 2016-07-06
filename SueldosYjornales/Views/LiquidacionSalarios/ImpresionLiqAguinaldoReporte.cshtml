@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "LiquidacionSueldo";
+    string flDto = ViewBag.flDto;
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Informe reporte aguinaldo por mes</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-resource.min.js"></script>
+    <script src="~/Scripts/i18n/angular-locale_es-py.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="~/Scripts/underscore.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script src="~/Scripts/LiquidacionSalarios/ImpresionLiqSalarios/Services/common.services.js"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            angular
+                .module('sueldosYjornalesApp')
+                .factory('sYjResource', sYjResource);
+
+            sYjResource.$inject = ['$resource'];
+
+            function sYjResource($resource) {
+                var liquidacionAguinaldosDetalles = $resource("@Href("~/api/LiquidacionAguinaldos/Detalles")");
+                return {
+                    "liquidacionAguinaldosDetalles": liquidacionAguinaldosDetalles
+                }
+            }
+        })();
+    </script>
+    @*controladores*@
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+
+            angular
+                .module('sueldosYjornalesApp')
+                .controller('liquidacionAguinaldoReporteCtrl', liquidacionAguinaldoReporteCtrl);
+
+            liquidacionAguinaldoReporteCtrl.$inject = ['$scope', '$timeout', '$rootScope', 'sYjResource'];
+
+            function liquidacionAguinaldoReporteCtrl($scope, $timeout, $rootScope, sYjResource) {
+                /* jshint validthis:true */
+                var vm = this;
+                vm.flDto = null;
+                $timeout(function () {
+                    vm.flDto = angular.fromJson(vm.flDto);
+                });
+                $scope.$watch('vm.flDto', function (newVal, oldVal) {
+                    if (vm.flDto == null) {
+                        return;
+                    }
+                    $scope.recuperarDetallesAguinaldo();
+                });
+
+                $scope.recuperarDetallesAguinaldo = function () {
+                    sYjResource.liquidacionAguinaldosDetalles.save(vm.flDto)
+                   .$promise.then(
+                    function (mensaje) {
+                        $scope.aguinaldosPorMes = mensaje;
+                        if (!mensaje.error) {
+                            $scope.mensajeDelServidor = mensaje.mensajeDelProceso;
+                        } else {
+                            $scope.mensajeDelServidor = mensaje.mensajeDelProceso;
+                        }
+                    },
+                    function (mensaje) {
+                        $scope.mensajeDelServidor = mensaje.data.mensajeDelProceso;
+                    });
+                }
+            }
+
+        })();
+    </script>
+ 
+</head>
+
+<body ng-app="sueldosYjornalesApp">
+    <div ng-controller="liquidacionAguinaldoReporteCtrl as vm" ng-init="vm.flDto = '@flDto'">
+        <h1>REPORTE MENSUAL DE AGUINALDOS AÑO {{vm.flDto.year}}</h1>
+        <h2>{{aguinaldosPorMes.objetoDto[0].empleado.sucursale.nombreSucursal}}</h2>
+        <table class="table table-bordered table-striped table-condensed">
+            <tr style="font-size:12px;">
+                @*<th>Mov</th>*@
+                <th>Empleado/Mes</th>
+                <th ng-repeat="m in aguinaldosPorMes.objetoDto[0].meses">
+                    {{m.numero}}
+                </th>
+                <th>Total Cobrado</th>
+                <th>Aguinaldo</th>
+            </tr>
+            <tr ng-repeat="a in aguinaldosPorMes.objetoDto" style="font-size:10px;">
+                @*<th>{{a.movEmpleadoID}}</th>*@
+                <th>{{a.empleado.nombres}} {{a.empleado.apellidos}}</th>
+                <th ng-repeat="m in a.meses">
+                    {{m.monto | currency:"":0}}
+                </th>
+                <th>{{a.totalCobrado  | currency:"":0}}</th>
+                <th>{{a.aguinaldo | currency:"":0}}</th>
+            </tr>
+        </table>
+        @*<pre>{{aguinaldosPorMes | json}}</pre>
+        <pre>{{mensaje | json}}</pre>
+        <pre>{{vm.flDto | json}}</pre>*@
+    </div>
+</body>
+</html>

@@ -76,7 +76,13 @@
                     <div class="col-md-6">
                         <form method="post" action="@Url.Action("ImpresionLiqAguinaldo", "LiquidacionSalarios")" target="_blank">
                             <input type="hidden" value="" id="jsonInputAguinaldo" name="jsonInput" />
-                            <button type="submit" class="btn btn-default">Imprimir liquidacion Aguinaldo</button>
+                            <button type="submit" class="btn btn-default">Imprimir recibo de Aguinaldo</button>
+                        </form>
+                        <form method="post" 
+                              action="@Url.Action("ImpresionLiqAguinaldoReporte", "LiquidacionSalarios")" 
+                              target="_blank">
+                            <input type="hidden" value="" id="jsonInputAguinaldoReporte" name="jsonInput" />
+                            <button type="submit" class="btn btn-default">Imprimir reporte de Aguinaldo</button>
                         </form>
                     </div>
                 </div>

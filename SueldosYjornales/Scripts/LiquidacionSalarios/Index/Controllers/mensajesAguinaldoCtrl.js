@@ -49,7 +49,8 @@
         $rootScope.$on('formLiquidacionAguinaldo', function (event, objValRecibido) {
             vm.formLiquidacionSalario = objValRecibido;
             var json = angular.toJson(vm.formLiquidacionSalario);
-            $('#jsonInputAguinaldo').val(json);//Esto le pasa al formulario para poder imprimir          
+            $('#jsonInputAguinaldo').val(json);//Esto le pasa al formulario para poder imprimir  
+            $('#jsonInputAguinaldoReporte').val(json);//Para imprimir el resumen por mes de aguinaldo            
         });
     }
 })();

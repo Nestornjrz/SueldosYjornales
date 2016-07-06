@@ -25,5 +25,9 @@ namespace SueldosYjornales.Controllers
             ViewBag.flDto = jsonInput;
             return View();
         }
+        public ActionResult ImpresionLiqAguinaldoReporte(string jsonInput) {
+            ViewBag.flDto = jsonInput;
+            return View();
+        }
     }
 }

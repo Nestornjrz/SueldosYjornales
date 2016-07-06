@@ -522,6 +522,7 @@
     <Content Include="Scripts\version.json" />
     <Content Include="Scripts\jquery-2.2.3.min.map" />
     <Content Include="Views\Empleados\Details\_Vacaciones.cshtml" />
+    <Content Include="Views\LiquidacionSalarios\ImpresionLiqAguinaldoReporte.cshtml" />
     <None Include="Web.ProduccionRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
