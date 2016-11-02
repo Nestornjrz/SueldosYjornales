@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SYJ.Domain.Managers.Auxiliares.PrestamoSimple {
     public class AgregarNuevaCuotaManagers {
@@ -52,7 +50,7 @@ namespace SYJ.Domain.Managers.Auxiliares.PrestamoSimple {
         #region AUXILIARES DEL PROCESO
         private MensajeDto ProcesoExitoso() {
             ///Fin exitoso del proceso si llega hasta aca
-            //_DbContextTransaction.Commit(); Aqui no termina con COMMIT porque el objeto que llamo a este objeto ya realiza el commit
+            //_DbContextTransaction.Commit(); Aqui no termina con COMMIT porque el objeto que llamo a este objeto realizara el commit
             List<string> m = new List<string>();
             foreach (var mensaje in _Mensajes) {
                 if (mensaje.Error) {
