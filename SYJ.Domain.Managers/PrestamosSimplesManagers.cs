@@ -1,12 +1,11 @@
 ﻿using SYJ.Application.Dto;
 using SYJ.Domain.Db;
+using SYJ.Domain.Managers.Auxiliares;
 using SYJ.Domain.Managers.Util;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.SqlServer;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SYJ.Domain.Managers {
     public class PrestamosSimplesManagers {
@@ -24,6 +23,57 @@ namespace SYJ.Domain.Managers {
                         Observacion = s.Observacion
                     }).ToList();
                 return listado;
+            }
+        }
+        /// <summary>
+        /// Las cuotas son debitos en los movimientos del empleado
+        /// por lo tanto se colocan los debitos que son las cuotas
+        /// </summary>
+        /// <param name="empleadoID"></param>
+        /// <returns></returns>
+        public List<PrestamoSimpleDto> ListadoPrestamoConSusDebitos(long empleadoID) {
+            var prestamosSimples = this.ListadoPrestamo(empleadoID);
+            using (var context = new SueldosJornalesEntities()) {
+                foreach (PrestamoSimpleDto p in prestamosSimples) {
+                    var movimientosDto = new List<MovEmpleadoDetDto>();
+                    var cuotasMov = context.MovEmpleadosDets
+                       .Where(m => m.MovEmpleadoID == p.MovEmpleadoID).ToList();
+                    foreach (MovEmpleadosDet meDb in cuotasMov) {
+                        var mov = new MovEmpleadoDetDto();
+                        mov.MovEmpleadoDetID = meDb.MovEmpleadoDetID;
+                        mov.MovEmpleadoID = meDb.MovEmpleadoID;
+                        //mov.Empleado = empleado;
+                        mov.Debito = (meDb.DevCred == true) ? meDb.Monto : 0;//Devito
+                        mov.Credito = (meDb.DevCred == false) ? meDb.Monto : 0;//Devito
+                        mov.MesAplicacion = meDb.MesAplicacion;
+                        mov.LiquidacionConcepto = new LiquidacionConceptoDto() {
+                            LiquidacionConceptoID = meDb.LiquidacionConceptoID,
+                            NombreConcepto = context.LiquidacionConceptos
+                                            .Where(l => l.LiquidacionConceptoID == meDb.LiquidacionConceptoID)
+                                            .First().NombreConcepto
+                        };
+                        mov.MovEmpleadoIDdeLaLiquidacion = RecuperarIDliquiSalario(mov.MesAplicacion, meDb.EmpleadoID);
+                        movimientosDto.Add(mov);
+                    }
+                    p.CuotasMov = movimientosDto;
+                    p.SumaMontoCuotas = p.CuotasMov.Sum(s => s.Debito);
+                }
+            }
+            return prestamosSimples;
+        }
+
+        private long RecuperarIDliquiSalario(DateTime mesAplicacion, long empleadoID) {
+            using (var context = new SueldosJornalesEntities()) {
+                var movTotalPagado = context.MovEmpleadosDets
+                    .Where(m => m.MesAplicacion.Year == mesAplicacion.Year &&
+                                m.MesAplicacion.Month == mesAplicacion.Month &&
+                                m.EmpleadoID == empleadoID &&
+                                m.LiquidacionConceptoID == (int)Liquidacion.Conceptos.TotalPagado)
+                    .FirstOrDefault();
+                if (movTotalPagado != null) {
+                    return movTotalPagado.MovEmpleadoID;
+                }
+                return 0;
             }
         }
 
@@ -143,7 +193,7 @@ namespace SYJ.Domain.Managers {
                 //Se recuperan las cuotas para saber si entran dentro del mes solicitado
                 var listadoFiltrado = new List<PrestamoSimpleDto>();
 
-                listado.ForEach(delegate(PrestamoSimpleDto ps) {
+                listado.ForEach(delegate (PrestamoSimpleDto ps) {
                     var movEmpleadosDets = context.MovEmpleadosDets
                         .Where(m => m.MovEmpleadoID == ps.MovEmpleadoID &&
                                     m.MesAplicacion.Month == mesID).ToList();

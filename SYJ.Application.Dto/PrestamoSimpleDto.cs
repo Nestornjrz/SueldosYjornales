@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SYJ.Application.Dto {
     public class PrestamoSimpleDto {
@@ -14,5 +11,15 @@ namespace SYJ.Application.Dto {
         public int Cuotas { get; set; }
         public string Observacion { get; set; }
         public Nullable<long> MovEmpleadoID { get; set; }
+        #region Auxiliar
+        /// <summary>
+        /// Se colocan los devitos de los prestamos simples
+        /// </summary>
+        public List<MovEmpleadoDetDto> CuotasMov { get; set; }
+        /// <summary>
+        /// Es la suma del monto de las cuotas, para presentarlo en la interfaz
+        /// </summary>
+        public decimal SumaMontoCuotas { get; set; }
+        #endregion
     }
 }

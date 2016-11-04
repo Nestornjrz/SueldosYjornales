@@ -1,10 +1,10 @@
-﻿using SYJ.Domain.Db;
+﻿using SYJ.Application.Dto;
+using SYJ.Application.Dto.Auxiliares;
+using SYJ.Domain.Db;
 using SYJ.Domain.Managers.Auxiliares;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SYJ.Domain.Managers {
     public class MovEmpleadosDetsManagers {
@@ -73,6 +73,83 @@ namespace SYJ.Domain.Managers {
                 }
                 return montoAguinaldo;
             }
+        }
+        public static List<MovEmpleadoDetDto> ListadoMovimientos(DateTime fechaDesde, DateTime fechaHasta, long empleadoID) {
+            //Se recupera el empleado, para cargar sus datos
+            EmpleadoDto empleado = EmpleadosManagers.GetEmpleado(empleadoID);
+            //Ahora recuperar todos sus movimientos
+            using (var context = new SueldosJornalesEntities()) {
+                var movimientos = context.MovEmpleadosDets
+                    .Where(m => m.EmpleadoID == empleadoID &&
+                                m.MesAplicacion >= fechaDesde &&
+                                m.MesAplicacion <= fechaHasta)
+                    .ToList();
+                var movimientosDto = new List<MovEmpleadoDetDto>();
+                foreach (MovEmpleadosDet s in movimientos) {
+                    var mov = new MovEmpleadoDetDto();
+                    mov.MovEmpleadoDetID = s.MovEmpleadoDetID;
+                    mov.MovEmpleadoID = s.MovEmpleadoID;
+                    mov.Empleado = empleado;
+                    mov.Debito = (s.DevCred == true) ? s.Monto : 0;//Devito
+                    mov.Credito = (s.DevCred == false) ? s.Monto : 0;//Devito
+                    mov.MesAplicacion = s.MesAplicacion;
+                    mov.LiquidacionConcepto = new LiquidacionConceptoDto() {
+                        LiquidacionConceptoID = s.LiquidacionConceptoID,
+                        NombreConcepto = context.LiquidacionConceptos
+                                        .Where(l => l.LiquidacionConceptoID == s.LiquidacionConceptoID)
+                                        .First().NombreConcepto
+                    };
+                    movimientosDto.Add(mov);
+                }
+                return movimientosDto.OrderByDescending(o => o.MesAplicacion.Year)
+                    .ThenByDescending(o => o.MesAplicacion.Month)
+                    .ThenByDescending(o => o.Debito)
+                    .ToList();
+            }
+        }
+        public static List<MovimientosEmpleadoXmesDto> MovimientosEmpleadoXmes(List<MovEmpleadoDetDto> lisMov) {
+            var agrupacionXmes = new List<MovimientosEmpleadoXmesDto>();
+            var porMes = lisMov
+                         .GroupBy(l =>
+                                  new { l.MesAplicacion.Year, l.MesAplicacion.Month },
+                                  (key, g) => new {
+                                      mes = new DateTime(key.Year, key.Month, 1),
+                                      movimientos = g.ToList()
+                                  }
+                         );
+            foreach (var grupo in porMes) {
+                var movM = new MovimientosEmpleadoXmesDto();
+                movM.MesAplicacion = grupo.mes;
+                //Calculo del saldo
+                decimal saldo = 0;
+                foreach (MovEmpleadoDetDto me in grupo.movimientos) {
+                    saldo += me.Debito - me.Credito;
+                    me.Saldo = saldo;
+                }
+                movM.Movimientos = grupo.movimientos;
+                movM.CabeceraLiquidacionSalario = RecuperarCabeceraLiq(grupo.movimientos);
+                agrupacionXmes.Add(movM);
+            }
+            return agrupacionXmes;
+        }
+
+        private static MovEmpleadoDto RecuperarCabeceraLiq(List<MovEmpleadoDetDto> movimientos) {
+            var movTotalPagado = movimientos
+                .Where(m => m.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.TotalPagado)
+                .FirstOrDefault();
+            if (movTotalPagado != null) {
+                using (var context = new SueldosJornalesEntities()) {
+                    var cabecera = context.MovEmpleados
+                        .Where(m => m.MovEmpleadoID == movTotalPagado.MovEmpleadoID)
+                        .Select(s => new MovEmpleadoDto() {
+                            MovEmpleadoID = s.MovEmpleadoID,
+                            FechaMovimiento = s.FechaMovimiento,
+                            Descripcion = s.Descripcion
+                        }).First();
+                    return cabecera;
+                }
+            }
+            return null;
         }
     }
 }

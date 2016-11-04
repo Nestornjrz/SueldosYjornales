@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
 using SYJ.Application.Dto.Auxiliares;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace SueldosYjornales.Controllers {
@@ -35,6 +31,10 @@ namespace SueldosYjornales.Controllers {
         [HttpPost]
         public ActionResult PlanillaAguinaldos(string jsonInput) {
             ViewBag.psfDto = jsonInput;
+            return View();
+        }
+
+        public ActionResult MovimientosEmpleado() {
             return View();
         }
     }

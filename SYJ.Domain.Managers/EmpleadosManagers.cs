@@ -5,11 +5,28 @@ using SYJ.Domain.Managers.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SYJ.Domain.Managers {
     public class EmpleadosManagers {
+        public List<EmpleadoDto> ListadoEmpleadosConMarcaDeActivo() {
+            var listado = this.ListadoEmpleados();
+            HistoricoSucursalesManagers hsm = new HistoricoSucursalesManagers();
+            SucursalesManagers sm = new SucursalesManagers();
+            var sucursales = sm.ListadoSucursales();
+            foreach (EmpleadoDto empleado in listado) {
+                //Se ve si esta activo
+                if (HistoricoIngresoSalidasManagers.EmpleadoTrabajaTodaviaEnLaEmpresa(empleado.EmpleadoID, DateTime.Today.Month, DateTime.Today.Year)) {
+                    empleado.Activo = true;
+                } else {
+                    empleado.Activo = false;
+                }
+                //Se ve en que sucursal trabaja
+                var sucursalID = int.Parse(hsm.UltimoSucursales(empleado.EmpleadoID).Valor);
+                empleado.Sucursale = sucursales.Where(s => s.SucursalID == sucursalID).FirstOrDefault();
+            }
+
+            return listado.OrderBy(o => o.Apellidos).ToList();
+        }
         public List<EmpleadoDto> ListadoEmpleados() {
             using (var context = new SueldosJornalesEntities()) {
                 List<EmpleadoDto> listado = context.Empleados
@@ -253,7 +270,7 @@ namespace SYJ.Domain.Managers {
                 var listado = GetListadoEmpleados(context);
                 var listadoFiltrado = new List<EmpleadoDto>();
                 foreach (var empleado in listado) {
-                    if (HistoricoIngresoSalidasManagers.EmpleadoTrabajaTodaviaEnLaEmpresa(empleado.EmpleadoID,year, mes)) {
+                    if (HistoricoIngresoSalidasManagers.EmpleadoTrabajaTodaviaEnLaEmpresa(empleado.EmpleadoID, year, mes)) {
                         listadoFiltrado.Add(empleado);
                     }
                 }
@@ -345,6 +362,43 @@ namespace SYJ.Domain.Managers {
                     }
                 });
                 return empleadoIDs.ToArray();
+            }
+        }
+
+        public static EmpleadoDto GetEmpleado(long empleadoID) {
+            using (var context = new SueldosJornalesEntities()) {
+                var empleado = context.Empleados
+                    .Where(e => e.EmpleadoID == empleadoID)
+                     .Select(s => new EmpleadoDto() {
+                         EmpleadoID = s.EmpleadoID,
+                         Nombres = s.Nombres,
+                         Apellidos = s.Apellidos,
+                         FechaNacimiento = s.FechaNacimiento,
+                         Sexo = new SexoDto() {
+                             SexoID = s.Sexo,
+                             NombreSexo = (s.Sexo == 1) ? "Masculino" : "Femenino"
+                         },
+                         NroCedula = s.NroCedula,
+                         EstadoCivile = new EstadoCivileDto() {
+                             EstadoCivilID = s.EstadoCivilID,
+                             NombreEstadoCivil = s.EstadoCivile.NombreEstadoCivil
+                         },
+                         Nacionalidade = new NacionalidadeDto() {
+                             NacionalidadID = s.NacionalidadID,
+                             NombreNacionalidad = s.Nacionalidade.NombreNacionalidad
+                         },
+                         NumeroIps = s.NumeroIps,
+                         NumeroMjt = s.NumeroMjt,
+                         Profesione = new ProfesioneDto() {
+                             ProfesionID = s.ProfesionID,
+                             NombreProfesion = s.Profesione.NombreProfesion,
+                             Abreviatura = s.Profesione.Abreviatura,
+                             Descripcion = s.Profesione.Descripcion
+                         },
+                         CantidadHijos = s.CantidadHijos
+                     })
+                    .FirstOrDefault();
+                return empleado;
             }
         }
     }

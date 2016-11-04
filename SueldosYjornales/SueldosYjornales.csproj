@@ -197,6 +197,7 @@
     <Compile Include="Areas\Mtess\Controllers\InicioMtessController.cs" />
     <Compile Include="Areas\Mtess\MtessAreaRegistration.cs" />
     <Compile Include="Controllers\Admin\AccountController.cs" />
+    <Compile Include="Controllers\Api\MovEmpleadosDetsController.cs" />
     <Compile Include="Controllers\Api\VacacionesController.cs" />
     <Compile Include="Controllers\Admin\RolesAdminController.cs" />
     <Compile Include="Controllers\Admin\UsersAdminController.cs" />
@@ -369,6 +370,8 @@
     <Content Include="Scripts\Informes\LiquidacionSueldo\Controllers\liquidacionSalarioInfoCtrl.js" />
     <Content Include="Scripts\Informes\ListadoPrestamos\Controllers\listadoPrestamosCtrl.js" />
     <Content Include="Scripts\Informes\ListadoPrestamos\Services\common.services.js" />
+    <Content Include="Scripts\Informes\MovimientosEmpleado\Controllers\menuMovEmpleadoCtrl.js" />
+    <Content Include="Scripts\Informes\MovimientosEmpleado\Controllers\movimientosEmpleadosCtrl.js" />
     <Content Include="Scripts\Informes\PlanillaAguinaldos\Controllers\PlanillaAguinaldosCtrl.js" />
     <Content Include="Scripts\Informes\PlanillaAguinaldos\Services\common.services.js" />
     <Content Include="Scripts\Informes\PlanillaSalarios\Controllers\planillaSalariosCtrl.js" />
@@ -523,6 +526,8 @@
     <Content Include="Scripts\jquery-2.2.3.min.map" />
     <Content Include="Views\Empleados\Details\_Vacaciones.cshtml" />
     <Content Include="Views\LiquidacionSalarios\ImpresionLiqAguinaldoReporte.cshtml" />
+    <Content Include="Views\Informes\MovimientosEmpleado.cshtml" />
+    <Content Include="Views\Informes\MovimientosEmpleado\_MovPorMes.cshtml" />
     <None Include="Web.ProduccionRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -532,6 +537,7 @@
     <Folder Include="Areas\Mtess\Models\" />
     <Folder Include="Scripts\Empleados\Common\Services\" />
     <Folder Include="Scripts\Informes\LiquidacionSueldo\Services\" />
+    <Folder Include="Scripts\Informes\MovimientosEmpleado\Services\" />
     <Folder Include="Scripts\Informes\PlanillaSalarios\Services\" />
     <Folder Include="Scripts\RolesAdmin\Index\Controllers\" />
     <Folder Include="Scripts\UsersAdmin\Index\Controllers\" />

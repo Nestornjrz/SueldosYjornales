@@ -329,7 +329,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     lsDto.DiasTrabajados = 30;
                     lsDto.SalarioBase = itemMov.MovEmpleadosDets
                         .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Aguinaldo)
-                        .First().Devito;//Aqui solo se tiene en cuenta el aguinaldo
+                        .First().Debito;//Aqui solo se tiene en cuenta el aguinaldo
                     lsDto.SubTotalIngresos = lsDto.SalarioBase;
                     ///Sucursal
                     var hsm = new HistoricoSucursalesManagers();
@@ -468,7 +468,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                             Apellidos = s.Empleado.Apellidos,
                             NroCedula = s.Empleado.NroCedula
                         },
-                        Devito = (s.DevCred == Liquidacion.DevCred.Devito) ? s.Monto : 0,
+                        Debito = (s.DevCred == Liquidacion.DevCred.Devito) ? s.Monto : 0,
                         Credito = (s.DevCred == Liquidacion.DevCred.Credito) ? s.Monto : 0,
                         MesAplicacion = s.MesAplicacion,
                         LiquidacionConcepto = new LiquidacionConceptoDto() {

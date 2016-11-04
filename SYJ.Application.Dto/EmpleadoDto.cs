@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SYJ.Application.Dto {
     public class EmpleadoDto {
@@ -22,6 +18,11 @@ namespace SYJ.Application.Dto {
         public SucursaleDto Sucursale { get; set; }
         public CargoDto Cargo { get; set; }
         public bool TieneIpsSn { get; set; }
+        /// <summary>
+        /// Propiedad utilizada para determinar si el empleado esta activo
+        /// o si ya salio de la empresa
+        /// </summary>
+        public bool Activo { get; set; }
         #endregion
     }
 }

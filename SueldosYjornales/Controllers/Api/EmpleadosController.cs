@@ -1,12 +1,11 @@
-﻿using SYJ.Application.Dto;
+﻿using Microsoft.AspNet.Identity;
+using SYJ.Application.Dto;
 using SYJ.Domain.Managers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Microsoft.AspNet.Identity;
 
 namespace SueldosYjornales.Controllers.Api {
     [Authorize]
@@ -14,7 +13,7 @@ namespace SueldosYjornales.Controllers.Api {
         // GET: api/Empleados
         public HttpResponseMessage Get() {
             EmpleadosManagers em = new EmpleadosManagers();
-            List<EmpleadoDto> listado = em.ListadoEmpleados();
+            List<EmpleadoDto> listado = em.ListadoEmpleadosConMarcaDeActivo();
             return Request.CreateResponse<List<EmpleadoDto>>(HttpStatusCode.OK, listado);
         }
 
@@ -35,7 +34,7 @@ namespace SueldosYjornales.Controllers.Api {
             EmpleadosManagers em = new EmpleadosManagers();
             List<EmpleadoDto> listado = new List<EmpleadoDto>();
             if (User.Identity.IsAuthenticated) {
-                listado = em.ListadoEmpleadosSegunUbicacionSucursal( Guid.Parse(User.Identity.GetUserId()), mes, year);
+                listado = em.ListadoEmpleadosSegunUbicacionSucursal(Guid.Parse(User.Identity.GetUserId()), mes, year);
             }
             return Request.CreateResponse<List<EmpleadoDto>>(HttpStatusCode.OK, listado);
         }

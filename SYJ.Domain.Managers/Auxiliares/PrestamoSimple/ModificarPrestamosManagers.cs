@@ -164,7 +164,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
         /// monto de la cuota del prestamo
         /// </summary>
         private void CargarDatosBasicosAutilizar() {
-            _CompartirDatos.MontoCuotaPrestamoDelCliente = _MovEmpleadoDet.Devito;
+            _CompartirDatos.MontoCuotaPrestamoDelCliente = _MovEmpleadoDet.Debito;
         }
 
         private bool RegularizarCuotasFuturasDelPrestamo() {

@@ -107,7 +107,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                           Apellidos = s.Empleado.Apellidos,
                           NroCedula = s.Empleado.NroCedula
                       },
-                      Devito = (s.DevCred == Liquidacion.DevCred.Devito) ? s.Monto : 0,
+                      Debito = (s.DevCred == Liquidacion.DevCred.Devito) ? s.Monto : 0,
                       Credito = (s.DevCred == Liquidacion.DevCred.Credito) ? s.Monto : 0,
                       MesAplicacion = s.MesAplicacion,
                       LiquidacionConcepto = new LiquidacionConceptoDto() {
@@ -187,20 +187,20 @@ namespace SYJ.Domain.Managers.Auxiliares {
                         .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Ips)
                         .FirstOrDefault();
                     if (ipsObj != null) {
-                        lsDto.DescIPS = ipsObj.Devito;
+                        lsDto.DescIPS = ipsObj.Debito;
                     }
                     //----anticipos y prestamos OTROS DESCUENTOS------
                     var anticiposObj = itemMov.MovEmpleadosDets
                         .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Anticipo);
                     decimal anticipos = 0;
                     if (anticiposObj != null) {
-                        anticipos = anticiposObj.Sum(a => a.Devito);
+                        anticipos = anticiposObj.Sum(a => a.Debito);
                     }
                     var prestamosObj = itemMov.MovEmpleadosDets
                         .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Prestamo);
                     decimal prestamos = 0;
                     if (prestamosObj != null) {
-                        prestamos = prestamosObj.Sum(p => p.Devito);
+                        prestamos = prestamosObj.Sum(p => p.Debito);
                     }
 
                     lsDto.DescOtros = prestamos; //el anticipo no se coloca con los descuentos por pedido del jefe
@@ -315,7 +315,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                             Apellidos = s.Empleado.Apellidos,
                             NroCedula = s.Empleado.NroCedula
                         },
-                        Devito = (s.DevCred == Liquidacion.DevCred.Devito) ? s.Monto : 0,
+                        Debito = (s.DevCred == Liquidacion.DevCred.Devito) ? s.Monto : 0,
                         Credito = (s.DevCred == Liquidacion.DevCred.Credito) ? s.Monto : 0,
                         MesAplicacion = s.MesAplicacion,
                         LiquidacionConcepto = new LiquidacionConceptoDto() {

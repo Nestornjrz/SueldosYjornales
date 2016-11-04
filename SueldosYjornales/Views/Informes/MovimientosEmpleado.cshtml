@@ -1,0 +1,163 @@
+﻿
+@{
+    ViewBag.Title = "MovimientosEmpleado";
+}
+
+@section scripts{
+    <script src="~/Scripts/Informes/Index/Services/common.services.js"></script>
+    <script src="~/Scripts/underscore.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            angular
+                .module('sueldosYjornalesApp')
+                .factory('sYjResource', sYjResource);
+
+            sYjResource.$inject = ['$resource'];
+
+            function sYjResource($resource) {
+                var movEmpleadosDets = $resource("@Href("~/api/MovEmpleadosDets")");
+                var movEmpleadosDetsXmes = $resource("@Href("~/api/MovEmpleadosDets/PorMes")");
+                var ubicacionSucUsuarios = $resource("@Href("~/api/UbicacionSucUsuarios")");
+                var empleados = $resource("@Href("~/api/Empleados")");
+                var empresas = $resource("@Href("~/api/Empresas")");
+                var sucursalesSegunEmpresaID = $resource("@Href("~/api/Sucursales/SegunEmpresaID")");
+                var presSimpleConCuotas = $resource("@Href("~/api/PrestamosSimples/ByEmpleadoID/ConCuotas")");
+
+                return {
+                    "movEmpleadosDets": movEmpleadosDets,
+                    "movEmpleadosDetsXmes": movEmpleadosDetsXmes,
+                    "ubicacionSucUsuarios": ubicacionSucUsuarios,
+                    "empleados": empleados,
+                    "empresas": empresas,
+                    "sucursalesSegunEmpresaID": sucursalesSegunEmpresaID,
+                    "presSimpleConCuotas": presSimpleConCuotas
+                }
+            }
+        })();
+    </script>
+    @*controladores*@
+    @*<script src="~/Scripts/Informes/Index/Controlles/liquidacionSalarioCtrl.js"></script>*@
+    <script src="~/Scripts/Informes/MovimientosEmpleado/Controllers/movimientosEmpleadosCtrl.js"></script>
+    <script src="~/Scripts/Informes/MovimientosEmpleado/Controllers/menuMovEmpleadoCtrl.js"></script>
+}
+<div class="row" style="margin-top:25px;" ng-controller="movimientosEmpleadosCtrl as vm">
+    <div class="col-md-5">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Listado de empleados ({{vm.empleados.length}})</div>
+            <div class="panel-body" style="overflow-y:auto;max-height:400px;">
+                <table class="table table-bordered table-condensed">
+                    <tr>
+                        <th>Suc</th>
+                        <th>Apellido</th>
+                        <th>Nombre</th>
+                        <th>Activo</th>
+                    </tr>
+                    <tr ng-repeat="emp in vm.empleados">
+                        <td>{{emp.sucursale.abreviatura}}</td>
+                        <td>{{emp.apellidos}} </td>
+                        <td>
+                            <a href="#" ng-click="vm.recuperarMovimientosEmpleado(emp.empleadoID)">
+                                {{emp.nombres}}
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <span class="glyphicon glyphicon-ok"
+                                  aria-hidden="true" ng-show="emp.activo">
+                            </span>
+                            <span class="glyphicon glyphicon-remove"
+                                  style="color:red;"
+                                  aria-hidden="true" ng-hide="emp.activo">
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+                @*<pre>{{vm.empleados | json}}</pre>*@
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7" ng-controller="menuMovEmpleado as vm_m">
+        <ul class="nav nav-tabs" style="margin-top:2px;">
+            <li role="presentation" class="{{vm_m.menu.movimientos.class}}">
+                <a href="#" ng-click="vm_m.movimientosFn($event)">Movimientos por mes</a>
+            </li>
+            <li role="presentation" class="{{vm_m.menu.prestamos.class}}">
+                <a href="#" ng-click="vm_m.prestamosFn($event)">Prestamos</a>
+            </li>
+        </ul>
+        <div ng-show="vm_m.menu.movimientos.mostrar">
+            @Html.Partial("MovimientosEmpleado/_MovPorMes")
+        </div>
+        <div ng-show="vm_m.menu.prestamos.mostrar">
+            @*<table class="table table-bordered table-condensed">
+                <thead>
+                    <tr>
+                        <th>Nro</th>
+                        <th>1erVencimiento</th>
+                        <th>Cuotas</th>
+                        <th>Monto</th>
+                        <th>Observacion</th>
+                        <th>Detalles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="p in vm.presSimpleConCuo">
+                        <td class="text-center">{{p.prestamoSimpleID}}</td>
+                        <td>{{p.fecha1erVencimiento | date:"dd/MM/yyyy":"UTC"}}</td>
+                        <td>{{p.cuotas}}</td>
+                        <td class="text-right">{{p.monto | currency:"":0}}</td>
+                        <td>{{p.observacion}}</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>*@
+            <div ng-repeat="p in vm.presSimpleConCuo" style="border:2 solid black">
+                <table class="table table-bordered table-condensed">
+                    <tr>                        
+                        <td colspan="3">{{p.observacion}}</td>
+                    </tr>
+                    <tr style="background-color:#a9a8a8;">
+                        <th class="text-center" >Descripcion</th>
+                        <th class="text-center" style="width:15%;">Valores</th>
+                        <th class="text-center" width="60%;">
+                            Cuotas (Sumatoria {{p.sumaMontoCuotas | currency:"":0}})
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Nro</th>
+                        <td class="text-center" >{{p.prestamoSimpleID}}</td>
+                        <td rowspan="5" >
+                            <table class="table table-bordered table-condensed table-striped"
+                                   style="margin-bottom:0;">
+                                <tr>
+                                    <th>Monto Cuota</th>
+                                    <th>Mes descuento</th>
+                                    <th>NroLiquidacion</th>
+                                </tr>
+                                <tr ng-repeat="cuo in p.cuotasMov">
+                                    <td>{{cuo.debito | currency:"":0}}</td>
+                                    <td>{{cuo.mesAplicacion | date:"MMM/yyyy":"UTC"}}</td>
+                                    <td class="text-center">{{cuo.movEmpleadoIDdeLaLiquidacion}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>1erVencimiento</th>
+                        <td class="text-center">{{p.fecha1erVencimiento | date:"dd/MM/yyyy":"UTC"}}</td>
+                    </tr>
+                    <tr>
+                        <th>Cuotas</th>
+                        <td class="text-center">{{p.cuotas}}</td>
+                    </tr>
+                    <tr>
+                        <th>Monto</th>
+                        <td class="text-center">{{p.monto | currency:"":0}}</td>
+                    </tr>
+                </table>
+
+            </div>
+            @*<pre>{{vm.presSimpleConCuo | json}}</pre>*@
+        </div>
+    </div>
+</div>

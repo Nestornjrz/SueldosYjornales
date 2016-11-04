@@ -1,0 +1,40 @@
+﻿<div ng-repeat="movXmes in vm.movimientosXmes" class="panel panel-primary">
+    <div class="panel-body" style="padding:5px;">
+        <div ng-show="movXmes.cabeceraLiquidacionSalario.movEmpleadoID">
+            <span class="badge">
+                Nro Liquidacion: {{movXmes.cabeceraLiquidacionSalario.movEmpleadoID | currency:"":0}}
+            </span>
+            {{movXmes.cabeceraLiquidacionSalario.descripcion}}
+        </div>
+        <table class="table table-bordered table-condensed table-striped" style="margin-bottom:2px;">
+            <caption class="text-center"
+                     style="color:black;font-size:larger;text-transform: uppercase;">
+                {{movXmes.mesAplicacion | date:"MMMM yyyy":"UTC"}}
+            </caption>
+            <thead>
+                <tr>
+                    <th>Empleado</th>
+                    @*<th>Nacionalidad</th>*@
+                    <th>Concepto</th>
+                    <th>Debito</th>
+                    <th>Credito</th>
+                    <th class="text-center" style="background-color:#00ffc1;">Saldo</th>
+                    @*<th>Mes Aplicacion</th>*@
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="mov in movXmes.movimientos">
+                    <td>{{mov.empleado.apellidos}} {{mov.empleado.nombres}}</td>
+                    @*<th>{{mov.empleado.nacionalidade.nombreNacionalidad}}</th>*@
+                    <th>{{mov.liquidacionConcepto.nombreConcepto}}</th>
+                    <th class="text-right">{{mov.debito | currency:"":0}}</th>
+                    <th class="text-right">{{mov.credito | currency:"":0}}</th>
+                    <th class="text-right" style="background-color:#00ffc1;">{{mov.saldo | currency:"":0}}</th>
+                    @*<th>{{mov.mesAplicacion | date:"MM/yyyy":"UTC"}}</th>*@
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@*<pre>{{vm.movimientosXmes | json}}</pre>*@
+@*<pre>{{vm.movimientos | json}}</pre>*@

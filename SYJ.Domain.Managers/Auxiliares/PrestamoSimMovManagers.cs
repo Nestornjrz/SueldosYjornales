@@ -51,7 +51,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                            MovEmpleadoID = s.MovEmpleadoID,
                            MovEmpleadoDetID = s.MovEmpleadoDetID,
                            Credito = (s.DevCred == false) ? s.Monto : 0,
-                           Devito = (s.DevCred == true) ? s.Monto : 0,
+                           Debito = (s.DevCred == true) ? s.Monto : 0,
                            MesAplicacion = s.MesAplicacion,
                            Empleado = new EmpleadoDto() {
                                EmpleadoID = s.EmpleadoID,
@@ -156,10 +156,10 @@ namespace SYJ.Domain.Managers.Auxiliares {
                             if (generoLaLiquidacionCant > 0) {
                                 movDetallesResul.Add(mDet);
                             } else {
-                                movDetalle.Devito += mDet.Devito;
+                                movDetalle.Debito += mDet.Debito;
                             }
                         }
-                        if (movDetalle.Devito > 0) {
+                        if (movDetalle.Debito > 0) {
                             movDetallesResul.Add(movDetalle);
                         }
                         movimiento.MovEmpleadosDets = movDetallesResul;
