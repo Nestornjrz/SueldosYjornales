@@ -59,7 +59,7 @@ namespace SYJ.Domain.Managers {
                     p.SumaMontoCuotas = p.CuotasMov.Sum(s => s.Debito);
                 }
             }
-            return prestamosSimples;
+            return prestamosSimples.OrderByDescending(o => o.Fecha1erVencimiento).ToList();
         }
 
         private long RecuperarIDliquiSalario(DateTime mesAplicacion, long empleadoID) {
