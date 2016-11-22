@@ -201,7 +201,7 @@
                     <tr ng-repeat="d in respuesta.movimientoEmpleado.movEmpleadosDets"
                         ng-class="getClassCuotaDeLaLiquidacion(d.mesAplicacion)">
                         <td>{{d.mesAplicacion | date:"MMMM/yyyy":"UTC"}}</td>
-                        <td>{{d.devito | currency:"":0}}</td>
+                        <td>{{d.debito | currency:"":0}}</td>
                     </tr>
                 </table>
             </div>

@@ -175,9 +175,9 @@
                     {{d.liquidacionConcepto.nombreConcepto}}
                 </td>
                 <td class="text-right">
-                    <input value="{{d.devito}}" type="text" size="10" ng-model="d.devito" ng-show="d.editarMontoSn" class="text-center" />
+                    <input value="{{d.debito}}" type="text" size="10" ng-model="d.debito" ng-show="d.editarMontoSn" class="text-center" />
                     <input class="btn btn-default btn-sm" type="button" value="Ok" ng-show="d.editarMontoSn" ng-click="modificarPrestamo(d)">
-                    <span ng-hide="d.editarMontoSn">{{d.devito | currency:"":0}}</span>
+                    <span ng-hide="d.editarMontoSn">{{d.debito | currency:"":0}}</span>
                 </td>
                 <td class="text-right">{{d.credito | currency:"":0}}</td>
                 <td>{{d.mesAplicacion | date:"MMMM/yyyy":'UTC'}}</td>
@@ -239,7 +239,7 @@
                     <tr ng-repeat="d in respuesta.movimientoEmpleado.movEmpleadosDets"
                         ng-class="getClassCuotaDeLaLiquidacion(d.movEmpleadoDetID)">
                         <td>{{d.mesAplicacion | date:"MMMM/yyyy":"UTC"}}</td>
-                        <td>{{d.devito | currency:"":0}}</td>
+                        <td>{{d.debito | currency:"":0}}</td>
                     </tr>
                 </table>
             </div>
