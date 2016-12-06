@@ -1,0 +1,44 @@
+﻿
+@{
+    Layout = null;
+    List<SYJ.Application.Dto.MovEmpleadoDetDto> listado = ViewBag.movimientos;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <table>
+            <tr>
+                <th>Sucursal</th>
+                <th>Activo</th>
+                <th>Empleado</th>
+                <th>Debito</th>
+                <th>Credito</th>
+                <th>CodConcepto</th>
+                <th>Concepto</th>
+                <th>MesAplicacion</th>
+                @*<th>Observacion</th>*@
+            </tr>
+            @foreach (var l in listado) {
+                <tr>
+                    <td>@l.Empleado.Sucursale.NombreSucursal</td>
+                    <td>@l.Empleado.Activo.ToString()</td>
+                    <td>@l.Empleado.Nombres  @l.Empleado.Apellidos</td>
+                    <td>@l.Debito.ToString("N0")</td>
+                    <td>@l.Credito.ToString("N0")</td>
+                    <td>@l.LiquidacionConcepto.LiquidacionConceptoID</td>
+                    <td>@l.LiquidacionConcepto.NombreConcepto</td>
+                    <td>@l.MesAplicacion.ToShortDateString()</td>
+                    @*<td>@l.Observacion</td>*@                    
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

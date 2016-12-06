@@ -8,6 +8,10 @@ using System.Linq;
 
 namespace SYJ.Domain.Managers {
     public class EmpleadosManagers {
+        /// <summary>
+        /// Es el listado de empleados con su sucursal actual y su cargo actual
+        /// </summary>
+        /// <returns></returns>
         public List<EmpleadoDto> ListadoEmpleadosConMarcaDeActivo() {
             var listado = this.ListadoEmpleados();
             HistoricoSucursalesManagers hsm = new HistoricoSucursalesManagers();

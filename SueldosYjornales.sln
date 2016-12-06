@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SueldosYjornales", "SueldosYjornales\SueldosYjornales.csproj", "{85940473-879B-4067-8C17-1002924AA382}"
 EndProject
@@ -23,6 +23,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SYJ.Domain.Db", "SYJ.Domain.Db\SYJ.Domain.Db.csproj", "{3B347CDB-1CBF-43B8-A768-079BD899EACD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SYJ.Domain.Managers", "SYJ.Domain.Managers\SYJ.Domain.Managers.csproj", "{DC18201C-203A-4252-B55F-FC26EB59D3A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Listado", "Listado\Listado.csproj", "{CAA4F9A7-F50A-4A4A-B8E8-DC3157EBCFD1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,12 @@ Global
 		{DC18201C-203A-4252-B55F-FC26EB59D3A2}.ProduccionRelease|Any CPU.Build.0 = ProduccionRelease|Any CPU
 		{DC18201C-203A-4252-B55F-FC26EB59D3A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC18201C-203A-4252-B55F-FC26EB59D3A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAA4F9A7-F50A-4A4A-B8E8-DC3157EBCFD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAA4F9A7-F50A-4A4A-B8E8-DC3157EBCFD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAA4F9A7-F50A-4A4A-B8E8-DC3157EBCFD1}.ProduccionRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{CAA4F9A7-F50A-4A4A-B8E8-DC3157EBCFD1}.ProduccionRelease|Any CPU.Build.0 = Release|Any CPU
+		{CAA4F9A7-F50A-4A4A-B8E8-DC3157EBCFD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAA4F9A7-F50A-4A4A-B8E8-DC3157EBCFD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,5 +72,6 @@ Global
 		{E66FCDC2-DD95-4638-8F12-C94D627735D6} = {3A4A5491-FC9D-4B2C-B158-2C6214E17D16}
 		{3B347CDB-1CBF-43B8-A768-079BD899EACD} = {E618FD3C-4B69-42C8-8B37-BABB8534861A}
 		{DC18201C-203A-4252-B55F-FC26EB59D3A2} = {E618FD3C-4B69-42C8-8B37-BABB8534861A}
+		{CAA4F9A7-F50A-4A4A-B8E8-DC3157EBCFD1} = {253B10DE-6D22-45DF-8FAD-F3839368C053}
 	EndGlobalSection
 EndGlobal
