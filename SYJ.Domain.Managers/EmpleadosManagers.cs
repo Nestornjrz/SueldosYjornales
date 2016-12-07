@@ -361,7 +361,9 @@ namespace SYJ.Domain.Managers {
                         .FirstOrDefault();
                     if (sucursalActual != null) {
                         if (psDto.Sucursales.Exists(s => s.SucursalID == sucursalActual.SucursalID)) {
-                            empleadoIDs.Add(e.EmpleadoID);
+                            if (HistoricoIngresoSalidasManagers.EmpleadoTrabajaTodaviaEnLaEmpresa(e.EmpleadoID, psDto.Mes.MesID, psDto.Year)) {
+                                empleadoIDs.Add(e.EmpleadoID);
+                            }
                         }
                     }
                 });

@@ -1,13 +1,11 @@
 ﻿using SYJ.Application.Dto;
+using SYJ.Application.Dto.Auxiliares;
 using SYJ.Domain.Db;
+using SYJ.Domain.Managers.Util;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.Entity;
-using SYJ.Application.Dto.Auxiliares;
-using SYJ.Domain.Managers.Util;
+using System.Linq;
 
 namespace SYJ.Domain.Managers.Auxiliares {
     public class LiquidacionSalariosManagers {
@@ -141,7 +139,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 List<LiquidacionSalarioDto> listLsDto = new List<LiquidacionSalarioDto>();
                 foreach (var itemMov in movimientos) {
                     LiquidacionSalarioDto lsDto = new LiquidacionSalarioDto();
-                    //--Datos del empleado
+                    //--Datos del empleado                  
                     lsDto.Empleado = itemMov.MovEmpleadosDets.First().Empleado;
                     lsDto.DiasTrabajados = 30;
 
@@ -155,9 +153,14 @@ namespace SYJ.Domain.Managers.Auxiliares {
                         }
                     }
 
-                    lsDto.SalarioBase = itemMov.MovEmpleadosDets
+                    var movEmpleadoDet = itemMov.MovEmpleadosDets
                         .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.SueldoBase)
-                        .First().Credito;
+                        .FirstOrDefault();
+                    //Se ve si el movimiento existe
+                    if (movEmpleadoDet != null) {
+                        lsDto.SalarioBase = movEmpleadoDet.Credito;
+                    }
+
                     lsDto.SubTotalIngresos = lsDto.SalarioBase;
                     ///Sucursal
                     var hsm = new HistoricoSucursalesManagers();
@@ -209,11 +212,16 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     //----neto a cobrar------------
                     lsDto.NetoAcobrar = lsDto.TotalIngreso - lsDto.TotalDescuentos;
                     //----periodo------------------
-                    var mesAplicacion = itemMov.MovEmpleadosDets
+                    var movEmpleadoDetForSueldoBase = itemMov.MovEmpleadosDets
                         .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.SueldoBase)
-                        .First().MesAplicacion;
+                        .FirstOrDefault();
+                    DateTime mesAplicacion = new DateTime();
+                    if (movEmpleadoDetForSueldoBase != null) {
+                        mesAplicacion = movEmpleadoDetForSueldoBase.MesAplicacion;
+                    }
 
                     var periodo = mesAplicacion;
+
                     var ultimoDiaPeriodo = new DateTime(periodo.Year, periodo.Month, DateTime.DaysInMonth(periodo.Year, periodo.Month));
                     lsDto.Periodo = periodo;
                     lsDto.UltimoDiaPeriodo = ultimoDiaPeriodo;
