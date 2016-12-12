@@ -46,6 +46,11 @@
             border: 1px solid red;
         }
     </style>
+    <style type="text/css" media="print">
+        .no_mostrar{
+            display:none;
+        }
+    </style>
     <style type="text/css" media="all">
         @@page {
             size: legal portrait;
@@ -124,6 +129,12 @@
 
 <body ng-app="sueldosYjornalesApp">
     <div ng-controller="planillaSalariosCtrl as vm" ng-init="vm.psfDto = '@psfDto'">
+        @*<div>
+            <pre>
+                {{vm.listLiquidaciones | json}}
+            </pre>
+            <pre>{{vm.psfDto | json}}</pre>
+        </div>*@
         <div class="pagina">
             <div class="row_encabezado">
                 <div style="float:left;" class="linea contenedor_imagen">
@@ -136,8 +147,9 @@
                 </div>
             </div>
             <div class="listado">
-                <table cellspacing="0" >
+                <table cellspacing="0">
                     <tr>
+                        <th class="no_mostrar">Mostrar</th>
                         <th>Item</th>
                         <th>Personales</th>
                         <th>Centro de costo</th>
@@ -147,8 +159,15 @@
                         <th>Desc. I.P.S.</th>
                         <th>Desc. Prest</th>
                         <th>Neto a Cobrar</th>
+                        @*<th>Puntero</th>*@
                     </tr>
-                    <tr ng-repeat="l in vm.listLiquidaciones">
+                    <tr ng-repeat="l in vm.listLiquidaciones"                       
+                        ng-show="l.mostrar">
+                        <td class="no_mostrar">
+                            <input ng-model="l.mostrar" 
+                                   ng-click="vm.mostrarOcultarFila($event,l)" 
+                                   type="checkbox" />
+                        </td>
                         <td ng-show="l.empleado.empleadoID > 0" class="filaNormal">{{l.nroItem}}</td>
                         <td ng-show="l.empleado.empleadoID == 0" colspan="4" class="subTotal">
                             {{l.empleado.nombres}} {{l.empleado.apellidos}}
@@ -198,12 +217,10 @@
                         <td ng-show="l.empleado.empleadoID > 0" class="filaNormal">
                             {{l.netoAcobrar | currency:"":0}}
                         </td>
-
+                        @*<td>{{l.puntero}}</td>*@
                     </tr>
                 </table>
             </div>
-        </div>
-        @*<pre>{{vm.listLiquidaciones | json}}</pre>*@
-            @*<pre>{{vm.psfDto | json}}</pre>*@
+        </div>       
     </div>
 </body>

@@ -259,8 +259,15 @@ namespace SYJ.Domain.Managers.Auxiliares {
                         var liqSalario = new LiquidacionSalarioDto();
                         liqSalario.Empleado = new EmpleadoDto();
                         liqSalario.Empleado.EmpleadoID = 0;
+                        liqSalario.Empleado.Sucursale = new SucursaleDto() {
+                            SucursalID = s.SucursalID,
+                            NombreSucursal = s.NombreSucursal,
+                            Abreviatura = s.Abreviatura,
+                            Descripcion = s.Descripcion
+                        };
                         liqSalario.Empleado.Nombres = "Subtotal " + s.NombreSucursal;
                         liqSalario.SalarioBase = liquidacionesSuc.Sum(l => l.SalarioBase);
+                        liqSalario.Comisiones = liquidacionesSuc.Sum(l => l.Comisiones);
                         liqSalario.DescIPS = liquidacionesSuc.Sum(l => l.DescIPS);
                         liqSalario.DescOtros = liquidacionesSuc.Sum(l => l.DescOtros);
                         liqSalario.NetoAcobrar = liquidacionesSuc.Sum(l => l.NetoAcobrar);
