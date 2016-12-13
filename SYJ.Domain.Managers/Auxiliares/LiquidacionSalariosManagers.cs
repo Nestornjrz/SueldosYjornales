@@ -284,6 +284,9 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     liqSalario.SalarioBase = liqSalariosResul
                         .Where(l => l.Empleado.EmpleadoID != 0)
                         .Sum(l => l.SalarioBase);
+                    liqSalario.Comisiones = liqSalariosResul
+                        .Where(l => l.Empleado.EmpleadoID != 0)
+                        .Sum(l => l.Comisiones);
                     liqSalario.DescIPS = liqSalariosResul
                             .Where(l => l.Empleado.EmpleadoID != 0)
                         .Sum(l => l.DescIPS);
