@@ -46,6 +46,11 @@
             border: 1px solid red;
         }
     </style>
+    <style type="text/css" media="print">
+        .no_mostrar {
+            display: none;
+        }
+    </style>
     <style type="text/css" media="all">
         @@page {
             size: legal portrait;
@@ -138,6 +143,7 @@
             <div class="listado">
                 <table cellspacing="0">
                     <tr>
+                        <th class="no_mostrar">Mostrar</th>
                         <th>Item</th>
                         <th>Personales</th>
                         <th>Centro de costo</th>
@@ -146,7 +152,12 @@
                         <th>Desc. I.P.S.</th>                    
                         <th>Neto a Cobrar</th>
                     </tr>
-                    <tr ng-repeat="l in vm.listLiquidaciones">
+                    <tr ng-repeat="l in vm.listLiquidaciones"  ng-show="l.mostrar">
+                        <td class="no_mostrar">
+                            <input ng-model="l.mostrar"
+                                   ng-click="vm.mostrarOcultarFila($event,l)"
+                                   type="checkbox" />
+                        </td>
                         <td ng-show="l.empleado.empleadoID > 0" class="filaNormal">{{l.nroItem}}</td>
                         <td ng-show="l.empleado.empleadoID == 0" colspan="4" class="subTotal">
                             {{l.empleado.nombres}} {{l.empleado.apellidos}}
