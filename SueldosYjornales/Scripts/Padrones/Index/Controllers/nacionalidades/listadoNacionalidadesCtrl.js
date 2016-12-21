@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('listadoNacionalidadesCtrl', listadoNacionalidadesCtrl);
 
-    listadoNacionalidadesCtrl.$inject = ['$rootScope', '$modal', 'sYjResource'];
+    listadoNacionalidadesCtrl.$inject = ['$rootScope', '$uibModal', 'sYjResource'];
 
-    function listadoNacionalidadesCtrl($rootScope, $modal, sYjResource) {
+    function listadoNacionalidadesCtrl($rootScope, $uibModal, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
         vm.nacionalidades = sYjResource.nacionalidades.query();
@@ -15,7 +15,7 @@
             $rootScope.$broadcast('actualizarNacionalidade', nacionalidade);
         }
         vm.eliminar = function (nacionalidade) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminacionNacionalidad.html',
                 controller: function ($scope, $uibModalInstance) {
                     $scope.nacionalidade = nacionalidade;

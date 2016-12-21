@@ -5,15 +5,15 @@
         .module('sueldosYjornalesApp')
         .controller('listadoEmpresasCtrl', listadoEmpresasCtrl);
 
-    listadoEmpresasCtrl.$inject = ['$rootScope','$modal', 'sYjResource'];
+    listadoEmpresasCtrl.$inject = ['$rootScope', '$uibModal', 'sYjResource'];
 
-    function listadoEmpresasCtrl($rootScope, $modal, sYjResource) {
+    function listadoEmpresasCtrl($rootScope, $uibModal, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
         vm.empresas = sYjResource.empresas.query();
 
         vm.eliminar = function (empresa) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminacion.html',
                 controller: function ($scope, $uibModalInstance) {
                     $scope.empresa = empresa;

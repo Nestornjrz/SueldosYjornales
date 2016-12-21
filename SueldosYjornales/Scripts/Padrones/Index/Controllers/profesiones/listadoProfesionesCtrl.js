@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('listadoProfesionesCtrl', listadoProfesionesCtrl);
 
-    listadoProfesionesCtrl.$inject = ['$rootScope', '$modal', 'sYjResource'];
+    listadoProfesionesCtrl.$inject = ['$rootScope', '$uibModal', 'sYjResource'];
 
-    function listadoProfesionesCtrl($rootScope, $modal, sYjResource) {
+    function listadoProfesionesCtrl($rootScope, $uibModal, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
         vm.profesiones = sYjResource.profesiones.query();
@@ -16,7 +16,7 @@
             $rootScope.$broadcast('actualizarProfesione',profesione);
         }
         vm.eliminar = function (profesione) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminacionProfesion.html',
                 controller: function ($scope, $uibModalInstance) {
                     $scope.profesione = profesione;

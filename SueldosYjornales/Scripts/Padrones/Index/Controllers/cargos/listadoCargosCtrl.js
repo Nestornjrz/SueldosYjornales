@@ -5,15 +5,15 @@
         .module('sueldosYjornalesApp')
         .controller('listadoCargosCtrl', listadoCargosCtrl);
 
-    listadoCargosCtrl.$inject = ['$rootScope', '$modal', 'sYjResource'];
+    listadoCargosCtrl.$inject = ['$rootScope', '$uibModal', 'sYjResource'];
 
-    function listadoCargosCtrl($rootScope, $modal, sYjResource) {
+    function listadoCargosCtrl($rootScope, $uibModal, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
         vm.cargos = sYjResource.cargos.query();
 
         vm.eliminar = function (cargo) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminacionCargo.html',
                 controller: function ($scope, $uibModalInstance) {
                     $scope.cargo = cargo;

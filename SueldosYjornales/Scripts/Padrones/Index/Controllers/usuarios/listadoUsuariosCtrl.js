@@ -5,9 +5,9 @@
         .module('sueldosYjornalesApp')
         .controller('listadoUsuariosCtrl', listadoUsuariosCtrl);
 
-    listadoUsuariosCtrl.$inject = ['$rootScope', '$modal', 'sYjResource'];
+    listadoUsuariosCtrl.$inject = ['$rootScope', '$uibModal', 'sYjResource'];
 
-    function listadoUsuariosCtrl($rootScope, $modal, sYjResource) {
+    function listadoUsuariosCtrl($rootScope, $uibModal, sYjResource) {
         /* jshint validthis:true */
         var vm = this;
         vm.usuarios = sYjResource.usuarios.query();
@@ -15,7 +15,7 @@
             $rootScope.$broadcast('actualizarUsuario', usuario);
         }
         vm.eliminar = function (usuario) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'ModalEliminacionUsuario.html',
                 controller: function ($scope, $uibModalInstance) {
                     $scope.usuario = usuario;
