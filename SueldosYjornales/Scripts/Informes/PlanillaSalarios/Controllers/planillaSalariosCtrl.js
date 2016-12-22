@@ -94,9 +94,13 @@
                         subTotal.descIps = 0;
                         subTotal.descOtros = 0;
                         subTotal.netoAcobrar = 0;
+                    } else if (liqui.mostrar == true) {
+                        liqui.nroItem = contador;
+                        contador++;
                     }
+
                     //Se cambia el gran total
-                    if (liqui.empleado.sucursale == null) {
+                    if (liqui.empleado.nombres.search("Gran total") > -1) {
                         liqui.salarioBase = granTotal.sueldo;
                         liqui.comisiones = granTotal.comision;
                         liqui.descIPS = granTotal.descIps;
