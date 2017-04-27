@@ -18,6 +18,7 @@ namespace SYJ.Domain.Managers.Mtess
 
             var empleadosActivos = new List<EmpleadoDto>();
             var empleadosSalidos = new List<EmpleadoDto>();
+            var empleadosSalidosTotales = new List<EmpleadoDto>();
             foreach (var syjDto in listadoSueldoYjornales)
             {
                 var empleado = empleados.Where(e => e.EmpleadoID == syjDto.EmpleadoID).First();
@@ -28,6 +29,12 @@ namespace SYJ.Domain.Managers.Mtess
                 else
                 {
                     empleadosSalidos.Add(empleado);
+                }
+                //Se calcula la cantidad de empleados salidos en el año, los que incluyen los que se les considera como activos
+                //porque salieron en el mes activo (2 parametro del metodo EmpleadoTrabajaTodaviaEnLaEmpresa)
+                if (!HistoricoIngresoSalidasManagers.EmpleadoTrabajaTodaviaEnLaEmpresa(syjDto.EmpleadoID, 12, year, false))
+                {
+                    empleadosSalidosTotales.Add(empleado);
                 }
             }
             List<EmpleadoDto> empleadosActivosYsalidos = new List<EmpleadoDto>();
@@ -85,10 +92,10 @@ namespace SYJ.Domain.Managers.Mtess
             ResumenGeneralDto rgDto_5 = new ResumenGeneralDto();
             rgDto_5.NroPatronal = 77399;
             rgDto_5.Anho = year;
-            rgDto_5.SupJefesVarones = CantidadIngreEgreSupJefesYear(empleadosSalidos, year, 1);//Masculino
-            rgDto_5.SupJefesMujeres = CantidadIngreEgreSupJefesYear(empleadosSalidos, year, 2);//Femenino
-            rgDto_5.EmpleadosVarones = CantEgresoEmpleados(empleadosSalidos, year, 1);//Masculino
-            rgDto_5.EmpleadosMujeres = CantEgresoEmpleados(empleadosSalidos, year, 2);//Femenino
+            rgDto_5.SupJefesVarones = CantidadIngreEgreSupJefesYear(empleadosSalidosTotales, year, 1);//Masculino          
+            rgDto_5.SupJefesMujeres = CantidadIngreEgreSupJefesYear(empleadosSalidosTotales, year, 2);//Femenino          
+            rgDto_5.EmpleadosVarones = CantEgresoEmpleados(empleadosSalidosTotales, year, 1);//Masculino          
+            rgDto_5.EmpleadosMujeres = CantEgresoEmpleados(empleadosSalidosTotales, year, 2);//Femenino          
 
             rgDto_5.Orden = 5;
             listado.Add(rgDto_5);
