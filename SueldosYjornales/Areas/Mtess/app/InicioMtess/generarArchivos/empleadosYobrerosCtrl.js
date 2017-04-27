@@ -5,7 +5,9 @@ var app;
         var generarArchivos;
         (function (generarArchivos) {
             var EmpleadosYobrerosCtrl = (function () {
-                function EmpleadosYobrerosCtrl(dataAccessService, $scope, $rootScope, $timeout) {
+                function EmpleadosYobrerosCtrl(dataAccessService, $scope, $rootScope, $timeout
+                    //private $uibModal: angular.ui.bootstrap.IModalService
+                ) {
                     this.dataAccessService = dataAccessService;
                     this.$scope = $scope;
                     this.$rootScope = $rootScope;
@@ -21,15 +23,16 @@ var app;
                         vm.mostrarLoading = false;
                     });
                 };
-                //#endregion
-                EmpleadosYobrerosCtrl.$inject = [
-                    "dataAccessService",
-                    "$scope",
-                    "$rootScope",
-                    "$timeout"
-                ];
                 return EmpleadosYobrerosCtrl;
             }());
+            //#endregion
+            EmpleadosYobrerosCtrl.$inject = [
+                "dataAccessService",
+                "$scope",
+                "$rootScope",
+                "$timeout"
+                //"$uibModal"
+            ];
             angular.module("syjApp").controller("EmpleadosYobrerosCtrl", EmpleadosYobrerosCtrl);
         })(generarArchivos = inicioMtess.generarArchivos || (inicioMtess.generarArchivos = {}));
     })(inicioMtess = app.inicioMtess || (app.inicioMtess = {}));

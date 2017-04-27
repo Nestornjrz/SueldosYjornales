@@ -7,7 +7,9 @@ var app;
         (function (generarArchivos) {
             "use strict";
             var SueldosYjornalesCtrl = (function () {
-                function SueldosYjornalesCtrl(dataAccessService, $scope, $rootScope, $timeout) {
+                function SueldosYjornalesCtrl(dataAccessService, $scope, $rootScope, $timeout
+                    //private $uibModal: angular.ui.bootstrap.IModalService
+                ) {
                     this.dataAccessService = dataAccessService;
                     this.$scope = $scope;
                     this.$rootScope = $rootScope;
@@ -73,15 +75,16 @@ var app;
                         return "Negrita";
                     }
                 };
-                //#endregion
-                SueldosYjornalesCtrl.$inject = [
-                    "dataAccessService",
-                    "$scope",
-                    "$rootScope",
-                    "$timeout"
-                ];
                 return SueldosYjornalesCtrl;
             }());
+            //#endregion
+            SueldosYjornalesCtrl.$inject = [
+                "dataAccessService",
+                "$scope",
+                "$rootScope",
+                "$timeout"
+                //"$uibModal"
+            ];
             angular.module("syjApp").controller("SueldosYjornalesCtrl", SueldosYjornalesCtrl);
         })(generarArchivos = inicioMtess.generarArchivos || (inicioMtess.generarArchivos = {}));
     })(inicioMtess = app.inicioMtess || (app.inicioMtess = {}));

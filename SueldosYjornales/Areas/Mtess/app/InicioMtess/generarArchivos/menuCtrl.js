@@ -39,10 +39,10 @@ var appinicioMtess;
                     resumenGeneral: { class: "", mostrar: false }
                 };
             };
-            //#endregion
-            MenuCtrl.$inject = ["$location"];
             return MenuCtrl;
         }());
+        //#endregion
+        MenuCtrl.$inject = ["$location"];
         angular.module("syjApp").controller("MenuCtrl", MenuCtrl);
     })(generarArchivos = appinicioMtess.generarArchivos || (appinicioMtess.generarArchivos = {}));
 })(appinicioMtess || (appinicioMtess = {}));

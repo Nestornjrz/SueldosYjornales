@@ -16,9 +16,9 @@ var app;
             DataAccessService.prototype.getResumenGeneralDtoResource = function () {
                 return this.$resource(this.syjPath.resumenesGenerales);
             };
-            DataAccessService.$inject = ["$resource", "syjPath"];
             return DataAccessService;
         }());
+        DataAccessService.$inject = ["$resource", "syjPath"];
         common.DataAccessService = DataAccessService;
         angular
             .module("common.services")

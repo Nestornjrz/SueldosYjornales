@@ -1,25 +1,26 @@
 ﻿using SYJ.Application.Dto;
 using SYJ.Application.Dto.Mtess;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SYJ.Domain.Managers.Mtess {
-    public class EmpleadosYobrerosManagers {
-        public List<EmpleadoYobreroDto> ListadoEmpleados() {
+namespace SYJ.Domain.Managers.Mtess
+{
+    public class EmpleadosYobrerosManagers
+    {
+        public List<EmpleadoYobreroDto> ListadoEmpleados()
+        {
             EmpleadosManagers em = new EmpleadosManagers();
             HistoricoDireccionesManagers hdm = new HistoricoDireccionesManagers();
             HistoricoSalariosManagers hsm = new HistoricoSalariosManagers();
             HistoricoIngresoSalidasManagers hism = new HistoricoIngresoSalidasManagers();
 
-            int year = 2015;
+            int year = 2016;
 
             var empleados = em.ListadoEmpleados();
             List<EmpleadoYobreroDto> listado = new List<EmpleadoYobreroDto>();
 
-            foreach (EmpleadoDto empleado in empleados) {
+            foreach (EmpleadoDto empleado in empleados)
+            {
                 //Se empieza a cargar el empleado
                 EmpleadoYobreroDto eyoDto = new EmpleadoYobreroDto();
                 eyoDto.EmpleadoID = empleado.EmpleadoID;
@@ -29,7 +30,8 @@ namespace SYJ.Domain.Managers.Mtess {
                 eyoDto.Apellido = empleado.Apellidos.Split(' ')[0];
                 eyoDto.Sexo = (empleado.Sexo.SexoID == 1) ? 'M' : 'F';
                 //Se calcula la carga del estado civil
-                switch (empleado.EstadoCivile.EstadoCivilID) {
+                switch (empleado.EstadoCivile.EstadoCivilID)
+                {
                     case 1:
                         eyoDto.EstadoCivil = 'S';
                         break;
@@ -49,39 +51,50 @@ namespace SYJ.Domain.Managers.Mtess {
                 eyoDto.Nacionalidad = empleado.Nacionalidade.NombreNacionalidad;
                 //Se calcula domicilio
                 var direccionActual = hdm.DireccionaActual(empleado.EmpleadoID);
-                if (!direccionActual.Error) {
+                if (!direccionActual.Error)
+                {
                     var historicoDi = (HistoricoDireccioneDto)direccionActual.ObjetoDto;
-                    if (historicoDi.Direccion.Length > 100) {
+                    if (historicoDi.Direccion.Length > 100)
+                    {
                         eyoDto.Domicilio = historicoDi.Direccion.Substring(0, 100);
-                    } else {
+                    }
+                    else
+                    {
                         eyoDto.Domicilio = historicoDi.Direccion;
                     }
-                } else {
+                }
+                else
+                {
                     eyoDto.Domicilio = "--";
                 }
                 //eyoDto.FechaNacMenor
                 eyoDto.HijosMenores = empleado.CantidadHijos;
                 //Se carga el cargo
                 var salarioYcargo = hsm.SalarioYCargoActual(empleado.EmpleadoID);
-                if (!salarioYcargo.Error) {
+                if (!salarioYcargo.Error)
+                {
                     var historicoSalarioCargo = (HistoricoSalarioDto)salarioYcargo.ObjetoDto;
                     eyoDto.Cargo = historicoSalarioCargo.Cargo.NombreCargo;
                 }
                 eyoDto.Profesion = empleado.Profesione.NombreProfesion;
                 //Se ve que ultima fecha de entrada tiene
                 var ingresoEgreso = hism.UltimoIngreso(empleado.EmpleadoID);
-                if (!ingresoEgreso.Error) {
+                if (!ingresoEgreso.Error)
+                {
                     var historicoIngresoEgreso = (HistoricoIngresoSalidaDto)ingresoEgreso.ObjetoDto;
                     eyoDto.FechaEntrada = historicoIngresoEgreso.FechaIngreso;
                     //Evitar que los que tienen fecha de ingreso superior al periodo que se esta calculando
                     //ingresen en la lista.
-                    if (!(eyoDto.FechaEntrada.Value.Year <= year)) {
+                    if (!(eyoDto.FechaEntrada.Value.Year <= year))
+                    {
                         continue;
                     }
-                    if (historicoIngresoEgreso.FechaSalida != null) {
+                    if (historicoIngresoEgreso.FechaSalida != null)
+                    {
                         //Evitar que se muestre la fecha de salida y el motivo si supera el periodo
                         //que se esta calculando.
-                        if (historicoIngresoEgreso.FechaSalida.Value.Year <= year) {
+                        if (historicoIngresoEgreso.FechaSalida.Value.Year <= year)
+                        {
                             eyoDto.FechaSalida = historicoIngresoEgreso.FechaSalida.Value;
                             eyoDto.MotivoSalida = historicoIngresoEgreso.MotivoSalida;
                         }
@@ -92,7 +105,12 @@ namespace SYJ.Domain.Managers.Mtess {
                 //eyoDto.MenorEsEscolar
                 listado.Add(eyoDto);
             }
-            return listado;
+
+            //Evitar que en el listado aparezcan los que tienen fecha de salida no igual al año seleccionado
+            var listadoFiltrado = listado
+                .Where(l => l.FechaSalida == null || l.FechaSalida.Value.Year == year)
+                .ToList();
+            return listadoFiltrado;
         }
     }
 }

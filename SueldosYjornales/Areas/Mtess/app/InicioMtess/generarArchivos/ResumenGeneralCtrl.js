@@ -7,7 +7,9 @@ var app;
         (function (generarArchivos) {
             "use strict";
             var ResumenGeneralCtrl = (function () {
-                function ResumenGeneralCtrl(dataAccessService, $scope, $rootScope, $timeout) {
+                function ResumenGeneralCtrl(dataAccessService, $scope, $rootScope, $timeout
+                    //private $uibModal: angular.ui.bootstrap.IModalService
+                ) {
                     this.dataAccessService = dataAccessService;
                     this.$scope = $scope;
                     this.$rootScope = $rootScope;
@@ -26,15 +28,16 @@ var app;
                         vm.mostrarLoading = false;
                     });
                 };
-                //#endregion
-                ResumenGeneralCtrl.$inject = [
-                    "dataAccessService",
-                    "$scope",
-                    "$rootScope",
-                    "$timeout"
-                ];
                 return ResumenGeneralCtrl;
             }());
+            //#endregion
+            ResumenGeneralCtrl.$inject = [
+                "dataAccessService",
+                "$scope",
+                "$rootScope",
+                "$timeout"
+                //"$uibModal"
+            ];
             angular.module("syjApp").controller("ResumenGeneralCtrl", ResumenGeneralCtrl);
         })(generarArchivos = inicioMtess.generarArchivos || (inicioMtess.generarArchivos = {}));
     })(inicioMtess = app.inicioMtess || (app.inicioMtess = {}));

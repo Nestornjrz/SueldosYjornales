@@ -1,35 +1,39 @@
-﻿using SYJ.Application.Dto.Mtess;
-using System;
+﻿using SYJ.Application.Dto;
+using SYJ.Application.Dto.Mtess;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SYJ.Application.Dto;
 
-namespace SYJ.Domain.Managers.Mtess {
-    public class ResumenesGeneralesManagers {
-        public List<ResumenGeneralDto> ListadoResumenGeneral() {
+namespace SYJ.Domain.Managers.Mtess
+{
+    public class ResumenesGeneralesManagers
+    {
+        public List<ResumenGeneralDto> ListadoResumenGeneral()
+        {
             EmpleadosManagers em = new EmpleadosManagers();
             SueldosYjornalesManagers syjm = new SueldosYjornalesManagers();
             List<SueldoYjornaleDto> listadoSueldoYjornales = syjm.ListadoSueldosYjoranales();
 
-            var year = 2015;
+            var year = 2016;
             List<EmpleadoDto> empleados = em.ListadoEmpleados();
 
             var empleadosActivos = new List<EmpleadoDto>();
             var empleadosSalidos = new List<EmpleadoDto>();
-            foreach (var syjDto in listadoSueldoYjornales) {
+            foreach (var syjDto in listadoSueldoYjornales)
+            {
                 var empleado = empleados.Where(e => e.EmpleadoID == syjDto.EmpleadoID).First();
-                if (HistoricoIngresoSalidasManagers.EmpleadoTrabajaTodaviaEnLaEmpresa(syjDto.EmpleadoID, 12, year)) {
+                if (HistoricoIngresoSalidasManagers.EmpleadoTrabajaTodaviaEnLaEmpresa(syjDto.EmpleadoID, 12, year))
+                {
                     empleadosActivos.Add(empleado);
-                } else {
+                }
+                else
+                {
                     empleadosSalidos.Add(empleado);
                 }
             }
             List<EmpleadoDto> empleadosActivosYsalidos = new List<EmpleadoDto>();
             empleadosActivosYsalidos.AddRange(empleadosActivos);
             empleadosActivosYsalidos.AddRange(empleadosSalidos);
-           
+
 
             var listado = new List<ResumenGeneralDto>();
             //Orden 1 - 1 CANTIDAD  O NUMERO DE TRABAJADORES
@@ -92,17 +96,23 @@ namespace SYJ.Domain.Managers.Mtess {
             return listado;
         }
 
-        private int CantEgresoEmpleados(List<EmpleadoDto> empleadosSalidos, int year, int sexoID) {
+        private int CantEgresoEmpleados(List<EmpleadoDto> empleadosSalidos, int year, int sexoID)
+        {
             HistoricoIngresoSalidasManagers hism = new HistoricoIngresoSalidasManagers();
             int cantidad = 0;
-            foreach (var empleado in empleadosSalidos) {
-                if (empleado.Sexo.SexoID == sexoID && empleado.Cargo.CargoID != 2) {//No sea Gerente Administrativo
+            foreach (var empleado in empleadosSalidos)
+            {
+                if (empleado.Sexo.SexoID == sexoID && empleado.Cargo.CargoID != 2)
+                {//No sea Gerente Administrativo
                     var mensajeUltimoIngreso = hism.UltimoIngreso(empleado.EmpleadoID);
-                    if (!mensajeUltimoIngreso.Error) {
+                    if (!mensajeUltimoIngreso.Error)
+                    {
                         var hisIngresoSalidaDto = (HistoricoIngresoSalidaDto)mensajeUltimoIngreso.ObjetoDto;
                         var fechaSalida = hisIngresoSalidaDto.FechaSalida;
-                        if (fechaSalida != null) {
-                            if (fechaSalida.Value.Year == year) {
+                        if (fechaSalida != null)
+                        {
+                            if (fechaSalida.Value.Year == year)
+                            {
                                 cantidad++;
                             }
                         }
@@ -114,16 +124,21 @@ namespace SYJ.Domain.Managers.Mtess {
 
 
 
-        private int CantIngresoEmpleados(List<EmpleadoDto> empleados, int year, int sexoID) {
+        private int CantIngresoEmpleados(List<EmpleadoDto> empleados, int year, int sexoID)
+        {
             HistoricoIngresoSalidasManagers hism = new HistoricoIngresoSalidasManagers();
             int cantidad = 0;
-            foreach (var empleado in empleados) {
-                if (empleado.Sexo.SexoID == sexoID && empleado.Cargo.CargoID != 2) {//No sea Gerente Administrativo
+            foreach (var empleado in empleados)
+            {
+                if (empleado.Sexo.SexoID == sexoID && empleado.Cargo.CargoID != 2)
+                {//No sea Gerente Administrativo
                     var mensajeUltimoIngreso = hism.UltimoIngreso(empleado.EmpleadoID);
-                    if (!mensajeUltimoIngreso.Error) {
+                    if (!mensajeUltimoIngreso.Error)
+                    {
                         var hisIngresoSalidaDto = (HistoricoIngresoSalidaDto)mensajeUltimoIngreso.ObjetoDto;
                         var fechaIngreso = hisIngresoSalidaDto.FechaIngreso;
-                        if (fechaIngreso.Year == year) {
+                        if (fechaIngreso.Year == year)
+                        {
                             cantidad++;
                         }
                     }
@@ -132,16 +147,21 @@ namespace SYJ.Domain.Managers.Mtess {
             return cantidad;
         }
 
-        private int CantidadIngreEgreSupJefesYear(List<EmpleadoDto> empleados, int year, int sexoID) {
+        private int CantidadIngreEgreSupJefesYear(List<EmpleadoDto> empleados, int year, int sexoID)
+        {
             HistoricoIngresoSalidasManagers hism = new HistoricoIngresoSalidasManagers();
             int cantidad = 0;
-            foreach (var empleado in empleados) {
-                if (empleado.Sexo.SexoID == sexoID && empleado.Cargo.CargoID == 2) {//Gerente Administrativo
+            foreach (var empleado in empleados)
+            {
+                if (empleado.Sexo.SexoID == sexoID && empleado.Cargo.CargoID == 2)
+                {//Gerente Administrativo
                     var mensajeUltimoIngreso = hism.UltimoIngreso(empleado.EmpleadoID);
-                    if (!mensajeUltimoIngreso.Error) {
+                    if (!mensajeUltimoIngreso.Error)
+                    {
                         var hisIngresoSalidaDto = (HistoricoIngresoSalidaDto)mensajeUltimoIngreso.ObjetoDto;
                         var fechaIngreso = hisIngresoSalidaDto.FechaIngreso;
-                        if (fechaIngreso.Year == year) {
+                        if (fechaIngreso.Year == year)
+                        {
                             cantidad++;
                         }
                     }
@@ -152,14 +172,18 @@ namespace SYJ.Domain.Managers.Mtess {
 
         private int CantSueldosYJornalesEmpleados(List<EmpleadoDto> empleadosActivos,
             List<SueldoYjornaleDto> listadoSueldoYjornales,
-            int sexoID) {
+            int sexoID)
+        {
             int totalSueldos = 0;
-            foreach (var empleado in empleadosActivos) {
+            foreach (var empleado in empleadosActivos)
+            {
                 if (empleado.Cargo.CargoID != 2 && //No es Gerente Administrativo
-                    empleado.Sexo.SexoID == sexoID) {
+                    empleado.Sexo.SexoID == sexoID)
+                {
                     var empleSueldoYjornal = listadoSueldoYjornales.Where(l => l.EmpleadoID == empleado.EmpleadoID)
                          .FirstOrDefault();
-                    if (empleSueldoYjornal != null) {
+                    if (empleSueldoYjornal != null)
+                    {
                         totalSueldos += (int)empleSueldoYjornal.Total_S;
                     }
                 }
@@ -169,14 +193,18 @@ namespace SYJ.Domain.Managers.Mtess {
 
         private int CantSueldosYjornalesSupJefes(List<EmpleadoDto> empleadosActivos,
             List<SueldoYjornaleDto> listadoSueldoYjornales,
-            int sexoID) {
+            int sexoID)
+        {
             int totalSueldos = 0;
-            foreach (var empleado in empleadosActivos) {
+            foreach (var empleado in empleadosActivos)
+            {
                 if (empleado.Cargo.CargoID == 2 && //Gerente general
-                    empleado.Sexo.SexoID == sexoID) {
+                    empleado.Sexo.SexoID == sexoID)
+                {
                     var empleSueldoYjornal = listadoSueldoYjornales.Where(l => l.EmpleadoID == empleado.EmpleadoID)
                          .FirstOrDefault();
-                    if (empleSueldoYjornal != null) {
+                    if (empleSueldoYjornal != null)
+                    {
                         totalSueldos += (int)empleSueldoYjornal.Total_S;
                     }
                 }
@@ -186,14 +214,18 @@ namespace SYJ.Domain.Managers.Mtess {
 
         private int CantHorasTrabajadasEmpleados(List<EmpleadoDto> empleadosActivos,
             List<SueldoYjornaleDto> listadoSueldoYjornales,
-            int sexoID) {
+            int sexoID)
+        {
             int cantidad = 0;
-            foreach (var empleado in empleadosActivos) {
+            foreach (var empleado in empleadosActivos)
+            {
                 if (empleado.Cargo.CargoID != 2 && //No sea Gerente general
-                    empleado.Sexo.SexoID == sexoID) {
+                    empleado.Sexo.SexoID == sexoID)
+                {
                     var empleSueldoYjornal = listadoSueldoYjornales.Where(l => l.EmpleadoID == empleado.EmpleadoID)
                          .FirstOrDefault();
-                    if (empleSueldoYjornal != null) {
+                    if (empleSueldoYjornal != null)
+                    {
                         cantidad += empleSueldoYjornal.Total_H;
                     }
                 }
@@ -202,14 +234,18 @@ namespace SYJ.Domain.Managers.Mtess {
         }
 
         private int CantHorasTrabajadasSupJefes(List<EmpleadoDto> empleadosActivos,
-            List<SueldoYjornaleDto> listadoSueldoYjornales, int sexoID) {
+            List<SueldoYjornaleDto> listadoSueldoYjornales, int sexoID)
+        {
             int cantidad = 0;
-            foreach (var empleado in empleadosActivos) {
+            foreach (var empleado in empleadosActivos)
+            {
                 if (empleado.Cargo.CargoID == 2 && //Gerente general
-                    empleado.Sexo.SexoID == sexoID) {
+                    empleado.Sexo.SexoID == sexoID)
+                {
                     var empleSueldoYjornal = listadoSueldoYjornales.Where(l => l.EmpleadoID == empleado.EmpleadoID)
                          .FirstOrDefault();
-                    if (empleSueldoYjornal != null) {
+                    if (empleSueldoYjornal != null)
+                    {
                         cantidad += empleSueldoYjornal.Total_H;
                     }
                 }
@@ -217,22 +253,28 @@ namespace SYJ.Domain.Managers.Mtess {
             return cantidad;
         }
 
-        private int CantidadEmpleados(List<EmpleadoDto> empleadosActivos, int sexoID) {
+        private int CantidadEmpleados(List<EmpleadoDto> empleadosActivos, int sexoID)
+        {
             int cantidad = 0;
-            foreach (var empleado in empleadosActivos) {
+            foreach (var empleado in empleadosActivos)
+            {
                 if (empleado.Cargo.CargoID != 2 && //No sea Gerente general
-                    empleado.Sexo.SexoID == sexoID) {
+                    empleado.Sexo.SexoID == sexoID)
+                {
                     cantidad++;
                 }
             }
             return cantidad;
         }
 
-        private int CantidadSupJefes(List<EmpleadoDto> empleadosActivos, int sexoID) {
+        private int CantidadSupJefes(List<EmpleadoDto> empleadosActivos, int sexoID)
+        {
             int cantidad = 0;
-            foreach (var empleado in empleadosActivos) {
+            foreach (var empleado in empleadosActivos)
+            {
                 if (empleado.Cargo.CargoID == 2 && //Gerente general
-                    empleado.Sexo.SexoID == sexoID) {
+                    empleado.Sexo.SexoID == sexoID)
+                {
                     cantidad++;
                 }
             }
