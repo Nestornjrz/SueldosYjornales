@@ -1,5 +1,5 @@
 # ESTE PROYECTO FUE CREADO USANDO ANGULAR CLI
-@angular/cli: 1.0.1
+@angular/cli: 1.0.3
 
 ![File](imagen_readme/file.png)
 
@@ -14,6 +14,9 @@ Se puede utilizar **npm-check-updates** o **npm outdated**
 * referencias
     * [stackoverflow](http://stackoverflow.com/questions/36597780/how-do-i-correctly-upgrade-angular-2-npm-to-the-latest-version)
 
+  ![File](imagen_readme/ncu.png)
+
+  ![File](imagen_readme/ncu-a.png)
 # USO DE LODASH
 [Stackoverflow](https://stackoverflow.com/questions/41991178/correct-way-of-importing-and-using-lodash-in-angular)
 
