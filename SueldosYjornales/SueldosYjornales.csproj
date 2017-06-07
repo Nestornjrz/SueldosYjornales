@@ -233,6 +233,7 @@
     <Compile Include="Controllers\InformesController.cs" />
     <Compile Include="Controllers\LiquidacionSalariosController.cs" />
     <Compile Include="Controllers\PadronesController.cs" />
+    <Compile Include="Controllers\PrestamosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -528,6 +529,7 @@
     <Content Include="Views\LiquidacionSalarios\ImpresionLiqAguinaldoReporte.cshtml" />
     <Content Include="Views\Informes\MovimientosEmpleado.cshtml" />
     <Content Include="Views\Informes\MovimientosEmpleado\_MovPorMes.cshtml" />
+    <Content Include="Views\Prestamos\Index.cshtml" />
     <None Include="Web.ProduccionRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
