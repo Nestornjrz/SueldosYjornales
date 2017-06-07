@@ -41,7 +41,7 @@
                                 {{o.nombres}} {{o.apellidos}}
                             </a>
                         </td>
-                        <td>{{o.fechaNacimiento | date:"dd/MM/yyyy"}}</td>
+                        <td>{{o.fechaNacimiento | date:"dd/MM/yyyy":"UTC"}}</td>
                         <td ng-hide="mostrarFormCargaEmpleado">{{o.nroCedula}}</td>
                         <td ng-hide="mostrarFormCargaEmpleado">{{o.estadoCivile.nombreEstadoCivil}}</td>
                         <td ng-hide="mostrarFormCargaEmpleado">{{o.nacionalidade.nombreNacionalidad}}</td>
@@ -88,7 +88,7 @@
                                 {{o.nombres}} {{o.apellidos}}
                             </a>
                         </td>
-                        <td>{{o.fechaNacimiento | date:"dd/MM/yyyy"}}</td>
+                        <td>{{o.fechaNacimiento | date:"dd/MM/yyyy":"UTC"}}</td>
                         <td ng-hide="mostrarFormCargaEmpleado">{{o.nroCedula}}</td>
                         <td ng-hide="mostrarFormCargaEmpleado">{{o.estadoCivile.nombreEstadoCivil}}</td>
                         <td ng-hide="mostrarFormCargaEmpleado">{{o.nacionalidade.nombreNacionalidad}}</td>

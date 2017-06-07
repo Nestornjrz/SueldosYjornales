@@ -30,7 +30,8 @@
                                name="fechaNacimiento"
                                class="form-control"
                                ng-model="empleado.fechaNacimiento"
-                               ng-required="true" />
+                               ng-required="true"
+                               ng-model-options="{timezone: 'utc'}" />
                     </p>
                     <div style="color:red" ng-show="empleadoForm.fechaNacimiento.$dirty && empleadoForm.fechaNacimiento.$invalid">
                         <span ng-show="empleadoForm.fechaNacimiento.$error.date">No es un formato valido</span>
