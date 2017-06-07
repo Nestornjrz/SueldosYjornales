@@ -259,6 +259,7 @@
     <Content Include="Images\la aragonesa sa-02.jpg" />
     <Content Include="Images\Liquidar-Salarios.gif" />
     <Content Include="Images\loading_spinner.gif" />
+    <Content Include="Images\Prestamos.jpg" />
     <Content Include="Scripts\Account\Login\Services\common.services.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
@@ -412,6 +413,13 @@
     <Content Include="Scripts\ng-file-upload-shim.min.js" />
     <Content Include="Scripts\ng-file-upload.js" />
     <Content Include="Scripts\ng-file-upload.min.js" />
+    <Content Include="Scripts\ngapp\dist\favicon.ico" />
+    <Content Include="Scripts\ngapp\dist\index.html" />
+    <Content Include="Scripts\ngapp\dist\inline.bundle.js" />
+    <Content Include="Scripts\ngapp\dist\main.bundle.js" />
+    <Content Include="Scripts\ngapp\dist\polyfills.bundle.js" />
+    <Content Include="Scripts\ngapp\dist\styles.bundle.js" />
+    <Content Include="Scripts\ngapp\dist\vendor.bundle.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\cargos\cargosCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\cargos\listadoCargosCtrl.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\empresas\empresasCtrl.js" />
@@ -530,6 +538,12 @@
     <Content Include="Views\Informes\MovimientosEmpleado.cshtml" />
     <Content Include="Views\Informes\MovimientosEmpleado\_MovPorMes.cshtml" />
     <Content Include="Views\Prestamos\Index.cshtml" />
+    <Content Include="Scripts\ngapp\dist\inline.bundle.js.map" />
+    <Content Include="Scripts\ngapp\dist\main.bundle.js.map" />
+    <Content Include="Scripts\ngapp\dist\polyfills.bundle.js.map" />
+    <Content Include="Scripts\ngapp\dist\styles.bundle.js.map" />
+    <Content Include="Scripts\ngapp\dist\vendor.bundle.js.map" />
+    <Content Include="Views\Prestamos\_Layout_prestamo.cshtml" />
     <None Include="Web.ProduccionRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
