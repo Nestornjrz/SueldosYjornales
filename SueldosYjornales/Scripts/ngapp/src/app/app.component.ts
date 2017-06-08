@@ -8,13 +8,10 @@ import { EmpleadoDto } from 'app/dtos/empleado-dto';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  pageTitle = 'app works!';
-  empleados: EmpleadoDto[];
+  pageTitle = 'PRESTAMOS';
+
   constructor(private _empleadosService: EmpleadosService) {}
   ngOnInit(): void {
-    this._empleadosService.getEmpleados()
-      .subscribe((empleados) => {
-        this.empleados = empleados;
-      });
+
   }
 }
