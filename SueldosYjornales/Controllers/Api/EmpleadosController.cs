@@ -10,7 +10,7 @@ using System.Web.Http.Cors;
 
 namespace SueldosYjornales.Controllers.Api
 {
-    [Authorize]
+    //[Authorize]
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class EmpleadosController : ApiController
     {
