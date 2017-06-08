@@ -26,4 +26,4 @@ export class EmpleadoDto {
     /// o si ya salio de la empresa
     /// </summary>
     activo: boolean;
-
+}
