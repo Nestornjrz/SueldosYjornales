@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { EmpleadosService } from './services/empleados.service';
 import { WindowsRefService } from './services/windows-ref.service';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { WindowsRefService } from './services/windows-ref.service';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AppRoutingModule
   ],
   providers: [EmpleadosService, WindowsRefService],
   bootstrap: [AppComponent]
