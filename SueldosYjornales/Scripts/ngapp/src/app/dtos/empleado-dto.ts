@@ -1,9 +1,9 @@
-import { SexoDto } from "app/dtos/sexo-dto";
-import { EstadoCivileDto } from "app/dtos/estado-civile-dto";
-import { NacionalidadeDto } from "app/dtos/nacionalidade-dto";
-import { ProfesioneDto } from "app/dtos/profesione-dto";
-import { SucursaleDto } from "app/dtos/sucursale-dto";
-import { CargoDto } from "app/dtos/cargo-dto";
+import { SexoDto } from 'app/dtos/sexo-dto';
+import { EstadoCivileDto } from 'app/dtos/estado-civile-dto';
+import { NacionalidadeDto } from 'app/dtos/nacionalidade-dto';
+import { ProfesioneDto } from 'app/dtos/profesione-dto';
+import { SucursaleDto } from 'app/dtos/sucursale-dto';
+import { CargoDto } from 'app/dtos/cargo-dto';
 
 export class EmpleadoDto {
     empleadoID: number;

@@ -1,4 +1,4 @@
-import { EmpresaDto } from "app/dtos/empresa-dto";
+import { EmpresaDto } from 'app/dtos/empresa-dto';
 
 export class SucursaleDto {
     sucursalID: number;
