@@ -8,7 +8,7 @@ import { EmpleadoDto } from 'app/dtos/empleado-dto';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app works!';
+  pageTitle = 'app works!';
   empleados: EmpleadoDto[];
   constructor(private _empleadosService: EmpleadosService) {}
   ngOnInit(): void {

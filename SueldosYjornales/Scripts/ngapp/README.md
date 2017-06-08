@@ -7,7 +7,9 @@
 Para instalar bootstrap con angular-cli segui los pasos vistos en
 [stackoverflow](http://stackoverflow.com/questions/37649164/how-to-add-bootstrap-to-an-angular-cli-project). Tambien muestra como instalar ng2-bootstrap en la
 misma respuesta.
-
+```javascript
+npm install bootstrap --save
+```
 # CHEQUEAR ACTUALIZACIONES DE ANGULAR
 
 Se puede utilizar **npm-check-updates** o **npm outdated**
