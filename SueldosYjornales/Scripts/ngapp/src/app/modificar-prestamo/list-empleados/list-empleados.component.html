@@ -7,18 +7,21 @@
         <p-accordion>
             <p-accordionTab *ngFor="let suc of empleadosPorSucursal">
                 <p-header>
-                    {{suc.sucursal.nombreSucursal.toUpperCase()}} 
+                    {{suc.sucursal.nombreSucursal.toUpperCase()}}
                     <span title="Cantidad de funcionarios" class="badge" style="float:right;">{{suc.empleados.length}}</span>
-                    
+
                 </p-header>
 
                 <div style="height:350px;overflow-y: scroll;">
                     <table class="table table-hover table-condensed table-bordered table-striped">
                         <tbody>
                             <tr *ngFor="let emp of suc.empleados">
-                                <td>{{emp.apellidos}} {{emp.nombres}}                                    
-                                    <span title="Edad" class="badge" 
-                                    style="font-size:xx-small;color:#000000;background-color:white;border:1px solid black; float:right;">{{ emp.edad }}</span>                                    
+                                <td>
+                                    <button type="button" class="btn btn-link" (click)="seleccionarEmpleado(emp)">{{emp.apellidos}} {{emp.nombres}}</button>
+                                    <!--<a  href="javascript:void(0)" (click)="seleccionarEmpleado(emp)">
+                                        {{emp.apellidos}} {{emp.nombres}}                                    
+                                    </a>-->
+                                    <span title="Edad" class="badge" style="font-size:xx-small;color:#000000;background-color:white;border:1px solid black; float:right;">{{ emp.edad }}</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -28,6 +31,6 @@
         </p-accordion>
     </div>
 </div>
-
+<!--<pre>{{empleadoSelect | json}}</pre>-->
 
 <!--<pre>{{empleadosPorSucursal | json}}</pre>-->

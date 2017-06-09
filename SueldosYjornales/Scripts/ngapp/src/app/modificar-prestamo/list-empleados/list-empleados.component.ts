@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, DoCheck } from '@angular/core';
 
 // import { debounce } from "lodash";
 import * as _ from 'lodash';
@@ -23,6 +23,8 @@ export class GroupBySucursal {
 export class ListEmpleadosComponent implements OnInit, DoCheck {
   empleados: EmpleadoDto[] = [];
   empleadosPorSucursal: GroupBySucursal[];
+  empleadoSelect:EmpleadoDto;
+  @Output() empleadoSelectEvent:EventEmitter<EmpleadoDto> = new EventEmitter<EmpleadoDto>();
   selectedValues: string[] = ['activos'];
   cantSelectedValues = 0;
   cantSelectedValuesOld = 0;
@@ -80,5 +82,10 @@ export class ListEmpleadosComponent implements OnInit, DoCheck {
   }
   private selectedValuesChanges() {
     this.empleadosPorSucursal = this.agruparPorSucursal(this.empleados);
+  }
+
+  seleccionarEmpleado(empleado:EmpleadoDto){    
+    this.empleadoSelect = empleado;
+    this.empleadoSelectEvent.emit(this.empleadoSelect);
   }
 }
