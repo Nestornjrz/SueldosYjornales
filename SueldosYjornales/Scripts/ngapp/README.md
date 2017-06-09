@@ -54,3 +54,11 @@ Para refrescar un DataGrib luego de modificar el array que utilizaba como fuente
 npm install font-awesome --save
 ```
 
+# ANGULAR/ANIMATIONS
+```javascript
+npm install @angular/animations --save
+```
+
+```javascript
+npm install @angular/animations@latest --save //Ultima version estable
+```
