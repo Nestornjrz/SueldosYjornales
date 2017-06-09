@@ -22,6 +22,16 @@ Se puede utilizar **npm-check-updates** o **npm outdated**
 # USO DE LODASH
 [Stackoverflow](https://stackoverflow.com/questions/41991178/correct-way-of-importing-and-using-lodash-in-angular)
 
+```javascript
+npm install lodash --save;
+npm install @types/lodash --save-dev
+```
+```javascript
+npm install lodash-es --save
+npm install @types/lodash-es --save-dev
+```
+
+
 Al final use 
 ```javascript
 import * as _ from "lodash";
@@ -32,5 +42,8 @@ import debouce from 'lodash-es/debounce'
 ```
 
 # USO DE [PRIMENG](https://www.primefaces.org/primeng/#/)
+```javascript
+npm install primeng --save
+```
 
 Para refrescar un DataGrib luego de modificar el array que utilizaba como fuente mediante lodash, utilice la sugerencia de [stackOverflow](https://stackoverflow.com/questions/40077150/how-to-programmaticaly-trigger-refresh-primeng-datatable-when-a-button-is-clicke)
