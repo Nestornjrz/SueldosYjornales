@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 
-import {AccordionModule,SharedModule, CheckboxModule} from 'primeng/primeng';
+import {AccordionModule, SharedModule, CheckboxModule} from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
 import { EmpleadosService } from './services/empleados.service';
