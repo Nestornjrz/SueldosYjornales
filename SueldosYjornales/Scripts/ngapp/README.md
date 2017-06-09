@@ -47,3 +47,10 @@ npm install primeng --save
 ```
 
 Para refrescar un DataGrib luego de modificar el array que utilizaba como fuente mediante lodash, utilice la sugerencia de [stackOverflow](https://stackoverflow.com/questions/40077150/how-to-programmaticaly-trigger-refresh-primeng-datatable-when-a-button-is-clicke)
+
+# USO DE FONT-AWESOME
+
+```javascript
+npm install font-awesome --save
+```
+
