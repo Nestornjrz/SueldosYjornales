@@ -1,1 +1,24 @@
-<pre>{{empleadosPorSucursal | json}}</pre>
+<div class="panel panel-primary">
+    <div class="panel-heading">FUNCIONARIOS</div>
+    <div class="panel-body">
+        <p-accordion>
+            <p-accordionTab *ngFor="let suc of empleadosPorSucursal">
+                <p-header>
+                    {{suc.sucursal.nombreSucursal.toUpperCase()}}
+                </p-header>
+                <div style="height:400px;overflow-y: scroll;">
+                    <table class="table table-hover table-condensed table-bordered">
+                        <tbody>
+                            <tr *ngFor="let emp of suc.empleados">
+                                <td>{{emp.apellidos}} {{emp.nombres}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+</div>
+
+
+<!--<pre>{{empleadosPorSucursal | json}}</pre>-->

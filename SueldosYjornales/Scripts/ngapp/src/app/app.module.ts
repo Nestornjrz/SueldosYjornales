@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 
-import {AccordionModule} from 'primeng/primeng';
+import {AccordionModule,SharedModule} from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
 import { EmpleadosService } from './services/empleados.service';
@@ -25,7 +25,8 @@ import { ListEmpleadosComponent } from './modificar-prestamo/list-empleados/list
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AccordionModule, SharedModule
   ],
   providers: [EmpleadosService, WindowsRefService],
   bootstrap: [AppComponent]
