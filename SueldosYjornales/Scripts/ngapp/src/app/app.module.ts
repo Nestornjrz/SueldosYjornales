@@ -12,13 +12,15 @@ import { EmpleadosService } from './services/empleados.service';
 import { WindowsRefService } from './services/windows-ref.service';
 import { ModificarPrestamoComponent } from './modificar-prestamo/modificar-prestamo.component';
 import { ListEmpleadosComponent } from './modificar-prestamo/list-empleados/list-empleados.component';
+import { DetPrestamosComponent } from './modificar-prestamo/det-prestamos/det-prestamos.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ModificarPrestamoComponent,
-    ListEmpleadosComponent
+    ListEmpleadosComponent,
+    DetPrestamosComponent
   ],
   imports: [
     BrowserModule,
