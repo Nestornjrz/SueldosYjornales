@@ -5,7 +5,10 @@ import { ProfesioneDto } from 'app/dtos/profesione-dto';
 import { SucursaleDto } from 'app/dtos/sucursale-dto';
 import { CargoDto } from 'app/dtos/cargo-dto';
 
-export class EmpleadoDto {
+interface IPermitirAddPropDim {//Con este interfaz se permite que se pueda agregar dinamicamente propiedades
+    [key: string]: any
+}
+export class EmpleadoDto implements IPermitirAddPropDim {
     empleadoID: number;
     nombres: string;
     spellidos: string;
@@ -24,6 +27,20 @@ export class EmpleadoDto {
     /// <summary>
     /// Propiedad utilizada para determinar si el empleado esta activo
     /// o si ya salio de la empresa
-    /// </summary>
-    activo: boolean;
+    /// </summary>    
+    activo: boolean;   
+    //Propiedad auxiliar 
+    edad:number;
+    // Metodos auxiliares
+    static getEdad(fechaNacimiento:any): number {
+        var hoy = new Date();
+        var cumpleanos = new Date(fechaNacimiento);
+        var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+        var m = hoy.getMonth() - cumpleanos.getMonth();
+
+        if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+            edad--;
+        }
+        return edad;
+    }
 }

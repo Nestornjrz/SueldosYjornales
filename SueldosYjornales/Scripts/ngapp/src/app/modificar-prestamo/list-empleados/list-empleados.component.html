@@ -1,16 +1,25 @@
 <div class="panel panel-primary">
     <div class="panel-heading">FUNCIONARIOS</div>
     <div class="panel-body">
+        <p-checkbox name="groupname" value="activos" [(ngModel)]="selectedValues" label="Activos"></p-checkbox>
+        <p-checkbox name="groupname" value="salidos" [(ngModel)]="selectedValues" label="Salidos"></p-checkbox>
+        <!--<pre>{{selectedValues | json}}</pre>-->
         <p-accordion>
             <p-accordionTab *ngFor="let suc of empleadosPorSucursal">
                 <p-header>
-                    {{suc.sucursal.nombreSucursal.toUpperCase()}}
+                    {{suc.sucursal.nombreSucursal.toUpperCase()}} 
+                    <span title="Cantidad de funcionarios" class="badge" style="float:right;">{{suc.empleados.length}}</span>
+                    
                 </p-header>
-                <div style="height:400px;overflow-y: scroll;">
-                    <table class="table table-hover table-condensed table-bordered">
+
+                <div style="height:350px;overflow-y: scroll;">
+                    <table class="table table-hover table-condensed table-bordered table-striped">
                         <tbody>
                             <tr *ngFor="let emp of suc.empleados">
-                                <td>{{emp.apellidos}} {{emp.nombres}}</td>
+                                <td>{{emp.apellidos}} {{emp.nombres}}                                    
+                                    <span title="Edad" class="badge" 
+                                    style="font-size:xx-small;color:#000000;background-color:white;border:1px solid black; float:right;">{{ emp.edad }}</span>                                    
+                                </td>
                             </tr>
                         </tbody>
                     </table>

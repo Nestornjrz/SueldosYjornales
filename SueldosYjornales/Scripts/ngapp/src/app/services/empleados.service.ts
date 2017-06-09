@@ -29,7 +29,7 @@ export class EmpleadosService {
     return this._http.get(this._empleadosApiUrl)
       .map((response: Response) => <EmpleadoDto[]>response.json())
       .do(data => {
-        // console.log('ALL: ' + JSON.stringify(data))
+         //console.log('ALL: ' + JSON.stringify(data))
       })
       .catch(this.handleError);
   }
