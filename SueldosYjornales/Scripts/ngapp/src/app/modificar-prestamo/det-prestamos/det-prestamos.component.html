@@ -1,3 +1,15 @@
-<p>
-  det-prestamos works!
-</p>
+<div *ngIf="empleadoSelect">
+  <h1 style="margin-bottom: 1px;margin-top: 1px;">
+    {{empleadoSelect.nombres}} {{empleadoSelect.apellidos}}
+    <span class="badge"> {{empleadoSelect.edad}} años</span>
+  </h1>
+  <h3 style="margin-bottom: 1px;margin-top: 1px;">
+    Cedula: {{empleadoSelect.nroCedula | number}} - {{empleadoSelect.estadoCivile.nombreEstadoCivil}} - {{empleadoSelect.nacionalidade.nombreNacionalidad}}
+  </h3>
+  <h2 style="margin-bottom: 1px;margin-top: 1px;">
+    {{empleadoSelect.cargo.nombreCargo}} {{empleadoSelect.sucursale.nombreSucursal}}
+  </h2>
+</div>
+<pre>
+    {{empleadoSelect | json}}
+    </pre>

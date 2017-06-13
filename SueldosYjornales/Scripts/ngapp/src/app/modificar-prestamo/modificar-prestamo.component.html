@@ -3,9 +3,7 @@
     <app-list-empleados (empleadoSelectEvent)="onEmpleadoSelect($event)"></app-list-empleados>
   </div>
   <div class="col-md-7">
-    <app-det-prestamos></app-det-prestamos>
-    <pre>
-    {{empleadoSelect | json}}
-    </pre>
+    <app-det-prestamos [(empleadoSelect)]="empleadoSelect"></app-det-prestamos>
+    
   </div>
 </div>
