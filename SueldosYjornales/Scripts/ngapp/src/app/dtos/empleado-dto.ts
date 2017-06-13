@@ -9,6 +9,9 @@ interface IPermitirAddPropDim {// Con este interfaz se permite que se pueda agre
     [key: string]: any
 }
 export class EmpleadoDto implements IPermitirAddPropDim {
+    constructor(){
+        this.empleadoID = 0;
+    }
     empleadoID: number;
     nombres: string;
     spellidos: string;

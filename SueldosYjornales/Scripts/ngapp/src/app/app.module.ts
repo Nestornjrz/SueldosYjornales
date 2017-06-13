@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 
-import {AccordionModule, SharedModule, CheckboxModule} from 'primeng/primeng';
+import {AccordionModule, SharedModule, CheckboxModule, DataTableModule} from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
 import { EmpleadosService } from './services/empleados.service';
@@ -13,6 +13,7 @@ import { WindowsRefService } from './services/windows-ref.service';
 import { ModificarPrestamoComponent } from './modificar-prestamo/modificar-prestamo.component';
 import { ListEmpleadosComponent } from './modificar-prestamo/list-empleados/list-empleados.component';
 import { DetPrestamosComponent } from './modificar-prestamo/det-prestamos/det-prestamos.component';
+import { PrestamosSimplesService } from './services/prestamos-simples.service';
 
 
 @NgModule({
@@ -28,9 +29,9 @@ import { DetPrestamosComponent } from './modificar-prestamo/det-prestamos/det-pr
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    AccordionModule, SharedModule, CheckboxModule
+    AccordionModule, SharedModule, CheckboxModule, DataTableModule
   ],
-  providers: [EmpleadosService, WindowsRefService],
+  providers: [EmpleadosService, WindowsRefService, PrestamosSimplesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
