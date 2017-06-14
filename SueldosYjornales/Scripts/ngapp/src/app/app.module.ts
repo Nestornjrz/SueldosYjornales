@@ -14,6 +14,7 @@ import { ModificarPrestamoComponent } from './modificar-prestamo/modificar-prest
 import { ListEmpleadosComponent } from './modificar-prestamo/list-empleados/list-empleados.component';
 import { DetPrestamosComponent } from './modificar-prestamo/det-prestamos/det-prestamos.component';
 import { PrestamosSimplesService } from './services/prestamos-simples.service';
+import { PrestamoIndividualComponent } from './modificar-prestamo/det-prestamos/prestamo-individual/prestamo-individual.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { PrestamosSimplesService } from './services/prestamos-simples.service';
     AppComponent,
     ModificarPrestamoComponent,
     ListEmpleadosComponent,
-    DetPrestamosComponent
+    DetPrestamosComponent,
+    PrestamoIndividualComponent
   ],
   imports: [
     BrowserModule,
