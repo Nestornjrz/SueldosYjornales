@@ -12,9 +12,10 @@
 </div>
 <hr/>
 <div *ngIf="prestamosSimplesDto.length > 0">
- 
+  <app-prestamo-individual *ngFor="let pres of prestamosSimplesDto"
+  [prestamoSimple]="pres">   
+  </app-prestamo-individual>
 </div>
-
 <!--<pre>
     {{prestamosSimplesDto | json}}
     </pre>-->

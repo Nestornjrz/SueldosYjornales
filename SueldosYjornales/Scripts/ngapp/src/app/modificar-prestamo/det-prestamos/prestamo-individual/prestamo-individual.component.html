@@ -1,36 +1,41 @@
- <div class="panel panel-primary" *ngFor="let pres of prestamosSimplesDto">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <b>Prestamo numero:</b> {{pres.prestamoSimpleID}} -
-        <b>1er. Vencimiento:</b> {{pres.fecha1erVencimiento | date:"dd/MM/yyyy":"UTC"}}
-        <span style="float: right;">
-         <b>Cuotas</b>  <span class="badge">{{pres.cuotas}}</span>
-        </span>
-      </h3>
-    </div>
-    <div class="panel-body">
-      <div>{{pres.observacion}}</div>
-
-      <p-dataTable [value]="pres.cuotasMov" [editable]="true" >
-        <p-column field="movEmpleadoDetID" header="ID" [editable]="false" [style]="{'text-align':'center'}"></p-column>
-        <p-column field="debito" header="Monto" [editable]="true" [style]="{'text-align':'center'}">
-          <ng-template let-col let-cuota="rowData" pTemplate="body">
-            {{cuota[col.field]| number }}
-          </ng-template>
-          <ng-template let-col let-cuota="rowData" pTemplate="editor">
-            <input type="text" pInputText [(ngModel)]="cuota[col.field]"  [style]="{'text-align':'center'}"/>            
-          </ng-template>
-        </p-column>
-        <p-column field="mesAplicacion" header="mesAplicacion" [editable]="true" [style]=" {'overflow':'visible','text-align':'center' }">
-          <ng-template let-col let-cuota="rowData" pTemplate="body">
-            {{cuota[col.field]|date:"dd/MM/yyyy":"UTC" }}
-          </ng-template>
-          <ng-template let-col let-cuota="rowData" pTemplate="editor">
-            <p-calendar [(ngModel)]="cuota[col.field]" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" yearRange="2015:2030"></p-calendar>
-          </ng-template>
-        </p-column>
-        <p-column field="movEmpleadoIDdeLaLiquidacion" header="LiquidacionID" [editable]="false" [style]="{'text-align':'center'}"></p-column>
-      </p-dataTable>
-      <!--<pre>{{pres.cuotasMov | json}}</pre>-->
-    </div>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      <b>Prestamo numero:</b> {{prestamoSimple.prestamoSimpleID}} -
+      <b>Monto:</b> {{prestamoSimple.monto | number}}
+      <span style="float: right;">
+         <b>Cuotas</b>  <span class="badge">{{prestamoSimple.cuotas}}</span>
+      </span>
+    </h3>
   </div>
+  <div class="panel-body">
+    <div>{{prestamoSimple.observacion}}</div>
+
+    <p-dataTable [value]="prestamoSimple.cuotasMov" [editable]="true">
+      <p-column field="movEmpleadoDetID" header="ID" [editable]="false" [style]="{'text-align':'center'}"></p-column>
+      <p-column field="debito" header="Monto" [editable]="true" [style]="{'text-align':'center'}">
+        <ng-template let-col let-cuota="rowData" pTemplate="body">
+          {{cuota[col.field]| number }}
+        </ng-template>
+        <ng-template let-col let-cuota="rowData" pTemplate="editor">
+          <input type="text" pInputText [(ngModel)]="cuota[col.field]" [style]="{'text-align':'center'}" />
+        </ng-template>
+      </p-column>
+       <p-column field="saldo" header="Saldo" [editable]="false" [style]="{'text-align':'center'}">
+        <ng-template let-col let-cuota="rowData" pTemplate="body">
+          {{cuota[col.field]| number }}
+        </ng-template>        
+      </p-column>
+      <p-column field="mesAplicacion" header="mesAplicacion" [editable]="false" [style]=" {'overflow':'visible','text-align':'center' }">
+        <ng-template let-col let-cuota="rowData" pTemplate="body">
+          {{cuota[col.field]|date:"dd/MM/yyyy":"UTC" }}
+        </ng-template>
+        <ng-template let-col let-cuota="rowData" pTemplate="editor">
+          <p-calendar [(ngModel)]="cuota[col.field]" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" yearRange="2015:2030"></p-calendar>
+        </ng-template>
+      </p-column>
+      <p-column field="movEmpleadoIDdeLaLiquidacion" header="LiquidacionID" [editable]="false" [style]="{'text-align':'center'}"></p-column>
+    </p-dataTable>
+    <!--<pre>{{prestamoSimple | json}}</pre>-->
+  </div>
+</div>
