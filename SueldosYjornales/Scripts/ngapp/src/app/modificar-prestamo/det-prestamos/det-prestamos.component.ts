@@ -29,13 +29,12 @@ export class DetPrestamosComponent implements OnInit, DoCheck {
   getByEmpleadoIDConCuotas() {
     this._prestamosSimplesService.GetByEmpleadoIDConCuotas(this.empleadoSelect.empleadoID)
       .subscribe((prestamosSimpleDto) => {
-        prestamosSimpleDto.forEach((prestamo)=>{
-          prestamo.cuotasMov.forEach((cuota)=>{
+        prestamosSimpleDto.forEach((prestamo) => {
+          prestamo.cuotasMov.forEach((cuota) => {
             cuota.mesAplicacion = new Date(cuota.mesAplicacion);
           });
         });
         this.prestamosSimplesDto = prestamosSimpleDto;
       });
   }
-
 }

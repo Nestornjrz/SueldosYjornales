@@ -11,14 +11,14 @@
   <div class="panel-body">
     <div>{{prestamoSimple.observacion}}</div>
 
-    <p-dataTable [value]="prestamoSimple.cuotasMov" [editable]="true">
+    <p-dataTable [value]="prestamoSimple.cuotasMov"  [editable]="true" (onEditInit)="onEditInit($event.data)">
       <p-column field="movEmpleadoDetID" header="ID" [editable]="false" [style]="{'text-align':'center'}"></p-column>
-      <p-column field="debito" header="Monto" [editable]="true" [style]="{'text-align':'center'}">
+      <p-column field="debito" header="Monto" [editable]="true" [style]="{'text-align':'center'}" >
         <ng-template let-col let-cuota="rowData" pTemplate="body">
           {{cuota[col.field]| number }}
         </ng-template>
         <ng-template let-col let-cuota="rowData" pTemplate="editor">
-          <input type="text" pInputText [(ngModel)]="cuota[col.field]" [style]="{'text-align':'center'}" />
+          <input type="number" pInputText [(ngModel)]="cuota[col.field]" [style]="{'text-align':'center'}" (change)="onChangeInput(cuota)" />
         </ng-template>
       </p-column>
        <p-column field="saldo" header="Saldo" [editable]="false" [style]="{'text-align':'center'}">
@@ -28,14 +28,14 @@
       </p-column>
       <p-column field="mesAplicacion" header="mesAplicacion" [editable]="false" [style]=" {'overflow':'visible','text-align':'center' }">
         <ng-template let-col let-cuota="rowData" pTemplate="body">
-          {{cuota[col.field]|date:"dd/MM/yyyy":"UTC" }}
+          {{cuota[col.field]|date:"MMM/yyyy":"UTC" }}
         </ng-template>
-        <ng-template let-col let-cuota="rowData" pTemplate="editor">
+        <!--<ng-template let-col let-cuota="rowData" pTemplate="editor">
           <p-calendar [(ngModel)]="cuota[col.field]" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" yearRange="2015:2030"></p-calendar>
-        </ng-template>
+        </ng-template>-->
       </p-column>
       <p-column field="movEmpleadoIDdeLaLiquidacion" header="LiquidacionID" [editable]="false" [style]="{'text-align':'center'}"></p-column>
     </p-dataTable>
-    <!--<pre>{{prestamoSimple | json}}</pre>-->
+    <pre>{{prestamoSimple | json}}</pre>
   </div>
 </div>
