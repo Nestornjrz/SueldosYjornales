@@ -3,6 +3,7 @@ import { PrestamoSimpleDto } from "app/dtos/prestamo-simple-dto";
 import { MovEmpleadoDetDto } from "app/dtos/mov-empleado-det-dto";
 
 import * as _ from 'lodash';
+import { Message } from "primeng/primeng";
 
 @Component({
   selector: 'app-prestamo-individual',
@@ -11,9 +12,30 @@ import * as _ from 'lodash';
 })
 export class PrestamoIndividualComponent implements OnInit {
   @Input() prestamoSimple: PrestamoSimpleDto;
+  copiaCuotas: MovEmpleadoDetDto[] = [];
+  msgs: Message[] = [];
   constructor() { }
 
   ngOnInit() {
+    this.calcularSaldo();
+    let copiaCuotas = JSON.parse(JSON.stringify(this.prestamoSimple.cuotasMov));
+    this.copiaCuotas = copiaCuotas;
+  }
+  onEditInit(cuota: MovEmpleadoDetDto) {
+    //console.info("on edit init");
+    //console.log(cuota);
+  }
+  onChangeInput(cuotaModificada: MovEmpleadoDetDto) {
+    let mcm = new ManejadorCuotaModificada(cuotaModificada, this.prestamoSimple, this.copiaCuotas);
+    this.msgs = mcm.controlarModificacion();
+    let mensaje = mcm.verificarSilosMontosSonIguales();
+    if (mensaje != null) {
+      this.msgs.push(mensaje);
+    }
+    this.calcularSaldo();
+  }
+  // Funciones 
+  calcularSaldo() {
     // se calcula el saldo
     let saldo = this.prestamoSimple.monto;;
     this.prestamoSimple.cuotasMov.forEach((cuo) => {
@@ -23,13 +45,21 @@ export class PrestamoIndividualComponent implements OnInit {
       cuo.saldo = saldo;
     });
   }
-  onEditInit(cuota: MovEmpleadoDetDto) {
-    //console.info("on edit init");
-    //console.log(cuota);
+}
+export class ManejadorCuotaModificada {
+  private cuotaModificada: MovEmpleadoDetDto;
+  private prestamoSimple: PrestamoSimpleDto;
+  private copiaCuotas: MovEmpleadoDetDto[];
+  constructor(cuotaModificada: MovEmpleadoDetDto, prestamoSimple: PrestamoSimpleDto, copiaCuotas: MovEmpleadoDetDto[]) {
+    this.cuotaModificada = cuotaModificada;
+    this.prestamoSimple = prestamoSimple;
+    this.copiaCuotas = copiaCuotas;
   }
-  onChangeInput(cuota: MovEmpleadoDetDto) {
+  controlarModificacion(): Message[] {
+    console.clear();
     console.info("onChangeInput")
-    console.log(cuota);
+    console.log(this.cuotaModificada);
+    let mensaje: Message[] = [];
     //se verifica si coincide la sumatoria de todas las cuota con el monto total
     let sumaCuotas = _.sumBy(this.prestamoSimple.cuotasMov, (cuotas) => {
       return cuotas.debito;
@@ -37,40 +67,57 @@ export class PrestamoIndividualComponent implements OnInit {
     if (this.prestamoSimple.monto == sumaCuotas) {
       console.log(`Los montos son iguales ${sumaCuotas}`);
     } else {
-      console.log(`Los montos no son GUIALES Monto ${this.prestamoSimple.monto} != ${sumaCuotas}`)
+      console.warn(`Los montos no son GUIALES Monto ${this.prestamoSimple.monto} != ${sumaCuotas}`)
       // Ahora se recorre las cuotas y se agrega la diferencia al siguiente
-      let contador = 1;
-      this.prestamoSimple.cuotasMov.sort((n1, n2) => n1.movEmpleadoDetID - n2.movEmpleadoDetID)
-        .forEach((cuotaF) => {
-          console.log(` id: ${cuota.movEmpleadoDetID}`);
-          if (cuotaF.movEmpleadoDetID > cuota.movEmpleadoDetID && 
-              contador == 1                                    && 
-              this.prestamoSimple.cuotasMov.length != contador) {//Significa que es el siguiente
-            cuotaF.debito += this.prestamoSimple.monto - sumaCuotas;
-            contador++;
-          }
-        });
-      //Se ve si el contador y la cantidad de cuotas son iguales, si son iguales
-      //significa que es la ultima cuota y se avisa que no se puede modificar
-      if(contador == this.prestamoSimple.cuotasMov.length){
-        alert("Es la ultima cuota, no se puede modificar");
-      }
+      for (let i = 0; i <= this.prestamoSimple.cuotasMov.length; i++) {
+        console.log(` id: ${this.cuotaModificada.movEmpleadoDetID}`);
+        if (this.prestamoSimple.cuotasMov[i].movEmpleadoDetID == this.cuotaModificada.movEmpleadoDetID &&
+          this.prestamoSimple.cuotasMov[i].movEmpleadoIDdeLaLiquidacion > 0) {//Si la cuota modificada tiene liquidacion
+          this.cuotaModificada.debito = this.copiaCuotas.find((cuota) => { return cuota.movEmpleadoDetID == this.prestamoSimple.cuotasMov[i].movEmpleadoDetID }).debito;
+          mensaje.push({ severity: 'error', summary: 'No se puede modificar', detail: 'Ya tiene liquidacion' });
+          break;
+        } else if (this.prestamoSimple.cuotasMov[i].movEmpleadoDetID == this.cuotaModificada.movEmpleadoDetID &&
+          i + 1 == this.prestamoSimple.cuotasMov.length) {//Si la cuota modificada es la ultima cuota        
+          //this.cuotaModificada.debito = this.copiaCuotas.find((cuota) => { return cuota.movEmpleadoDetID == this.prestamoSimple.cuotasMov[i].movEmpleadoDetID }).debito;
+          //Devido a que es la ultima cuota se agrega una nueva cuota
+          let cuotasCopia = [...this.prestamoSimple.cuotasMov];
 
-      // Se ve de nuevo si la sumatorias son iguales
-      sumaCuotas = _.sumBy(this.prestamoSimple.cuotasMov, (cuotas) => {
-        return cuotas.debito;
-      });
-      if (this.prestamoSimple.monto == sumaCuotas) {
-        console.log(`Los montos son iguales ${sumaCuotas}`);
-      } else {
-        console.warn(`Los montos no son GUIALES Monto ${this.prestamoSimple.monto} != ${sumaCuotas}`);
-        alert(`Los montos no son GUIALES Monto ${this.prestamoSimple.monto} != ${sumaCuotas}`);
+          let nuevaCuota: MovEmpleadoDetDto = new MovEmpleadoDetDto();
+          nuevaCuota.movEmpleadoID = this.cuotaModificada.movEmpleadoID;
+          nuevaCuota.movEmpleadoDetID = this.cuotaModificada.movEmpleadoDetID + 1;
+          nuevaCuota.debito = this.prestamoSimple.monto - sumaCuotas;
+          nuevaCuota.credito = 0;
+          nuevaCuota.mesAplicacion = new Date(this.cuotaModificada.mesAplicacion.toString());//Se le asigna el mes de la ultima cuota
+          nuevaCuota.mesAplicacion.setMonth(nuevaCuota.mesAplicacion.getMonth() + 1);//Se le añade un mes
+          nuevaCuota.liquidacionConcepto = this.cuotaModificada.liquidacionConcepto;
+          nuevaCuota.movEmpleadoIDdeLaLiquidacion = 0;
+
+          cuotasCopia.push(nuevaCuota);
+
+          this.prestamoSimple.cuotasMov = cuotasCopia;//Se refresca la tabla
+
+          //mensaje.push({ severity: 'error', summary: 'No se puede modificar', detail: 'Es la ultima cuota' });
+          break;
+        } else if (this.prestamoSimple.cuotasMov[i].movEmpleadoDetID > this.cuotaModificada.movEmpleadoDetID) {//Significa que es el siguiente cuota
+          this.prestamoSimple.cuotasMov[i].debito += this.prestamoSimple.monto - sumaCuotas;
+          break;
+        }
       }
-      
+      return mensaje;
     }
   }
-  // Funciones 
-  cambioMontoCuota() {
-
+  verificarSilosMontosSonIguales(): Message {
+    // Se ve de nuevo si la sumatorias son iguales
+    let sumaCuotas = _.sumBy(this.prestamoSimple.cuotasMov, (cuotas) => {
+      return cuotas.debito;
+    });
+    if (this.prestamoSimple.monto == sumaCuotas) {
+      console.log(`Los montos son iguales ${sumaCuotas}`);
+      return null;
+    } else {
+      console.warn(`Los montos no son GUIALES Monto ${this.prestamoSimple.monto} != ${sumaCuotas}`);
+      //alert(`Los montos no son GUIALES Monto ${this.prestamoSimple.monto} != ${sumaCuotas}`);
+      return { severity: 'error', summary: 'ERROR GRAVE', detail: `Los montos no son iguales al finalizar el calculo  ${this.prestamoSimple.monto} != ${sumaCuotas}` };
+    }
   }
 }

@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 
-import {AccordionModule, SharedModule, CheckboxModule, DataTableModule, CalendarModule} from 'primeng/primeng';
+import {AccordionModule, SharedModule, CheckboxModule, DataTableModule, CalendarModule, MessagesModule} from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
 import { EmpleadosService } from './services/empleados.service';
@@ -31,7 +31,7 @@ import { PrestamoIndividualComponent } from './modificar-prestamo/det-prestamos/
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    AccordionModule, SharedModule, CheckboxModule, DataTableModule, CalendarModule
+    AccordionModule, SharedModule, CheckboxModule, DataTableModule, CalendarModule, MessagesModule
   ],
   providers: [EmpleadosService, WindowsRefService, PrestamosSimplesService],
   bootstrap: [AppComponent]
