@@ -14,7 +14,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
         private SueldosJornalesEntities _Context;
         private DbContextTransaction _DbContexTransaction;
         /// <summary>
-        /// Representa la fila del detalle del prestamo a modificar, tiene especificamente
+        /// Representa la fila del detalle del prestamo a modificar (con el monto modificado), tiene especificamente
         /// la informacion del prestamo en cuestion que esta queriendo modificarse
         /// </summary>
         private MovEmpleadoDetDto _MovEmpleadoDet { get; set; }
@@ -33,7 +33,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     if (EvitarQueSeModifiqueSiYaSeGeneroLiquidacionMesSiguiente()) { return new MensajeDto { Error = true, ObjetoDto = _Mensajes }; }
                     if (!RecuperarElPrestamoSimple()) { return new MensajeDto { Error = true, ObjetoDto = _Mensajes }; }
                     CargarDatosBasicosAutilizar();
-                    if (!AveriguarMontoPrestamoDelDb()) { return new MensajeDto { Error = true, ObjetoDto = _Mensajes }; }
+                    if (!AveriguarMontoCuotaPrestamoDelDb()) { return new MensajeDto { Error = true, ObjetoDto = _Mensajes }; }
                     if (ElMontoPrestamoDbDelClienteSuperaLimite()) { return new MensajeDto { Error = true, ObjetoDto = _Mensajes }; }
                     if (!SonIgualesLosMontosDeLaCabeceraYdetalle()) { return new MensajeDto { Error = true, ObjetoDto = _Mensajes }; }
                     ModificarMontoPrestamoDelDb();
@@ -41,10 +41,11 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     if (!ModificarElTotalPagado()) {
                         return Error_ModificarPrestamosSinRollback();
                     }
-                    if (!RegularizarCuotasFuturasDelPrestamo()) {
+                    if (!RegularizarCuotaSiguienteDelPrestamo()) {
                         return Error_ModificarPrestamosSinRollback();
                     }
                     VerificarSiquedaCuadradoElMovimiento();
+                    if (!SonIgualesLosMontosDeLaCabeceraYdetalle()) { return new MensajeDto { Error = true, ObjetoDto = _Mensajes }; }
                     if (_CantidadErrores < 1) {
                         _DbContexTransaction.Commit();
                         return new MensajeDto() {
@@ -58,6 +59,8 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 }
             }
         }
+
+
 
         private bool SonIgualesLosMontosDeLaCabeceraYdetalle() {
             ///Se recupera el prestamo
@@ -167,7 +170,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
             _CompartirDatos.MontoCuotaPrestamoDelCliente = _MovEmpleadoDet.Debito;
         }
 
-        private bool RegularizarCuotasFuturasDelPrestamo() {
+        private bool RegularizarCuotaSiguienteDelPrestamo() {
             var nombre = "(" + _MovEmpleadoDet.Empleado.Nombres + " " + _MovEmpleadoDet.Empleado.Apellidos + ")";
             MensajeDto mensajeDto = null;
             var mesSiguiente = _MovEmpleadoDet.MesAplicacion.AddMonths(1);
@@ -175,7 +178,8 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 .Where(m => m.MesAplicacion.Month == mesSiguiente.Month &&
                           m.MesAplicacion.Year == mesSiguiente.Year &&
                           m.EmpleadoID == _MovEmpleadoDet.Empleado.EmpleadoID &&
-                          m.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Prestamo)
+                          m.LiquidacionConceptoID == (int)Liquidacion.Conceptos.Prestamo &&
+                          m.MovEmpleadoID == _MovEmpleadoDet.MovEmpleadoID)
                 .FirstOrDefault();
             if (movEmpleadoDetSiguiente != null) {
                 movEmpleadoDetSiguiente.Monto += _CompartirDatos.DifMontoPrestamo;
@@ -214,7 +218,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                             m.LiquidacionConceptoID == (int)Liquidacion.Conceptos.TotalPagado)
              .FirstOrDefault();
             if (totalPagadoDetDb == null) {
-                _Mensajes.Add("#ERROR# no se encontro el detalle del prestamo actual");
+                _Mensajes.Add("#ERROR# no se encontro el detalle del total pagado del prestamo actual");
                 _CantidadErrores += 1;
                 _DbContexTransaction.Rollback();
                 return false;
@@ -235,7 +239,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
             return true;
         }
 
-        private bool AveriguarMontoPrestamoDelDb() {
+        private bool AveriguarMontoCuotaPrestamoDelDb() {
             var movEmpleadoDetDb = _Context.MovEmpleadosDets
                 .Where(m => m.MovEmpleadoDetID == _MovEmpleadoDet.MovEmpleadoDetID)
                 .FirstOrDefault();
