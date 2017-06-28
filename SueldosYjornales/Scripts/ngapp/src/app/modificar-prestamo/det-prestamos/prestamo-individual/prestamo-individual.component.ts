@@ -14,12 +14,16 @@ export class PrestamoIndividualComponent implements OnInit {
   @Input() prestamoSimple: PrestamoSimpleDto;
   copiaCuotas: MovEmpleadoDetDto[] = [];
   msgs: Message[] = [];
+  classPanel:string = 'panel';
+  tituloPrestamo:string = '';
+  desabilitarBoton:boolean = false;
   constructor() { }
 
   ngOnInit() {
     this.calcularSaldo();
     let copiaCuotas = JSON.parse(JSON.stringify(this.prestamoSimple.cuotasMov));
     this.copiaCuotas = copiaCuotas;
+    this.verSiElPrestamoEstaCancelado();
   }
   onEditInit(cuota: MovEmpleadoDetDto) {
     //console.info("on edit init");
@@ -34,7 +38,32 @@ export class PrestamoIndividualComponent implements OnInit {
     }
     this.calcularSaldo();
   }
+  onGuardarCambios(){
+    alert("Cambios guardados");
+  }
   // Funciones 
+  verSiElPrestamoEstaCancelado(){
+    let cuotas:MovEmpleadoDetDto[] = this.prestamoSimple.cuotasMov;    
+    let cantCuotasCanceladas = 0;
+    for (var index = 0; index < cuotas.length; index++) {
+      let cuo = cuotas[index];
+      if(cuo.movEmpleadoIDdeLaLiquidacion > 0){
+        cantCuotasCanceladas++;
+      }
+    }
+    if(cuotas.length == 0){
+      this.tituloPrestamo = 'CUOTAS NO GENERADAS';
+      this.classPanel += ' panel-info';
+      this.desabilitarBoton = true;
+    }else if(cuotas.length == cantCuotasCanceladas){
+      this.classPanel += ' panel-danger'
+      this.tituloPrestamo = 'CANCELADO';
+      this.desabilitarBoton = true;
+    }else{
+      this.classPanel += ' panel-primary';
+      this.desabilitarBoton = false;
+    }
+  }
   calcularSaldo() {
     // se calcula el saldo
     let saldo = this.prestamoSimple.monto;;

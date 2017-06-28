@@ -1,15 +1,16 @@
-<p-messages [(value)]="msgs"></p-messages>
-<div class="panel panel-primary">
+<div [class]="classPanel">
   <div class="panel-heading">
     <h3 class="panel-title">
       <b>Prestamo numero:</b> {{prestamoSimple.prestamoSimpleID}} -
       <b>Monto:</b> {{prestamoSimple.monto | number}}
+      <b style="text-decoration:underline">{{tituloPrestamo}}</b>
       <span style="float: right;">
          <b>Cuotas</b>  <span class="badge">{{prestamoSimple.cuotas}}</span>
       </span>
     </h3>
   </div>
   <div class="panel-body">
+    <p-messages [(value)]="msgs"></p-messages>
     <div>{{prestamoSimple.observacion}}</div>
 
     <p-dataTable [value]="prestamoSimple.cuotasMov"  [editable]="true" (onEditInit)="onEditInit($event.data)">
@@ -37,6 +38,7 @@
       </p-column>
       <p-column field="movEmpleadoIDdeLaLiquidacion" header="LiquidacionID" [editable]="false" [style]="{'text-align':'center'}"></p-column>
     </p-dataTable>
+    <button pButton type="button" label="Guardar Cambios" (click)="onGuardarCambios()" [disabled]="desabilitarBoton"></button>
     <!--<pre>{{prestamoSimple | json}}</pre>-->
   </div>
 </div>
