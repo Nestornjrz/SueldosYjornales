@@ -430,10 +430,14 @@
     <Content Include="Scripts\ng-file-upload.js" />
     <Content Include="Scripts\ng-file-upload.min.js" />
     <Content Include="Scripts\ngapp\dist\favicon.ico" />
+    <Content Include="Scripts\ngapp\dist\fontawesome-webfont.912ec66d7572ff821749.svg" />
+    <Content Include="Scripts\ngapp\dist\glyphicons-halflings-regular.89889688147bd7575d63.svg" />
     <Content Include="Scripts\ngapp\dist\index.html" />
     <Content Include="Scripts\ngapp\dist\inline.bundle.js" />
+    <Content Include="Scripts\ngapp\dist\line.567f57385ea3dde2c9ae.gif" />
     <Content Include="Scripts\ngapp\dist\main.bundle.js" />
     <Content Include="Scripts\ngapp\dist\polyfills.bundle.js" />
+    <Content Include="Scripts\ngapp\dist\roboto-v15-latin-regular.3d3a53586bd78d1069ae.svg" />
     <Content Include="Scripts\ngapp\dist\styles.bundle.js" />
     <Content Include="Scripts\ngapp\dist\vendor.bundle.js" />
     <Content Include="Scripts\Padrones\Index\Controllers\cargos\cargosCtrl.js" />
@@ -560,6 +564,18 @@
     <Content Include="Scripts\ngapp\dist\styles.bundle.js.map" />
     <Content Include="Scripts\ngapp\dist\vendor.bundle.js.map" />
     <Content Include="Views\Prestamos\_Layout_prestamo.cshtml" />
+    <Content Include="Scripts\ngapp\dist\fontawesome-webfont.674f50d287a8c48dc19b.eot" />
+    <Content Include="Scripts\ngapp\dist\fontawesome-webfont.af7ae505a9eed503f8b8.woff2" />
+    <Content Include="Scripts\ngapp\dist\fontawesome-webfont.b06871f281fee6b241d6.ttf" />
+    <Content Include="Scripts\ngapp\dist\fontawesome-webfont.fee66e712a8a08eef580.woff" />
+    <Content Include="Scripts\ngapp\dist\glyphicons-halflings-regular.448c34a56d699c29117a.woff2" />
+    <Content Include="Scripts\ngapp\dist\glyphicons-halflings-regular.e18bbf611f2a2e43afc0.ttf" />
+    <Content Include="Scripts\ngapp\dist\glyphicons-halflings-regular.f4769f9bdb7466be6508.eot" />
+    <Content Include="Scripts\ngapp\dist\glyphicons-halflings-regular.fa2772327f55d8198301.woff" />
+    <Content Include="Scripts\ngapp\dist\roboto-v15-latin-regular.16e1d930cf13fb7a9563.woff" />
+    <Content Include="Scripts\ngapp\dist\roboto-v15-latin-regular.38861cba61c66739c145.ttf" />
+    <Content Include="Scripts\ngapp\dist\roboto-v15-latin-regular.7e367be02cd17a96d513.woff2" />
+    <Content Include="Scripts\ngapp\dist\roboto-v15-latin-regular.9f916e330c478bbfa2a0.eot" />
     <None Include="Web.ProduccionRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
