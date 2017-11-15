@@ -8,11 +8,11 @@ namespace Listado.Controllers {
     public class MovimientosEmpleadosController : Controller {
         // GET: MovimientosEmpleados
         public ActionResult Index() {
-            var fechaDesde = new DateTime(2015, 1, 1);
-            var fechaHasta = DateTime.Now;
+            var fechaDesde = new DateTime(2016, 7, 1);
+            var fechaHasta = new DateTime(2017, 6, 30);
             //Se recupera el listado de empleados
             var em = new EmpleadosManagers();
-            var empleados = em.ListadoEmpleadosConMarcaDeActivo();
+            var empleados = em.ListadoEmpleadosConMarcaDeActivo(fechaHasta);
 
             var listadoResultado = new List<MovEmpleadoDetDto>();
 

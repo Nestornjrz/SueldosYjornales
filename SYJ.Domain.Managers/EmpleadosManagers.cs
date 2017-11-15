@@ -31,6 +31,25 @@ namespace SYJ.Domain.Managers {
 
             return listado.OrderBy(o => o.Apellidos).ToList();
         }
+        public List<EmpleadoDto> ListadoEmpleadosConMarcaDeActivo(DateTime mesActivo) {
+            var listado = this.ListadoEmpleados();
+            HistoricoSucursalesManagers hsm = new HistoricoSucursalesManagers();
+            SucursalesManagers sm = new SucursalesManagers();
+            var sucursales = sm.ListadoSucursales();
+            foreach (EmpleadoDto empleado in listado) {
+                //Se ve si esta activo
+                if (HistoricoIngresoSalidasManagers.EmpleadoTrabajaTodaviaEnLaEmpresa(empleado.EmpleadoID, mesActivo.Month, mesActivo.Year)) {
+                    empleado.Activo = true;
+                } else {
+                    empleado.Activo = false;
+                }
+                //Se ve en que sucursal trabaja
+                var sucursalID = int.Parse(hsm.UltimoSucursales(empleado.EmpleadoID).Valor);
+                empleado.Sucursale = sucursales.Where(s => s.SucursalID == sucursalID).FirstOrDefault();
+            }
+
+            return listado.OrderBy(o => o.Apellidos).ToList();
+        }
         public List<EmpleadoDto> ListadoEmpleados() {
             using (var context = new SueldosJornalesEntities()) {
                 List<EmpleadoDto> listado = context.Empleados
