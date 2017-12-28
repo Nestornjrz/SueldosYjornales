@@ -1,5 +1,5 @@
 ﻿<div class="row">
-    <div class="col-md-5">
+    <div class="col-md-4">
         <div class="panel panel-primary">
             <div class="panel-heading">Ingresos y salidas</div>
             <div class="panel-body">
@@ -40,12 +40,33 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="empresa" class="col-md-4 control-label">Concepto</label>
+                            <div class="col-md-8">
+                                <select name="moneda" required
+                                        ng-model="vm.historicoIngresoSalida.ConceptosIngreEgre"
+                                        ng-options="c.concepto for c in vm.conceptosIngreEgres" class="form-control"
+                                        ng-required="true">
+                                    <!--<option value="">-- Seleccione el concepto --</option>-->
+                                    <option value="" ng-hide="vm.historicoIngresoSalida.ConceptosIngreEgre">Seleccione Concepto</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <!--<label for="observacion" class="col-md-3 control-label">Observacion</label>-->
                             <div class="col-md-12">
                                 <textarea class="form-control" style="max-width:100%;"
                                           ng-model="vm.historicoIngresoSalida.motivoSalida"
                                           rows="5"
                                           placeholder="Cargar el motivo de la salida..."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!--<label for="observacion" class="col-md-3 control-label">Observacion</label>-->
+                            <div class="col-md-12">
+                                <textarea class="form-control" style="max-width:100%;"
+                                          ng-model="vm.historicoIngresoSalida.motivoIngreso"
+                                          rows="5"
+                                          placeholder="Cargar el motivo de la ingreso..."></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -68,12 +89,13 @@
                             </div>
                         </div>
                         @*<pre>{{vm.historicoIngresoSalida | json}}</pre>*@
+                        @*<pre>{{vm.conceptosIngreEgres | json}}</pre>*@
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <div class="col-md-7">
+    <div class="col-md-8">
         <h2>Listado de ingresos y salidas</h2>
         <div class="row" ng-controller="listadoHistoricoIngresoSalidasCtrl as vm" ng-cloak style="margin-top:25px;">
             <div class="col-md-12">
@@ -84,7 +106,9 @@
                             <th>Id</th>
                             <th>Fecha Ingreso</th>
                             <th>Fecha Salida</th>
-                            <th>Motivo</th>
+                            <th>Motivo Salida</th>
+                            <th>Motivo Ingreso</th>
+                            <th>Concepto</th>
                             <th>Momento Carga</th>
                         </tr>
                     </thead>
@@ -95,6 +119,8 @@
                         <td>{{o.fechaIngreso | date:"dd/MM/yyyy":'UTC'}}</td>
                         <td>{{o.fechaSalida | date:"dd/MM/yyyy":'UTC'}}</td>
                         <td>{{o.motivoSalida}}</td>
+                        <td>{{o.motivoIngreso}}</td>
+                        <td>{{o.conceptosIngreEgre.concepto}}</td>
                         <td>{{o.momentoCarga | date:"dd/MM/yyyy":'UTC'}}</td>
                     </tr>
                 </table>

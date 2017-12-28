@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SYJ.Application.Dto {
     public class HistoricoIngresoSalidaDto {
@@ -11,6 +7,8 @@ namespace SYJ.Application.Dto {
         public System.DateTime FechaIngreso { get; set; }
         public Nullable<System.DateTime> FechaSalida { get; set; }
         public string MotivoSalida { get; set; }
+        public string MotivoIngreso { get; set; }
+        public ConceptosIngreEgreDto ConceptosIngreEgre { get; set; }
         public System.DateTime MomentoCarga { get; set; }
     }
 }

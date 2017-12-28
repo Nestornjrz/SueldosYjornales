@@ -12,16 +12,16 @@ namespace SYJ.Domain.Db
     using System;
     using System.Collections.Generic;
     
-    public partial class Vacacione
+    public partial class ConceptosIngreEgre
     {
-        public long VacacionID { get; set; }
-        public long EmpleadoID { get; set; }
-        public System.DateTime FechaSalida { get; set; }
-        public int DiasUsufructuados { get; set; }
-        public string Observacion { get; set; }
-        public long UsuarioID { get; set; }
+        public ConceptosIngreEgre()
+        {
+            this.HistoricoIngresoSalidas = new HashSet<HistoricoIngresoSalida>();
+        }
     
-        public virtual Empleado Empleado { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        public int ConceptoIngreEgreID { get; set; }
+        public string Concepto { get; set; }
+    
+        public virtual ICollection<HistoricoIngresoSalida> HistoricoIngresoSalidas { get; set; }
     }
 }

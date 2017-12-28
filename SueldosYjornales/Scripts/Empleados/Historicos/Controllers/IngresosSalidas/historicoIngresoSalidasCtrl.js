@@ -11,6 +11,7 @@
         /* jshint validthis:true */
         var vm = this;
         vm.historicoIngresoSalida = {};
+        vm.conceptosIngreEgres = sYjResource.conceptosIngreEgre.query();
 
         vm.nuevoParaCargar = function () {
             vm.historicoIngresoSalida = {};

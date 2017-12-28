@@ -151,6 +151,11 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     if (_FlDto.Mes.MesID == 2) {
                         lsDto.DiasTrabajados = finMesFechaSeleccionada.Day;
                     }
+                    // Se ve la cantidad de reposo y se modifica los dias trabajados restandolos
+                    var cantidadDiasReposo = HistoricoIngresoSalidasManagers.DiasReposoEnElMes(lsDto.Empleado.EmpleadoID, new DateTime(_FlDto.Year, _FlDto.Mes.MesID, 1));
+                    if (cantidadDiasReposo > 0) {
+                        lsDto.DiasTrabajados -= cantidadDiasReposo;
+                    }
 
                     var fechaSalida = HistoricoIngresoSalidasManagers.fechaSalida(lsDto.Empleado.EmpleadoID, finMesFechaSeleccionada);
                     if (fechaSalida != null) {
@@ -164,6 +169,7 @@ namespace SYJ.Domain.Managers.Auxiliares {
                     var movEmpleadoDet = itemMov.MovEmpleadosDets
                         .Where(md => md.LiquidacionConcepto.LiquidacionConceptoID == (int)Liquidacion.Conceptos.SueldoBase)
                         .FirstOrDefault();
+
                     //Se ve si el movimiento existe
                     if (movEmpleadoDet != null) {
                         lsDto.SalarioBase = movEmpleadoDet.Credito;
@@ -460,6 +466,14 @@ namespace SYJ.Domain.Managers.Auxiliares {
             movEmpleadoDet.LiquidacionConceptoID = (int)Liquidacion.Conceptos.SueldoBase;
             movEmpleadoDet.DevCred = Liquidacion.DevCred.Credito;
             movEmpleadoDet.Monto = de.SueldoBase;
+            // Se modifica el sueldo base si hay reposo
+            var cantidadDiasReposo = HistoricoIngresoSalidasManagers.DiasReposoEnElMes(de.Empleado.EmpleadoID, new DateTime(_FlDto.Year, _FlDto.Mes.MesID, 1));
+            var reposo = (de.SueldoBase / 30) * cantidadDiasReposo;
+            if (reposo > 0) {
+                movEmpleadoDet.Monto -= reposo;
+            }
+            //// Aqui se modifica el sueldo base que se toma mas adelante en el calculo de ips
+            de.SueldoBase = movEmpleadoDet.Monto;
             //Se calcula su sueldo segun la fecha de salida si es que cae en el mes que se esta calculando
             var finMesFechaSeleccionada = new DateTime(_FlDto.Year, _FlDto.Mes.MesID, DateTime.DaysInMonth(_FlDto.Year, _FlDto.Mes.MesID));
             var fechaSalida = HistoricoIngresoSalidasManagers.fechaSalida(de.Empleado.EmpleadoID, finMesFechaSeleccionada);
@@ -498,8 +512,21 @@ namespace SYJ.Domain.Managers.Auxiliares {
             }
 
             ///Prestamos
-            /// LOS PRESTAMOS YA ESTAN CARGADOS POR MEDIO DE TRIGGERS DISPARADOS DESDE LA TABLA PrestamosSimples           
+            /// LOS PRESTAMOS YA ESTAN CARGADOS POR MEDIO DE TRIGGERS DISPARADOS DESDE LA TABLA PrestamosSimples  
+            /// 
 
+            // Se cargan los descuentos por reposo al sueldo base
+            //movEmpleadoDet = new MovEmpleadosDet();
+            //CargarDatosComunes(de, movEmpleado, movEmpleadoDet);
+            //movEmpleadoDet.LiquidacionConceptoID = (int)Liquidacion.Conceptos.Reposo;
+            //movEmpleadoDet.DevCred = Liquidacion.DevCred.Devito;
+            //var cantidad = HistoricoIngresoSalidasManagers.DiasReposoEnElMes(new DateTime(_FlDto.Year, _FlDto.Mes.MesID, 1));
+            //movEmpleadoDet.Monto = (de.SueldoBase / 30) * cantidad;
+            //de.Reposo = movEmpleadoDet.Monto;
+            //if (movEmpleadoDet.Monto > 0) {
+            //    if (!SeCargoMovEmpleadosDetsSn(movEmpleadoDet, mensajeDto, de, "Reposo")) { return; };
+            //    _Mensajes.Add("Se Cargo correctamente el reposo de " + nombre);
+            //}
             ///IPS
             ///Se calcula dentro del objeto DatosEmpleado, OJO cargar primero el sueldo base y la comision
             //Se calcula si tiene ips o no
@@ -706,16 +733,18 @@ namespace SYJ.Domain.Managers.Auxiliares {
         }
         #endregion
         #region CLASES Y ENUM
-        class DatosEmpleado {
+        public class DatosEmpleado {
+
             public EmpleadoDto Empleado { get; set; }
             public decimal SueldoBase { get; set; }
+            public decimal Reposo { get; set; }
             /// <summary>
             /// La solisitud hecha a esta propiedad deveria realizarse una vez cargados
             /// el sueldo base y las comisiones
             /// </summary>
             public decimal Ips {
                 get {
-                    return ((this.SueldoBase + this.Comisiones.Sum()) / 100) * 9;
+                    return ((this.SueldoBase - this.Reposo + this.Comisiones.Sum()) / 100) * 9;
                 }
             }
             public List<decimal> Comisiones { get; set; }

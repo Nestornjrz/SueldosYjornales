@@ -71,12 +71,30 @@
         <AssociationConnector Association="SueldosJornalesModel.fk_Comisiones__Usuarios" />
         <EntityTypeShape EntityType="SueldosJornalesModel.EmpleadosHijo" Width="1.5" PointX="8.25" PointY="25" />
         <AssociationConnector Association="SueldosJornalesModel.fk_EmpleadosHijos__empleados" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoIngresoSalida" Width="1.5" PointX="14.25" PointY="6.625" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoIngresoEgresos_Empleados" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoIngresoSalidas_Usuarios" />
         <EntityTypeShape EntityType="SueldosJornalesModel.Vacacione" Width="1.5" PointX="14.25" PointY="17.75" />
         <AssociationConnector Association="SueldosJornalesModel.fk_Vacaciones__Empleados" />
         <AssociationConnector Association="SueldosJornalesModel.fk_Vacaciones__Usuarios" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.ConceptosIngreEgre" Width="1.5" PointX="14.125" PointY="6.25" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoIngresoSalida" Width="1.5" PointX="17.25" PointY="6.375" />
+        <AssociationConnector Association="SueldosJornalesModel.Fk_HistoricoIngresoSalidas_ConceptosIngreEgre" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoIngresoEgresos_Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoIngresoSalidas_Usuarios" ManuallyRouted="true" >
+          <ConnectorPoint PointX="2.0937519999999994" PointY="10.125" />
+          <ConnectorPoint PointX="2.0937519999999994" PointY="7.9756982421875" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="7.9756982421874989" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="7.9756982421875" />
+          <ConnectorPoint PointX="2.8541666666666665" PointY="7.9756982421874989" />
+          <ConnectorPoint PointX="3.0208333333333335" PointY="7.9756982421875" />
+          <ConnectorPoint PointX="7.729166666666667" PointY="7.9756982421874989" />
+          <ConnectorPoint PointX="7.9272013956330118" PointY="7.9756982421875" />
+          <ConnectorPoint PointX="7.9375" PointY="7.9756982421875" />
+          <ConnectorPoint PointX="7.9375" PointY="8.8188502554448238" />
+          <ConnectorPoint PointX="7.947916666666667" PointY="8.8188502554448238" />
+          <ConnectorPoint PointX="8.1145833333333339" PointY="8.8188502554448238" />
+          <ConnectorPoint PointX="16.875" PointY="8.8188502554448238" />
+          <ConnectorPoint PointX="16.875" PointY="8.15294189458713" />
+          <ConnectorPoint PointX="17.25" PointY="8.15294189458713" />
+        </AssociationConnector>
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

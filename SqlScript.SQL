@@ -1,6 +1,6 @@
 ﻿/*
 Created: 15/06/2015
-Modified: 28/04/2016
+Modified: 27/12/2017
 Model: Sueldos y Jornales
 Database: MS SQL Server 2014
 */
@@ -264,7 +264,9 @@ CREATE TABLE [Sj].[HistoricoIngresoSalidas]
  [FechaSalida] Date NULL,
  [UsuarioID] Bigint NOT NULL,
  [MomentoCarga] Datetime2 NOT NULL,
- [MotivoSalida] Varchar(100) NULL
+ [MotivoSalida] Varchar(100) NULL,
+ [MotivoIngreso] Text NULL,
+ [ConceptoIngreEgreID] Int NOT NULL
 )
 go
 
@@ -274,6 +276,9 @@ CREATE INDEX [IX_HistoricoIngresoSalidas:EmpleadoID] ON [Sj].[HistoricoIngresoSa
 go
 
 CREATE INDEX [IX_HistoricoIngresoSalidas:UsuarioID] ON [Sj].[HistoricoIngresoSalidas] ([UsuarioID])
+go
+
+CREATE INDEX [IX_HistoricoIngresoSalidas_ConceptoIngreEgreID] ON [Sj].[HistoricoIngresoSalidas] ([ConceptoIngreEgreID])
 go
 
 -- Add keys for table Sj.HistoricoIngresoSalidas
@@ -689,6 +694,20 @@ go
 ALTER TABLE [Sj].[Vacaciones] ADD CONSTRAINT [pk_Vacaciones] PRIMARY KEY ([VacacionID])
 go
 
+-- Table Sj.ConceptosIngreEgre
+
+CREATE TABLE [Sj].[ConceptosIngreEgre]
+(
+ [ConceptoIngreEgreID] Int IDENTITY(1,1) NOT NULL,
+ [Concepto] Varchar(100) NOT NULL
+)
+go
+
+-- Add keys for table Sj.ConceptosIngreEgre
+
+ALTER TABLE [Sj].[ConceptosIngreEgre] ADD CONSTRAINT [Pk_ConceptosIngreEgre] PRIMARY KEY ([ConceptoIngreEgreID])
+go
+
 -- Create relationships section ------------------------------------------------- 
 
 ALTER TABLE [Sj].[Sucursales] ADD CONSTRAINT [fk_Sucursales>Empresas] FOREIGN KEY ([EmpresaID]) REFERENCES [Sj].[Empresas] ([EmpresaID]) ON UPDATE NO ACTION ON DELETE NO ACTION
@@ -806,6 +825,9 @@ ALTER TABLE [Sj].[Vacaciones] ADD CONSTRAINT [fk_Vacaciones->Empleados] FOREIGN 
 go
 
 ALTER TABLE [Sj].[Vacaciones] ADD CONSTRAINT [fk_Vacaciones->Usuarios] FOREIGN KEY ([UsuarioID]) REFERENCES [Sj].[Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[HistoricoIngresoSalidas] ADD CONSTRAINT [Fk_HistoricoIngresoSalidas-ConceptosIngreEgre] FOREIGN KEY ([ConceptoIngreEgreID]) REFERENCES [Sj].[ConceptosIngreEgre] ([ConceptoIngreEgreID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
 

@@ -101,6 +101,13 @@
           <Property Name="MomentoCarga" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="CreditoGeneradoSn" Type="bit" />
         </EntityType>
+        <EntityType Name="ConceptosIngreEgre">
+          <Key>
+            <PropertyRef Name="ConceptoIngreEgreID" />
+          </Key>
+          <Property Name="ConceptoIngreEgreID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Concepto" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="Empleados">
           <Key>
             <PropertyRef Name="EmpleadoID" />
@@ -182,6 +189,8 @@
           <Property Name="UsuarioID" Type="bigint" Nullable="false" />
           <Property Name="MomentoCarga" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="MotivoSalida" Type="varchar" MaxLength="100" />
+          <Property Name="MotivoIngreso" Type="text" />
+          <Property Name="ConceptoIngreEgreID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="HistoricoSalarios">
           <Key>
@@ -571,6 +580,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="Fk_HistoricoIngresoSalidas-ConceptosIngreEgre">
+          <End Role="ConceptosIngreEgre" Type="Self.ConceptosIngreEgre" Multiplicity="1" />
+          <End Role="HistoricoIngresoSalidas" Type="Self.HistoricoIngresoSalidas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConceptosIngreEgre">
+              <PropertyRef Name="ConceptoIngreEgreID" />
+            </Principal>
+            <Dependent Role="HistoricoIngresoSalidas">
+              <PropertyRef Name="ConceptoIngreEgreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_HistoricoSalarios&gt;Cargos">
           <End Role="Cargos" Type="Self.Cargos" Multiplicity="1" />
           <End Role="HistoricoSalarios" Type="Self.HistoricoSalarios" Multiplicity="*" />
@@ -869,6 +890,7 @@
           <EntitySet Name="Ausencias" EntityType="Self.Ausencias" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="Cargos" EntityType="Self.Cargos" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="Comisiones" EntityType="Self.Comisiones" Schema="Sj" store:Type="Tables" />
+          <EntitySet Name="ConceptosIngreEgre" EntityType="Self.ConceptosIngreEgre" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="Empleados" EntityType="Self.Empleados" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="EmpleadosHijos" EntityType="Self.EmpleadosHijos" Schema="Sj" store:Type="Tables" />
           <EntitySet Name="Empresas" EntityType="Self.Empresas" Schema="Sj" store:Type="Tables" />
@@ -965,6 +987,10 @@
           </AssociationSet>
           <AssociationSet Name="fk_HistoricoIngresoSalidas&gt;Usuarios" Association="Self.fk_HistoricoIngresoSalidas&gt;Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="HistoricoIngresoSalidas" EntitySet="HistoricoIngresoSalidas" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_HistoricoIngresoSalidas-ConceptosIngreEgre" Association="Self.Fk_HistoricoIngresoSalidas-ConceptosIngreEgre">
+            <End Role="ConceptosIngreEgre" EntitySet="ConceptosIngreEgre" />
             <End Role="HistoricoIngresoSalidas" EntitySet="HistoricoIngresoSalidas" />
           </AssociationSet>
           <AssociationSet Name="fk_HistoricoSalarios&gt;Cargos" Association="Self.fk_HistoricoSalarios&gt;Cargos">
@@ -1249,15 +1275,6 @@
             <End Role="Empleado" EntitySet="Empleados" />
             <End Role="EmpleadosHijo" EntitySet="EmpleadosHijos" />
           </AssociationSet>
-          <EntitySet Name="HistoricoIngresoSalidas" EntityType="SueldosJornalesModel.HistoricoIngresoSalida" />
-          <AssociationSet Name="fk_HistoricoIngresoEgresos_Empleados" Association="SueldosJornalesModel.fk_HistoricoIngresoEgresos_Empleados">
-            <End Role="Empleado" EntitySet="Empleados" />
-            <End Role="HistoricoIngresoSalida" EntitySet="HistoricoIngresoSalidas" />
-          </AssociationSet>
-          <AssociationSet Name="fk_HistoricoIngresoSalidas_Usuarios" Association="SueldosJornalesModel.fk_HistoricoIngresoSalidas_Usuarios">
-            <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="HistoricoIngresoSalida" EntitySet="HistoricoIngresoSalidas" />
-          </AssociationSet>
           <EntitySet Name="Vacaciones" EntityType="SueldosJornalesModel.Vacacione" />
           <AssociationSet Name="fk_Vacaciones__Empleados" Association="SueldosJornalesModel.fk_Vacaciones__Empleados">
             <End Role="Empleado" EntitySet="Empleados" />
@@ -1266,6 +1283,20 @@
           <AssociationSet Name="fk_Vacaciones__Usuarios" Association="SueldosJornalesModel.fk_Vacaciones__Usuarios">
             <End Role="Usuario" EntitySet="Usuarios" />
             <End Role="Vacacione" EntitySet="Vacaciones" />
+          </AssociationSet>
+          <EntitySet Name="ConceptosIngreEgres" EntityType="SueldosJornalesModel.ConceptosIngreEgre" />
+          <EntitySet Name="HistoricoIngresoSalidas" EntityType="SueldosJornalesModel.HistoricoIngresoSalida" />
+          <AssociationSet Name="Fk_HistoricoIngresoSalidas_ConceptosIngreEgre" Association="SueldosJornalesModel.Fk_HistoricoIngresoSalidas_ConceptosIngreEgre">
+            <End Role="ConceptosIngreEgre" EntitySet="ConceptosIngreEgres" />
+            <End Role="HistoricoIngresoSalida" EntitySet="HistoricoIngresoSalidas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_HistoricoIngresoEgresos_Empleados" Association="SueldosJornalesModel.fk_HistoricoIngresoEgresos_Empleados">
+            <End Role="Empleado" EntitySet="Empleados" />
+            <End Role="HistoricoIngresoSalida" EntitySet="HistoricoIngresoSalidas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_HistoricoIngresoSalidas_Usuarios" Association="SueldosJornalesModel.fk_HistoricoIngresoSalidas_Usuarios">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="HistoricoIngresoSalida" EntitySet="HistoricoIngresoSalidas" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Cargo">
@@ -1338,8 +1369,8 @@
           <NavigationProperty Name="Imagenes" Relationship="SueldosJornalesModel.fk_Imagenes__Usuarios" FromRole="Usuario" ToRole="Imagene" />
           <NavigationProperty Name="PrestamosSimples" Relationship="SueldosJornalesModel.fk_PrestamosSimples__Usuarios" FromRole="Usuario" ToRole="PrestamosSimple" />
           <NavigationProperty Name="Comisiones" Relationship="SueldosJornalesModel.fk_Comisiones__Usuarios" FromRole="Usuario" ToRole="Comisione" />
-          <NavigationProperty Name="HistoricoIngresoSalidas" Relationship="SueldosJornalesModel.fk_HistoricoIngresoSalidas_Usuarios" FromRole="Usuario" ToRole="HistoricoIngresoSalida" />
           <NavigationProperty Name="Vacaciones" Relationship="SueldosJornalesModel.fk_Vacaciones__Usuarios" FromRole="Usuario" ToRole="Vacacione" />
+          <NavigationProperty Name="HistoricoIngresoSalidas" Relationship="SueldosJornalesModel.fk_HistoricoIngresoSalidas_Usuarios" FromRole="Usuario" ToRole="HistoricoIngresoSalida" />
         </EntityType>
         <Association Name="fk_Sucursales_Empresas">
           <End Type="SueldosJornalesModel.Empresa" Role="Empresa" Multiplicity="1" />
@@ -1536,8 +1567,8 @@
           <NavigationProperty Name="MovEmpleadosDets" Relationship="SueldosJornalesModel.fk_MovEmpleadosDets__Empleados" FromRole="Empleado" ToRole="MovEmpleadosDet" />
           <NavigationProperty Name="Comisiones" Relationship="SueldosJornalesModel.fk_Comisiones__Empleados" FromRole="Empleado" ToRole="Comisione" />
           <NavigationProperty Name="EmpleadosHijos" Relationship="SueldosJornalesModel.fk_EmpleadosHijos__empleados" FromRole="Empleado" ToRole="EmpleadosHijo" />
-          <NavigationProperty Name="HistoricoIngresoSalidas" Relationship="SueldosJornalesModel.fk_HistoricoIngresoEgresos_Empleados" FromRole="Empleado" ToRole="HistoricoIngresoSalida" />
           <NavigationProperty Name="Vacaciones" Relationship="SueldosJornalesModel.fk_Vacaciones__Empleados" FromRole="Empleado" ToRole="Vacacione" />
+          <NavigationProperty Name="HistoricoIngresoSalidas" Relationship="SueldosJornalesModel.fk_HistoricoIngresoEgresos_Empleados" FromRole="Empleado" ToRole="HistoricoIngresoSalida" />
         </EntityType>
         <EntityType Name="HistoricoSucursale">
           <Key>
@@ -2099,44 +2130,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="HistoricoIngresoSalida">
-          <Key>
-            <PropertyRef Name="HistoricoIngresoSalidaID" />
-          </Key>
-          <Property Name="HistoricoIngresoSalidaID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmpleadoID" Type="Int64" Nullable="false" />
-          <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="FechaSalida" Type="DateTime" Precision="0" />
-          <Property Name="UsuarioID" Type="Int64" Nullable="false" />
-          <Property Name="MomentoCarga" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="MotivoSalida" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Empleado" Relationship="SueldosJornalesModel.fk_HistoricoIngresoEgresos_Empleados" FromRole="HistoricoIngresoSalida" ToRole="Empleado" />
-          <NavigationProperty Name="Usuario" Relationship="SueldosJornalesModel.fk_HistoricoIngresoSalidas_Usuarios" FromRole="HistoricoIngresoSalida" ToRole="Usuario" />
-        </EntityType>
-        <Association Name="fk_HistoricoIngresoEgresos_Empleados">
-          <End Type="SueldosJornalesModel.Empleado" Role="Empleado" Multiplicity="1" />
-          <End Type="SueldosJornalesModel.HistoricoIngresoSalida" Role="HistoricoIngresoSalida" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleado">
-              <PropertyRef Name="EmpleadoID" />
-            </Principal>
-            <Dependent Role="HistoricoIngresoSalida">
-              <PropertyRef Name="EmpleadoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_HistoricoIngresoSalidas_Usuarios">
-          <End Type="SueldosJornalesModel.Usuario" Role="Usuario" Multiplicity="1" />
-          <End Type="SueldosJornalesModel.HistoricoIngresoSalida" Role="HistoricoIngresoSalida" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="UsuarioID" />
-            </Principal>
-            <Dependent Role="HistoricoIngresoSalida">
-              <PropertyRef Name="UsuarioID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Vacacione">
           <Key>
             <PropertyRef Name="VacacionID" />
@@ -2170,6 +2163,67 @@
               <PropertyRef Name="UsuarioID" />
             </Principal>
             <Dependent Role="Vacacione">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ConceptosIngreEgre">
+          <Key>
+            <PropertyRef Name="ConceptoIngreEgreID" />
+          </Key>
+          <Property Name="ConceptoIngreEgreID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Concepto" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="HistoricoIngresoSalidas" Relationship="SueldosJornalesModel.Fk_HistoricoIngresoSalidas_ConceptosIngreEgre" FromRole="ConceptosIngreEgre" ToRole="HistoricoIngresoSalida" />
+        </EntityType>
+        <EntityType Name="HistoricoIngresoSalida">
+          <Key>
+            <PropertyRef Name="HistoricoIngresoSalidaID" />
+          </Key>
+          <Property Name="HistoricoIngresoSalidaID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpleadoID" Type="Int64" Nullable="false" />
+          <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FechaSalida" Type="DateTime" Precision="0" />
+          <Property Name="UsuarioID" Type="Int64" Nullable="false" />
+          <Property Name="MomentoCarga" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="MotivoSalida" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MotivoIngreso" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ConceptoIngreEgreID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ConceptosIngreEgre" Relationship="SueldosJornalesModel.Fk_HistoricoIngresoSalidas_ConceptosIngreEgre" FromRole="HistoricoIngresoSalida" ToRole="ConceptosIngreEgre" />
+          <NavigationProperty Name="Empleado" Relationship="SueldosJornalesModel.fk_HistoricoIngresoEgresos_Empleados" FromRole="HistoricoIngresoSalida" ToRole="Empleado" />
+          <NavigationProperty Name="Usuario" Relationship="SueldosJornalesModel.fk_HistoricoIngresoSalidas_Usuarios" FromRole="HistoricoIngresoSalida" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="Fk_HistoricoIngresoSalidas_ConceptosIngreEgre">
+          <End Type="SueldosJornalesModel.ConceptosIngreEgre" Role="ConceptosIngreEgre" Multiplicity="1" />
+          <End Type="SueldosJornalesModel.HistoricoIngresoSalida" Role="HistoricoIngresoSalida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConceptosIngreEgre">
+              <PropertyRef Name="ConceptoIngreEgreID" />
+            </Principal>
+            <Dependent Role="HistoricoIngresoSalida">
+              <PropertyRef Name="ConceptoIngreEgreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_HistoricoIngresoEgresos_Empleados">
+          <End Type="SueldosJornalesModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="SueldosJornalesModel.HistoricoIngresoSalida" Role="HistoricoIngresoSalida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="EmpleadoID" />
+            </Principal>
+            <Dependent Role="HistoricoIngresoSalida">
+              <PropertyRef Name="EmpleadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_HistoricoIngresoSalidas_Usuarios">
+          <End Type="SueldosJornalesModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="SueldosJornalesModel.HistoricoIngresoSalida" Role="HistoricoIngresoSalida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="HistoricoIngresoSalida">
               <PropertyRef Name="UsuarioID" />
             </Dependent>
           </ReferentialConstraint>
@@ -2513,19 +2567,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="HistoricoIngresoSalidas">
-            <EntityTypeMapping TypeName="SueldosJornalesModel.HistoricoIngresoSalida">
-              <MappingFragment StoreEntitySet="HistoricoIngresoSalidas">
-                <ScalarProperty Name="MotivoSalida" ColumnName="MotivoSalida" />
-                <ScalarProperty Name="MomentoCarga" ColumnName="MomentoCarga" />
-                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
-                <ScalarProperty Name="FechaSalida" ColumnName="FechaSalida" />
-                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
-                <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
-                <ScalarProperty Name="HistoricoIngresoSalidaID" ColumnName="HistoricoIngresoSalidaID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Vacaciones">
             <EntityTypeMapping TypeName="SueldosJornalesModel.Vacacione">
               <MappingFragment StoreEntitySet="Vacaciones">
@@ -2535,6 +2576,29 @@
                 <ScalarProperty Name="FechaSalida" ColumnName="FechaSalida" />
                 <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
                 <ScalarProperty Name="VacacionID" ColumnName="VacacionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConceptosIngreEgres">
+            <EntityTypeMapping TypeName="SueldosJornalesModel.ConceptosIngreEgre">
+              <MappingFragment StoreEntitySet="ConceptosIngreEgre">
+                <ScalarProperty Name="Concepto" ColumnName="Concepto" />
+                <ScalarProperty Name="ConceptoIngreEgreID" ColumnName="ConceptoIngreEgreID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistoricoIngresoSalidas">
+            <EntityTypeMapping TypeName="SueldosJornalesModel.HistoricoIngresoSalida">
+              <MappingFragment StoreEntitySet="HistoricoIngresoSalidas">
+                <ScalarProperty Name="ConceptoIngreEgreID" ColumnName="ConceptoIngreEgreID" />
+                <ScalarProperty Name="MotivoIngreso" ColumnName="MotivoIngreso" />
+                <ScalarProperty Name="MotivoSalida" ColumnName="MotivoSalida" />
+                <ScalarProperty Name="MomentoCarga" ColumnName="MomentoCarga" />
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="FechaSalida" ColumnName="FechaSalida" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
+                <ScalarProperty Name="HistoricoIngresoSalidaID" ColumnName="HistoricoIngresoSalidaID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

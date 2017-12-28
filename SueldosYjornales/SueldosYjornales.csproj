@@ -205,6 +205,7 @@
     <Compile Include="Areas\Mtess\Controllers\InicioMtessController.cs" />
     <Compile Include="Areas\Mtess\MtessAreaRegistration.cs" />
     <Compile Include="Controllers\Admin\AccountController.cs" />
+    <Compile Include="Controllers\Api\ConceptosIngreEgresController.cs" />
     <Compile Include="Controllers\Api\MovEmpleadosDetsController.cs" />
     <Compile Include="Controllers\Api\VacacionesController.cs" />
     <Compile Include="Controllers\Admin\RolesAdminController.cs" />

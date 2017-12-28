@@ -85,6 +85,9 @@
     <Compile Include="Comisione.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ConceptosIngreEgre.cs">
+      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Empleado.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>

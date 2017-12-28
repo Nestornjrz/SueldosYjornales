@@ -59,6 +59,7 @@
     <Compile Include="Auxiliares\PrestamosSimXsucDto.cs" />
     <Compile Include="CargoDto.cs" />
     <Compile Include="ComisioneDto.cs" />
+    <Compile Include="ConceptosIngreEgreDto.cs" />
     <Compile Include="EmpleadoDto.cs" />
     <Compile Include="EmpresaDto.cs" />
     <Compile Include="EstadoCivileDto.cs" />

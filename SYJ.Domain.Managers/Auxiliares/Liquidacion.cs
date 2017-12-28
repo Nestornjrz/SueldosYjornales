@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SYJ.Domain.Managers.Auxiliares {
+﻿namespace SYJ.Domain.Managers.Auxiliares {
     /// <summary>
     /// Manejo aqui los conceptos y el devito y el credito para 
     /// no fallar
@@ -25,7 +19,8 @@ namespace SYJ.Domain.Managers.Auxiliares {
             /// </summary>
             TotalPagado = 5,
             Ips = 6,
-            Aguinaldo = 7
+            Aguinaldo = 7,
+            Reposo = 8
         }
     }
 }

@@ -31,6 +31,7 @@
                 var sucursales = $resource("@Href("~/api/Sucursales")");
                 var historicoSucursales = $resource("@Href("~/api/HistoricoSucursales")");
                 var historicoSucursalesByEmpleadoID = $resource("@Href("~/api/HistoricoSucursales/ByEmpleadoID")");
+                var conceptosIngreEgre = $resource("@Href("~/api/ConceptosIngreEgres")");
 
                 return {
                     "ubicacionSucUsuarios": ubicacionSucUsuarios,
@@ -48,7 +49,8 @@
                     "historicoTelefonos": historicoTelefonos,
                     "sucursales": sucursales,
                     "historicoSucursales": historicoSucursales,
-                    "historicoSucursalesByEmpleadoID": historicoSucursalesByEmpleadoID
+                    "historicoSucursalesByEmpleadoID": historicoSucursalesByEmpleadoID,
+                    "conceptosIngreEgre": conceptosIngreEgre
                 }
             }
         })();
