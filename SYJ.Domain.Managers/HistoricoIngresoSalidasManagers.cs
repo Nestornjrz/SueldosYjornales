@@ -92,8 +92,7 @@ namespace SYJ.Domain.Managers {
             using (var context = new SueldosJornalesEntities()) {
                 MensajeDto mensajeDto = null;
                 var historicoIngresoSalidaDb = context.HistoricoIngresoSalidas
-                    .Where(h => h.HistoricoIngresoSalidaID == hisDto.HistoricoIngresoSalidaID &&
-                                h.ConceptoIngreEgreID == 1) // Concepto IngreEgre a empresa
+                    .Where(h => h.HistoricoIngresoSalidaID == hisDto.HistoricoIngresoSalidaID)
                     .FirstOrDefault();
                 if (historicoIngresoSalidaDb == null) {
                     return new MensajeDto() {
