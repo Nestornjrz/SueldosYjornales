@@ -138,13 +138,13 @@ namespace SYJ.Domain.Managers.Auxiliares {
                 //Se prepara el listado de la liquidacion de salarios Dto
                 List<LiquidacionSalarioDto> listLsDto = new List<LiquidacionSalarioDto>();
                 foreach (var itemMov in movimientos) {
+                    //Se calcula su sueldo segun la fecha de salida si es que cae en el mes que se esta calculando
+                    var finMesFechaSeleccionada = new DateTime(_FlDto.Year, _FlDto.Mes.MesID, DateTime.DaysInMonth(_FlDto.Year, _FlDto.Mes.MesID));
                     LiquidacionSalarioDto lsDto = new LiquidacionSalarioDto();
                     //--Datos del empleado                  
                     lsDto.Empleado = itemMov.MovEmpleadosDets.First().Empleado;
-                    lsDto.DiasTrabajados = 30;
+                    lsDto.DiasTrabajados = finMesFechaSeleccionada.Day;
 
-                    //Se calcula su sueldo segun la fecha de salida si es que cae en el mes que se esta calculando
-                    var finMesFechaSeleccionada = new DateTime(_FlDto.Year, _FlDto.Mes.MesID, DateTime.DaysInMonth(_FlDto.Year, _FlDto.Mes.MesID));
 
                     //Se calcula los dias trabajados cuando el mes el febrero, esto es devido a que el dia que se muestra
                     //en la fecha de la liquidacion son los dias trabajados
@@ -467,8 +467,10 @@ namespace SYJ.Domain.Managers.Auxiliares {
             movEmpleadoDet.DevCred = Liquidacion.DevCred.Credito;
             movEmpleadoDet.Monto = de.SueldoBase;
             // Se modifica el sueldo base si hay reposo
-            var cantidadDiasReposo = HistoricoIngresoSalidasManagers.DiasReposoEnElMes(de.Empleado.EmpleadoID, new DateTime(_FlDto.Year, _FlDto.Mes.MesID, 1));
-            var reposo = (de.SueldoBase / 30) * cantidadDiasReposo;
+            var fechaMesLiquidacion = new DateTime(_FlDto.Year, _FlDto.Mes.MesID, 1);
+            var fechaFinMesLiquidacion = new DateTime(_FlDto.Year, _FlDto.Mes.MesID, DateTime.DaysInMonth(_FlDto.Year, _FlDto.Mes.MesID));
+            var cantidadDiasReposo = HistoricoIngresoSalidasManagers.DiasReposoEnElMes(de.Empleado.EmpleadoID, fechaMesLiquidacion);
+            var reposo = Math.Round((de.SueldoBase / fechaFinMesLiquidacion.Day) * cantidadDiasReposo);
             if (reposo > 0) {
                 movEmpleadoDet.Monto -= reposo;
             }

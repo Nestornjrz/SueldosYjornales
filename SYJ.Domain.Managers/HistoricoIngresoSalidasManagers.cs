@@ -232,15 +232,15 @@ namespace SYJ.Domain.Managers {
                     .FirstOrDefault();
                 var cantidadReposo = 0;
                 if (historicoReposo != null) {
-                    if (historicoReposo.FechaIngreso.Month != mesLiquidacion.Month &&
-                       historicoReposo.FechaSalida.Value.Month != mesLiquidacion.Month) {// Cando el rengo no esta dentro del mes de liquidacion
-                        cantidadReposo = 30;
-                    } else if (historicoReposo.FechaIngreso.Month == mesLiquidacion.Month &&
-                        historicoReposo.FechaSalida.Value.Month == mesLiquidacion.Month) {
-                        cantidadReposo = 30 - (historicoReposo.FechaIngreso.Day + (30 - historicoReposo.FechaSalida.Value.Day));
+                    if (mesLiquidacion > historicoReposo.FechaIngreso &&
+                        ultimoDiaMesLiquidacion < historicoReposo.FechaSalida.Value) {// Cando el rengo no esta dentro del mes de liquidacion
+                        cantidadReposo = ultimoDiaMesLiquidacion.Day; // Por si el mes es 31
+                    } else if (historicoReposo.FechaIngreso.Month == mesLiquidacion.Month && historicoReposo.FechaIngreso.Year == mesLiquidacion.Year &&
+                        historicoReposo.FechaSalida.Value.Month == mesLiquidacion.Month && historicoReposo.FechaSalida.Value.Year == mesLiquidacion.Year) {
+                        cantidadReposo = ultimoDiaMesLiquidacion.Day - ((historicoReposo.FechaIngreso.Day - 1) + (ultimoDiaMesLiquidacion.Day - historicoReposo.FechaSalida.Value.Day));
                     } else {
                         if (historicoReposo.FechaIngreso.Month == mesLiquidacion.Month) {
-                            cantidadReposo = 30 - historicoReposo.FechaIngreso.Day;
+                            cantidadReposo = ultimoDiaMesLiquidacion.Day - (historicoReposo.FechaIngreso.Day - 1);
                         } else {
                             cantidadReposo = historicoReposo.FechaSalida.Value.Day;
                         }

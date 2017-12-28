@@ -1,6 +1,6 @@
 ﻿/*
 Created: 15/06/2015
-Modified: 27/12/2017
+Modified: 28/12/2017
 Model: Sueldos y Jornales
 Database: MS SQL Server 2014
 */
