@@ -13,7 +13,7 @@ namespace SYJ.Domain.Managers.Mtess
             SueldosYjornalesManagers syjm = new SueldosYjornalesManagers();
             List<SueldoYjornaleDto> listadoSueldoYjornales = syjm.ListadoSueldosYjoranales();
 
-            var year = 2016;
+            var year = 2017;
             List<EmpleadoDto> empleados = em.ListadoEmpleados();
 
             var empleadosActivos = new List<EmpleadoDto>();

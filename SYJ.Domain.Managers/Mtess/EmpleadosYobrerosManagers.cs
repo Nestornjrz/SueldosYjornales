@@ -14,7 +14,7 @@ namespace SYJ.Domain.Managers.Mtess
             HistoricoSalariosManagers hsm = new HistoricoSalariosManagers();
             HistoricoIngresoSalidasManagers hism = new HistoricoIngresoSalidasManagers();
 
-            int year = 2016;
+            int year = 2017;
 
             var empleados = em.ListadoEmpleados();
             List<EmpleadoYobreroDto> listado = new List<EmpleadoYobreroDto>();

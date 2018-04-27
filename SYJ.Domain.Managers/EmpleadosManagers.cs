@@ -31,6 +31,29 @@ namespace SYJ.Domain.Managers {
 
             return listado.OrderBy(o => o.Apellidos).ToList();
         }
+
+        public List<EmpleadoDto> RecuperarTodosLosEmpleados() {
+            var listado = this.ListadoEmpleados();
+            //Se carga las sucursales actuales
+            HistoricoSucursalesManagers hsm = new HistoricoSucursalesManagers();
+            var hism = new HistoricoIngresoSalidasManagers();
+            SucursalesManagers sm = new SucursalesManagers();
+            var sucursales = sm.ListadoSucursales();
+            foreach (EmpleadoDto empleado in listado) {
+                //Se ve en que sucursal trabaja
+                var sucursalID = int.Parse(hsm.UltimoSucursales(empleado.EmpleadoID).Valor);
+                empleado.Sucursale = sucursales.Where(s => s.SucursalID == sucursalID).FirstOrDefault();
+                // Se carga su fecha de ingreso y egreso
+                var mensaje = hism.UltimoIngreso(empleado.EmpleadoID);
+                var hismDto = (HistoricoIngresoSalidaDto)mensaje.ObjetoDto;
+                empleado.FechaEntrada = hismDto.FechaIngreso;
+                if (hismDto.FechaSalida != null) {
+                    empleado.FechaSalida = hismDto.FechaSalida.Value;
+                }
+            }
+            return listado;
+        }
+
         public List<EmpleadoDto> ListadoEmpleadosConMarcaDeActivo(DateTime mesActivo) {
             var listado = this.ListadoEmpleados();
             HistoricoSucursalesManagers hsm = new HistoricoSucursalesManagers();

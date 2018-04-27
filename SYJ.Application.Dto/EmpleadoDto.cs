@@ -23,6 +23,8 @@ namespace SYJ.Application.Dto {
         /// o si ya salio de la empresa
         /// </summary>
         public bool Activo { get; set; }
+        public DateTime FechaEntrada { get; set; }
+        public DateTime FechaSalida { get; set; }
         #endregion
-    }
+    }   
 }

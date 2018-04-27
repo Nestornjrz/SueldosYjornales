@@ -32,7 +32,7 @@ namespace SYJ.Domain.Managers.Mtess
             }
 
 
-            var years = new List<int> { 2016 };
+            var years = new List<int> { 2017 };
             List<SueldoYjornaleDto> listado = new List<SueldoYjornaleDto>();
 
             foreach (EmpleadoDto empleado in empleadosArecorrer)

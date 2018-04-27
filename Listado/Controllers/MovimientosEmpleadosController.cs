@@ -28,5 +28,10 @@ namespace Listado.Controllers {
             ViewBag.movimientos = listadoResultado;
             return View();
         }
+        public ActionResult ListadoEmpleados() {
+            var em = new EmpleadosManagers();
+            List<EmpleadoDto> empleados = em.RecuperarTodosLosEmpleados();
+            return View(empleados);
+        }
     }
 }
