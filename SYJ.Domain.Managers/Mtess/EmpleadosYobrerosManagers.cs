@@ -78,7 +78,7 @@ namespace SYJ.Domain.Managers.Mtess
                 }
                 eyoDto.Profesion = empleado.Profesione.NombreProfesion;
                 //Se ve que ultima fecha de entrada tiene
-                var ingresoEgreso = hism.UltimoIngreso(empleado.EmpleadoID);
+                var ingresoEgreso = hism.UltimoIngreso(empleado.EmpleadoID, new System.DateTime(year,12,31));
                 if (!ingresoEgreso.Error)
                 {
                     var historicoIngresoEgreso = (HistoricoIngresoSalidaDto)ingresoEgreso.ObjetoDto;

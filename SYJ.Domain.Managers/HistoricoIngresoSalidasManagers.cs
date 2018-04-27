@@ -120,12 +120,27 @@ namespace SYJ.Domain.Managers {
             }
         }
 
-        public MensajeDto UltimoIngreso(long empleadoID) {
+        public MensajeDto UltimoIngreso(long empleadoID, DateTime? fechaHasta = null) {
             using (var context = new SueldosJornalesEntities()) {
+                // Se ve el registro del ultimo ingreso
                 var ingresoSalidaDb = context.HistoricoIngresoSalidas
                     .Where(h => h.EmpleadoID == empleadoID && h.ConceptoIngreEgreID == 1) // a empresa
                     .OrderByDescending(h => h.FechaIngreso)
                     .FirstOrDefault();
+                // Se ve si existe un ultimo ingreso con fecha de salida hasta el parametro fechaHasta
+                if (fechaHasta != null) {
+                    var ingresoSalidaDb2 = context.HistoricoIngresoSalidas
+                       .Where(h => h.EmpleadoID == empleadoID && h.ConceptoIngreEgreID == 1 &&
+                                   h.FechaSalida <= fechaHasta.Value) // a empresa
+                       .OrderByDescending(h => h.FechaIngreso)
+                       .FirstOrDefault();
+                    if (ingresoSalidaDb2 != null) {
+                        if(ingresoSalidaDb2.FechaSalida.Value.Year == fechaHasta.Value.Year) {
+                            ingresoSalidaDb = ingresoSalidaDb2;
+                        }
+                    }
+                }
+
                 if (ingresoSalidaDb == null) {
                     return new MensajeDto() {
                         Error = true,
