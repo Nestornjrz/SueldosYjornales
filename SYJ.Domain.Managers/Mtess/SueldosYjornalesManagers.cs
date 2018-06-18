@@ -20,7 +20,7 @@ namespace SYJ.Domain.Managers.Mtess
             //Se filtra para que solo los empleados que fueron encontrados en EMPLEADOS Y OBREROS aparescan
             //en este que es SUELDOS Y JORNALES
             EmpleadosYobrerosManagers eyom = new EmpleadosYobrerosManagers();
-            var empleadoYobreros = eyom.ListadoEmpleados();
+            var empleadoYobreros = eyom.ListadoEmpleadosFormatoMtess();
             List<EmpleadoDto> empleadosArecorrer = new List<EmpleadoDto>();
             foreach (var eyoDto in empleadoYobreros)
             {

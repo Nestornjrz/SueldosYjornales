@@ -15,14 +15,14 @@ namespace SueldosYjornales.Areas.Mtess.Controllers.Api {
         // GET: api/EmpleadosYobreros
         public HttpResponseMessage Get() {
             EmpleadosYobrerosManagers eyom = new EmpleadosYobrerosManagers();
-            var listado = eyom.ListadoEmpleados();
+            var listado = eyom.ListadoEmpleadosFormatoMtess();
             return Request.CreateResponse<List<EmpleadoYobreroDto>>(HttpStatusCode.OK, listado);
         }
         [HttpGet]
         [Route("api/EmpleadosYobreros/GetFile")]
         public HttpResponseMessage GetFile() {
             EmpleadosYobrerosManagers eyom = new EmpleadosYobrerosManagers();
-            var listado = eyom.ListadoEmpleados();
+            var listado = eyom.ListadoEmpleadosFormatoMtess();
 
             StringBuilder sb = new StringBuilder();
             //Imprimir los titulos

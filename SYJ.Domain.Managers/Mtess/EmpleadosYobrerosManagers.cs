@@ -7,7 +7,7 @@ namespace SYJ.Domain.Managers.Mtess
 {
     public class EmpleadosYobrerosManagers
     {
-        public List<EmpleadoYobreroDto> ListadoEmpleados()
+        public List<EmpleadoYobreroDto> ListadoEmpleadosFormatoMtess()
         {
             EmpleadosManagers em = new EmpleadosManagers();
             HistoricoDireccionesManagers hdm = new HistoricoDireccionesManagers();

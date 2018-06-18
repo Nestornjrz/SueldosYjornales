@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SYJ.Domain.Managers", "SYJ.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Listado", "Listado\Listado.csproj", "{CAA4F9A7-F50A-4A4A-B8E8-DC3157EBCFD1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comisarios", "Comisarios\Comisarios.csproj", "{C10FC639-DCC9-4F6B-B584-614D5B2B9C59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,12 @@ Global
 		{CAA4F9A7-F50A-4A4A-B8E8-DC3157EBCFD1}.ProduccionRelease|Any CPU.Build.0 = Release|Any CPU
 		{CAA4F9A7-F50A-4A4A-B8E8-DC3157EBCFD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAA4F9A7-F50A-4A4A-B8E8-DC3157EBCFD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C10FC639-DCC9-4F6B-B584-614D5B2B9C59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C10FC639-DCC9-4F6B-B584-614D5B2B9C59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C10FC639-DCC9-4F6B-B584-614D5B2B9C59}.ProduccionRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{C10FC639-DCC9-4F6B-B584-614D5B2B9C59}.ProduccionRelease|Any CPU.Build.0 = Release|Any CPU
+		{C10FC639-DCC9-4F6B-B584-614D5B2B9C59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C10FC639-DCC9-4F6B-B584-614D5B2B9C59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,5 +81,6 @@ Global
 		{3B347CDB-1CBF-43B8-A768-079BD899EACD} = {E618FD3C-4B69-42C8-8B37-BABB8534861A}
 		{DC18201C-203A-4252-B55F-FC26EB59D3A2} = {E618FD3C-4B69-42C8-8B37-BABB8534861A}
 		{CAA4F9A7-F50A-4A4A-B8E8-DC3157EBCFD1} = {253B10DE-6D22-45DF-8FAD-F3839368C053}
+		{C10FC639-DCC9-4F6B-B584-614D5B2B9C59} = {253B10DE-6D22-45DF-8FAD-F3839368C053}
 	EndGlobalSection
 EndGlobal
