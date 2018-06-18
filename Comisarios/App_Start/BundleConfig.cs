@@ -5,6 +5,20 @@ namespace Comisarios {
     public class BundleConfig {
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles) {
+            #region APP ANGULAR
+            bundles.Add(new ScriptBundle("~/BundlesApp/Script").Include(
+                     //"~/BundlesApp/inline.*",
+                     //"~/BundlesApp/line.*",
+                     "~/BundlesApp/polyfills.*",
+                     //"~/BundlesApp/scripts.*",
+                     "~/BundlesApp/runtime.*",
+                     //"~/BundlesApp/vendor.*",
+                     "~/BundlesApp/main.*"));
+
+            bundles.Add(new StyleBundle("~/BundlesApp/Styles")
+                 .Include("~/BundlesApp/styles.*",
+                           "~/Content/font-awesome.min.css"));
+            #endregion
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 

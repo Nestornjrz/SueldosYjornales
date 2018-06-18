@@ -202,6 +202,13 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BundlesApp\3rdpartylicenses.txt" />
+    <Content Include="BundlesApp\favicon.ico" />
+    <Content Include="BundlesApp\index.html" />
+    <Content Include="BundlesApp\main.f1945ad62b27b8e58304.js" />
+    <Content Include="BundlesApp\polyfills.2f4a59095805af02bd79.js" />
+    <Content Include="BundlesApp\runtime.a66f828dca56eeb90e02.js" />
+    <Content Include="BundlesApp\styles.34c57ab7888ec1573f9c.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -244,7 +251,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="BundlesApp\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
