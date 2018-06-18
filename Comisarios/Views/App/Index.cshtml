@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "App";
+    Uri baseUri = ViewBag.baseUri;
+
+}
+@section scripts{
+    @Scripts.Render("~/BundlesApp/Script")
+
+}
+<app-root>Cargando aplicacion, favor espere...</app-root>
+
+@section head{
+    @if (baseUri.Authority == "www.laaragonesa.com.py") {
+        <base href="/Comisarios/App">
+    } else {
+        <base href="/App">
+    }
+    @Styles.Render("~/BundlesApp/Styles")
+}
