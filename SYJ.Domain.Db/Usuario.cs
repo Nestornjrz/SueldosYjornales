@@ -16,19 +16,19 @@ namespace SYJ.Domain.Db
     {
         public Usuario()
         {
-            this.HistoricoDirecciones = new HashSet<HistoricoDireccione>();
+            this.Anticipos = new HashSet<Anticipos>();
+            this.Ausencias = new HashSet<Ausencia>();
+            this.Comisiones = new HashSet<Comisione>();
             this.Empleados = new HashSet<Empleado>();
+            this.HistoricoDirecciones = new HashSet<HistoricoDireccione>();
+            this.HistoricoHorarios = new HashSet<HistoricoHorario>();
+            this.HistoricoIngresoSalidas = new HashSet<HistoricoIngresoSalida>();
+            this.HistoricoSalarios = new HashSet<HistoricoSalario>();
             this.HistoricoSucursales = new HashSet<HistoricoSucursale>();
             this.HistoricoTelefonos = new HashSet<HistoricoTelefono>();
-            this.Ausencias = new HashSet<Ausencia>();
-            this.HistoricoHorarios = new HashSet<HistoricoHorario>();
-            this.Anticipos = new HashSet<Anticipos>();
-            this.HistoricoSalarios = new HashSet<HistoricoSalario>();
             this.Imagenes = new HashSet<Imagene>();
             this.PrestamosSimples = new HashSet<PrestamosSimple>();
-            this.Comisiones = new HashSet<Comisione>();
             this.Vacaciones = new HashSet<Vacacione>();
-            this.HistoricoIngresoSalidas = new HashSet<HistoricoIngresoSalida>();
         }
     
         public long UsuarioID { get; set; }
@@ -36,19 +36,19 @@ namespace SYJ.Domain.Db
         public System.Guid UserID { get; set; }
         public string CorreoElectronico { get; set; }
     
-        public virtual UbicacionSucUsuario UbicacionSucUsuario { get; set; }
-        public virtual ICollection<HistoricoDireccione> HistoricoDirecciones { get; set; }
+        public virtual ICollection<Anticipos> Anticipos { get; set; }
+        public virtual ICollection<Ausencia> Ausencias { get; set; }
+        public virtual ICollection<Comisione> Comisiones { get; set; }
         public virtual ICollection<Empleado> Empleados { get; set; }
+        public virtual ICollection<HistoricoDireccione> HistoricoDirecciones { get; set; }
+        public virtual ICollection<HistoricoHorario> HistoricoHorarios { get; set; }
+        public virtual ICollection<HistoricoIngresoSalida> HistoricoIngresoSalidas { get; set; }
+        public virtual ICollection<HistoricoSalario> HistoricoSalarios { get; set; }
         public virtual ICollection<HistoricoSucursale> HistoricoSucursales { get; set; }
         public virtual ICollection<HistoricoTelefono> HistoricoTelefonos { get; set; }
-        public virtual ICollection<Ausencia> Ausencias { get; set; }
-        public virtual ICollection<HistoricoHorario> HistoricoHorarios { get; set; }
-        public virtual ICollection<Anticipos> Anticipos { get; set; }
-        public virtual ICollection<HistoricoSalario> HistoricoSalarios { get; set; }
         public virtual ICollection<Imagene> Imagenes { get; set; }
         public virtual ICollection<PrestamosSimple> PrestamosSimples { get; set; }
-        public virtual ICollection<Comisione> Comisiones { get; set; }
+        public virtual UbicacionSucUsuario UbicacionSucUsuario { get; set; }
         public virtual ICollection<Vacacione> Vacaciones { get; set; }
-        public virtual ICollection<HistoricoIngresoSalida> HistoricoIngresoSalidas { get; set; }
     }
 }

@@ -73,16 +73,7 @@
     <Compile Include="Anticipos.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="AspNetRole.cs">
-      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="AspNetUser.cs">
-      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserClaim.cs">
-      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserLogin.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Ausencia.cs">
@@ -98,6 +89,9 @@
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Empleado.cs">
+      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmpleadosDatosAdicionale.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EmpleadosHijo.cs">
@@ -168,6 +162,9 @@
       <DependentUpon>SueldosJornalesModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="TipoImagene.cs">
+      <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TiposDocumento.cs">
       <DependentUpon>SueldosJornalesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UbicacionSucUsuario.cs">

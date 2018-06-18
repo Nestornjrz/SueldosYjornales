@@ -12,13 +12,16 @@ namespace SYJ.Domain.Db
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetUserClaim
+    public partial class TiposDocumento
     {
-        public int Id { get; set; }
-        public string UserId { get; set; }
-        public string ClaimType { get; set; }
-        public string ClaimValue { get; set; }
+        public TiposDocumento()
+        {
+            this.EmpleadosDatosAdicionales = new HashSet<EmpleadosDatosAdicionale>();
+        }
     
-        public virtual AspNetUser AspNetUser { get; set; }
+        public int TipoDocumentoID { get; set; }
+        public string TipoDocumento { get; set; }
+    
+        public virtual ICollection<EmpleadosDatosAdicionale> EmpleadosDatosAdicionales { get; set; }
     }
 }

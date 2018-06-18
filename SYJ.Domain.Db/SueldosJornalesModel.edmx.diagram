@@ -5,97 +5,80 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a2f69751322747bfad492a3ce7c78166" Name="Diagram1" ZoomLevel="81">
-        <EntityTypeShape EntityType="SueldosJornalesModel.Cargo" Width="1.5" PointX="6" PointY="5.875" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.Empresa" Width="1.5" PointX="1.5" PointY="14.625" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.EstadoCivile" Width="1.5" PointX="3.75" PointY="17.75" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.Nacionalidade" Width="1.5" PointX="3.75" PointY="20" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.Sucursale" Width="1.5" PointX="3.75" PointY="14.375" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.Usuario" Width="1.5" PointX="0.75" PointY="10.125" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_Sucursales_Empresas" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.Profesione" Width="1.5" PointX="0.75" PointY="0.875" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.AspNetRole" Width="1.5" PointX="13.375" PointY="2.5" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.AspNetUserClaim" Width="1.5" PointX="17.875" PointY="3.625" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.AspNetUserLogin" Width="1.5" PointX="17.875" PointY="1" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.AspNetUser" Width="1.5" PointX="15.625" PointY="1.375" />
-        <AssociationConnector Association="SueldosJornalesModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="SueldosJornalesModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="SueldosJornalesModel.AspNetUserRoles" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.UbicacionSucUsuario" Width="2" PointX="6" PointY="15.5" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_UbicacionSucUsuarios_Sucursales" />
-        <AssociationConnector Association="SueldosJornalesModel.pfk_UbicacionSucUsuarios_Usuarios" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoDireccione" Width="1.5" PointX="8.25" PointY="6.625" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoDirecciones_Usuarios" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.Empleado" Width="1.5" PointX="6" PointY="8.5" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoSucursale" Width="1.5" PointX="11.25" PointY="14.5" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.Anticipos" Width="1.5" PointX="8.25" PointY="30.75" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.Ausencia" Width="1.5" PointX="3" PointY="30.875" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.Cargo" Width="1.5" PointX="6" PointY="19.25" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.Comisione" Width="1.5" PointX="11.25" PointY="30.75" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.ConceptosIngreEgre" Width="1.5" PointX="12" PointY="22.375" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.Empleado" Width="1.5" PointX="6" PointY="28.5" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.EmpleadosDatosAdicionale" Width="1.5" PointX="11.25" PointY="25.125" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.EmpleadosHijo" Width="1.5" PointX="8.375" PointY="42.875" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.Empresa" Width="1.5" PointX="1.5" PointY="22.125" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.EstadoCivile" Width="1.5" PointX="3.75" PointY="25.625" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoDireccione" Width="1.5" PointX="11.25" PointY="39" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoHorario" Width="1.5" PointX="8.25" PointY="38.5" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoIngresoSalida" Width="1.5" PointX="14.25" PointY="30.5" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoSalario" Width="1.5" PointX="8.25" PointY="26.5" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoSucursale" Width="1.5" PointX="14.25" PointY="34.875" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoTelefono" Width="1.5" PointX="8.25" PointY="35" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.Imagene" Width="1.5" PointX="14.25" PointY="38.75" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.LiquidacionConcepto" Width="1.5" PointX="6" PointY="24.875" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.MovEmpleado" Width="1.5" PointX="6" PointY="21.75" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.MovEmpleadosDet" Width="1.5" PointX="8.25" PointY="22.75" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.Nacionalidade" Width="1.5" PointX="3.75" PointY="37.75" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.PrestamosSimple" Width="1.5" PointX="14.25" PointY="25.375" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.Profesione" Width="1.5" PointX="3.75" PointY="35" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.Sucursale" Width="1.5" PointX="0.75" PointY="25.875" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.TipoImagene" Width="1.5" PointX="12" PointY="42.375" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.TiposDocumento" Width="1.5" PointX="9" PointY="19.375" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.UbicacionSucUsuario" Width="1.5" PointX="3" PointY="28.125" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.Usuario" Width="1.5" PointX="0.75" PointY="29.875" />
+        <EntityTypeShape EntityType="SueldosJornalesModel.Vacacione" Width="1.5" PointX="11.25" PointY="34.875" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_Anticipos__Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_Anticipos__Usuarios" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_Ausencias__Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_Ausencias__Usuarios" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoSalarios_Cargos" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_Comisiones__Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_Comisiones__Usuarios" />
+        <AssociationConnector Association="SueldosJornalesModel.Fk_HistoricoIngresoSalidas_ConceptosIngreEgre" />
         <AssociationConnector Association="SueldosJornalesModel.fk_Empleados_EstadoCiviles" />
         <AssociationConnector Association="SueldosJornalesModel.fk_Empleados_Nacionalidades" />
         <AssociationConnector Association="SueldosJornalesModel.fk_Empleados_Profesiones" />
         <AssociationConnector Association="SueldosJornalesModel.fk_Empleados_Usuarios" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_EmpleadosHijos__empleados" />
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoDirecciones_Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoIngresoEgresos_Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoSalarios_Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricosHorarios_Empleados" />
         <AssociationConnector Association="SueldosJornalesModel.Fk_HistoricoSucursales__Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoTelefonos_Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_Imagenes__Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_MovEmpleadosDets__Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_PrestamosSimples__Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_Vacaciones__Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.Pfk_EmpleadosDatosAdicionales_Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.Fk_EmpleadosDatosAdicionales_Nacionalidades" />
+        <AssociationConnector Association="SueldosJornalesModel.Fk_EmpleadosDatosAdicionales_TiposDocumentos" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_Sucursales_Empresas" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoDirecciones_Usuarios" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricosHorarios_Usuarios" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoIngresoSalidas_Usuarios" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoSalarios_Usuarios" />
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoSucursales__Sucursales" />
         <AssociationConnector Association="SueldosJornalesModel.Relationship3" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoTelefono" Width="1.5" PointX="11.25" PointY="6.125" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoTelefonos_Empleados" />
         <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoTelefono_Usuarios" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.Ausencia" Width="1.5" PointX="14.25" PointY="14.375" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_Ausencias__Empleados" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_Ausencias__Usuarios" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoHorario" Width="2.125" PointX="11.25" PointY="10" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricosHorarios_Empleados" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricosHorarios_Usuarios" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.Anticipos" Width="1.5" PointX="14.25" PointY="10.25" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_Anticipos__Empleados" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_Anticipos__Usuarios" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoSalario" Width="1.5" PointX="8.25" PointY="10.625" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoSalarios_Cargos" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoSalarios_Empleados" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoSalarios_Usuarios" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.Imagene" Width="1.5" PointX="8.25" PointY="2.25" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.TipoImagene" Width="1.5" PointX="6" PointY="2.875" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_Imagenes__Empleados" />
         <AssociationConnector Association="SueldosJornalesModel.fk_imagenes__TipoImagenes" />
         <AssociationConnector Association="SueldosJornalesModel.fk_Imagenes__Usuarios" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.LiquidacionConcepto" Width="1.5" PointX="9" PointY="22.5" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.MovEmpleado" Width="1.5" PointX="9" PointY="14.75" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.PrestamosSimple" Width="1.5" PointX="17.25" PointY="11.125" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_PrestamosSimples__Empleados" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_PrestamosSimples__MovEmpleados" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_PrestamosSimples__Usuarios" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.MovEmpleadosDet" Width="1.5" PointX="11.25" PointY="17.875" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_MovEmpleadosDets__Empleados" />
         <AssociationConnector Association="SueldosJornalesModel.Fk_MovEmpleadosDets__LiquidacionConceptos" />
         <AssociationConnector Association="SueldosJornalesModel.fk_MovEmpleadosDets__MovEmpleados" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.Comisione" Width="1.5" PointX="8.25" PointY="18.375" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_Comisiones__Empleados" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_Comisiones__Usuarios" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.EmpleadosHijo" Width="1.5" PointX="8.25" PointY="25" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_EmpleadosHijos__empleados" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.Vacacione" Width="1.5" PointX="14.25" PointY="17.75" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_Vacaciones__Empleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_PrestamosSimples__MovEmpleados" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_PrestamosSimples__Usuarios" />
+        <AssociationConnector Association="SueldosJornalesModel.fk_UbicacionSucUsuarios_Sucursales" />
+        <AssociationConnector Association="SueldosJornalesModel.pfk_UbicacionSucUsuarios_Usuarios" />
         <AssociationConnector Association="SueldosJornalesModel.fk_Vacaciones__Usuarios" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.ConceptosIngreEgre" Width="1.5" PointX="14.125" PointY="6.25" />
-        <EntityTypeShape EntityType="SueldosJornalesModel.HistoricoIngresoSalida" Width="1.5" PointX="17.25" PointY="6.375" />
-        <AssociationConnector Association="SueldosJornalesModel.Fk_HistoricoIngresoSalidas_ConceptosIngreEgre" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoIngresoEgresos_Empleados" />
-        <AssociationConnector Association="SueldosJornalesModel.fk_HistoricoIngresoSalidas_Usuarios" ManuallyRouted="true" >
-          <ConnectorPoint PointX="2.0937519999999994" PointY="10.125" />
-          <ConnectorPoint PointX="2.0937519999999994" PointY="7.9756982421875" />
-          <ConnectorPoint PointX="2.5416666666666665" PointY="7.9756982421874989" />
-          <ConnectorPoint PointX="2.7083333333333335" PointY="7.9756982421875" />
-          <ConnectorPoint PointX="2.8541666666666665" PointY="7.9756982421874989" />
-          <ConnectorPoint PointX="3.0208333333333335" PointY="7.9756982421875" />
-          <ConnectorPoint PointX="7.729166666666667" PointY="7.9756982421874989" />
-          <ConnectorPoint PointX="7.9272013956330118" PointY="7.9756982421875" />
-          <ConnectorPoint PointX="7.9375" PointY="7.9756982421875" />
-          <ConnectorPoint PointX="7.9375" PointY="8.8188502554448238" />
-          <ConnectorPoint PointX="7.947916666666667" PointY="8.8188502554448238" />
-          <ConnectorPoint PointX="8.1145833333333339" PointY="8.8188502554448238" />
-          <ConnectorPoint PointX="16.875" PointY="8.8188502554448238" />
-          <ConnectorPoint PointX="16.875" PointY="8.15294189458713" />
-          <ConnectorPoint PointX="17.25" PointY="8.15294189458713" />
-        </AssociationConnector>
-        </Diagram>
+        <EntityTypeShape EntityType="SueldosJornalesModel.AspNetUser" Width="1.5" PointX="0.75" PointY="0.75" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

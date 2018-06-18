@@ -25,36 +25,35 @@ namespace SYJ.Domain.Db
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Anticipos> Anticipos { get; set; }
+        public virtual DbSet<Ausencia> Ausencias { get; set; }
         public virtual DbSet<Cargo> Cargos { get; set; }
+        public virtual DbSet<Comisione> Comisiones { get; set; }
+        public virtual DbSet<ConceptosIngreEgre> ConceptosIngreEgres { get; set; }
+        public virtual DbSet<Empleado> Empleados { get; set; }
+        public virtual DbSet<EmpleadosDatosAdicionale> EmpleadosDatosAdicionales { get; set; }
+        public virtual DbSet<EmpleadosHijo> EmpleadosHijos { get; set; }
         public virtual DbSet<Empresa> Empresas { get; set; }
         public virtual DbSet<EstadoCivile> EstadoCiviles { get; set; }
-        public virtual DbSet<Nacionalidade> Nacionalidades { get; set; }
-        public virtual DbSet<Sucursale> Sucursales { get; set; }
-        public virtual DbSet<Usuario> Usuarios { get; set; }
-        public virtual DbSet<Profesione> Profesiones { get; set; }
-        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<UbicacionSucUsuario> UbicacionSucUsuarios { get; set; }
         public virtual DbSet<HistoricoDireccione> HistoricoDirecciones { get; set; }
-        public virtual DbSet<Empleado> Empleados { get; set; }
+        public virtual DbSet<HistoricoHorario> HistoricoHorarios { get; set; }
+        public virtual DbSet<HistoricoIngresoSalida> HistoricoIngresoSalidas { get; set; }
+        public virtual DbSet<HistoricoSalario> HistoricoSalarios { get; set; }
         public virtual DbSet<HistoricoSucursale> HistoricoSucursales { get; set; }
         public virtual DbSet<HistoricoTelefono> HistoricoTelefonos { get; set; }
-        public virtual DbSet<Ausencia> Ausencias { get; set; }
-        public virtual DbSet<HistoricoHorario> HistoricoHorarios { get; set; }
-        public virtual DbSet<Anticipos> Anticipos { get; set; }
-        public virtual DbSet<HistoricoSalario> HistoricoSalarios { get; set; }
         public virtual DbSet<Imagene> Imagenes { get; set; }
-        public virtual DbSet<TipoImagene> TipoImagenes { get; set; }
         public virtual DbSet<LiquidacionConcepto> LiquidacionConceptos { get; set; }
         public virtual DbSet<MovEmpleado> MovEmpleados { get; set; }
-        public virtual DbSet<PrestamosSimple> PrestamosSimples { get; set; }
         public virtual DbSet<MovEmpleadosDet> MovEmpleadosDets { get; set; }
-        public virtual DbSet<Comisione> Comisiones { get; set; }
-        public virtual DbSet<EmpleadosHijo> EmpleadosHijos { get; set; }
+        public virtual DbSet<Nacionalidade> Nacionalidades { get; set; }
+        public virtual DbSet<PrestamosSimple> PrestamosSimples { get; set; }
+        public virtual DbSet<Profesione> Profesiones { get; set; }
+        public virtual DbSet<Sucursale> Sucursales { get; set; }
+        public virtual DbSet<TipoImagene> TipoImagenes { get; set; }
+        public virtual DbSet<TiposDocumento> TiposDocumentos { get; set; }
+        public virtual DbSet<UbicacionSucUsuario> UbicacionSucUsuarios { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<Vacacione> Vacaciones { get; set; }
-        public virtual DbSet<ConceptosIngreEgre> ConceptosIngreEgres { get; set; }
-        public virtual DbSet<HistoricoIngresoSalida> HistoricoIngresoSalidas { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
     }
 }

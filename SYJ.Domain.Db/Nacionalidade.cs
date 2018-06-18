@@ -17,6 +17,7 @@ namespace SYJ.Domain.Db
         public Nacionalidade()
         {
             this.Empleados = new HashSet<Empleado>();
+            this.EmpleadosDatosAdicionales = new HashSet<EmpleadosDatosAdicionale>();
         }
     
         public int NacionalidadID { get; set; }
@@ -24,5 +25,6 @@ namespace SYJ.Domain.Db
         public string Abreviatura { get; set; }
     
         public virtual ICollection<Empleado> Empleados { get; set; }
+        public virtual ICollection<EmpleadosDatosAdicionale> EmpleadosDatosAdicionales { get; set; }
     }
 }

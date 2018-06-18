@@ -1,6 +1,6 @@
 ﻿/*
 Created: 15/06/2015
-Modified: 28/12/2017
+Modified: 18/06/2018
 Model: Sueldos y Jornales
 Database: MS SQL Server 2014
 */
@@ -703,9 +703,65 @@ CREATE TABLE [Sj].[ConceptosIngreEgre]
 )
 go
 
+SET IDENTITY_INSERT [Sj].[ConceptosIngreEgre] ON 
+GO
+INSERT [Sj].[ConceptosIngreEgre] ([ConceptoIngreEgreID], [Concepto]) VALUES (1, N'A Empresa')
+GO
+INSERT [Sj].[ConceptosIngreEgre] ([ConceptoIngreEgreID], [Concepto]) VALUES (2, N'Reposo')
+GO
+SET IDENTITY_INSERT [Sj].[ConceptosIngreEgre] OFF
+GO
+
 -- Add keys for table Sj.ConceptosIngreEgre
 
 ALTER TABLE [Sj].[ConceptosIngreEgre] ADD CONSTRAINT [Pk_ConceptosIngreEgre] PRIMARY KEY ([ConceptoIngreEgreID])
+go
+
+-- Table Sj.EmpleadosDatosAdicionales
+
+CREATE TABLE [Sj].[EmpleadosDatosAdicionales]
+(
+ [EmpleadoID] Bigint NOT NULL,
+ [OrigenDocumentoID] Int NOT NULL,
+ [TipoDocumentoID] Int NOT NULL,
+ [LocalidadNacimiento] Varchar(100) NOT NULL,
+ [DireccionPrincipal] Varchar(200) NULL,
+ [DireccionCalleSecundaria] Varchar(200) NULL,
+ [NroCasa] Int NULL,
+ [LocalidadRecidencial] Varchar(200) NULL,
+ [BarrioRecidencial] Varchar(200) NULL,
+ [TelefonoParticular] Varchar(100) NULL,
+ [TelefonoMovil] Varchar(100) NULL,
+ [CorreoElectronico] Varchar(100) NULL,
+ [TelefonoLaboral] Varchar(100) NULL
+)
+go
+
+-- Create indexes for table Sj.EmpleadosDatosAdicionales
+
+CREATE INDEX [IX_EmpleadosDatosAdicionales_OrigenDocumentoID] ON [Sj].[EmpleadosDatosAdicionales] ([OrigenDocumentoID])
+go
+
+CREATE INDEX [IX_EmpleadosDatosAdicionales_TipoDocumentoID] ON [Sj].[EmpleadosDatosAdicionales] ([TipoDocumentoID])
+go
+
+-- Add keys for table Sj.EmpleadosDatosAdicionales
+
+ALTER TABLE [Sj].[EmpleadosDatosAdicionales] ADD CONSTRAINT [Pk_EmpleadosDatosAdicionales] PRIMARY KEY ([EmpleadoID])
+go
+
+-- Table Sj.TiposDocumentos
+
+CREATE TABLE [Sj].[TiposDocumentos]
+(
+ [TipoDocumentoID] Int IDENTITY(1,1) NOT NULL,
+ [TipoDocumento] Varchar(100) NOT NULL
+)
+go
+
+-- Add keys for table Sj.TiposDocumentos
+
+ALTER TABLE [Sj].[TiposDocumentos] ADD CONSTRAINT [Pk_TiposDocumentos] PRIMARY KEY ([TipoDocumentoID])
 go
 
 -- Create relationships section ------------------------------------------------- 
@@ -828,6 +884,15 @@ ALTER TABLE [Sj].[Vacaciones] ADD CONSTRAINT [fk_Vacaciones->Usuarios] FOREIGN K
 go
 
 ALTER TABLE [Sj].[HistoricoIngresoSalidas] ADD CONSTRAINT [Fk_HistoricoIngresoSalidas-ConceptosIngreEgre] FOREIGN KEY ([ConceptoIngreEgreID]) REFERENCES [Sj].[ConceptosIngreEgre] ([ConceptoIngreEgreID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[EmpleadosDatosAdicionales] ADD CONSTRAINT [Fk_EmpleadosDatosAdicionales-Nacionalidades] FOREIGN KEY ([OrigenDocumentoID]) REFERENCES [Sj].[Nacionalidades] ([NacionalidadID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[EmpleadosDatosAdicionales] ADD CONSTRAINT [Pfk_EmpleadosDatosAdicionales-Empleados] FOREIGN KEY ([EmpleadoID]) REFERENCES [Sj].[Empleados] ([EmpleadoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [Sj].[EmpleadosDatosAdicionales] ADD CONSTRAINT [Fk_EmpleadosDatosAdicionales-TiposDocumentos] FOREIGN KEY ([TipoDocumentoID]) REFERENCES [Sj].[TiposDocumentos] ([TipoDocumentoID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
 
