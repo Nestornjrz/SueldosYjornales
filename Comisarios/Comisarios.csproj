@@ -203,12 +203,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BundlesApp\3rdpartylicenses.txt" />
+    <Content Include="BundlesApp\color.c7a33805ffda0d32bd2a.png" />
     <Content Include="BundlesApp\favicon.ico" />
+    <Content Include="BundlesApp\fontawesome-webfont.912ec66d7572ff821749.svg" />
+    <Content Include="BundlesApp\glyphicons-halflings-regular.89889688147bd7575d63.svg" />
     <Content Include="BundlesApp\index.html" />
-    <Content Include="BundlesApp\main.f1945ad62b27b8e58304.js" />
-    <Content Include="BundlesApp\polyfills.2f4a59095805af02bd79.js" />
+    <Content Include="BundlesApp\line.567f57385ea3dde2c9ae.gif" />
+    <Content Include="BundlesApp\main.c1335fc16447d0cd9350.js" />
+    <Content Include="BundlesApp\polyfills.9926c8db02c4ae3ee015.js" />
     <Content Include="BundlesApp\runtime.a66f828dca56eeb90e02.js" />
-    <Content Include="BundlesApp\styles.34c57ab7888ec1573f9c.css" />
+    <Content Include="BundlesApp\styles.d4eeecc45115321b97ca.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -217,6 +221,15 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="BundlesApp\fontawesome-webfont.674f50d287a8c48dc19b.eot" />
+    <Content Include="BundlesApp\fontawesome-webfont.af7ae505a9eed503f8b8.woff2" />
+    <Content Include="BundlesApp\fontawesome-webfont.b06871f281fee6b241d6.ttf" />
+    <Content Include="BundlesApp\fontawesome-webfont.fee66e712a8a08eef580.woff" />
+    <Content Include="BundlesApp\glyphicons-halflings-regular.448c34a56d699c29117a.woff2" />
+    <Content Include="BundlesApp\glyphicons-halflings-regular.e18bbf611f2a2e43afc0.ttf" />
+    <Content Include="BundlesApp\glyphicons-halflings-regular.f4769f9bdb7466be6508.eot" />
+    <Content Include="BundlesApp\glyphicons-halflings-regular.fa2772327f55d8198301.woff" />
+    <None Include="Properties\PublishProfiles\Produccion.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
