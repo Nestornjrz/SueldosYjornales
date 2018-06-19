@@ -19,7 +19,7 @@ export class WindowsRefService {
     let aplicacion = '';
     if (port === '4200') {// Si se hace en el puerto que generalmente es de desarrollo con angular-cli
       port = '44364'; // Es el puerto de desarrollo cuando se ejecuta la web api para este proyecto
-      protocol = 'http:';
+      protocol = 'https:';
     }
     if (hostname === 'www.laaragonesa.com.py') {
       aplicacion = '/Comisarios';

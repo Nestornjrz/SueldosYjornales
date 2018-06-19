@@ -33,12 +33,37 @@
     </select>
   </div>
   <div class="input-group">
-      <div class="input-group-addon">Nro Cedula</div>
-      <input type="text" name="nroCedula" style="width:150px" class="form-control" placeholder="Nro Cedula" [(ngModel)]="empleado.nroCedula"
-        #nroCedula="ngModel" autocomplete="off" required>
-    </div>
-    <div *ngIf="nroCedula.invalid && nroCedula.dirty" class="alert alert-danger">
-      El numero de cedula es obligatorio
-    </div>
+    <div class="input-group-addon">Nro Cedula</div>
+    <input type="text" name="nroCedula" style="width:150px" class="form-control" placeholder="Nro Cedula" [(ngModel)]="empleado.nroCedula"
+      #nroCedula="ngModel" autocomplete="off" required>
+  </div>
+  <div *ngIf="nroCedula.invalid && nroCedula.dirty" class="alert alert-danger">
+    El numero de cedula es obligatorio
+  </div>
+  <div class="input-group">
+    <div class="input-group-addon">Profesion</div>
+    <select #profesione="ngModel" name="profesione" style="width:160px" class="form-control" [(ngModel)]="empleado.profesione"
+      required>
+      <option [ngValue]="p" *ngFor="let p of profesiones; let idx = index">
+        {{p.nombreProfesion}}
+      </option>
+    </select>
+  </div>
+  <div class="input-group">
+    <div class="input-group-addon">Cantidad de hijos</div>
+    <input type="text" name="CantidadHijos" style="width:150px" class="form-control" placeholder="Cantidad Hijos" [(ngModel)]="empleado.cantidadHijos"
+      #cantidadHijos="ngModel" autocomplete="off" required>
+  </div>
+  <div *ngIf="cantidadHijos.invalid && cantidadHijos.dirty" class="alert alert-danger">
+    La cantidad de hijos es obligatoria
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="formEmpleados.invalid">
+      <span *ngIf="empleado.empleadoID === 0">Cargar</span>
+      <span *ngIf="empleado.empleadoID !== 0">Editar</span>
+    </button>
+    <button type="submit" class="btn btn-danger" *ngIf="!formEmpleados.invalid" (click)="nuevaCarga(formEmpleados);">
+      nueva carga
+    </button>
 </form>
+<!-- <pre>{{profesiones | json}}</pre> -->
 <pre>{{empleado | json}}</pre>

@@ -11,6 +11,9 @@ import { InicioComponent } from './inicio/inicio.component';
 import { EmpDatosBasicosComponent } from 'src/app/empleados/emp-datos-basicos/emp-datos-basicos.component';
 import { TabViewModule } from 'primeng/tabview';
 import { NgPrimeCustomService } from 'src/app/services/ng-prime-custom.service';
+import { WindowsRefService } from 'src/app/services/windows-ref.service';
+import { HttpClientService } from 'src/app/services/http-client.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -22,9 +25,9 @@ import { NgPrimeCustomService } from 'src/app/services/ng-prime-custom.service';
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule,
-    AppRoutingModule, FormsModule, TabViewModule, CalendarModule
+    AppRoutingModule, FormsModule, HttpClientModule, TabViewModule, CalendarModule
   ],
-  providers: [NgPrimeCustomService],
+  providers: [WindowsRefService, NgPrimeCustomService, HttpClientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

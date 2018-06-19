@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -10,7 +12,7 @@ namespace Comisarios
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-
+            config.EnableCors();
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -19,6 +21,10 @@ namespace Comisarios
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            var jsonFormatter = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            jsonFormatter.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
         }
     }
 }
