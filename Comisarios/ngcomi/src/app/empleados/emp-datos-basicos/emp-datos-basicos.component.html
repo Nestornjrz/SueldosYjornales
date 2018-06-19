@@ -8,12 +8,37 @@
     Los nombres son obligatorios
   </div>
   <div class="input-group">
-      <div class="input-group-addon">Apellidos</div>
-      <input type="text" name="Apellidos" style="width:150px" class="form-control" placeholder="Apellidos" [(ngModel)]="empleado.apellidos"
-        #apellidos="ngModel" autocomplete="off" required>
+    <div class="input-group-addon">Apellidos</div>
+    <input type="text" name="Apellidos" style="width:150px" class="form-control" placeholder="Apellidos" [(ngModel)]="empleado.apellidos"
+      #apellidos="ngModel" autocomplete="off" required>
+  </div>
+  <div *ngIf="nombres.invalid && nombres.dirty" class="alert alert-danger">
+    Los nombres son obligatorios
+  </div>
+
+  <div class="input-group">
+    <div class="input-group-addon">Fecha Nacimiento:</div>
+    <p-calendar [(ngModel)]="empleado.fechaNacimiento" #fechaNacimiento="ngModel" dateFormat="dd/mm/yy" name="fechaNacimiento"
+      [locale]="es" placeholder="dd/mm/aaaa" [inputStyle]="{'width':'150px'}" timezone="utc" required>
+    </p-calendar>
+  </div>
+  <div *ngIf="fechaNacimiento.invalid && fechaNacimiento.dirty" class="alert alert-danger">
+    La fecha de nacimiento es obligatoria
+  </div>
+  <div class="input-group">
+    <div class="input-group-addon">Sexo</div>
+    <select #formaDePago="ngModel" name="sexo" class="form-control" [(ngModel)]="empleado.sexo" style="width:150px" required>
+      <option value="1">Masculino</option>
+      <option value="2">Femenino</option>
+    </select>
+  </div>
+  <div class="input-group">
+      <div class="input-group-addon">Nro Cedula</div>
+      <input type="text" name="nroCedula" style="width:150px" class="form-control" placeholder="Nro Cedula" [(ngModel)]="empleado.nroCedula"
+        #nroCedula="ngModel" autocomplete="off" required>
     </div>
-    <div *ngIf="nombres.invalid && nombres.dirty" class="alert alert-danger">
-      Los nombres son obligatorios
+    <div *ngIf="nroCedula.invalid && nroCedula.dirty" class="alert alert-danger">
+      El numero de cedula es obligatorio
     </div>
 </form>
 <pre>{{empleado | json}}</pre>

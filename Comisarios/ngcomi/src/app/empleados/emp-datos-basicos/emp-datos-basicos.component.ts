@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmpleadoDto } from 'src/app/dtos/empleado-dto';
+import { NgPrimeCustomService } from 'src/app/services/ng-prime-custom.service';
 
 @Component({
   selector: 'app-emp-datos-basicos',
@@ -8,8 +9,8 @@ import { EmpleadoDto } from 'src/app/dtos/empleado-dto';
 })
 export class EmpDatosBasicosComponent implements OnInit {
   empleado: EmpleadoDto = new EmpleadoDto();
-  constructor() { }
-
+  es = this.ngPrimeCustomService.getConfiguracionEspenol();
+  constructor(private ngPrimeCustomService: NgPrimeCustomService) { }
   ngOnInit() {
   }
 
