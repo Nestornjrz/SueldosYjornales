@@ -102,14 +102,15 @@ namespace SYJ.Domain.Managers {
                             Abreviatura = s.Profesione.Abreviatura,
                             Descripcion = s.Profesione.Descripcion
                         },
-                        CantidadHijos = s.CantidadHijos
+                        CantidadHijos = s.CantidadHijos,
+                        UsuarioID = s.UsuarioID
                     }).ToList();
                 CargarCargoActualesAEmpleados(listado);
                 return listado;
             }
         }
         public List<EmpleadoDto> ListadoEmpleadosConUsuarioIndeterminado() {
-            var listadoEmpleados = this.ListadoEmpleados();
+            var listadoEmpleados = this.ListadoEmpleadosConMarcaDeActivo();
             listadoEmpleados =  listadoEmpleados.Where(w => w.UsuarioID == 5).ToList();
             return listadoEmpleados;
         }

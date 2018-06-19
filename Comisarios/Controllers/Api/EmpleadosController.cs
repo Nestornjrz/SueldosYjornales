@@ -22,7 +22,7 @@ namespace Comisarios.Controllers.Api {
             return Ok(mensaje);
         }
         [HttpGet]
-        [Route("api/Empleados/ConUsuarioIndeterminado")]
+        [Route("ConUsuarioIndeterminado")]
         public IHttpActionResult GetConUsuarioIndeterminado() {
             EmpleadosManagers em = new EmpleadosManagers();
             List<EmpleadoDto> listado = em.ListadoEmpleadosConUsuarioIndeterminado();
