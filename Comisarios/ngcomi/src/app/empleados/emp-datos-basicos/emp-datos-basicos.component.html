@@ -1,5 +1,13 @@
 <form #formEmpleados="ngForm" class="form-horizontal" (submit)="submitFormEmpleados(formEmpleados)" role="form">
   <div class="input-group">
+    <div class="input-group-addon">Sucursal</div>
+    <select #sucursale="ngModel" name="sucursal" style="width:200px" class="form-control" [(ngModel)]="empleado.sucursale" required>
+      <option [ngValue]="s" *ngFor="let s of sucursales; let idx = index">
+        {{s.nombreSucursal}}
+      </option>
+    </select>
+  </div>
+  <div class="input-group">
     <div class="input-group-addon">Nombres</div>
     <input type="text" name="Nombres" style="width:150px" class="form-control" placeholder="Nombres" [(ngModel)]="empleado.nombres"
       #nombres="ngModel" autocomplete="off" required>
@@ -12,7 +20,7 @@
     <input type="text" name="Apellidos" style="width:150px" class="form-control" placeholder="Apellidos" [(ngModel)]="empleado.apellidos"
       #apellidos="ngModel" autocomplete="off" required>
   </div>
-  <div *ngIf="nombres.invalid && nombres.dirty" class="alert alert-danger">
+  <div *ngIf="apellidos.invalid && apellidos.dirty" class="alert alert-danger">
     Los nombres son obligatorios
   </div>
 
@@ -27,9 +35,12 @@
   </div>
   <div class="input-group">
     <div class="input-group-addon">Sexo</div>
-    <select #formaDePago="ngModel" name="sexo" class="form-control" [(ngModel)]="empleado.sexo" style="width:150px" required>
-      <option value="1">Masculino</option>
-      <option value="2">Femenino</option>
+    <select #sexo="ngModel" name="sexo" class="form-control" [(ngModel)]="empleado.sexo" style="width:150px" required>
+      <option [ngValue]="s" *ngFor="let s of sexos; let idx = index">
+        {{s.nombreSexo}}
+      </option>
+      <!-- <option value="1">Masculino</option>
+      <option value="2">Femenino</option> -->
     </select>
   </div>
   <div class="input-group">
@@ -50,6 +61,24 @@
     </select>
   </div>
   <div class="input-group">
+    <div class="input-group-addon">Estado Civil</div>
+    <select #estadoCivile="ngModel" name="estadoCIvile" style="width:160px" class="form-control" [(ngModel)]="empleado.estadoCivile"
+      required>
+      <option [ngValue]="e" *ngFor="let e of estadosCiviles; let idx = index">
+        {{e.nombreEstadoCivil}}
+      </option>
+    </select>
+  </div>
+  <div class="input-group">
+    <div class="input-group-addon">Nacionalidad</div>
+    <select #nacionalidade="ngModel" name="nacionalidade" style="width:160px" class="form-control" [(ngModel)]="empleado.nacionalidade"
+      required>
+      <option [ngValue]="n" *ngFor="let n of nacionalidades; let idx = index">
+        {{n.nombreNacionalidad}}
+      </option>
+    </select>
+  </div>
+  <div class="input-group">
     <div class="input-group-addon">Cantidad de hijos</div>
     <input type="text" name="CantidadHijos" style="width:150px" class="form-control" placeholder="Cantidad Hijos" [(ngModel)]="empleado.cantidadHijos"
       #cantidadHijos="ngModel" autocomplete="off" required>
@@ -58,12 +87,15 @@
     La cantidad de hijos es obligatoria
   </div>
   <button type="submit" class="btn btn-primary" [disabled]="formEmpleados.invalid">
-      <span *ngIf="empleado.empleadoID === 0">Cargar</span>
-      <span *ngIf="empleado.empleadoID !== 0">Editar</span>
-    </button>
-    <button type="submit" class="btn btn-danger" *ngIf="!formEmpleados.invalid" (click)="nuevaCarga(formEmpleados);">
-      nueva carga
-    </button>
+    <span *ngIf="empleado.empleadoID === 0">Cargar</span>
+    <span *ngIf="empleado.empleadoID !== 0">Editar</span>
+  </button>
+  <button type="submit" class="btn btn-danger" *ngIf="!formEmpleados.invalid" (click)="nuevaCarga(formEmpleados);">
+    nueva carga
+  </button>
+  <pre>{{respuestaSubmitFormEmpleados.mensajeDelProceso}}</pre>
 </form>
 <!-- <pre>{{profesiones | json}}</pre> -->
-<pre>{{empleado | json}}</pre>
+<!-- <pre>{{respuestaSubmitFormEmpleados | json}}</pre> -->
+<!-- <pre>{{empleado | json}}</pre> -->
+<!-- <pre>{{sucursales | json}}</pre> -->

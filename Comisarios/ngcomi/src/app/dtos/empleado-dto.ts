@@ -2,6 +2,7 @@ import { SexoDto } from 'src/app/dtos/sexo-dto';
 import { EstadoCivileDto } from 'src/app/dtos/estado-civile-dto';
 import { NacionalidadeDto } from 'src/app/dtos/nacionalidade-dto';
 import { ProfesioneDto } from 'src/app/dtos/profesione-dto';
+import { SucursaleDto } from 'src/app/dtos/sucursale-dto';
 
 export class EmpleadoDto {
     constructor() {
@@ -17,4 +18,6 @@ export class EmpleadoDto {
     nacionalidade: NacionalidadeDto;
     profesione: ProfesioneDto;
     cantidadHijos: number;
+    // Auxiliares
+    sucursale: SucursaleDto;
 }

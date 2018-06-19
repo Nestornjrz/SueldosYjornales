@@ -45,10 +45,13 @@ namespace SYJ.Domain.Managers {
             hisSucursaleDb.SucursalID = hsDto.Sucursal.SucursalID;
             hisSucursaleDb.MomentoCarga = DateTime.Now;
             //Se recupera el usuarioID
-            var usuarioID = context.Usuarios.Where(u => u.UserID == userID)
-                .First().UsuarioID;
-            hisSucursaleDb.UsuarioID = usuarioID;
-
+            var usuario = context.Usuarios.Where(u => u.UserID == userID)
+                .FirstOrDefault();
+            if (usuario != null) {
+                hisSucursaleDb.UsuarioID = usuario.UsuarioID;
+            }else {
+                hisSucursaleDb.UsuarioID = 5; //Usuario indeterminado
+            }
             context.HistoricoSucursales.Add(hisSucursaleDb);
 
             mensajeDto = AgregarModificar.Hacer(context, mensajeDto);

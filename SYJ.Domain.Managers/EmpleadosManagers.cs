@@ -128,13 +128,20 @@ namespace SYJ.Domain.Managers {
                     MensajeDto mensajeDto = null;
                     var empleadoDb = new Empleado();
                     //Se recupera la sucursal
-                    var usuarioID = context.Usuarios
-                        .Where(u => u.UserID == userID)
-                        .First().UsuarioID;
+                    long usuarioID;
+                    int sucursalID;
+                    if (eDto.Sucursale == null) {
+                        usuarioID = context.Usuarios
+                           .Where(u => u.UserID == userID)
+                           .First().UsuarioID;
 
-                    var sucursalID = context.UbicacionSucUsuarios
-                        .Where(u => u.UsuarioID == usuarioID)
-                        .First().SucursalID;
+                        sucursalID = context.UbicacionSucUsuarios
+                           .Where(u => u.UsuarioID == usuarioID)
+                           .First().SucursalID;
+                    }else {
+                        usuarioID = 5;// Indeterminado
+                        sucursalID = eDto.Sucursale.SucursalID;
+                    }
 
                     empleadoDb.Nombres = eDto.Nombres;
                     empleadoDb.Apellidos = eDto.Apellidos;

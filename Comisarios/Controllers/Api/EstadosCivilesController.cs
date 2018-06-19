@@ -1,19 +1,21 @@
 ﻿using SYJ.Application.Dto;
 using SYJ.Domain.Managers;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
 namespace Comisarios.Controllers.Api {
-    [RoutePrefix("api/Profesiones")]
+    [RoutePrefix("api/EstadosCiviles")]
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
-    public class ProfesionesController : ApiController
-    {
+    public class EstadosCivilesController : ApiController {
         [HttpGet]
         public IHttpActionResult GetProfesiones() {
-            ProfesionesManagers pm = new ProfesionesManagers();
-            List<ProfesioneDto> listado = pm.ListadoProfesiones();
-
+            EstadosCivilesManagers ecm = new EstadosCivilesManagers();
+            List<EstadoCivileDto> listado = ecm.ListadoEstadosCiviles();
             if (listado == null) {
                 return NotFound();
             }
