@@ -1,3 +1,19 @@
-<p>
-  emp-datos-basicos works!
-</p>
+<form #formEmpleados="ngForm" class="form-horizontal" (submit)="submitFormEmpleados(formEmpleados)" role="form">
+  <div class="input-group">
+    <div class="input-group-addon">Nombres</div>
+    <input type="text" name="Nombres" style="width:150px" class="form-control" placeholder="Nombres" [(ngModel)]="empleado.nombres"
+      #nombres="ngModel" autocomplete="off" required>
+  </div>
+  <div *ngIf="nombres.invalid && nombres.dirty" class="alert alert-danger">
+    Los nombres son obligatorios
+  </div>
+  <div class="input-group">
+      <div class="input-group-addon">Apellidos</div>
+      <input type="text" name="Apellidos" style="width:150px" class="form-control" placeholder="Apellidos" [(ngModel)]="empleado.apellidos"
+        #apellidos="ngModel" autocomplete="off" required>
+    </div>
+    <div *ngIf="nombres.invalid && nombres.dirty" class="alert alert-danger">
+      Los nombres son obligatorios
+    </div>
+</form>
+<pre>{{empleado | json}}</pre>

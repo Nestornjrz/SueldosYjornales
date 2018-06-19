@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EmpleadoDto } from 'src/app/dtos/empleado-dto';
 
 @Component({
   selector: 'app-emp-datos-basicos',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./emp-datos-basicos.component.css']
 })
 export class EmpDatosBasicosComponent implements OnInit {
-
+  empleado: EmpleadoDto = new EmpleadoDto();
   constructor() { }
 
   ngOnInit() {
