@@ -25,6 +25,7 @@ namespace SYJ.Application.Dto {
         public bool Activo { get; set; }
         public DateTime FechaEntrada { get; set; }
         public DateTime FechaSalida { get; set; }
+        public long UsuarioID { get; set; }
         #endregion
     }   
 }

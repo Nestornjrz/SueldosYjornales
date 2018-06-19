@@ -4,6 +4,7 @@ using System;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
 
 namespace Comisarios.Controllers.Api {
     [RoutePrefix("api/Empleados")]
@@ -19,6 +20,16 @@ namespace Comisarios.Controllers.Api {
                 return NotFound();
             }
             return Ok(mensaje);
+        }
+        [HttpGet]
+        [Route("api/Empleados/ConUsuarioIndeterminado")]
+        public IHttpActionResult GetConUsuarioIndeterminado() {
+            EmpleadosManagers em = new EmpleadosManagers();
+            List<EmpleadoDto> listado = em.ListadoEmpleadosConUsuarioIndeterminado();
+            if (listado == null) {
+                return NotFound();
+            }
+            return Ok(listado);
         }
     }
 }

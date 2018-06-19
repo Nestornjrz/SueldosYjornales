@@ -228,6 +228,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
     <Content Include="BundlesApp\3rdpartylicenses.txt" />
     <Content Include="BundlesApp\color.c7a33805ffda0d32bd2a.png" />
     <Content Include="BundlesApp\favicon.ico" />

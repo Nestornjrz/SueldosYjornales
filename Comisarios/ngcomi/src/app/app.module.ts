@@ -14,6 +14,7 @@ import { NgPrimeCustomService } from 'src/app/services/ng-prime-custom.service';
 import { WindowsRefService } from 'src/app/services/windows-ref.service';
 import { HttpClientService } from 'src/app/services/http-client.service';
 import { HttpClientModule } from '@angular/common/http';
+import { EmpListDatosBasicosComponent } from './empleados/emp-list-datos-basicos/emp-list-datos-basicos.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     EmpleadosComponent,
     InicioComponent,
-    EmpDatosBasicosComponent
+    EmpDatosBasicosComponent,
+    EmpListDatosBasicosComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule,

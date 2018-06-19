@@ -63,7 +63,7 @@ export class EmpDatosBasicosComponent implements OnInit {
       .subscribe(respuesta => {
         this.respuestaSubmitFormEmpleados = respuesta;
         if (!respuesta.error) {
-          this.nuevaCarga(form);
+          this.empleado.empleadoID = (<EmpleadoDto>(respuesta.objetoDto)).empleadoID;
         }
       });
   }

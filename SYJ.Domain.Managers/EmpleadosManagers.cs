@@ -108,6 +108,11 @@ namespace SYJ.Domain.Managers {
                 return listado;
             }
         }
+        public List<EmpleadoDto> ListadoEmpleadosConUsuarioIndeterminado() {
+            var listadoEmpleados = this.ListadoEmpleados();
+            listadoEmpleados =  listadoEmpleados.Where(w => w.UsuarioID == 5).ToList();
+            return listadoEmpleados;
+        }
         private static void CargarCargoActualesAEmpleados(List<EmpleadoDto> empleados) {
             HistoricoSalariosManagers hsm = new HistoricoSalariosManagers();
             foreach (var empleado in empleados) {
@@ -138,7 +143,7 @@ namespace SYJ.Domain.Managers {
                         sucursalID = context.UbicacionSucUsuarios
                            .Where(u => u.UsuarioID == usuarioID)
                            .First().SucursalID;
-                    }else {
+                    } else {
                         usuarioID = 5;// Indeterminado
                         sucursalID = eDto.Sucursale.SucursalID;
                     }
